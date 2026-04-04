@@ -1,0 +1,225 @@
+# 配台トレース（依頼NOごと・外側ラウンド別）。同一行は log/execution_log.txt にも出力されます。
+# task_id=W4-2  outer_round=0  # （0=初回カレンダー通し、以降は納期超過リトライごとに +1）
+
+2026-04-04 14:47:31,038 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩中を回避 machine=EC team=宮島　　剛, 森下　　誠 rem=31.0000 break=2026-04-04 14:45:00-2026-04-04 15:00:00 shift=2026-04-04 14:47:02.656469->2026-04-04 15:00:00
+2026-04-04 14:47:31,039 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩中を回避 machine=EC team=森下　　誠, 宮島　　剛 rem=31.0000 break=2026-04-04 14:45:00-2026-04-04 15:00:00 shift=2026-04-04 14:47:02.656469->2026-04-04 15:00:00
+2026-04-04 14:47:31,040 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 15:00:00 end=2026-04-04 15:16:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,042 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 15:16:00 end=2026-04-04 15:32:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,044 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 15:32:00 end=2026-04-04 15:48:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,047 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 15:48:00 end=2026-04-04 16:04:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,049 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 16:04:00 end=2026-04-04 16:20:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,051 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 16:20:00 end=2026-04-04 16:36:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,053 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-04 16:36:00 end=2026-04-04 16:52:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,055 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=宮島　　剛,森下　　誠 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,055 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=宮島　　剛,森下　　誠 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,056 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森下　　誠,宮島　　剛 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,058 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=宮島　　剛,森下　　誠 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,059 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森下　　誠,宮島　　剛 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,060 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=1(竹内　正美)
+2026-04-04 14:47:31,063 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-04 15:32:00 end=2026-04-04 16:05:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,063 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=1(竹内　正美)
+2026-04-04 14:47:31,064 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-04 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-04 16:05:00 end=2026-04-04 16:38:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,065 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=1(竹内　正美)
+2026-04-04 14:47:31,067 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-04 16:38:00 avail_mins=22 need_mins=33.19
+2026-04-04 14:47:31,067 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-04 16:38:00 avail_mins=22 need_mins=33.19
+2026-04-04 14:47:31,068 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-04 16:38:00 avail_mins=22 need_mins=33.19
+2026-04-04 14:47:31,069 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=2(宮島　　剛,森下　　誠)
+2026-04-04 14:47:31,072 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=宮島　　剛,森下　　誠 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,073 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森下　　誠,宮島　　剛 start=2026-04-04 16:52:00 avail_mins=8 need_mins=16.61
+2026-04-04 14:47:31,073 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=1(竹内　正美)
+2026-04-04 14:47:31,074 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-04 16:38:00 avail_mins=22 need_mins=33.19
+2026-04-04 14:47:31,075 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-04 16:38:00 avail_mins=22 need_mins=33.19
+2026-04-04 14:47:31,077 - INFO - [outer_round=00] [配台トレース task=W4-2] 日次終了時点の残 day=2026-04-04 machine=EC machine_name=EC機　湖南 rem=24.0000 roll_b2_follower=False 試行順=1
+2026-04-04 14:47:31,077 - INFO - [outer_round=00] [配台トレース task=W4-2] 日次終了時点の残 day=2026-04-04 machine=検査 machine_name=熱融着機　湖南 rem=29.0000 roll_b2_follower=True 試行順=2
+2026-04-04 14:47:31,079 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,080 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: OP不在 team=冨田　裕子,森下　　誠
+2026-04-04 14:47:31,082 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 08:45:00 end=2026-04-06 09:01:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,083 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,084 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 09:01:00 end=2026-04-06 09:17:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,084 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,086 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 09:17:00 end=2026-04-06 09:33:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,087 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,088 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 09:33:00 end=2026-04-06 09:49:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,089 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,090 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 09:49:00 end=2026-04-06 10:05:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,092 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,093 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 10:05:00 end=2026-04-06 10:21:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,093 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,095 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 10:21:00 end=2026-04-06 10:37:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,095 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,097 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 10:37:00 end=2026-04-06 10:53:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,098 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,099 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 10:53:00 end=2026-04-06 11:09:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,100 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,102 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 11:09:00 end=2026-04-06 11:25:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,103 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,104 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 11:25:00 end=2026-04-06 11:41:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,105 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,106 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 11:41:00 end=2026-04-06 11:57:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,107 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,108 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩直前デファー machine=EC team=宮島　　剛, 森下　　誠 rem=12.0000 break=2026-04-06 12:00:00-2026-04-06 12:50:00 gap_pre_min=15.0 shift=2026-04-06 11:57:00->2026-04-06 12:50:00
+2026-04-04 14:47:31,109 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 12:50:00 end=2026-04-06 13:06:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,110 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,111 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 13:06:00 end=2026-04-06 13:22:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,112 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,114 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 13:22:00 end=2026-04-06 13:38:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,115 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,117 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 13:38:00 end=2026-04-06 13:54:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,118 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,120 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 13:54:00 end=2026-04-06 14:10:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,121 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,122 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 14:10:00 end=2026-04-06 14:26:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,123 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,125 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 14:26:00 end=2026-04-06 14:42:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,126 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,127 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩直前デファー machine=EC team=宮島　　剛, 森下　　誠 rem=5.0000 break=2026-04-06 14:45:00-2026-04-06 15:00:00 gap_pre_min=15.0 shift=2026-04-06 14:42:00->2026-04-06 15:00:00
+2026-04-04 14:47:31,129 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 15:00:00 end=2026-04-06 15:16:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,130 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,131 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 15:16:00 end=2026-04-06 15:32:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,132 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,134 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 15:32:00 end=2026-04-06 15:48:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,134 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,136 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 15:48:00 end=2026-04-06 16:04:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,137 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=EC machine=EC 候補除外=竹内　正美 残候補=3(宮島　　剛,冨田　裕子,森下　　誠)
+2026-04-04 14:47:31,138 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=EC+EC機　湖南 machine_name=EC機　湖南 start=2026-04-06 16:04:00 end=2026-04-06 16:20:00 採用人数=2 req_num=2 メイン探索extra_max=0 余剰人数適用(メイン)=False team=宮島　　剛, 森下　　誠
+2026-04-04 14:47:31,139 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,141 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 08:45:00 end=2026-04-06 09:18:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,141 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,143 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 09:18:00 end=2026-04-06 09:51:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,143 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,144 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 09:51:00 end=2026-04-06 10:24:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,145 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,146 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 10:24:00 end=2026-04-06 10:57:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,147 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,149 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 10:57:00 end=2026-04-06 11:30:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,150 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,150 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 11:30:00 end=2026-04-06 12:53:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,153 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,153 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 12:53:00 end=2026-04-06 13:26:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,155 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,156 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 13:26:00 end=2026-04-06 13:59:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,157 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,158 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 13:59:00 end=2026-04-06 14:32:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,160 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,161 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩直前デファー machine=検査 team=竹内　正美 rem=20.0000 break=2026-04-06 14:45:00-2026-04-06 15:00:00 gap_pre_min=15.0 shift=2026-04-06 14:32:00->2026-04-06 15:00:00
+2026-04-04 14:47:31,161 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 15:00:00 end=2026-04-06 15:33:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,163 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,164 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 15:33:00 end=2026-04-06 16:06:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,165 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,166 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-06 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-06 16:06:00 end=2026-04-06 16:39:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,167 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,169 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,170 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,170 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=66.37
+2026-04-04 14:47:31,172 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 開始>=終業 team=菅沼　めぐみ start=2026-04-06 16:39:00 end_limit=2026-04-06 12:00:00
+2026-04-04 14:47:31,173 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,173 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,174 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,175 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=66.37
+2026-04-04 14:47:31,176 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 開始>=終業 team=菅沼　めぐみ start=2026-04-06 16:39:00 end_limit=2026-04-06 12:00:00
+2026-04-04 14:47:31,178 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,179 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,180 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,180 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,182 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=66.37
+2026-04-04 14:47:31,183 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 開始>=終業 team=菅沼　めぐみ start=2026-04-06 16:39:00 end_limit=2026-04-06 12:00:00
+2026-04-04 14:47:31,183 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,184 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,186 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,187 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=66.37
+2026-04-04 14:47:31,188 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 開始>=終業 team=菅沼　めぐみ start=2026-04-06 16:39:00 end_limit=2026-04-06 12:00:00
+2026-04-04 14:47:31,189 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,190 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-06 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,190 - INFO - [outer_round=00] [配台トレース task=W4-2] 日次終了時点の残 day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 rem=17.0000 roll_b2_follower=True 試行順=2
+2026-04-04 14:47:31,192 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,193 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 08:45:00 end=2026-04-07 09:18:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,194 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,196 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 09:18:00 end=2026-04-07 09:51:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,197 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,198 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 09:51:00 end=2026-04-07 10:24:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,199 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,200 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 10:24:00 end=2026-04-07 10:57:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,202 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,203 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 10:57:00 end=2026-04-07 11:30:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,204 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,205 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 11:30:00 end=2026-04-07 12:53:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,206 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,208 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 12:53:00 end=2026-04-07 13:26:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,209 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,210 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 13:26:00 end=2026-04-07 13:59:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,211 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,212 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 13:59:00 end=2026-04-07 14:32:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,213 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,215 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: 休憩直前デファー machine=検査 team=竹内　正美 rem=8.0000 break=2026-04-07 14:45:00-2026-04-07 15:00:00 gap_pre_min=15.0 shift=2026-04-07 14:32:00->2026-04-07 15:00:00
+2026-04-04 14:47:31,216 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 15:00:00 end=2026-04-07 15:33:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,217 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,218 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 15:33:00 end=2026-04-07 16:06:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,219 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,220 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-07 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-07 16:06:00 end=2026-04-07 16:39:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,221 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,222 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,223 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,224 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,225 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=菅沼　めぐみ start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,226 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,227 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,228 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,229 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,230 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=菅沼　めぐみ start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,230 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,231 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,232 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=5(竹内　正美,冨田　裕子,菅沼　めぐみ,森岡　真由美,図司　智子)
+2026-04-04 14:47:31,233 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,234 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,235 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=菅沼　めぐみ start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,236 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,237 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,238 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=竹内　正美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,239 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=冨田　裕子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,240 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=菅沼　めぐみ start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,241 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=森岡　真由美 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,241 - INFO - [outer_round=00] [配台トレース task=W4-2] 候補却下: 実働不足 team=図司　智子 start=2026-04-07 16:39:00 avail_mins=21 need_mins=33.19
+2026-04-04 14:47:31,243 - INFO - [outer_round=00] [配台トレース task=W4-2] 日次終了時点の残 day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 rem=5.0000 roll_b2_follower=True 試行順=2
+2026-04-04 14:47:31,244 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=3(竹内　正美,冨田　裕子,図司　智子)
+2026-04-04 14:47:31,245 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-08 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-08 08:45:00 end=2026-04-08 09:18:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,246 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=3(竹内　正美,冨田　裕子,図司　智子)
+2026-04-04 14:47:31,248 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-08 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-08 09:18:00 end=2026-04-08 09:51:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,249 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=3(竹内　正美,冨田　裕子,図司　智子)
+2026-04-04 14:47:31,250 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-08 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-08 09:51:00 end=2026-04-08 10:24:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,251 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=3(竹内　正美,冨田　裕子,図司　智子)
+2026-04-04 14:47:31,253 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-08 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-08 10:24:00 end=2026-04-08 10:57:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,253 - INFO - [outer_round=00] [配台トレース task=W4-2] ブロック判定: B-2担当者分離 side=検査 machine=検査 候補除外=宮島　　剛 残候補=3(竹内　正美,冨田　裕子,図司　智子)
+2026-04-04 14:47:31,255 - INFO - [outer_round=00] [配台トレース task=W4-2] ロール確定 メイン day=2026-04-08 machine=検査+熱融着機　湖南 machine_name=熱融着機　湖南 start=2026-04-08 10:57:00 end=2026-04-08 11:30:00 採用人数=1 req_num=1 メイン探索extra_max=0 余剰人数適用(メイン)=False team=竹内　正美
+2026-04-04 14:47:31,319 - INFO - [outer_round=00] [配台トレース task=W4-2] シミュレーション終了時 machine=EC machine_name=EC機　湖南 rem=0.0000 initial=31.0000 roll_b2_follower=False
+2026-04-04 14:47:31,320 - INFO - [outer_round=00] [配台トレース task=W4-2] シミュレーション終了時 machine=検査 machine_name=熱融着機　湖南 rem=0.0000 initial=31.0000 roll_b2_follower=True
+2026-04-04 14:47:31,320 - INFO - [outer_round=00] [配台トレース task=W4-2] タイムライン最終塊(工程列ごと) machine=EC+EC機　湖南 already_done+units_done=30+1=31 total_units=31 end_dt=2026-04-06 16:20:00
+2026-04-04 14:47:31,322 - INFO - [outer_round=00] [配台トレース task=W4-2] タイムライン最終塊(工程列ごと) machine=検査+熱融着機　湖南 already_done+units_done=30+1=31 total_units=31 end_dt=2026-04-08 11:30:00
+2026-04-04 14:47:31,323 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 08:45:00 end=2026-04-06 09:18:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,324 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 09:18:00 end=2026-04-06 09:51:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,325 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 09:51:00 end=2026-04-06 10:24:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,326 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 10:24:00 end=2026-04-06 10:57:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,327 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 10:57:00 end=2026-04-06 11:30:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,328 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 11:30:00 end=2026-04-06 12:53:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,329 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 12:53:00 end=2026-04-06 13:26:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,330 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 13:26:00 end=2026-04-06 13:59:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,331 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 13:59:00 end=2026-04-06 14:32:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,332 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 15:00:00 end=2026-04-06 15:33:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,333 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 15:33:00 end=2026-04-06 16:06:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,333 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-06 machine=検査 machine_name=熱融着機　湖南 start=2026-04-06 16:06:00 end=2026-04-06 16:39:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,334 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 08:45:00 end=2026-04-07 09:18:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,336 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 09:18:00 end=2026-04-07 09:51:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,337 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 09:51:00 end=2026-04-07 10:24:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,338 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 10:24:00 end=2026-04-07 10:57:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,339 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 10:57:00 end=2026-04-07 11:30:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,340 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 11:30:00 end=2026-04-07 12:53:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,340 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 12:53:00 end=2026-04-07 13:26:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,342 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 13:26:00 end=2026-04-07 13:59:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,343 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 13:59:00 end=2026-04-07 14:32:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,343 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 15:00:00 end=2026-04-07 15:33:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,345 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 15:33:00 end=2026-04-07 16:06:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,346 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-07 machine=検査 machine_name=熱融着機　湖南 start=2026-04-07 16:06:00 end=2026-04-07 16:39:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,347 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-08 machine=検査 machine_name=熱融着機　湖南 start=2026-04-08 08:45:00 end=2026-04-08 09:18:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,348 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-08 machine=検査 machine_name=熱融着機　湖南 start=2026-04-08 09:18:00 end=2026-04-08 09:51:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,349 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-08 machine=検査 machine_name=熱融着機　湖南 start=2026-04-08 09:51:00 end=2026-04-08 10:24:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,350 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-08 machine=検査 machine_name=熱融着機　湖南 start=2026-04-08 10:24:00 end=2026-04-08 10:57:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
+2026-04-04 14:47:31,350 - INFO - [outer_round=00] [配台トレース task=W4-2] 余力追記(メイン完了後) day=2026-04-08 machine=検査 machine_name=熱融着機　湖南 start=2026-04-08 10:57:00 end=2026-04-08 11:30:00 追記人数=1 追記前人数=1 追記後人数=2 req_num=1 need追加枠(シート)=1 履歴黄(余剰人数超過)=True 追記メンバー=冨田　裕子
