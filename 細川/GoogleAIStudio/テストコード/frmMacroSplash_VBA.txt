@@ -1,0 +1,54 @@
+' ============================================================
+' 生産管理_AI配台テスト.xlsm 用 — UserForm「frmMacroSplash」
+' 標準モジュール側: MacroSplash_Show / MacroSplash_Hide（生産管理_AI配台テスト_xlsm_VBA.txt）
+' ============================================================
+'
+' 【Excel での作成手順】
+' 1. Alt+F11 で VBE を開く
+' 2. メニュー 挿入 → UserForm
+' 3. プロパティで (Name) を frmMacroSplash、Caption は「PM_AI_MACRO_SPLASH」（標準モジュール SPLASH_FORM_WINDOW_TITLE と一致。前面取得用）
+' 4. ツールボックスから Label を1つ置く。名前(プロパティ Name)を lblMessage に変更
+'    ・Caption は任意（実行時に上書き）
+'    ・WordWrap = True、フォントはメイリオ 11pt 程度、幅はフォームいっぱい・高さ 40〜50pt 程度
+' 5. TextBox を1つ置く。名前(Name)を txtExecutionLog に変更（必ずこの名前。標準モジュールが Controls("txtExecutionLog") で参照）
+'    ・シート「設定」D3=false のとき txtExecutionLog は実行中更新しない（ポーリング無し）。STAGE12_D3FALSE_SPLASH_CONSOLE_LAYOUT=True は cmd をログ枠へ重ねるが xlwings と併用で固まりやすい。既定 False＝同期 Run・OS 任せ。true または空で execution_log ポーリング（D3=true 相当の表示更新）。
+'    ・execution_log ポーリングは FileLen が変わるときだけ UTF-8 全文読み（間隔は標準モジュール SPLASH_LOG_POLL_INTERVAL_MS）
+'    ・MultiLine = True、ScrollBars = 2 - fmScrollBarsVertical（縦スクロール）
+'    ・HideSelection = False（フォーカスが他にあっても選択位置が見える／末尾スクロールしやすい）
+'    ・EnterKeyBehavior = False、フォントは Consolas 9pt または MS ゴシック 9pt（ログ見やすさ用）
+'    ・位置: lblMessage の下からフォーム下端まで（高さ 200pt 前後の余白を確保）
+' 6. フォーム全体のサイズ例: Width 540 pt、Height 320 pt 前後（ログ表示の有無に合わせ調整）
+' 7. 下記「frmMacroSplash コード」一式を、フォームのコードウィンドウへコピー
+'
+' ※ このテキストは .frm のバイナリ(frx)を含まない。手作業での追加を想定している。
+' ※ txtExecutionLog が無い／名前が違う場合でもマクロは継続（ログ表示のみスキップ）。
+' ※ 段階1/2: STAGE12_USE_XLWINGS_SPLASH_LOG=True のときは必ず cmd+Exec。VBA が execution_log.txt をポーリングして txtExecutionLog を実行中に更新する（固まったように見えにくい）。
+' ※ Python が execution_log を開きっぱなしのときは ADODB の直接読みが失敗しうるため、標準モジュールは一時コピー経由にフォールバックし、ScreenUpdating も一時 True にする。
+' ※ それでも読めないときは txtExecutionLog 先頭に【ログ表示エラー】を1回だけ付け、lblMessage にも短い案内を出す。
+' ※ SPLASH_LOG=False かつ STAGE12_USE_XLWINGS_RUNPYTHON=True のときは同期 RunPython → 実行中はログ枠はほぼ動かず、終了後に MacroSplash_LoadExecutionLogFromPath で一括表示。
+' ※ SplashLog_AppendChunk は任意（バッチで PM_AI_SPLASH_XLWINGS=1 を付けた自前運用向け）。既定はポーリングのみ。
+' ※ スプラッシュ表示中は標準モジュールが sounds\Glass_Architecture.mp3 を BGM ループ（MCI）。終了時フェードアウト後に完了チャイム（設定 D4 の MP3 等）。
+'
+' ------------------------------------------------------------
+' frmMacroSplash コード（UserForm のコードモジュールへ貼り付け）
+' ------------------------------------------------------------
+
+Option Explicit
+
+Private Sub UserForm_Initialize()
+    On Error Resume Next
+    ' 初期は中央。表示直後に標準モジュールが Excel（Application.hwnd）下端・水平中央へ API で移動
+    Me.StartUpPosition = 2  ' 画面中央（MacroSplash_Show でも設定）
+    With Me.Controls("txtExecutionLog")
+        .Text = ""
+        .HideSelection = False
+    End With
+End Sub
+
+' ×ボタンで閉じられないようにする（標準モジュールの Unload 以外では閉じない）
+Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+    Const vbFormControlMenu As Integer = 0
+    If CloseMode = vbFormControlMenu Then
+        Cancel = True
+    End If
+End Sub

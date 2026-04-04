@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>配台ルール（全依頼共通・個別）</title>
+  <style>
+    :root {
+      --bg: #f6f4f0;
+      --card: #fffef9;
+      --accent: #1a5f4a;
+      --accent2: #c45c26;
+      --text: #1e1e1e;
+      --muted: #5c5c5c;
+      --border: #d8d0c4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 2rem 1.25rem 3rem;
+      max-width: 52rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.02em;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      color: var(--accent2);
+      margin-top: 2.25rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    section.card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    ul { padding-left: 1.35rem; margin: 0.5rem 0; }
+    li { margin: 0.35rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      margin: 0.75rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+    }
+    th { background: #eef5f2; }
+    code, .file {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.88em;
+      background: #ebe6dc;
+      padding: 0.12rem 0.35rem;
+      border-radius: 4px;
+    }
+    nav.toc {
+      background: #e8f0ec;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 2rem;
+    }
+    nav.toc strong { color: var(--accent); }
+    nav.toc ol { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+    nav.toc a { color: var(--accent2); text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <h1>配台ルール</h1>
+  <p class="sub">全加工依頼に適用するルールと、個別指定ルールを分けて記載しています。詳細は <span class="file">配台ルール.md</span>、実装の正は <span class="file">python/planning_core.py</span> です。<strong>2026-04 反映</strong>: 計画基準納期は「グローバル AI <code>task_planning_basis_dates</code> →（特別指定_備考は<strong>納期系キーワードがある行のみ</strong>）備考 AI の目標日／開始日 → 指定納期_上書き → 回答納期 → 指定納期」。<strong>原反投入日</strong>はシート列 <code>原反投入日_上書き</code>（<code>PLAN_COL_RAW_INPUT_DATE_OVERRIDE</code>）に日付があるとき<strong>そちらを配台に採用</strong>、空のとき列 <code>原反投入日</code>。開始日は採用した原反日がある行で <code>max(基準日, 原反投入日, 開始日上書き)</code>（原反前倒し不可）。原反<strong>当日</strong>は開始日上書き有無にかかわらず <strong>13:00</strong> 以降開始。日内は既定で <code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=1</code>（<strong>配台試行順</strong>優先マルチパス）。<code>STAGE2_SERIAL_DISPATCH_BY_TASK_ID=1</code> で依頼NO直列。§B-2 は <code>PLANNING_B1_INSPECTION_EXCLUSIVE_MACHINE</code>（既定オン・変数名は歴史的）で設備占有。優先度<strong>同数重複</strong>は段階2中止。納期リトライは <code>_collect_task_ids_missed_deadline_after_day</code> 条件（本文 2.3）。<strong>need 配台時追加人数</strong>は既定でメインは基本人数のみ→<strong>全シミュレーション後</strong>に未割当×スキルでサブ追記（<a href="#need-surplus">下記</a>）。<strong>配台ロジックを変えたら <span class="file">配台ルール.md</span> / 本 HTML を必ず更新</strong>（<a href="#doc-sync">開発ルール</a>）。業務案の順次1件・16:00締め込みは次段。</p>
+
+  <nav class="toc" aria-label="目次">
+    <strong>目次</strong>
+    <ol>
+      <li><a href="#rev-2026-03">改定（2026-03）要約</a></li>
+      <li><a href="#queue-order">タスクの並び（グローバルキューと日内）</a></li>
+      <li><a href="#day-flow">日内割付・環境変数</a></li>
+      <li><a href="#need-surplus">need 追加人数（余力・メイン後追記）</a></li>
+      <li><a href="#doc-sync">ソース変更時のドキュメント同期</a></li>
+      <li><a href="#roll-unit-length">ロール単位長さ（配台計画_タスク入力）</a></li>
+      <li><a href="#stock-location">在庫場所（配台計画_タスク入力）</a></li>
+      <li><a href="#raw-input-override">原反投入日_上書き</a></li>
+      <li><a href="#global">A. 全加工依頼に適用する追加ルール</a></li>
+      <li><a href="#individual">B. 個別に指定する追加ルール</a></li>
+      <li><a href="#partial-retry">納期超過検出とシフト再試行</a></li>
+      <li><a href="#result-task-id">結果_タスク一覧・タスクIDの赤表示</a></li>
+      <li><a href="#roll-trace-jsonl">配台デバッグ（ロールトレース JSONL）</a></li>
+      <li><a href="#trace-schedule">配台トレース（設定シート A3・環境変数）</a></li>
+    </ol>
+  </nav>
+
+  <section id="rev-2026-03" class="card" aria-labelledby="h-rev">
+    <h2 id="h-rev">改定（2026-03）要約</h2>
+    <ul>
+      <li><strong>グローバル AI</strong>: JSON に <code>task_planning_basis_dates</code>（依頼NO→日付）を追加。特別指定備考 AI より<strong>先</strong>に計画基準納期へ反映。<strong>2026-04 追補</strong>: <code>global_day_process_operator_rules</code> で「日付＋工程名の部分一致＋複数名」を<strong>その日その工程のチーム必須同席</strong>に反映。<code>task_preferred_operators</code> は<strong>オブジェクトのみ</strong>（配列不可）。誤スキーマ時は実装が可能な範囲でルール・メモへ救済（詳細は <span class="file">配台ルール.md</span> 3.4・5.2）。</li>
+      <li><strong>優先度重複</strong>: 配台対象行で同じ優先度整数が2行以上→段階2中止、終了コード3、メッセージファイル経由で Excel に表示（999は除外）。</li>
+      <li><strong>同日同機械</strong>: 計画基準納期と機械名が同じ帯では、依頼NOのタイブレーク（<code>Y4-1-1</code> は先頭<code>-</code>後の数値）。</li>
+      <li><strong>日内配台（実装）</strong>: <code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST</code> 既定オンで<strong>配台試行順</strong>の昇順にマルチパス。同一設備列は <code>_equipment_line_lower_dispatch_trial_still_pending</code> で試行順を強制。</li>
+      <li><strong>依頼NO直列</strong>: <code>STAGE2_SERIAL_DISPATCH_BY_TASK_ID=1</code> のときのみ、残のある最上位依頼に限定。</li>
+      <li><strong>未実装（次段）</strong>: 業務案どおり「近い納期から1件ずつ」型メインループ、計画基準納日16:00での割付強制（定数 <code>PLAN_DUE_DAY_COMPLETION_TIME</code> の組み込み）。</li>
+      <li><strong>2026-04 追補</strong>: <span class="file">master.xlsm</span> の <strong>機械カレンダー</strong>（<strong>メイン A12/B12</strong>＝稼働スロットの時台、<strong>A15/B15</strong>＝定常開始終了・出勤簿・定常外の A/B 列着色）。段階2は A12/B12 で <code>DEFAULT_*</code>、A15/B15 で <code>結果_設備毎の時間割</code>／<code>結果_設備ガント</code>の定常外見出し着色。詳細は <span class="file">配台ルール.md</span> 3.2.1・3.2.2・4.4。</li>
+    </ul>
+  </section>
+
+  <section id="queue-order" class="card" aria-labelledby="h-queue">
+    <h2 id="h-queue">タスクの並び（割付の試行順・要約）</h2>
+    <p><strong>グローバル</strong>（<code>generate_plan</code> 内の <code>task_queue.sort</code>・<code>_generate_plan_task_queue_sort_key</code>・2026-04）: <strong><code>b_tier</code></strong>（0=§B-1、1=§B-2/§B-3 帯、2=その他）→ <strong><code>b2_queue_sub</code></strong>（帯内で <strong>EC が未着手の検査／巻返しより先</strong>）→ <strong>加工途中</strong>（<code>in_progress</code> を先）→ <strong>計画基準納期</strong>（早いほど先）→ <strong>need シート左列ほど先</strong>（工程名+機械名の列位置 <code>need_combo_col_index</code>）→ <strong>依頼NOタイブレーク</strong>（<code>_task_id_same_machine_due_tiebreak_key</code>）。その後 <code>_reorder_task_queue_b2_ec_inspection_consecutive</code> で依頼内 EC→後続（検査／巻返し）を<strong>キュー上で隣接</strong>（配台試行順では EC の直次が後続行）、<code>_assign_sequential_dispatch_trial_order</code> で <strong>配台試行順番</strong> 1..n を付与（シート物理行順ではない）。<strong>納期シフト再試行</strong>で再ソートした後も同様に隣接＋付け直し。納期由来・配台優先度・機械名 NFKC 単独・開始日・必要OP人数はグローバルキーに含めません。</p>
+    <p><strong>各日内（既定）</strong>: <code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=1</code> では <code>_trial_order_first_schedule_pass</code> が候補を <strong><code>dispatch_trial_order</code> 昇順</strong>にし、§B-2/§B-3 は <strong>完全二相</strong>（<strong>フェーズ1</strong>: 熱融着検査・巻返し（後続）<strong>以外</strong>を連続ロール → <strong>フェーズ2</strong>: 後続行を配台）。後続候補は <code>_roll_pipeline_inspection_assign_room</code>（バッファ付きロール枠）で制御されます。通常の日次ループ完了後、B-2 検査／B-3 巻返しを <code>_run_b2_inspection_rewind_pass</code> で日付先頭から再走査し、<code>timeline_events</code> を人・設備のブロックテーブルとして再利用して日跨ぎ占有を保持したまま詰めます。再走査中は <code>_roll_pipeline_inspection_assign_room</code> と <code>_roll_pipeline_b2_inspection_ec_completion_floor_dt</code>。同一設備列の試行順は <code>_equipment_line_lower_dispatch_trial_still_pending</code>。<code>_day_schedule_task_sort_key</code> は主ループのソートには使わない。<strong>継続チーム優先は同日内のみ</strong>で、翌日は当日候補から再選定します。</p>
+    <p><strong>各日内（フォールバック）</strong>: <code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0</code> のとき <code>_day_schedule_task_sort_key</code> 順の 1 本ループ。<code>dispatch_trial_order</code> は<strong>複合キーの一部</strong>（最優先単独ではない）。</p>
+    <p><strong>納期シフト再試行</strong>: 対象依頼の再配台前に <code>task_queue</code> を再ソートし、§B-2/§B-3 の EC→後続を再隣接したうえで <code>_assign_sequential_dispatch_trial_order</code> により <code>dispatch_trial_order</code> を <strong>キュー順で 1..n に付け直す</strong>。</p>
+    <p><strong>結果_タスク一覧</strong>の行順は <strong>配台試行順番</strong>（グローバルソート直後の 1..n）が第一キーです。</p>
+  </section>
+
+  <section id="day-flow" class="card" aria-labelledby="h-dayflow">
+    <h2 id="h-dayflow">日内割付・主な環境変数</h2>
+    <ul>
+      <li><code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST</code> … 既定 <code>1</code>。配台試行順優先の <code>_trial_order_first_schedule_pass</code>。<code>0</code> で従来の日内ソートキーループ。</li>
+      <li><code>STAGE2_SERIAL_DISPATCH_BY_TASK_ID</code> … 既定相当 <code>0</code>。<code>1</code> で依頼NO直列（アクティブ依頼のみ当日候補）。</li>
+      <li><code>PLANNING_B1_INSPECTION_EXCLUSIVE_MACHINE</code> … 既定オン。§B-2 検査／§B-3 巻返しが占有する設備列では他タスクを試さない（変数名は歴史的）。</li>
+      <li><code>TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS</code> … 未設定＝メインは基本人数のみ、全シミュレーション後に余力サブ追記。<code>1</code>＝従来どおりメインで <code>req+追加上限</code> まで探索。</li>
+      <li><code>TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW</code> … <code>1</code> で need 追加人数行を全面無視（後追いもなし）。</li>
+      <li><code>TEAM_ASSIGN_*</code>（人数優先・スラック）… <span class="file">配台ルール.md</span> セクション5。</li>
+      <li><strong>機械カレンダー</strong>: マスタ <code>機械カレンダー</code> の占有は <code>_apply_machine_calendar_floor_for_date</code> および <code>_bump_machine_avail_after_roll_for_calendar</code> で <code>machine_avail_dt</code> に反映（<span class="file">配台ルール.md</span> 3.2.1）。</li>
+    </ul>
+  </section>
+
+  <section id="need-surplus" class="card" aria-labelledby="h-need-surplus">
+    <h2 id="h-need-surplus">need 追加人数（余力・メイン後追記）</h2>
+    <p><span class="file">master.xlsm</span> の need で、基本必要人数の<strong>直下</strong>（目安 Excel 5 行目付近）の「配台時追加人数／余力時追加人数」列は、工程×機械ごとに <strong>req を満たしたあと追加で入れられる人数の上限</strong>です。</p>
+    <ul>
+      <li><strong>既定</strong>: メインの割付シミュレーションではこの上限を<strong>人数探索に使わず</strong> <code>req_num</code> ちょうどで組む。シミュレーション<strong>完了後</strong>、各タイムラインブロックで枠が空き、かつその時間帯に<strong>他ブロックと重ならない</strong>・<strong>スキル OP/AS 適合</strong>・<strong>eligible</strong> の人を <strong>サブ（<code>sub</code>）に追記</strong>（<code>append_surplus_staff_after_main_dispatch</code>）。</li>
+      <li><strong>時刻は変えない</strong>（表示・同席記録向け。メインで決めた <code>end_dt</code> のまま）。</li>
+      <li>詳細・表は <span class="file">配台ルール.md</span> セクション 3.5。</li>
+    </ul>
+  </section>
+
+  <section id="doc-sync" class="card" aria-labelledby="h-doc-sync">
+    <h2 id="h-doc-sync">ソース変更時のドキュメント同期（開発）</h2>
+    <p><span class="file">python/planning_core.py</span> など<strong>配台ロジックを変えたときは</strong>、必ず <span class="file">配台ルール.md</span> と本 <span class="file">配台ルール.html</span> を<strong>同じ内容に合わせて更新</strong>してください。</p>
+    <p>Cursor 用の正本ルール: リポジトリ直下 <span class="file">.cursor/rules/dispatch-docs-sync.mdc</span>（<code>alwaysApply: true</code>）。同趣旨の要約はリポジトリ直下 <span class="file">.cursorrules</span> にもあります。</p>
+    <p><strong>作業ディレクトリ</strong>: 環境変数 <code>TASK_INPUT_WORKBOOK</code> があるときはそのブックのフォルダへ <code>chdir</code> し、<code>log/</code>・<code>output/</code> を VBA のブック配置と揃える。未設定時は <code>python</code> の親フォルダ基準（詳細は <span class="file">配台ルール.md</span> セクション8）。</p>
+    <p><strong>段階2の output</strong>: 実行前に <code>production_plan_multi_day_*.xlsx</code> と <code>member_schedule_*.xlsx</code> を削除しようとします。<strong>Excel で開いたまま</strong>だと削除・保存に失敗しうるので閉じてから実行。削除は短いリトライし、残ったファイルは ERROR ログに列挙。ファイル名の時刻はマイクロ秒まで含め衝突を避ける。設備ガント生成は重く、ログが止まって見えることがある（詳細は <span class="file">配台ルール.md</span> セクション8）。</p>
+  </section>
+
+  <section id="roll-unit-length" class="card" aria-labelledby="h-roll-unit">
+    <h2 id="h-roll-unit">ロール単位長さ（配台計画_タスク入力）</h2>
+    <ul>
+      <li><strong>列</strong>: <code>ロール単位長さ</code>（<code>PLAN_COL_ROLL_UNIT_LENGTH</code>）。シートでは <strong>製品名の右隣</strong>。</li>
+      <li><strong>段階1</strong>: <code>infer_unit_m_from_product_name</code> と換算数量フォールバックで <strong>1ロールあたりの m</strong> を計算して出力。再抽出時は旧シートのセルに値があれば <strong>依頼NO＋工程名</strong>キーで引き継ぎ。</li>
+      <li><strong>段階2</strong>: <code>build_task_queue_from_planning_df</code> は<strong>まずこの列の数値</strong>を <code>unit_m</code> に使う。<strong>空・0・不正</strong>のときだけ従来の製品名推定へフォールバック。</li>
+    </ul>
+  </section>
+
+  <section id="stock-location" class="card" aria-labelledby="h-stock-loc">
+    <h2 id="h-stock-loc">在庫場所（配台計画_タスク入力）</h2>
+    <ul>
+      <li><strong>列</strong>: <code>在庫場所</code>（<code>TASK_COL_STOCK_LOCATION</code>）。<strong>加工計画DATA</strong> に同名の列があるとき、段階1で <strong>原反投入日の右隣</strong>に出力されます（<code>SOURCE_BASE_COLUMNS</code> / <code>plan_input_sheet_column_order</code>）。</li>
+      <li><strong>配台計算</strong>: 参照表示のみ。キュー（<code>build_task_queue_from_planning_df</code>）の内部キーには載せません。</li>
+    </ul>
+  </section>
+
+  <section id="raw-input-override" class="card" aria-labelledby="h-raw-ov">
+    <h2 id="h-raw-ov">原反投入日_上書き（配台計画_タスク入力）</h2>
+    <ul>
+      <li><strong>列</strong>: <code>原反投入日_上書き</code>（<code>PLAN_COL_RAW_INPUT_DATE_OVERRIDE</code>）。参照列 <code>（元）原反投入日_上書き</code> は括弧内に列 <code>原反投入日</code> を表示。</li>
+      <li><strong>段階2</strong>: 日付があるときその値を <code>raw_input_date</code> として採用（開始下限・同日 13:00 下限・加工開始日_指定との max 等）。空のときは列 <code>原反投入日</code> のみ。</li>
+      <li><strong>結果_タスク一覧</strong>の <code>原反投入日</code> 表示も、上記と同じ優先で日付を出します。詳細は <span class="file">配台ルール.md</span> 2.1・7.3。</li>
+    </ul>
+  </section>
+
+  <section id="global" class="card" aria-labelledby="h-global">
+    <h2 id="h-global">A. 全加工依頼に適用する追加ルール</h2>
+    <h3>加工内容列による工程順序（同一依頼NO）</h3>
+    <ul>
+      <li><strong>列</strong>: マクロブック <strong>加工計画DATA</strong> および <strong>配台計画_タスク入力</strong> の <strong>加工内容</strong>（段階1でコピーされます）。</li>
+      <li><strong>書式</strong>: カンマ <code>,</code> 区切り。各要素は <strong>工程名</strong>に対応（例: <code>EC,検査</code>）。</li>
+      <li><strong>制約</strong>: 同一 <strong>依頼NO</strong> で、いずれの行も <strong>配台不要でない</strong> とき、リストの <strong>前の工程がすべて完了（残ロール0）するまで、後の工程には割り当てません</strong>。</li>
+      <li><strong>例外</strong>: 工程名が加工内容に含まれない行は、この順序制約の対象外です。配台不要行はキューに入らず、前工程としてもブロックしません。ただし加工内容にトークンがある依頼では、結果シートで<strong>タスクIDセルを赤背景・白文字</strong>にして不整合を示します（下記セクション）。</li>
+      <li><strong>照合</strong>: 工程名は NFKC・空白除去で加工内容の各トークンと突き合わせます。</li>
+      <li><strong>日内の動き</strong>: 同一日に、加工内容順（rank）・シート行順・§B-1 試行順・§B-2 パイプライン検査の前倒し・優先度・結果用ソートを組み合わせてタスクを複数周回し、各タスクあたり最大1チャンクずつ割り当てるため、前後工程を同日で交互に進められます。</li>
+    </ul>
+    <h3>同一依頼NOの直列（加工内容に rank が無い行）</h3>
+    <ul>
+      <li><strong>原則</strong>: 同一 <strong>依頼NO</strong> の <strong>別工程（別行）</strong>は、設備が違っても <strong>同時加工しない</strong>。配台計画シートを上から読んだ <strong>行順</strong>（<code>same_request_line_seq</code>）で、上の行の残ロールがなくなるまで下の行に割り当てません。</li>
+      <li><strong>§A-1 との関係</strong>: 両行に加工内容由来の rank があるときは <strong>rank だけ</strong>で前後を決め、片方でも rank が無いときは <strong>行順</strong>で直列化します。</li>
+      <li><strong>§B-2 / §B-3</strong>: EC×後続（検査または巻返し）パイプラインはロール枠・設備占有など<strong>別フィルタ</strong>で制御。同一依頼の前後関係は <span class="file">配台ルール.md</span> B-2.6・B-3・<code>_trial_order_flow_eligible_tasks</code> を参照。</li>
+      <li><strong>実装</strong>: <span class="file">planning_core.py</span> の <code>build_task_queue_from_planning_df</code> と <code>_task_blocked_by_same_request_dependency</code>。</li>
+    </ul>
+  </section>
+
+  <section id="individual" class="card" aria-labelledby="h-individual">
+    <h2 id="h-individual">B. 個別に指定する追加ルール</h2>
+    <h3>B-1 — 検査×熱融着機湖南で加工途中なら試行順優先</h3>
+    <p><strong>対象</strong>: 工程名 <strong>検査</strong>・機械名 <strong>熱融着機　湖南</strong>で <strong>加工途中</strong>（<code>in_progress</code>）の行（§B-2 の後続行と同一条件）。</p>
+    <ul>
+      <li><strong>グローバル</strong>: <code>b_tier = 0</code>。対象行同士の順は §2.0（加工途中→計画基準納期→need 列→依頼NO）。試行番号はその後の付与。</li>
+      <li><strong>日内</strong>（<code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0</code>）: §2.0 と同趣旨の先頭キーのあと、<code>dispatch_trial_order</code> を §A-1 の rank より<strong>前</strong>に置く（<code>_day_schedule_task_sort_key</code>）。</li>
+      <li><strong>§B 群内</strong>: <strong>B-1</strong> を最優先。<strong>B-2</strong> と <strong>B-3</strong> は同一の <code>b_tier = 1</code> 帯。詳細は <span class="file">配台ルール.md</span> §B-1。</li>
+    </ul>
+    <h3>B-2 — EC → 検査（ロール単位パイプライン）</h3>
+    <p>次の <strong>工程名・機械名の組み合わせ</strong>に限り、同一依頼NO内でロール単位の並行を認めます（コード内定数）。</p>
+    <table>
+      <thead>
+        <tr><th>役割</th><th>工程名</th><th>機械名</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>先行（EC）</td><td>EC</td><td>EC機　湖南</td></tr>
+        <tr><td>後続（検査）</td><td>検査</td><td>熱融着機　湖南</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li><strong>バッファ</strong>: EC 側で <strong>2 ロール完了するまで</strong>、検査には <strong>1 ロールも割り当てません</strong>（段取り時間の確保）。定数: <code>ROLL_PIPELINE_INITIAL_BUFFER_ROLLS = 2</code>。</li>
+      <li><strong>EC 行が同一依頼に無い検査</strong>: ロール枠を事実上かけず（<code>ROLL_PIPELINE_INSP_UNCAPPED_ROOM</code>）、通常どおり <code>need</code>・スキルで配台します。</li>
+      <li><strong>パイプライン</strong>: バッファ後は、検査の累計完了ロール数が常に次の上限を超えないようにします。<br />
+        <strong>進行中</strong>: <code>ec_done</code>（EC 完了ロール数）・<code>insp_done</code>（検査完了）とすると、原則 <code>insp_done ≤ max(0, ec_done - 2 + 1)</code>。EC が 2 ロール終わると検査 1 ロール目が可能になり、その後は EC が 1 ロール進むごとに検査も最大 1 ロール進められます。<br />
+        <strong>EC 全ロール完了後</strong>: 同一依頼NOの EC パイプライン行がすべて残量ゼロのときは、上記だけでは検査が 1 本足りなくなるため、上限を <code>ec_done</code> まで引き上げ、検査も EC と同じ本数まで完了できます（<code>_pipeline_ec_fully_done_for_tid</code> / <code>_roll_pipeline_inspection_assign_room</code>）。</li>
+      <li><strong>当日候補への入り方</strong>: <code>_trial_order_flow_eligible_tasks</code> で §A 同一依頼ブロック・<code>_roll_pipeline_inspection_assign_room</code>（ロール枠）・（既定で）設備占有・試行順強制を順に判定。通過後にチーム割付。前進・再走査の両方で同ロール枠と時刻下限が効きます。詳細は <span class="file">配台ルール.md</span> B-2.6。</li>
+      <li><strong>担当者の排他（同一依頼NO）</strong>: EC 行と検査行で <strong>履歴に出たメンバーは他側の候補から除外</strong>（<code>_filter_capable_members_b2_disjoint_teams</code>・NFKC 突合）。配台トレース対象依頼NOでは、この除外が発生した時点で <code>ブロック判定: B-2担当者分離 ...</code> を出力。さらに候補試行時に <code>候補固定: 担当OP指名=...</code>・<code>候補却下: ...</code>（OP不在/実働不足など）も出力。</li>
+      <li><strong>変更方法</strong>: <span class="file">planning_core.py</span> の <code>ROLL_PIPELINE_EC_PROCESS</code> 等を編集してください。</li>
+    </ul>
+    <h3>B-3 — EC → 巻返し（ロール単位パイプライン・B-2 同趣旨）</h3>
+    <p>同一依頼NOで <strong>B-2 と同じロールパイプライン挙動</strong>（完全二相・ロール枠・リワインド・担当者排他・設備占有）を適用します。B-2 の「検査」に相当する工程を <strong>巻返し</strong>、機械名は先行 EC と同じ <strong>EC機　湖南</strong> です。</p>
+    <table>
+      <thead>
+        <tr><th>役割</th><th>工程名</th><th>機械名</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>先行（EC）</td><td>EC</td><td>EC機　湖南</td></tr>
+        <tr><td>後続（巻返し）</td><td>巻返し</td><td>EC機　湖南</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li><strong>実装</strong>: タスク辞書の <code>roll_pipeline_rewind</code>。定数 <code>ROLL_PIPELINE_REWIND_PROCESS</code> / <code>ROLL_PIPELINE_REWIND_MACHINE</code>。完了ロール集計は <code>_pipeline_b2_follower_roll_done_units</code>（検査＋巻返しを合算）。</li>
+      <li><strong>詳細</strong>: <span class="file">配台ルール.md</span> §B-3 および §B-2.2〜B-2.7（語の読み替え）。</li>
+    </ul>
+  </section>
+
+  <section id="partial-retry" class="card" aria-labelledby="h-partial">
+    <h2 id="h-partial">納期超過検出と後ろ倒し再試行</h2>
+    <p><strong>検出</strong>（<code>_collect_task_ids_missed_deadline_after_day</code>）: ある日のシミュレーション終了時に、<strong>残量あり</strong>・<strong><code>due_basis_date</code> あり</strong>・<code>start_date_req</code> ≤ 当日・<strong>当日 ≥ <code>due_basis_date</code></strong> の依頼NOを集める（納期<strong>当日</strong>を含む）。</p>
+    <p><strong>再試行</strong>: <code>STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING = True</code> のとき、上記依頼について <strong>内部 <code>due_basis_date</code> のみ +1 日</strong>、当該依頼のタイムラインと割当を巻き戻し、<strong>全日程を最初から</strong>再走査。表示用 <code>due_basis_date_result_sheet</code> は元日付のまま。上限 <code>STAGE2_RETRY_SHIFT_DUE_MAX_ROUNDS</code>（依頼NOごと）。各ラウンド前に勤怠拡張日はマスタへ戻す。</p>
+    <ul>
+      <li><strong>オフにする</strong>: <code>STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING = False</code> で 1 パスのみ。</li>
+      <li><strong>上限</strong>: <code>STAGE2_RETRY_SHIFT_DUE_MAX_ROUNDS</code>（既定 5、<strong>依頼NOごと</strong>。全体の合計回数ではない）。</li>
+      <li><strong>シフトしない</strong>: 依頼全体で <code>due_basis_date</code> を持つ行が無い場合は、後ろ倒し対象にしません。</li>
+      <li><strong>勤怠最終日</strong>: +1 日がマスタ最終計画日を超える行がある依頼は、そのラウンドではシフト対象外になり得ます。</li>
+    </ul>
+  </section>
+
+  <section id="result-task-id" class="card" aria-labelledby="h-result-task">
+    <h2 id="h-result-task">結果_タスク一覧・タスクIDの赤表示（加工内容との整合）</h2>
+    <p>段階2が出力する <span class="file">production_plan_multi_day_*.xlsx</span> の <strong>結果_タスク一覧</strong> で、元データの <strong>加工内容</strong>（カンマ区切り）と行の <strong>工程名</strong> が一致しない可能性がある行の <strong>タスクID</strong> セルだけを、<strong>赤塗り・白文字</strong>にします。</p>
+    <ul>
+      <li><strong>加工内容の取り方</strong>: セクション A と同じく、同一依頼NOについて表の上の方で最初に現れた非空の加工内容をトークン化します。</li>
+      <li><strong>ハイライトしない</strong>: その依頼についてトークンが1つも無い（加工内容が未記入のみ等）場合は、比較基準が無いため色を付けません。</li>
+      <li><strong>ハイライトする</strong>: トークンがあるのに、工程名が（NFKC 等の正規化後）いずれのトークンとも一致しないとき。</li>
+      <li><strong>配台不可／配台残</strong>の行全体の薄い黄より<strong>後</strong>にタスクIDだけ上書きするため、該当セルは赤が優先されます。</li>
+      <li><strong>結果_設備毎の時間割へのリンク</strong>: <strong>タスクID</strong>セルに内部ハイパーリンクを付け、時間割で当該タスクが<strong>最初に現れるセル</strong>へジャンプ（未割当のみで時間割に無い行はリンクなし）。<code>_apply_result_task_id_hyperlinks_to_equipment_schedule</code>。</li>
+      <li><strong>履歴列（追加人数・色）</strong>: <strong>req_num を超えた人数</strong>のブロックのみ薄黄（<code>FFEB9C</code>）。メインは <code>TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS</code> ＋追加枠あり ＋採用人数&gt;req_num。余力追記は追記後の人数が req_num を超えるときのみ（定員までの追記のみでは塗らない）。履歴の担当表記は追記後に同期。<code>_apply_result_task_history_need_surplus_highlight</code>。</li>
+      <li><strong>履歴テキスト</strong>: <strong>組合せ表#n</strong>はプリセット行採用時に付くほか、探索のみで ID が欠けていても<strong>採用メンバー集合がいずれかのプリセットと一致</strong>すれば <code>_lookup_combo_sheet_row_id_for_preset_team</code> で補完（履歴1〜n 共通）。一致プリセットが無ければ付かない。プリセットは成立分をすべて候補に載せ、探索とまとめて最良を選ぶ。<strong>担当</strong>はメイン確定分のみ（余力追記は<strong>余力追記[…]</strong>）。<strong>追加[…]</strong>はメインで人数超過。<code>_format_result_task_history_cell</code>／<code>_history_team_text_main_assignment_only</code>。</li>
+      <li><strong>列設定_結果_タスク一覧</strong>（結果ブック）: 段階2は A:B を毎回再生成するが、<strong>既定で</strong>生成後に <code>TASK_INPUT_WORKBOOK</code> 側の同名シートから xlwings で図形（ボタン等）を複製し、<strong>位置・サイズを入力側と同じ</strong>に戻す（<code>_stage2_try_copy_column_config_shapes_from_input</code>）。無効化は <code>STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT=0</code>。</li>
+    </ul>
+    <p>実装: <span class="file">planning_core.py</span> の <code>process_content_mismatch</code>、<code>_process_name_matches_kakou_content_tokens</code>、<code>_apply_result_task_task_id_content_mismatch_highlight</code>、<code>_apply_result_task_id_hyperlinks_to_equipment_schedule</code>、<code>_apply_result_task_history_need_surplus_highlight</code>、<code>_format_result_task_history_cell</code>、<code>_lookup_combo_sheet_row_id_for_preset_team</code>、<code>_stage2_try_copy_column_config_shapes_from_input</code>。</p>
+    <p><strong>列 配完_回答指定16時まで</strong>: <strong>配完_加工終了</strong>が、<strong>回答納期</strong>の日付＋既定 <strong>16:00</strong>（<code>PLAN_DUE_DAY_COMPLETION_TIME</code>）以前かを判定。回答納期が空なら <strong>指定納期</strong>＋16:00 で判定。値は <code>はい</code>／<code>いいえ</code>／<code>未割当</code>／<code>納期なし</code>（回答・指定とも日付なし）。<code>_result_task_plan_end_within_answer_or_spec_16_label</code>。</p>
+  </section>
+
+  <section id="roll-trace-jsonl" class="card" aria-labelledby="h-roll-trace">
+    <h2 id="h-roll-trace">配台デバッグ（ロールトレース JSONL）</h2>
+    <p>割付で <strong>1 ロール確定ごと</strong>に、依頼・設備・時刻などを <strong>JSONL</strong>（1 行 1 JSON）へ追記します。</p>
+    <ul>
+      <li><code>DISPATCH_ROLL_TRACE_JSONL</code> … 出力パス。<strong>相対</strong>はマクロブック（<code>TASK_INPUT_WORKBOOK</code>）と同じフォルダ基準。<strong>未設定または空</strong>ではファイルを作りません（<span class="file">xlwings_console_runner</span> の段階2デバッグ入口は既定で <code>log/dispatch_roll_trace.jsonl</code> を設定）。</li>
+      <li><code>DISPATCH_DEBUG_STOP_AFTER_ROLLS</code> … 正の整数で、指定ロール数でシミュレーション打ち切り。</li>
+      <li><strong>初期化</strong>: <code>generate_plan</code> の<strong>先頭</strong>でファイルを空にし、早期終了時もトレース有効なら <strong>空の JSONL</strong> が残ります（以前は日次ループ直前のみ初期化）。</li>
+      <li><strong>追記</strong>: ループ内の <code>_dispatch_roll_trace_after_roll</code>。ロールが無ければ <strong>0 行</strong>のまま。</li>
+    </ul>
+    <p>詳細は <span class="file">配台ルール.md</span> セクション 10。</p>
+  </section>
+
+  <section id="trace-schedule" class="card" aria-labelledby="h-trace-schedule">
+    <h2 id="h-trace-schedule">配台トレース（設定シート A3 のみ）</h2>
+    <p>指定 <strong>依頼NO</strong> について <code>[配台トレース task=…]</code> 詳細を <span class="file">log/execution_log.txt</span> に出します。</p>
+    <ul>
+      <li>マクロブック <strong>「設定」</strong>シート <strong>A 列 3 行目以降</strong>に依頼NOを縦に（<code>_read_trace_schedule_task_ids_from_config_sheet</code>）。環境変数では指定しない。</li>
+      <li><code>generate_plan</code> <strong>冒頭</strong>（JSONL 初期化の直後・<strong>skills 読込より前</strong>）に読み、<strong>必ず INFO ログ</strong>。メンバー0で即終了したときも設定シートの読み取り結果がログに残ります。</li>
+      <li><code>[配台トレース task=…]</code> 行は <span class="file">log/execution_log.txt</span> に加え、<strong><span class="file">log/dispatch_trace_&lt;依頼NO&gt;_r&lt;外側ラウンド2桁&gt;.txt</span></strong>（例 <code>dispatch_trace_W4-2_r00.txt</code>、名はサニタイズ）へ追記。納期超過リトライのたびラウンドが増え、文頭に <code>[outer_round=00]</code> が付く。段階2冒頭で <span class="file">log/dispatch_trace_*.txt</span> を全削除。各ラウンドのヘッダ付きファイルは <code>generate_plan</code> の外側 <code>while True</code> 先頭で新規作成。</li>
+      <li>シート <strong>配台_配台不要工程</strong>（openpyxl 非互換マーカー）があるブックは「設定」を openpyxl で読めず A3 以降は無視（配台トレースは無効）。</li>
+    </ul>
+    <p>詳細は <span class="file">配台ルール.md</span> セクション 11。</p>
+  </section>
+
+  <section id="debug-dispatch-only" class="card" aria-labelledby="h-debug-dispatch-only">
+    <h2 id="h-debug-dispatch-only">デバッグ限定配台（設定シート B3・環境変数）</h2>
+    <p>指定した <strong>依頼NO</strong> に該当する <strong>配台計画_タスク入力</strong> の行だけで段階2を試す（検証用）。</p>
+    <ul>
+      <li><strong>優先</strong>: マクロブック <strong>「設定」</strong>シート <strong>B 列 3 行目以降</strong>（空スキップ・連続30空で打ち切り・最大500行・カンマ区切り可）。</li>
+      <li><strong>B 列が空のとき</strong>: 環境変数 <code>DISPATCH_DEBUG_ONLY_TASK_IDS</code>（カンマ区切り）。</li>
+      <li><code>generate_plan</code> 冒頭で集合を確定し、タスク読込直後にフィルタ。<strong>0 行なら中断</strong>。有効時は <strong>WARNING</strong> で対象一覧をログへ。</li>
+      <li><strong>VBA</strong>: <code>段階2_コア実行</code> と xlwings の配台デバッグ入口で、B 列に値があるとき <strong>MsgBox</strong> 通知のあと <strong>Save</strong> してから Python 実行（ディスク読み）。</li>
+      <li><strong>openpyxl 非互換</strong>ブックでは B 列は読めず環境変数のみ（セクション11と同様）。</li>
+      <li><strong>A 列</strong>はトレース用、<strong>B 列</strong>は対象絞り込み用（同時指定可だが集合は一致しないことがある）。</li>
+    </ul>
+    <p>詳細は <span class="file">配台ルール.md</span> セクション 12。</p>
+  </section>
+
+  <footer>
+    同一ソース: 配台ルール.md（2026-04-02・セクション9 履歴の組合せ表ID補完・列設定図形コピー環境変数・セクション11 配台トレースは A 列のみ・セクション12・JSONL・配完_回答指定16時まで・B-1/B-2）
+  </footer>
+</body>
+</html>

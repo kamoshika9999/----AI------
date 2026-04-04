@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工程管理AI配台システム — Cursor活用・社内運用保守（経営層向け）</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d0d0d0;
+      --accent: #1565c0;
+      --accent-bg: #e3f2fd;
+      --table-head: #1565c0;
+      --table-head-text: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      background: #fafafa;
+    }
+    .doc {
+      background: #fff;
+      padding: 2.5rem 2.75rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    @media print {
+      body { background: #fff; padding: 0; max-width: none; }
+      .doc { box-shadow: none; padding: 1rem; border-radius: 0; }
+      a { color: #000; text-decoration: none; }
+    }
+    h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid var(--accent);
+      color: var(--accent);
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.85rem;
+      padding: 0.35rem 0 0.35rem 0.65rem;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(90deg, var(--accent-bg), transparent);
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.35rem 0 0.6rem;
+      color: #263238;
+    }
+    .meta {
+      background: var(--accent-bg);
+      border: 1px solid #bbdefb;
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .meta p { margin: 0.35rem 0; }
+    .meta strong { color: var(--accent); }
+    p { margin: 0.65rem 0; }
+    ul { margin: 0.5rem 0 0.75rem; padding-left: 1.35rem; }
+    li { margin: 0.25rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0 1.25rem;
+      font-size: 0.95rem;
+    }
+    thead th {
+      background: var(--table-head);
+      color: var(--table-head-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #0d47a1;
+    }
+    tbody td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .footnote {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .toc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .toc a { color: var(--accent); }
+    code {
+      font-family: Consolas, "Segoe UI Mono", "MS Gothic", monospace;
+      font-size: 0.9em;
+      background: #f4f4f6;
+      padding: 0.12em 0.35em;
+      border-radius: 4px;
+      border: 1px solid #e8e8ec;
+    }
+  </style>
+</head>
+<body>
+  <article class="doc">
+    <h1>工程管理AI配台システム — Cursor 活用による社内運用・保守・開発（経営層向け）</h1>
+
+    <div class="meta">
+      <p><strong>文書の目的</strong>：ソフトウェア会社への外注に頼らず、<strong>社内で運用・保守・開発を進める</strong>場合に、<strong>Cursor（AI 支援型の開発環境）</strong> をどう位置づけ、経営・管理として何を決めればよいかを整理する。</p>
+      <p><strong>想定読者</strong>：経営層、部門長（コードの詳細は不要）。<strong>社内に情報システム専任部署がない場合</strong>は、PC・ネットワーク・ツール導入は <strong>経営または窓口担当</strong> が <strong>外部の IT 支援</strong> と相談して決める想定で読む。</p>
+      <p><strong>関連文書</strong>：<a href="./工程管理AI配台システム_経営層向け説明.html">経営層向け説明（HTML）</a> ／ <a href="./工程管理AI配台システム_経営層向け説明.md">Markdown</a>、<a href="./工程管理AI配台システム_要件定義書.html">要件定義書（HTML）</a></p>
+      <p><strong>文書バージョン</strong>：1.2（2026-03-28）</p>
+    </div>
+
+    <nav class="toc" aria-label="目次">
+      <strong>目次</strong>：
+      <a href="#s1">1. 方針の整理</a>（<a href="#s1-1">1.1 選任</a>・<a href="#s1-2">1.2 教育</a>）／
+      <a href="#s2">2. Cursorとは</a> ／
+      <a href="#s3">3. 具体策</a> ／
+      <a href="#s4">4. メリット・デメリット</a> ／
+      <a href="#s5">5. 承認事項</a> ／
+      <a href="#s6">6. まとめ</a>
+    </nav>
+
+    <h2 id="s1">1. 方針の整理：外注しない場合に経営が押さえること</h2>
+    <table>
+      <thead>
+        <tr><th>観点</th><th>社内推進で必要なこと</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>責任の所在</strong></td>
+          <td>仕様変更・不具合・セキュリティ対応の <strong>最終責任は社内</strong>（外部ベンダーに丸投げできない）。</td>
+        </tr>
+        <tr>
+          <td><strong>人的リソース</strong></td>
+          <td><strong>Excel／VBA と Python のいずれかに触れられる人</strong>（または習得する時間を与えられる人）が最低限必要。AI は <strong>補助</strong> であり、無人運転ではない。</td>
+        </tr>
+        <tr>
+          <td><strong>情報ガバナンス</strong></td>
+          <td>ソース・マクロブック・認証情報が <strong>どこにあり、誰がアクセスできるか</strong> を規程化する。</td>
+        </tr>
+        <tr>
+          <td><strong>継続性</strong></td>
+          <td>特定個人依存（バス係数）を <strong>Git・ドキュメント・ペア作業</strong> で下げる。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="s1-1">1.1 担当者の選任の考え方</h3>
+    <p><strong>選ぶ際に見ること（必須スキルより「適性・環境」）</strong></p>
+    <table>
+      <thead>
+        <tr><th>観点</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>業務理解</strong></td>
+          <td>配台・加工計画・勤怠マスタなど <strong>現場の表が何を意味するか</strong> 説明できる人。仕様の正しさを最終判断しやすい。</td>
+        </tr>
+        <tr>
+          <td><strong>表計算の習熟</strong></td>
+          <td>複雑な Excel を日常的に触り、<strong>式・参照・シート構造</strong>を追える人。VBA 未経験でもここから入る例は多い。</td>
+        </tr>
+        <tr>
+          <td><strong>学習意欲と継続時間</strong></td>
+          <td>Python や Git は <strong>数週間〜数ヶ月の学習</strong>が現実的。<strong>週あたりの確保時間</strong>（例: 半日〜1日相当）を <strong>上司と合意</strong>してから選任する。</td>
+        </tr>
+        <tr>
+          <td><strong>慎重さ</strong></td>
+          <td>本番データを扱うため、<strong>変更前に確認・バックアップ</strong>を取る姿勢が取れる人。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>よくあるパターン</strong></p>
+    <ul>
+      <li><strong>現場の Excel 担当</strong>（関数・ピボットに強い）＋ プログラムを <strong>これから学ぶ</strong> 若手・中堅。</li>
+      <li><strong>工場／生管のベテラン</strong>（業務の芯）と <strong>補助で実装</strong>する若手の <strong>2 名ペア</strong>（どちらも「正しいか」の責任を分担）。</li>
+      <li>いずれも難しい場合、<strong>パートタイムの外部メンター</strong>（週1時間のレビューだけ）と組む選択肢もある。</li>
+    </ul>
+    <p><strong>避けた方がよい選び方</strong></p>
+    <ul>
+      <li><strong>兼務過多</strong>で学習時間がゼロになる人だけを指名する。</li>
+      <li><strong>バックアップ要員を置かず</strong> 1 名に集約する（退職・休職で止まる）。</li>
+    </ul>
+    <p><strong>経営・部門長が決めること</strong></p>
+    <ul>
+      <li><strong>正（プライマリ）と副（セカンダリ）</strong> の 2 名体制を目標にすること。</li>
+      <li>選任を <strong>役職ではなく役割</strong>として明示し、<strong>評価・工数</strong>に反映する（「余暇でやる」前提は続かない）。</li>
+    </ul>
+
+    <h3 id="s1-2">1.2 教育・習熟の進め方（例）</h3>
+    <p><strong>段階を踏むと負荷が分散しやすい</strong>（順序は組織で調整可）。</p>
+    <table>
+      <thead>
+        <tr><th>段階</th><th>内容の例</th><th>期間の目安（目安）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>本システムの <strong>業務フロー</strong>（段階1・2、マクロブックの役割）を <strong>経営層向け説明・要件定義書</strong> で把握する。</td>
+          <td>数日</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><strong>Git</strong> の基本（クローン、コミット、履歴を見る、戻す）。<strong>開発用コピー</strong>だけ触るルールを徹底。</td>
+          <td>1〜2 週</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><strong>Excel VBA</strong> — 既存マクロの <strong>読み方</strong>、ブックと <code>*_VBA.txt</code> の対応、<strong>小さな表示変更</strong>から試す。</td>
+          <td>2〜4 週</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><strong>Python</strong> — 変数・関数・ファイル読み書きの基礎。<code>task_extract_stage1.py</code> など <strong>短いエントリ</strong>から読む。</td>
+          <td>1〜2 ヶ月（並行可）</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td><strong>Cursor</strong> — チャットで「この関数の役割は？」「このエラーの意味は？」と <strong>読解支援</strong>に使い、<strong>人が承認してから</strong>コミットする。</td>
+          <td>以降も継続</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>教育の手段の例</strong></p>
+    <ul>
+      <li><strong>自習＋質問会</strong>：週1回・1時間の <strong>固定ミーティング</strong>（社内または外部メンターへの質問枠）。</li>
+      <li><strong>ペア作業</strong>：慣れた者が <strong>画面共有</strong>しながら 1 本の修正を通す（ノウハウが移転しやすい）。</li>
+      <li><strong>市販・オンライン講座</strong>：Python 入門、Git 入門（無料教材で足りることも多い）。</li>
+      <li><strong>仕事で小さく回す</strong>：最初から <code>planning_core.py</code> 全体ではなく、<strong>ログ文言変更・設定値の説明追記</strong>など <strong>リスクの低いタスク</strong>を課題にする。</li>
+    </ul>
+    <p><strong>経営が見る指標（例）</strong></p>
+    <ul>
+      <li><strong>副担当が同席できる</strong>状態になったか（バス係数の低下）。</li>
+      <li><strong>本番以外のフォルダ</strong>で、<strong>1 件以上</strong>の変更を Git に残せたか。</li>
+      <li>重大障害なく <strong>1 四半期</strong> 運用できたか。</li>
+    </ul>
+
+    <h2 id="s2">2. Cursor とは何か（非エンジニア向け）</h2>
+    <ul>
+      <li><strong>Cursor</strong> は、<strong>プログラムを書くための PC 上の作業環境（エディタ）</strong> の一種で、<strong>生成AIを組み込んで</strong>、「説明をするとコード案を出す」「既存コードの修正を提案する」などを <strong>対話しながら</strong> 進められる製品です（<strong>SaaS／サブスクリプション</strong>のサービス形態が一般的）。</li>
+      <li><strong>本システムのような</strong>「Excel マクロ ＋ Python ＋ 設定ファイル」のリポジトリを <strong>フォルダごと開き</strong>、変更・調査・小規模機能追加を <strong>社内担当者が加速</strong>する用途に向く。</li>
+      <li><strong>経営層が誤解しやすい点</strong>：Cursor は <strong>自走するシステムではない</strong>。入力した内容やコードの一部が <strong>クラウド上のAI処理に送られる場合がある</strong>（製品の設定・契約・「プライバシーモード」等で挙動が変わる）ため、導入前に <strong>利用規約とプライバシー設定</strong> を確認する（必要なら <strong>外部の IT 専門家</strong> に相談）。</li>
+    </ul>
+
+    <h2 id="s3">3. 社内運用・保守・開発を推し進めるための手段（具体策）</h2>
+
+    <h3>3.1 バージョン管理（Git）を「正」とする</h3>
+    <ul>
+      <li>ソース（<code>python/</code>、VBA テキストバックアップ、要件定義）を <strong>Git リポジトリ</strong>で管理する。</li>
+      <li><strong>効果</strong>：いつ・誰が・何を変えたかが残る。誤修正から <strong>戻せる</strong>。外注に戻すときも <strong>引き渡し単位が明確</strong>。</li>
+      <li><strong>経営メッセージ</strong>：「USB 一本の最新版」運用は <strong>監査・障害時に不利</strong>。最低限 Git を正とする <strong>運用ルール</strong>を決める。</li>
+    </ul>
+
+    <h3>3.2 バックアップと「本番フォルダ」のルール</h3>
+    <ul>
+      <li><strong>マクロブック（.xlsm）・master.xlsm・output</strong> の保存場所を決め、<strong>クラウドストレージの履歴</strong>や <strong>定期コピー</strong>を併用する。</li>
+      <li><strong>本番で動かすフォルダ</strong>と <strong>開発用のコピー</strong>を分ける（誤った Python を本番パスで実行しない）。</li>
+    </ul>
+
+    <h3>3.3 Cursor の位置づけ：開発プロセスのどこで使うか</h3>
+    <table>
+      <thead>
+        <tr><th>フェーズ</th><th>Cursor の典型的な使い方</th><th>人の役割</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>調査</strong></td>
+          <td>巨大な <code>planning_core.py</code> の該当箇所を探す・要約する</td>
+          <td>問い（何を直したいか）を言語化する</td>
+        </tr>
+        <tr>
+          <td><strong>小改修</strong></td>
+          <td>バグ修正・ログ出力・条件分岐の案を生成</td>
+          <td><strong>内容を読み、動作確認</strong>し、採否を決める</td>
+        </tr>
+        <tr>
+          <td><strong>VBA</strong></td>
+          <td>マクロの書き換え案（テキストバックアップとセット）</td>
+          <td>Excel 上での動作確認・配布手順</td>
+        </tr>
+        <tr>
+          <td><strong>ドキュメント</strong></td>
+          <td>要件定義・手順書の下書き</td>
+          <td><strong>事実確認</strong>と <strong>責任ある承認</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3.4 品質を保つ最低限の習慣</h3>
+    <ul>
+      <li><strong>変更は小さく</strong>：一度に大量改変せず、<strong>コミット単位</strong>を細かくする。</li>
+      <li><strong>再現手順</strong>：不具合報告は「操作手順・期待結果・実結果」を残す。</li>
+      <li><strong>影響範囲</strong>：配台ロジック・Gemini 連携・Excel 取り込みは <strong>連鎖しやすい</strong>ため、変更前に <strong>要件定義書や LOG</strong> で範囲を確認する。</li>
+    </ul>
+
+    <h3>3.5 セキュリティ・コンプライアンス（必須の検討項目）</h3>
+    <ul>
+      <li><strong>Cursor 利用時にコードやパスがクラウド側で処理される可能性</strong> — <strong>経営または実装担当</strong>が <strong>利用規約・プライバシー設定</strong>（エンタープライズ契約の有無など）を確認する。判断が難しい場合は <strong>外部の IT 専門家</strong> に相談する。</li>
+      <li><strong>Gemini 認証 JSON・API キー</strong> — リポジトリに <strong>直書きしない</strong>、<code>.gitignore</code> と <strong>暗号化手順</strong>（既存の <code>encrypt_gemini_credentials.py</code> 等）を運用に含める。</li>
+      <li><strong>個人情報・顧客情報</strong>を含む実データを <strong>AI に貼らない</strong> ルールを徹底する（<strong>匿名化サンプル</strong>で検証）。</li>
+    </ul>
+
+    <h3>3.6 役割分担の例（小規模組織）</h3>
+    <table>
+      <thead>
+        <tr><th>役割</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>オーナー</strong></td>
+          <td>優先順位・リリース判断・ベンダー契約（Gemini 等）</td>
+        </tr>
+        <tr>
+          <td><strong>実装担当</strong></td>
+          <td>Cursor＋Git でコード・VBA 保守、Excel 動作確認</td>
+        </tr>
+        <tr>
+          <td><strong>業務担当</strong></td>
+          <td>仕様の正しさ・受入試験・現場問い合わせの一次窓口</td>
+        </tr>
+        <tr>
+          <td><strong>PC・ネットワーク</strong>（社内に情シスがない場合）</td>
+          <td><strong>経営または窓口担当</strong>が、標準PC・インターネット・Cursor 導入可否を決める。<strong>地域の IT 支援事業者</strong>等へ <strong>スポット委託</strong>する運用も一般的。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="s4">4. ソフト会社と比べたときのメリット・デメリット</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>社内＋Cursor 推進</th><th>外注中心</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>メリット</strong></td>
+          <td>小変更の <strong>待ち時間が短い</strong>、<strong>業務知識</strong>を直接反映しやすい、<strong>ランニングの SI 費</strong>を抑えやすい可能性</td>
+          <td>大規模開発・<strong>契約で応答時間や復旧の目安が数値化された保守</strong>（いわゆる <strong>SLA＝サービス品質を契約で約束する形</strong>）、<strong>第三者監査</strong>向き</td>
+        </tr>
+        <tr>
+          <td><strong>デメリット</strong></td>
+          <td><strong>属人化・品質ばらつき</strong>、<strong>休職・退職リスク</strong>、AI 利用の <strong>ルール整理</strong>が自社負担</td>
+          <td>コスト・<strong>要件の言語化</strong>が必要、変更の <strong>依頼〜見積サイクル</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>ハイブリッド</strong>（日常は社内、年次レビューや大改修だけスポット委託）は現実的な選択肢である。</p>
+    <p><strong>用語メモ（SLA）</strong>：<strong>Service Level Agreement</strong> の略で、「障害が起きたら <strong>何時間以内に連絡が返るか</strong>」「<strong>どの程度の時間で復旧を目指すか</strong>」などを <strong>契約書に明記</strong>した保守のこと。社内運用ではこの約束を <strong>自分たちで決め、自分たちで守る</strong>必要がある。</p>
+
+    <h2 id="s5">5. 経営層が承認・決定しておくとよい事項（チェックリスト）</h2>
+    <ul class="checklist">
+      <li><strong>社内オーナー</strong>（技術ではなく <strong>事業責任</strong>）の指名</li>
+      <li><strong>Git リポジトリ</strong>の保管場所（社内サーバ／許可されたクラウド）と <strong>アクセス権</strong></li>
+      <li><strong>Cursor（および利用する AI）</strong> の <strong>利用可否</strong> と <strong>利用規約・プライバシー設定</strong>の確認（必要なら <strong>外部 IT 専門家</strong> に相談）</li>
+      <li><strong>本番フォルダ</strong>と <strong>開発フォルダ</strong>の分離、<strong>マクロブックの配布</strong>手順</li>
+      <li><strong>バックアップ</strong>頻度と <strong>リストア試験</strong>の有無</li>
+      <li><strong>外注に戻す条件</strong>（例：人月換算で割に合わない規模、セキュリティ事件、キーパーソン退職時）</li>
+    </ul>
+
+    <h2 id="s6">6. まとめ</h2>
+    <p>ソフト会社へ依頼せず <strong>Cursor を軸に社内で運用・保守・開発を進める</strong>ことは、<strong>小さな改善の速度</strong>と <strong>業務密着</strong>という面で有効になり得る。その一方で、<strong>責任・セキュリティ・Git による再現性</strong>は経営・管理層が明文化し、<strong>AI は補助手段</strong>であることを組織で共有することが成功の条件である。</p>
+
+    <p class="footnote">本紙は方針・検討のたたき台である。Cursor 等の製品仕様・契約条件は各社の最新情報を正とする。製品名は説明のための例示であり、特定製品の推奨を意味しない。</p>
+  </article>
+</body>
+</html>

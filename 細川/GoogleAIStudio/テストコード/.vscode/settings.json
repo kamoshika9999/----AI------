@@ -1,0 +1,25 @@
+{
+  // Open in External App (YuTengjing.open-in-external-app)
+  // Excel 2021（クリックして実行）: 本PCで EXCEL.EXE を確認済み
+  // 別PCや MSI 版の場合はパスが違うことがあります（例: ...\Office16\EXCEL.EXE）
+  "openInExternalApp.openMapper": [
+    {
+      "extensionName": "xlsx",
+      "apps": [
+        {
+          "title": "Microsoft Excel 2021",
+          "openCommand": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+        }
+      ]
+    },
+    {
+      "extensionName": "xlsm",
+      "apps": [
+        {
+          "title": "Microsoft Excel 2021",
+          "openCommand": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+        }
+      ]
+    }
+  ]
+}

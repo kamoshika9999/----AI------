@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工程順番メモ</title>
+  <style>
+    :root { --bg: #f6f4f0; --card: #fffef9; --accent: #1a5f4a; --text: #1e1e1e; --border: #d8d0c4; --muted: #5c5c5c; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 2rem 1.25rem 3rem;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 { font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+      white-space: pre-line;
+      font-size: 0.98rem;
+    }
+    footer { margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted); }
+    .file { font-family: ui-monospace, Consolas, monospace; background: #ebe6dc; padding: 0.1rem 0.3rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>工程順番メモ</h1>
+  <p class="sub">業務メモ。実装の正は <span class="file">配台ルール.md</span>・<span class="file">python/planning_core.py</span>。編集時は <span class="file">工程順番メモ.md</span> と併せて更新すること。</p>
+  <section>工程順番
+・ＳＥＣ/スリット加工
+製品上りが500幅以下のものはＳＥＣ→スリット
+500幅以上はスリット→SEC
+・分割/エンボス加工
+製品上りが800幅までのものはエンボスと一緒に分割
+900幅以上は分割→エンボス
+・ＥＣ/巻き返し加工
+ＥＣが両面の時はＥＣと一緒に巻き返し
+ＥＣが片面の場合はＥＣ→巻き返し（スリットで）
+・ＥＣ/スライス加工
+製品厚みが3㎜以下ならＥＣ→スライス
+製品厚みが8㎜以下３㎜以上はスライス→ＥＣ</section>
+  <footer>ソース: <span class="file">工程順番メモ.md</span></footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+' =========================================================
+' 配台デバッグ: 1 ロールごとのトレースを Excel で確認する（標準モジュールに貼り付け）
+' =========================================================
+' 前提: xlwings アドイン有効・Show Console（推奨）
+'
+' 【呼び出し】PYTHONPATH 不要で runner を読み込む（run_path）。VBA からは参照ライブラリの
+'   モジュール名付きで呼ぶ: xlwings.RunPython "..."  （RunPython 単体では解決できないことが多い）
+'   Python 側の例:
+'   import os, runpy, xlwings as xw
+'   wb = xw.Book.caller()
+'   p = os.path.join(os.path.dirname(str(wb.fullname)), 'python', 'xlwings_console_runner.py')
+'   ns = runpy.run_path(p)
+'   ns['関数名']()
+'
+' 【仕組み】
+'   planning_core が各ロール割付成功時に log/dispatch_roll_trace.jsonl へ1行ずつ追記する。
+'   Python が「配台_ロールトレース」シートに一覧を流し込む。
+'   人が行を順に見て「どの順で・どのタスクが・どの設備に入ったか」を現認する。
+'
+' 環境変数（任意・Windows のシステム環境 or バッチ起動で設定）:
+'   DISPATCH_ROLL_TRACE_JSONL=log/dispatch_roll_trace.jsonl  … JSONL のパス
+'   DISPATCH_DEBUG_STOP_AFTER_ROLLS=5  … 5ロールで段階2の割付シミュレーションを打ち切り（部分結果で原因調査）
+'
+' RunPython 文字列は1行（改行不可）のため、下記は1行にまとめて登録してください。
+' =========================================================
+
+' xlwings 参照の RunPython（ブック直下の python\xlwings_console_runner.py を run_path で実行）
+' ※本番ブックの 生産管理_AI配台テスト_xlsm_VBA.txt は同等の XwRunConsoleRunner を STAGE12_USE_XLWINGS_RUNPYTHON で段階1/2から呼ぶ。
+Private Sub DbgRunConsoleRunner(ByVal entryPoint As String)
+    On Error GoTo EH
+    xlwings.RunPython "import os, runpy, xlwings as xw; wb=xw.Book.caller(); p=os.path.join(os.path.dirname(str(wb.fullname)), 'python', 'xlwings_console_runner.py'); ns=runpy.run_path(p); ns['" & entryPoint & "']()"
+    Exit Sub
+EH:
+    Err.Raise Err.Number, "DbgRunConsoleRunner", "RunPython: " & Err.Description
+End Sub
+
+Private Function DbgRollTraceJsonlPath() As String
+    DbgRollTraceJsonlPath = ThisWorkbook.Path & "\log\dispatch_roll_trace.jsonl"
+End Function
+
+' 設定シート B3 以降にデバッグ用依頼NOが1件以上あるか（最大500行・連続30空で打切り。planning_core と同趣旨）
+Private Function 設定シート_B列デバッグ依頼NO指定あり() As Boolean
+    Dim ws As Worksheet
+    Dim r As Long
+    Dim nBlank As Long
+    Dim v As Variant
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets("設定")
+    On Error GoTo 0
+    If ws Is Nothing Then Exit Function
+    nBlank = 0
+    For r = 3 To 502
+        v = ws.Cells(r, 2).Value
+        If IsError(v) Then
+            nBlank = nBlank + 1
+        ElseIf Len(Trim$(CStr(v))) > 0 Then
+            設定シート_B列デバッグ依頼NO指定あり = True
+            Exit Function
+        Else
+            nBlank = nBlank + 1
+        End If
+        If nBlank >= 30 Then Exit For
+    Next r
+End Function
+
+' JSONL をシート「配台_ロールトレース」へ読み込むだけ（段階2は従来どおり別マクロの場合は先に実行）
+Sub 配台デバッグ_ロールトレースをシートに表示()
+    On Error GoTo EH
+    If Len(Dir$(DbgRollTraceJsonlPath())) = 0 Then
+        MsgBox "ロールトレースJSONLがありません。まず「配台デバッグ_段階2とロールトレースシート」を実行してください。", vbInformation
+        Exit Sub
+    End If
+    DbgRunConsoleRunner "run_refresh_dispatch_roll_trace_sheet_for_xlwings"
+    Exit Sub
+EH:
+    MsgBox "xlwings 実行に失敗 (" & CStr(Err.Number) & "): " & Err.Description, vbCritical
+End Sub
+
+' JSONL を有効にした段階2 → 続けて同じブックにロールトレースシートを表示（ワンショット調査向け）
+Sub 配台デバッグ_段階2とロールトレースシート()
+    On Error GoTo EH
+    If 設定シート_B列デバッグ依頼NO指定あり() Then
+        MsgBox "【デバッグ限定配台】" & vbCrLf & vbCrLf & _
+            "シート「設定」の B3 以降に依頼NOが入力されています。" & vbCrLf & _
+            "この段階2では、指定した依頼NOに該当する行だけを配台します（全件ではありません）。" & vbCrLf & vbCrLf & _
+            "通常運用に戻すときは B 列を空にしてください。", vbInformation, "段階2"
+    End If
+    ' openpyxl はディスク上のブックを読むため、設定シート B 列を反映させる
+    Application.StatusBar = "ブックを保存しています（設定シート B 列を Python が読み込みます）..."
+    DoEvents
+    ThisWorkbook.Save
+    Application.StatusBar = False
+    DbgRunConsoleRunner "run_stage2_with_roll_trace_jsonl_then_refresh_sheet_for_xlwings"
+    Exit Sub
+EH:
+    MsgBox "xlwings 実行に失敗 (" & CStr(Err.Number) & "): " & Err.Description, vbCritical
+End Sub
+
+' アクティブシートが「配台_ロールトレース」のとき、選択行を1つ下へ（現認用の「進む」）
+' ※ シートを表示したあと、最初のデータ行（行2）を選んでから繰り返し実行すると見やすい
+Sub 配台デバッグ_進む_次の行を選択()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+
+    Set ws = ActiveSheet
+    If ws Is Nothing Then Exit Sub
+    If ws.Name <> "配台_ロールトレース" Then
+        MsgBox "シート「配台_ロールトレース」を表示してから実行してください。", vbExclamation
+        Exit Sub
+    End If
+
+    lastRow = ws.UsedRange.Rows.Count + ws.UsedRange.Row - 1
+    If lastRow < 2 Then
+        MsgBox "データ行がありません。", vbInformation
+        Exit Sub
+    End If
+
+    If ActiveCell.Row >= lastRow Then
+        MsgBox "データの最終行です。", vbInformation
+        Exit Sub
+    End If
+
+    On Error Resume Next
+    ws.Cells(ActiveCell.Row + 1, ActiveCell.Column).Select
+    If Err.Number <> 0 Then
+        Err.Clear
+        ws.Cells(2, 1).Select
+    End If
+    On Error GoTo 0
+
+    ActiveWindow.ScrollRow = ActiveCell.Row
+End Sub

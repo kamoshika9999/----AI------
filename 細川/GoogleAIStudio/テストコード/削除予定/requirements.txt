@@ -1,0 +1,6 @@
+# 工程管理AI テストコード（planning_core / 段階1・2）
+pandas>=2.0
+openpyxl>=3.1
+xlwings>=0.30
+google-genai>=1.0
+cryptography>=42.0

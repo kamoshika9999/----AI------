@@ -1,1 +1,0 @@
-{"version":1,"mode":"conditions","require_all":true,"conditions":[{"column":"工程名","op":"eq","value":"分割"}]}

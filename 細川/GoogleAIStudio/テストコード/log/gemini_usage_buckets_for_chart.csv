@@ -1,6 +1,0 @@
-﻿granularity,period_key,calls,prompt_tokens,candidates_tokens,thoughts_tokens,total_tokens,estimated_cost_usd,estimated_cost_jpy
-year,2026,1,706,66,730,1502,0.00029175,0.0438
-month,2026-03,1,706,66,730,1502,0.00029175,0.0438
-week_iso,2026-W13,1,706,66,730,1502,0.00029175,0.0438
-day,2026-03-28,1,706,66,730,1502,0.00029175,0.0438
-hour,2026-03-28T22,1,706,66,730,1502,0.00029175,0.0438

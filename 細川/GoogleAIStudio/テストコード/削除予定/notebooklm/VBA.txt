@@ -1,0 +1,3053 @@
+' =========================================================
+' Windows APIの宣言（ボタンの待機・アニメーション処理用）
+' =========================================================
+#If VBA7 Then
+    Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+#Else
+    Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+#End If
+
+' 全シートフォント統一マクロで使用（PC にフォントが入っている必要があります）
+Private Const BIZ_UDP_GOTHIC_FONT_NAME As String = "BIZ UDPゴシック"
+' フォント選択ダイアログ用の一時シート（VeryHidden）
+Private Const SCRATCH_SHEET_FONT As String = "_FontPick"
+' planning_core の COLUMN_CONFIG_SHEET_NAME と一致させる
+Private Const SHEET_COL_CONFIG_RESULT_TASK As String = "列設定_結果_タスク一覧"
+Private Const SHEET_SETTINGS As String = "設定"
+' planning_core.EXCLUDE_RULES_SHEET_NAME / EXCLUDE_RULE_COL_* と見出しを一致させる（シート作成は VBA、行同期は Python）
+Private Const SHEET_EXCLUDE_ASSIGNMENT As String = "設定_配台不要工程"
+
+' ★ 本ファイルは「生産管理_AI配台テスト.xlsm」の標準モジュール用テキストバックアップ（master.xlsm 用は 出勤簿.txt）
+' ★ planning_core は同フォルダの master.xlsm を MASTER として読む。TASK_INPUT_WORKBOOK には本ブック（ThisWorkbook）を渡す。
+' ★「設定_配台不要工程」は Python で新規作成しない。段階1・段階2 の先頭で 設定_配台不要工程_シートを確保（見出し・表示 xlSheetVisible）。
+
+' InstallComponents: winget 失敗時に使う公式 amd64 インストーラ URL（必要なら 3.12 のパッチ版に更新）
+Private Const PY_OFFICIAL_INSTALLER_URL As String = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe"
+
+' True ならマクロ先頭の ThisWorkbook.RefreshAll をスキップ（接続更新で固まる場合の緊急回避）
+Private Const SKIP_WORKBOOK_REFRESH_ALL As Boolean = False
+
+' 段階1コアの最終 Python exitCode（0=成功）。VBAエラー・事前失敗は -1。
+Private m_lastStage1ExitCode As Long
+Private m_lastStage1ErrMsg As String
+' 段階2コア用（ダイアログは呼び出し元で出す）
+Private m_lastStage2ErrMsg As String
+Private m_lastStage2ExitCode As Long
+Private m_stage2PlanImported As Boolean
+Private m_stage2MemberImported As Boolean
+
+' =========================================================
+' ★ 図形に登録するためのアニメーション付き起動マクロ ★
+' 処理本体は 段階1_コア実行 / 段階2_コア実行、ダイアログ付きの公開入口は RunPythonStage1 / RunPython / RunPythonStage1ThenStage2
+' =========================================================
+Sub アニメ付き_計画生成を実行()
+    Call AnimateButtonPush
+    RunPython False
+End Sub
+
+' 段階1: 加工計画DATA からタスク抽出 → output に xlsx 出力し「配台計画_タスク入力」へ取り込み
+Sub アニメ付き_タスク抽出を実行()
+    Call AnimateButtonPush
+    RunPythonStage1
+End Sub
+
+' 段階1→保存反映→段階2を続けて実行（配台計画シートの手編集を挟まない一括実行）
+Sub アニメ付き_段階1と段階2を連続実行()
+    Call AnimateButtonPush
+    RunPythonStage1ThenStage2
+End Sub
+
+Sub アニメ付き_環境構築を実行()
+    Const ENV_BUILD_PASSWORD As String = "1111"
+    Dim userInput As String
+    
+    ' 誤操作防止用（セキュリティ目的ではないため、パスワードを明示）
+    userInput = InputBox( _
+        "環境構築は初回のみ実行してください。" & vbCrLf & vbCrLf & _
+        "Python 3 が無ければインストールし、pip で次を導入・更新します。" & vbCrLf & _
+        "　pandas / openpyxl（3.1 以上）/ google-genai" & vbCrLf & _
+        "　xlwings（将来の Excel 連携用）＋ アドイン xlwings.xlam を自動配置" & vbCrLf & vbCrLf & _
+        "誤操作防止のため、下記パスワードを入力してから OK を押してください。" & vbCrLf & _
+        "【パスワード】" & ENV_BUILD_PASSWORD & vbCrLf & vbCrLf & _
+        "キャンセルすると実行しません。", _
+        "環境構築の実行確認")
+    
+    If StrComp(Trim$(userInput), ENV_BUILD_PASSWORD, vbBinaryCompare) <> 0 Then
+        MsgBox "パスワードが一致しないため、環境構築は実行されませんでした。", vbInformation
+        Exit Sub
+    End If
+    
+    Call AnimateButtonPush
+    Call InstallComponents
+End Sub
+
+' 図形ボタン用：Caller が取れるのは「この Sub が OnAction のとき」だけ。本体を直接割り当てるとアニメは動かない。
+Sub アニメ付き_全シートフォントをリストから選択して統一()
+    Call AnimateButtonPush
+    Call 全シートフォントをリストから選択して統一
+End Sub
+
+Sub アニメ付き_全シートフォントを手入力で統一()
+    Call AnimateButtonPush
+    Call 全シートフォントを手入力で統一
+End Sub
+
+Sub アニメ付き_全シートフォント_BIZ_UDPゴシックに統一()
+    Call AnimateButtonPush
+    Call 全シートフォント_BIZ_UDPゴシックに統一
+End Sub
+
+' メインシートのリンク・出退勤のみ再反映したいとき（手動実行可）
+Sub メインシート_メンバー一覧と出勤表示_手動()
+    メインシート_メンバー一覧と出勤表示 False
+End Sub
+
+
+' =========================================================
+' メインシート A列上段：結果_* シートへのリンク
+' B7～：個人シートへのリンク ＋ 前日から12日間の出退勤
+' （結果_カレンダー(出勤簿) から取得。シート名は「メイン」「Main」または名前に「メイン」を含むもの）
+' ★段階2(planning_core): 任意で見出しセルに「グローバルコメント」と書き、その直下のセルに「再優先特別記載」を入力可能。
+'   同文言は Gemini で解釈され、指示に応じてスキル無視・必要人数1名化などが通常ルールより最優先で適用される。
+' ・勤怠セル: 標準シフト「08:45 / 17:00」以外は背景色（休み・短縮・データなしを区別）
+' =========================================================
+
+' 結果_カレンダー(出勤簿) の「出勤 / 退勤」表示が、工場の通常勤務（8:45～17:00）と一致するか
+Private Function メインシート_勤怠表示が通常勤務か(ByVal txt As String) As Boolean
+    Dim t As String
+    t = Trim$(Replace(Replace(txt, vbCr, ""), vbLf, ""))
+    t = Replace(t, "：", ":")
+    Do While InStr(t, "  ") > 0
+        t = Replace(t, "  ", " ")
+    Loop
+    If StrComp(t, "08:45 / 17:00", vbTextCompare) = 0 Then
+        メインシート_勤怠表示が通常勤務か = True
+    ElseIf StrComp(t, "8:45 / 17:00", vbTextCompare) = 0 Then
+        メインシート_勤怠表示が通常勤務か = True
+    Else
+        メインシート_勤怠表示が通常勤務か = False
+    End If
+End Function
+
+Private Sub メインシート_勤怠セルに背景色を設定(ByVal c As Range, ByVal displayVal As String)
+    Dim s As String
+    s = Trim$(CStr(displayVal))
+    On Error Resume Next
+    If s = "" Or s = "-" Then
+        c.Interior.Pattern = xlSolid
+        c.Interior.Color = RGB(242, 242, 242)
+    ElseIf メインシート_勤怠表示が通常勤務か(s) Then
+        c.Interior.Pattern = xlNone
+    Else
+        c.Interior.Pattern = xlSolid
+        c.Interior.Color = RGB(255, 242, 204)
+    End If
+    On Error GoTo 0
+End Sub
+
+Public Sub メインシート_メンバー一覧と出勤表示(Optional ByVal Silent As Boolean = False)
+    Dim wb As Workbook
+    Dim wsMain As Worksheet
+    Dim wsCal As Worksheet
+    Dim ws As Worksheet
+    Dim dict As Object
+    Dim members As Object
+    Dim keys As Variant
+    Dim keysArr() As String
+    Dim i As Long, j As Long, r As Long, col As Long
+    Dim lastR As Long
+    Dim mn As String
+    Dim sheetName As String
+    Dim d As Date
+    Dim k As String
+    Dim colDate As Long, colMem As Long, colIn As Long, colOut As Long
+    Dim wkStr As String
+    Dim temp As String
+    Dim cnt As Long
+    Dim srcHdr As Range, srcMem As Range
+    Dim bHdrFn As String, bHdrFs As Double, bHdrFc As Variant
+    Dim bHdrBold As Boolean, bHdrIt As Boolean, bHdrUl As Long
+    Dim bMemFn As String, bMemFs As Double, bMemFc As Variant
+    Dim bMemBold As Boolean, bMemIt As Boolean, bMemUl As Long
+    
+    On Error GoTo EH
+    
+    Set wb = ThisWorkbook
+    Set wsMain = GetMainWorksheet()
+    If wsMain Is Nothing Then
+        If Not Silent Then MsgBox "「メイン」「Main」、または名前に「メイン」を含むシートが見つかりません。", vbExclamation
+        Exit Sub
+    End If
+    
+    Application.ScreenUpdating = False
+    
+    ' クリア前に B 列・見出しの見本フォントを記憶（無ければ日付列 C から）
+    Set srcHdr = wsMain.Cells(7, 2)
+    If Len(Trim$(CStr(srcHdr.Value))) = 0 Then Set srcHdr = wsMain.Cells(7, 3)
+    メインシート_フォント属性を取得 srcHdr, bHdrFn, bHdrFs, bHdrFc, bHdrBold, bHdrIt, bHdrUl
+    Set srcMem = wsMain.Cells(8, 2)
+    If Len(Trim$(CStr(srcMem.Value))) = 0 Then Set srcMem = wsMain.Cells(8, 3)
+    If Len(Trim$(CStr(srcMem.Value))) = 0 Then Set srcMem = wsMain.Cells(7, 3)
+    メインシート_フォント属性を取得 srcMem, bMemFn, bMemFs, bMemFc, bMemBold, bMemIt, bMemUl
+    
+    ' Clear だとフォント等の書式まで消える → ClearContents のみ。B列の個人リンクは削除してから再付与
+    メインシート_指定範囲のハイパーリンクを削除 wsMain, wsMain.Range("B7:B500")
+    wsMain.Range("B7:N500").ClearContents
+    On Error Resume Next
+    wsMain.Range("C7:N500").Interior.Pattern = xlNone
+    On Error GoTo EH
+    
+    ' 見出し行（前日から12日間）
+    wsMain.Cells(7, 2).Value = "メンバー"
+    メインシート_フォント属性を適用 wsMain.Cells(7, 2), bHdrFn, bHdrFs, bHdrFc, bHdrBold, bHdrIt, bHdrUl
+    For i = 0 To 11
+        d = DateAdd("d", i - 1, Date)
+        wkStr = Split("月,火,水,木,金,土,日", ",")(Weekday(d, vbMonday) - 1)
+        wsMain.Cells(7, 3 + i).Value = Format$(d, "m/d") & "(" & wkStr & ")"
+        wsMain.Cells(7, 3 + i).HorizontalAlignment = xlCenter
+    Next i
+    
+    ' 個人_* シートからメンバー名一覧（重複なし）
+    Set members = CreateObject("Scripting.Dictionary")
+    For Each ws In wb.Worksheets
+        If Left$(ws.Name, 3) = "個人_" Then
+            mn = Mid$(ws.Name, 4)
+            If Len(mn) > 0 And Not members.Exists(mn) Then members.Add mn, mn
+        End If
+    Next ws
+    
+    ' 結果_カレンダー(出勤簿) から (メンバー,日付) → 出勤/退勤
+    Set dict = CreateObject("Scripting.Dictionary")
+    On Error Resume Next
+    Set wsCal = wb.Worksheets("結果_カレンダー(出勤簿)")
+    On Error GoTo EH
+    
+    If Not wsCal Is Nothing Then
+        colDate = FindColHeader(wsCal, "日付")
+        colMem = FindColHeader(wsCal, "メンバー")
+        colIn = FindColHeader(wsCal, "出勤")
+        colOut = FindColHeader(wsCal, "退勤")
+        If colDate > 0 And colMem > 0 And colIn > 0 And colOut > 0 Then
+            lastR = wsCal.Cells(wsCal.Rows.Count, colDate).End(xlUp).Row
+            For r = 2 To lastR
+                If IsDate(wsCal.Cells(r, colDate).Value) Then
+                    d = CDate(wsCal.Cells(r, colDate).Value)
+                    mn = Trim$(CStr(wsCal.Cells(r, colMem).Value))
+                    If Len(mn) > 0 Then
+                        k = mn & "|" & Format$(d, "yyyy-mm-dd")
+                        dict(k) = Trim$(CStr(wsCal.Cells(r, colIn).Value)) & " / " & Trim$(CStr(wsCal.Cells(r, colOut).Value))
+                    End If
+                End If
+            Next r
+        End If
+    End If
+    
+    cnt = members.Count
+    If cnt = 0 Then
+        wsMain.Cells(8, 2).Value = "（個人_* のシートがありません）"
+        メインシート_フォント属性を適用 wsMain.Cells(8, 2), bMemFn, bMemFs, bMemFc, bMemBold, bMemIt, bMemUl
+        GoTo CleanExit
+    End If
+    
+    keys = members.Keys
+    ReDim keysArr(0 To UBound(keys))
+    For i = 0 To UBound(keys)
+        keysArr(i) = CStr(keys(i))
+    Next i
+    ' 単純ソート（表示順）
+    For i = 0 To UBound(keysArr) - 1
+        For j = i + 1 To UBound(keysArr)
+            If keysArr(i) > keysArr(j) Then
+                temp = keysArr(i): keysArr(i) = keysArr(j): keysArr(j) = temp
+            End If
+        Next j
+    Next i
+    
+    r = 8
+    For i = 0 To UBound(keysArr)
+        mn = keysArr(i)
+        sheetName = SafePersonalSheetName(mn)
+        On Error Resume Next
+        wsMain.Hyperlinks.Add Anchor:=wsMain.Cells(r, 2), Address:="", SubAddress:="'" & Replace(sheetName, "'", "''") & "'!A1", TextToDisplay:=mn
+        On Error GoTo EH
+        メインシート_フォント属性を適用 wsMain.Cells(r, 2), bMemFn, bMemFs, bMemFc, bMemBold, bMemIt, bMemUl
+        
+        For col = 0 To 11
+            d = DateAdd("d", col - 1, Date)
+            k = mn & "|" & Format$(d, "yyyy-mm-dd")
+            If dict.Exists(k) Then
+                wsMain.Cells(r, 3 + col).Value = dict(k)
+                メインシート_勤怠セルに背景色を設定 wsMain.Cells(r, 3 + col), CStr(dict(k))
+            Else
+                wsMain.Cells(r, 3 + col).Value = "-"
+                メインシート_勤怠セルに背景色を設定 wsMain.Cells(r, 3 + col), "-"
+            End If
+            wsMain.Cells(r, 3 + col).HorizontalAlignment = xlCenter
+        Next col
+        r = r + 1
+    Next i
+
+CleanExit:
+    On Error Resume Next
+    メインシート_結果シートリンクを更新 wsMain
+    On Error GoTo EH
+    メインシート_AからK列_AutoFitOnSheet wsMain
+    Application.ScreenUpdating = True
+    Exit Sub
+EH:
+    If Not Silent Then MsgBox "メインシート更新エラー: " & Err.Description, vbCritical
+    Resume CleanExit
+End Sub
+
+' メインシートの A～N 列オートフィット（メインの勤怠12日分＋A列リンク。フォント変更後・段階2後のレイアウト用）
+' ※ScreenUpdating=False 中は効かないことがあるため、必要なら True にしてから実行
+Private Sub メインシート_AからK列_AutoFitOnSheet(ByVal wsMain As Worksheet)
+    On Error Resume Next
+    If wsMain Is Nothing Then Exit Sub
+    wsMain.Columns("A:N").AutoFit
+    On Error GoTo 0
+End Sub
+
+Public Sub メインシート_AからK列_AutoFit()
+    Dim ws As Worksheet
+    Dim su As Boolean
+    On Error Resume Next
+    Set ws = GetMainWorksheet()
+    If ws Is Nothing Then Exit Sub
+    su = Application.ScreenUpdating
+    Application.ScreenUpdating = True
+    メインシート_AからK列_AutoFitOnSheet ws
+    Application.ScreenUpdating = su
+    On Error GoTo 0
+End Sub
+
+Private Function GetMainWorksheet() As Worksheet
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Set wb = ThisWorkbook
+    On Error Resume Next
+    Set GetMainWorksheet = wb.Worksheets("メイン")
+    If Err.Number = 0 And Not GetMainWorksheet Is Nothing Then Exit Function
+    Err.Clear
+    Set GetMainWorksheet = wb.Worksheets("Main")
+    If Err.Number = 0 And Not GetMainWorksheet Is Nothing Then Exit Function
+    Err.Clear
+    For Each ws In wb.Worksheets
+        If InStr(ws.Name, "メイン") > 0 Then
+            Set GetMainWorksheet = ws
+            Exit Function
+        End If
+    Next ws
+    Set GetMainWorksheet = Nothing
+End Function
+
+' planning_core が log\gemini_usage_summary_for_main.txt（UTF-8）に出力した Gemini 利用サマリを、
+' メインシート P16 以降に反映する。openpyxl が保存できない（ブック開きっぱなし）とき用。段階1/2 コアから呼ぶ。
+Public Sub メインシート_Gemini利用サマリをP列に反映(ByVal targetDir As String)
+    Const START_ROW As Long = 16
+    Const USAGE_COL As Long = 16 ' P
+    Const CLEAR_ROWS As Long = 120
+    
+    Dim wsMain As Worksheet
+    Dim fp As String
+    Dim adoStream As Object
+    Dim outputText As String
+    Dim logLines() As String
+    Dim i As Long
+    Dim r As Long
+    Dim lastClearRow As Long
+    
+    Set wsMain = GetMainWorksheet()
+    If wsMain Is Nothing Then Exit Sub
+    
+    lastClearRow = START_ROW + CLEAR_ROWS - 1
+    wsMain.Range(wsMain.Cells(START_ROW, USAGE_COL), wsMain.Cells(lastClearRow, USAGE_COL)).ClearContents
+    
+    fp = targetDir & "\log\gemini_usage_summary_for_main.txt"
+    If Len(Dir(fp)) = 0 Then Exit Sub
+    
+    On Error GoTo GeminiUsageP_Fail
+    Set adoStream = CreateObject("ADODB.Stream")
+    adoStream.Charset = "UTF-8"
+    adoStream.Open
+    adoStream.LoadFromFile fp
+    outputText = adoStream.ReadText
+    adoStream.Close
+    Set adoStream = Nothing
+    On Error GoTo 0
+    
+    outputText = Replace(outputText, vbCrLf, vbLf)
+    If Len(Trim$(outputText)) = 0 Then Exit Sub
+    
+    logLines = Split(outputText, vbLf)
+    
+    Application.ScreenUpdating = False
+    For i = LBound(logLines) To UBound(logLines)
+        r = START_ROW + i
+        If r > lastClearRow Then Exit For
+        With wsMain.Cells(r, USAGE_COL)
+            .Value = logLines(i)
+            .WrapText = True
+            .VerticalAlignment = xlTop
+        End With
+    Next i
+    Application.ScreenUpdating = True
+    Exit Sub
+    
+GeminiUsageP_Fail:
+    On Error Resume Next
+    If Not adoStream Is Nothing Then
+        adoStream.Close
+        Set adoStream = Nothing
+    End If
+    On Error GoTo 0
+End Sub
+
+' メインシートを表示し A1 をアクティブにする（GetMainWorksheet と同じ名前解決）
+Private Sub メインシートA1を選択()
+    Dim ws As Worksheet
+    On Error Resume Next
+    Set ws = GetMainWorksheet()
+    If ws Is Nothing Then Exit Sub
+    ws.Activate
+    ws.Range("A1").Select
+    On Error GoTo 0
+End Sub
+
+Private Function FindColHeader(ws As Worksheet, ByVal headerText As String) As Long
+    Dim c As Long
+    Dim lastCol As Long
+    lastCol = ws.Cells(1, ws.Columns.Count).End(xlToLeft).Column
+    For c = 1 To lastCol
+        If Trim$(CStr(ws.Cells(1, c).Value)) = headerText Then
+            FindColHeader = c
+            Exit Function
+        End If
+    Next c
+    FindColHeader = 0
+End Function
+
+' ハイパーリンク再付与後に既定の青リンク体へ戻らないよう、クリア前のフォントを記憶・復元する
+Private Sub メインシート_フォント属性を取得( _
+    ByVal src As Range, _
+    ByRef fn As String, ByRef fs As Double, ByRef fc As Variant, _
+    ByRef fBold As Boolean, ByRef fItalic As Boolean, ByRef fUl As Long)
+    On Error Resume Next
+    fn = "": fs = 0: fc = Empty: fBold = False: fItalic = False: fUl = xlUnderlineStyleNone
+    If src Is Nothing Then Exit Sub
+    With src.Font
+        fn = .Name
+        fs = .Size
+        fc = .Color
+        fBold = .Bold
+        fItalic = .Italic
+        fUl = .Underline
+    End With
+    On Error GoTo 0
+End Sub
+
+Private Sub メインシート_フォント属性を適用( _
+    ByVal tgt As Range, _
+    ByVal fn As String, ByVal fs As Double, ByVal fc As Variant, _
+    ByVal fBold As Boolean, ByVal fItalic As Boolean, ByVal fUl As Long)
+    On Error Resume Next
+    If tgt Is Nothing Then Exit Sub
+    With tgt.Font
+        If Len(fn) > 0 Then .Name = fn
+        If fs > 0 Then .Size = fs
+        If Not IsEmpty(fc) Then .Color = fc
+        .Bold = fBold
+        .Italic = fItalic
+        .Underline = fUl
+    End With
+    On Error GoTo 0
+End Sub
+
+' 範囲内の各セルに付いたハイパーリンクだけ削除（書式は維持）
+Private Sub メインシート_指定範囲のハイパーリンクを削除(ByVal wsMain As Worksheet, ByVal target As Range)
+    Dim c As Range
+    If wsMain Is Nothing Or target Is Nothing Then Exit Sub
+    On Error Resume Next
+    For Each c In target.Cells
+        If c.Hyperlinks.Count > 0 Then c.Hyperlinks.Delete
+    Next c
+    On Error GoTo 0
+End Sub
+
+' メインシート A1～：ブック内で名前が「結果_」で始まるシートへのジャンプリンクを並べる
+Private Sub メインシート_結果シートリンクを更新(ByVal wsMain As Worksheet)
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim coll As Collection
+    Dim arr() As String
+    Dim i As Long, j As Long, r As Long
+    Dim n As Long
+    Dim temp As String
+    Dim sn As String
+    Dim afn As String, afs As Double, afc As Variant
+    Dim aBold As Boolean, aIt As Boolean, aUl As Long
+    Dim srcA As Range
+    
+    ' クリア前に A 列リンクの見本フォントを記憶（無ければ日付見出し C7）
+    Set srcA = wsMain.Cells(2, 1)
+    If Len(Trim$(CStr(srcA.Value))) = 0 Then Set srcA = wsMain.Cells(1, 1)
+    If Len(Trim$(CStr(srcA.Value))) = 0 Then Set srcA = wsMain.Cells(7, 3)
+    メインシート_フォント属性を取得 srcA, afn, afs, afc, aBold, aIt, aUl
+    
+    Set wb = wsMain.Parent
+    Set coll = New Collection
+    For Each ws In wb.Worksheets
+        If Left$(ws.Name, 3) = "結果_" Then coll.Add ws.Name
+    Next ws
+    
+    ' Clear だと A 列のフォントが既定に戻る → リンク削除＋内容のみクリア
+    メインシート_指定範囲のハイパーリンクを削除 wsMain, wsMain.Range("A1:A45")
+    wsMain.Range("A1:A45").ClearContents
+    
+    If coll.Count = 0 Then
+        wsMain.Range("A1").Value = "（結果_* シートなし）"
+        メインシート_フォント属性を適用 wsMain.Cells(1, 1), afn, afs, afc, aBold, aIt, aUl
+        Exit Sub
+    End If
+    
+    n = coll.Count
+    ReDim arr(1 To n)
+    For i = 1 To n
+        arr(i) = coll(i)
+    Next i
+    For i = 1 To n - 1
+        For j = i + 1 To n
+            If arr(i) > arr(j) Then
+                temp = arr(i): arr(i) = arr(j): arr(j) = temp
+            End If
+        Next j
+    Next i
+    
+    wsMain.Cells(1, 1).Value = "計画結果（シートへ）"
+    メインシート_フォント属性を適用 wsMain.Cells(1, 1), afn, afs, afc, True, aIt, aUl
+    r = 2
+    For i = 1 To n
+        sn = arr(i)
+        wsMain.Hyperlinks.Add Anchor:=wsMain.Cells(r, 1), Address:="", SubAddress:="'" & Replace(sn, "'", "''") & "'!A1", TextToDisplay:=sn
+        メインシート_フォント属性を適用 wsMain.Cells(r, 1), afn, afs, afc, False, aIt, aUl
+        r = r + 1
+    Next i
+End Sub
+
+' 結果_*（設備ガント以外）・個人_*: 実験コードと同じ手順で列オートフィット
+' ・呼び出し元が ScreenUpdating=False のとき、Select 前に True に戻さないと AutoFit が効かないことがある
+' ・元の ScreenUpdating は必ず復帰
+' ・引数名は targetWs（RunPython 等の呼び出し側にも「ws」があり、ウォッチで親フレームの ws と混同しやすいため）
+Private Sub 結果シート_列幅_AutoFit安定(ByVal targetWs As Worksheet)
+    Dim su As Boolean
+    If StrComp(targetWs.Name, SCRATCH_SHEET_FONT, vbBinaryCompare) = 0 Then Exit Sub
+    su = Application.ScreenUpdating
+    On Error Resume Next
+    Application.ScreenUpdating = True
+    targetWs.Activate
+    DoEvents
+    targetWs.Cells.Select
+    DoEvents
+    targetWs.Cells.EntireColumn.AutoFit
+    targetWs.Range("A1").Select
+    Application.ScreenUpdating = su
+    On Error GoTo 0
+End Sub
+
+' 結果_タスク一覧 専用: 非表示列に EntireColumn.AutoFit をかけると列が再表示されるため、表示列のみ AutoFit する。
+Private Sub 結果シート_列幅_AutoFit非表示を維持(ByVal targetWs As Worksheet)
+    Dim su As Boolean
+    Dim lastCol As Long
+    Dim c As Long
+    
+    If StrComp(targetWs.Name, SCRATCH_SHEET_FONT, vbBinaryCompare) = 0 Then Exit Sub
+    
+    On Error Resume Next
+    lastCol = targetWs.UsedRange.Column + targetWs.UsedRange.Columns.Count - 1
+    If lastCol < 1 Then lastCol = targetWs.Cells(1, targetWs.Columns.Count).End(xlToLeft).Column
+    On Error GoTo 0
+    If lastCol < 1 Then Exit Sub
+    
+    su = Application.ScreenUpdating
+    Application.ScreenUpdating = True
+    On Error Resume Next
+    targetWs.Activate
+    DoEvents
+    
+    For c = 1 To lastCol
+        If Not targetWs.Columns(c).Hidden Then
+            targetWs.Columns(c).AutoFit
+        End If
+    Next c
+    
+    targetWs.Range("A1").Select
+    Application.ScreenUpdating = su
+    On Error GoTo 0
+End Sub
+
+' 過去の取り込み不具合で残った「列設定_結果_タスク一覧 (2)」等を削除（本体シートは残す）
+' ※呼び出し元が DisplayAlerts=False のとき、終了時に True に戻さない（シート削除確認が出るのを防ぐ）
+Private Sub 列設定結果タスク一覧_番号付き重複シートを削除(ByVal wb As Workbook)
+    Dim i As Long
+    Dim ws As Worksheet
+    Dim pfx As String
+    Dim prevDa As Boolean
+    
+    pfx = SHEET_COL_CONFIG_RESULT_TASK & " ("
+    prevDa = Application.DisplayAlerts
+    Application.DisplayAlerts = False
+    For i = wb.Worksheets.Count To 1 Step -1
+        Set ws = wb.Worksheets(i)
+        If InStr(1, ws.Name, pfx, vbBinaryCompare) = 1 Then
+            ws.Delete
+        End If
+    Next i
+    Application.DisplayAlerts = prevDa
+End Sub
+
+' 段階2 取り込み後: 「設定」タブの直前に列設定シートを置く（個人_*・LOG・設定の並べ替えの後に呼ぶ）
+Private Sub 列設定_結果_タスク一覧を設定の直前へ移動(ByVal wb As Workbook)
+    Dim wsCfg As Worksheet
+    Dim wsSet As Worksheet
+    
+    On Error Resume Next
+    Set wsCfg = wb.Worksheets(SHEET_COL_CONFIG_RESULT_TASK)
+    Set wsSet = wb.Worksheets(SHEET_SETTINGS)
+    On Error GoTo 0
+    If wsCfg Is Nothing Or wsSet Is Nothing Then Exit Sub
+    
+    On Error Resume Next
+    If wsCfg.Index <> wsSet.Index - 1 Then
+        wsCfg.Move Before:=wsSet
+    End If
+    On Error GoTo 0
+End Sub
+
+' 結果_* シートの1行目右側に、メインシートへ戻る内部リンクを1つ置く（取り込み直後に呼ぶ）
+Private Sub 結果シート_メインへ戻るリンクを付与(ByVal ws As Worksheet)
+    Dim wsMain As Worksheet
+    Dim mainName As String
+    Dim lastCol As Long
+    Dim anchor As Range
+    
+    Set wsMain = GetMainWorksheet()
+    If wsMain Is Nothing Then Exit Sub
+    If StrComp(ws.Name, wsMain.Name, vbBinaryCompare) = 0 Then Exit Sub
+    
+    mainName = wsMain.Name
+    lastCol = ws.Cells(1, ws.Columns.Count).End(xlToLeft).Column
+    If lastCol < 1 Then lastCol = 1
+    Set anchor = ws.Cells(1, lastCol + 2)
+    
+    On Error Resume Next
+    anchor.Hyperlinks.Delete
+    On Error GoTo 0
+    ws.Hyperlinks.Add Anchor:=anchor, Address:="", SubAddress:="'" & Replace(mainName, "'", "''") & "'!A1", TextToDisplay:="≪ メインへ"
+    With anchor
+        .Font.Bold = False
+        .Interior.Pattern = xlNone
+        .HorizontalAlignment = xlRight
+    End With
+End Sub
+
+' 結果_設備ガント：取り込み直後に列幅を設定（Python 本体では列幅を書かない）
+Private Sub 結果_設備ガント_列幅を設定(ByVal ws As Worksheet)
+    Dim lastCol As Long
+    Dim c As Long
+    
+    On Error Resume Next
+    ws.Columns("A").ColumnWidth = 14
+    ws.Columns("B").ColumnWidth = 46
+    ws.Columns("C").ColumnWidth = 12
+    lastCol = ws.UsedRange.Column + ws.UsedRange.Columns.Count - 1
+    On Error GoTo 0
+    If lastCol < 4 Then Exit Sub
+    For c = 4 To lastCol
+        ws.Columns(c).ColumnWidth = 6
+    Next c
+    On Error Resume Next
+    ws.Activate
+    ws.Range("A1").Select
+    On Error GoTo 0
+End Sub
+
+' 結果_設備ガント：タイトルは結合セル先頭 A1。取り込み後の 1 行目一括書式のあと左寄せが崩れることがあるため固定する。
+Private Sub 結果_設備ガント_タイトルA1を左寄せに固定(ByVal ws As Worksheet)
+    On Error Resume Next
+    With ws.Range("A1")
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlCenter
+    End With
+End Sub
+
+' =========================================================
+' シート並び：個人_*（名前昇順）→ その後ろに LOG → 最後に「設定」
+' （シート名は正確に LOG / 設定。無い場合はスキップ）
+' =========================================================
+Public Sub 個人シートを末尾へ並べ替え()
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim arr() As String
+    Dim n As Long
+    Dim i As Long
+    Dim j As Long
+    Dim temp As String
+    
+    Set wb = ThisWorkbook
+    n = 0
+    For Each ws In wb.Worksheets
+        If Left$(ws.Name, 3) = "個人_" Then
+            n = n + 1
+            ReDim Preserve arr(1 To n)
+            arr(n) = ws.Name
+        End If
+    Next ws
+    
+    If n > 0 Then
+        For i = 1 To n - 1
+            For j = i + 1 To n
+                If arr(i) > arr(j) Then
+                    temp = arr(i): arr(i) = arr(j): arr(j) = temp
+                End If
+            Next j
+        Next i
+    End If
+    
+    Application.ScreenUpdating = False
+    
+    ' 1) 個人_* を末尾へ（昇順）
+    For i = 1 To n
+        On Error Resume Next
+        wb.Worksheets(arr(i)).Move After:=wb.Sheets(wb.Sheets.Count)
+        On Error GoTo 0
+    Next i
+    
+    ' 2) LOG を個人のさらに後ろ（ブック末尾）
+    On Error Resume Next
+    wb.Worksheets("LOG").Move After:=wb.Sheets(wb.Sheets.Count)
+    On Error GoTo 0
+    
+    ' 3) 「設定」を最後尾（LOG のさらに後ろ）
+    On Error Resume Next
+    wb.Worksheets("設定").Move After:=wb.Sheets(wb.Sheets.Count)
+    On Error GoTo 0
+    
+    Application.ScreenUpdating = True
+End Sub
+
+' =========================================================
+' シート並び：配台計画_タスク入力を前へ
+' （step1完了時点で「個人_*」「LOG」「設定」の前の方へ配置）
+' =========================================================
+Private Sub 配台計画_タスク入力を前へ並べ替え()
+    Const PLAN_SHEET As String = "配台計画_タスク入力"
+    Dim wsPlan As Worksheet
+    Dim wsMain As Worksheet
+    Dim wsAfter As Worksheet
+    
+    On Error Resume Next
+    Set wsPlan = ThisWorkbook.Sheets(PLAN_SHEET)
+    On Error GoTo 0
+    If wsPlan Is Nothing Then Exit Sub
+    
+    On Error Resume Next
+    Set wsMain = GetMainWorksheet()
+    On Error GoTo 0
+    
+    If wsMain Is Nothing Then
+        Set wsAfter = ThisWorkbook.Sheets(1)
+    Else
+        Set wsAfter = wsMain
+    End If
+    
+    If wsAfter Is Nothing Then Exit Sub
+    If wsAfter.Name = wsPlan.Name Then Set wsAfter = ThisWorkbook.Sheets(1)
+    
+    If wsPlan.Index <> wsAfter.Index Then
+        wsPlan.Move After:=wsAfter
+    End If
+End Sub
+
+' =========================================================
+' 共通：ボタンを押し込むアニメーション処理
+' ※ActiveSheet.Shapes(名前) だけだと、別シートに同じ図形名（既定の角丸1 等）があると
+'   誤ってそちらを動かし、意図しないシートが前面に出ることがあります。
+'   全シートから名前を解決し、ActiveSheet 上のものを優先します。
+' =========================================================
+Private Sub AnimateButtonPush()
+    Dim shpName As String
+    Dim shp As Shape
+    Dim ws As Worksheet
+    Dim candidate As Shape
+    Dim firstHit As Shape
+    Dim originalTop As Single
+    Dim originalLeft As Single
+    Dim hasShadow As Boolean
+    
+    On Error Resume Next
+    shpName = CStr(Application.Caller)
+    On Error GoTo 0
+    If Len(Trim$(shpName)) = 0 Then Exit Sub
+    
+    Set shp = Nothing
+    Set firstHit = Nothing
+    For Each ws In ThisWorkbook.Worksheets
+        Err.Clear
+        On Error Resume Next
+        Set candidate = ws.Shapes(shpName)
+        If Err.Number = 0 And Not candidate Is Nothing Then
+            If firstHit Is Nothing Then Set firstHit = candidate
+            If ws Is ActiveSheet Then
+                Set shp = candidate
+                Exit For
+            End If
+        End If
+    Next ws
+    On Error GoTo 0
+    
+    If shp Is Nothing Then Set shp = firstHit
+    If shp Is Nothing Then Exit Sub
+    
+    originalTop = shp.Top
+    originalLeft = shp.Left
+    hasShadow = shp.Shadow.Visible
+    
+    shp.Top = originalTop + 2
+    shp.Left = originalLeft + 2
+    If hasShadow Then shp.Shadow.Visible = msoFalse
+    
+    DoEvents
+    Sleep 150
+    
+    shp.Top = originalTop
+    shp.Left = originalLeft
+    If hasShadow Then shp.Shadow.Visible = msoTrue
+    DoEvents
+End Sub
+
+' =========================================================
+' かっこいいボタンを自動生成するマクロ
+' =========================================================
+' グラデーション配色プリセット（CreateCoolButtonWithPreset の presetId）
+' 1=ロイヤルブルー 2=ティール 3=オレンジ 4=フォレストグリーン 5=パープル
+' 6=インディゴ 7=スレート 8=コーラル 9=アンバー 10=マゼンタ
+Private Function CoolButtonGradientTop(ByVal presetId As Long) As Long
+    Select Case presetId
+        Case 1: CoolButtonGradientTop = RGB(65, 105, 225)
+        Case 2: CoolButtonGradientTop = RGB(0, 180, 170)
+        Case 3: CoolButtonGradientTop = RGB(255, 160, 60)
+        Case 4: CoolButtonGradientTop = RGB(60, 179, 113)
+        Case 5: CoolButtonGradientTop = RGB(186, 85, 211)
+        Case 6: CoolButtonGradientTop = RGB(100, 120, 220)
+        Case 7: CoolButtonGradientTop = RGB(130, 140, 150)
+        Case 8: CoolButtonGradientTop = RGB(255, 120, 120)
+        Case 9: CoolButtonGradientTop = RGB(255, 200, 80)
+        Case 10: CoolButtonGradientTop = RGB(230, 90, 180)
+        Case Else: CoolButtonGradientTop = RGB(65, 105, 225)
+    End Select
+End Function
+
+Private Function CoolButtonGradientBottom(ByVal presetId As Long) As Long
+    Select Case presetId
+        Case 1: CoolButtonGradientBottom = RGB(0, 0, 139)
+        Case 2: CoolButtonGradientBottom = RGB(0, 100, 95)
+        Case 3: CoolButtonGradientBottom = RGB(180, 80, 0)
+        Case 4: CoolButtonGradientBottom = RGB(0, 90, 40)
+        Case 5: CoolButtonGradientBottom = RGB(75, 0, 130)
+        Case 6: CoolButtonGradientBottom = RGB(40, 50, 120)
+        Case 7: CoolButtonGradientBottom = RGB(70, 75, 85)
+        Case 8: CoolButtonGradientBottom = RGB(180, 50, 50)
+        Case 9: CoolButtonGradientBottom = RGB(180, 120, 0)
+        Case 10: CoolButtonGradientBottom = RGB(140, 30, 100)
+        Case Else: CoolButtonGradientBottom = RGB(0, 0, 139)
+    End Select
+End Function
+
+Private Sub CreateCoolButtonWithPreset(btnText As String, macroName As String, posX As Single, posY As Single, ByVal presetId As Long)
+    CreateCoolButton btnText, macroName, posX, posY, CoolButtonGradientTop(presetId), CoolButtonGradientBottom(presetId)
+End Sub
+
+Sub かっこいいボタンを作成()
+    Dim y As Single
+    Const gap As Single = 70
+    
+    y = 50
+    CreateCoolButtonWithPreset "? シミュレーション実行", "アニメ付き_計画生成を実行", 50, y, 1
+    y = y + gap
+    CreateCoolButtonWithPreset "タスク抽出", "アニメ付き_タスク抽出を実行", 50, y, 3
+    y = y + gap
+    CreateCoolButtonWithPreset "段階1+2 連続", "アニメ付き_段階1と段階2を連続実行", 50, y, 5
+    y = y + gap
+    CreateCoolButtonWithPreset "環境構築 (初回のみ)", "アニメ付き_環境構築を実行", 50, y, 4
+    
+    MsgBox "現在のシートにボタンを 4 つ作成しました！" & vbCrLf & _
+           "グラデーションはプリセット 1/3/5/4 を使用しています（全 10 色はコード先頭のコメント参照）。" & vbCrLf & _
+           "好きな場所にドラッグして配置してください。", vbInformation
+End Sub
+
+' 配色プリセット P1～P10 の見本を配置（マクロは割り当てず、見た目確認・色選び用）
+Sub かっこいいボタン_配色サンプル作成()
+    Dim i As Long
+    Dim x As Single
+    Dim y As Single
+    Const colW As Single = 232
+    Const rowH As Single = 62
+    Const left0 As Single = 40
+    Const top0 As Single = 40
+    
+    For i = 1 To 10
+        x = left0 + CSng((i - 1) Mod 5) * colW
+        y = top0 + CSng((i - 1) \ 5) * rowH
+        CreateCoolButton "P" & CStr(i), "かっこいいボタンを作成", x, y, CoolButtonGradientTop(i), CoolButtonGradientBottom(i)
+        On Error Resume Next
+        ActiveSheet.Shapes(ActiveSheet.Shapes.Count).OnAction = ""
+        On Error GoTo 0
+    Next i
+    MsgBox "配色プリセット P1～P10 の見本を配置しました。" & vbCrLf & _
+           "クリックしてもマクロは動きません。不要なら図形を削除してください。", vbInformation
+End Sub
+
+' ボタン生成の共通ロジック
+Private Sub CreateCoolButton(btnText As String, macroName As String, posX As Single, posY As Single, colorTop As Long, colorBottom As Long)
+    Dim shp As Shape
+    
+    Set shp = ActiveSheet.Shapes.AddShape(msoShapeRoundedRectangle, posX, posY, 220, 50)
+    
+    With shp
+        With .TextFrame2.TextRange
+            .Text = btnText
+            .Font.Name = "メイリオ"
+            .Font.Size = 14
+            .Font.Bold = msoTrue
+            .Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        End With
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+        .TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+        
+        With .Fill
+            .Visible = msoTrue
+            .TwoColorGradient Style:=msoGradientVertical, Variant:=1
+            .ForeColor.RGB = colorTop
+            .BackColor.RGB = colorBottom
+        End With
+        
+        .Line.Visible = msoFalse
+        
+        With .ThreeD
+            .BevelTopType = msoBevelSoftRound
+            .BevelTopDepth = 6
+            .BevelTopInset = 6
+        End With
+        
+        With .Shadow
+            .Type = msoShadow21
+            .Visible = msoTrue
+            .OffsetX = 3
+            .OffsetY = 3
+            .Transparency = 0.5
+            .Blur = 4
+        End With
+        
+        .OnAction = macroName
+        
+        On Error Resume Next
+        Randomize
+        .Name = "CoolBtn_" & Format(Now, "yyyymmddhhnnss") & "_" & Format(Int(1000000 * Rnd), "000000")
+        On Error GoTo 0
+    End With
+End Sub
+
+' =========================================================
+' ① Python本体と必要なコンポーネントをインストールするマクロ（修正版）
+' ・Python 3 の検出は py -3（ランチャーで 3 系を明示）
+' ・未導入時: winget（Python.Python.3.12）→ 失敗時は公式 amd64 インストーラ
+' ・pip は PowerShell 内で Machine/User の PATH を再合成（Excel 起動後でも py を拾いやすく）
+' ・必須 pip: pandas / openpyxl>=3.1（結果シートのリッチテキスト等）/ google-genai
+' ・xlwings: 本ブックの段階1/2 は WScript.Shell で py を起動するため planning_core 側では未使用。
+'           将来 Excel から xlwings（RunPython / UDF 等）で Python を呼ぶ拡張に備え、pip とアドインを導入する。
+' ・xlwings パッケージ後に「xlwings addin install」で Excel アドイン（xlwings.xlam）を XLSTART へ配置
+' ※公式 URL はモジュール先頭の PY_OFFICIAL_INSTALLER_URL で変更可能
+' =========================================================
+Private Function Py3VersionOutput(wsh As Object) As String
+    Dim execObj As Object
+    Dim s As String
+    Py3VersionOutput = ""
+    On Error GoTo CleanExit
+    Set execObj = wsh.Exec("cmd.exe /c py -3 --version")
+    Do While execObj.Status = 0
+        Sleep 50
+    Loop
+    s = execObj.StdOut.ReadAll()
+    If Len(Trim$(s)) = 0 Then s = execObj.StdErr.ReadAll()
+    Py3VersionOutput = s
+CleanExit:
+End Function
+
+Private Function IsPython3Available(wsh As Object) As Boolean
+    Dim s As String
+    s = Py3VersionOutput(wsh)
+    IsPython3Available = (InStr(1, s, "Python 3", vbTextCompare) > 0)
+End Function
+
+Private Function TryInstallPythonViaWinget(wsh As Object) As Boolean
+    On Error GoTo Fail
+    wsh.Run "cmd.exe /c winget install -e --id Python.Python.3.12 --silent --accept-package-agreements --accept-source-agreements", 1, True
+    TryInstallPythonViaWinget = True
+    Exit Function
+Fail:
+    TryInstallPythonViaWinget = False
+End Function
+
+Private Function TryInstallPythonViaOfficialInstaller(wsh As Object) As Boolean
+    Dim psCmd As String
+    Dim shellCmd As String
+    Dim exitCode As Long
+    On Error GoTo Fail
+    psCmd = "powershell -NoProfile -ExecutionPolicy Bypass -Command """ & _
+            "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; " & _
+            "$url = '" & PY_OFFICIAL_INSTALLER_URL & "'; " & _
+            "$out = Join-Path $env:TEMP 'python_official_installer.exe'; " & _
+            "Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing; " & _
+            "if ((Get-Item $out).Length -lt 1MB) { throw 'ダウンロードに失敗した可能性があります' }; " & _
+            "$p = Start-Process -FilePath $out -ArgumentList '/quiet InstallAllUsers=1 PrependPath=1 Include_test=0 Include_pip=1 Include_launcher=1' -Wait -PassThru; " & _
+            "Remove-Item $out -ErrorAction SilentlyContinue; " & _
+            "exit $p.ExitCode"""
+    shellCmd = "cmd.exe /c " & psCmd
+    exitCode = wsh.Run(shellCmd, 1, True)
+    TryInstallPythonViaOfficialInstaller = (exitCode = 0)
+    Exit Function
+Fail:
+    TryInstallPythonViaOfficialInstaller = False
+End Function
+
+Private Function RunPipInstallWithRefreshedPath(wsh As Object) As Long
+    Dim ps As String
+    Dim shellCmd As String
+    ' pip 後に xlwings CLI で addin install。PATH に xlwings が無いときは pip show の Location から Scripts\xlwings.exe を特定。
+    ps = "$env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User'); " & _
+         "$py = Get-Command py -ErrorAction SilentlyContinue; " & _
+         "if (-not $py) { Write-Error 'py が見つかりません。Excel を一度終了してから再実行するか、PATH を確認してください。'; exit 91 }; " & _
+         "& py -3 -m pip install --upgrade pip; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; " & _
+         "& py -3 -m pip install --upgrade pandas 'openpyxl>=3.1' google-genai xlwings; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; " & _
+         "$xcmd = Get-Command xlwings -ErrorAction SilentlyContinue; " & _
+         "if ($xcmd) { & xlwings addin install } else { " & _
+         "$loc = $null; foreach ($line in (& py -3 -m pip show xlwings 2>$null)) { if ($line -match '^Location:\s*(.+)$') { $loc = $matches[1].Trim(); break } }; " & _
+         "if (-not $loc) { Write-Error 'xlwings の pip Location を取得できませんでした。'; exit 93 }; " & _
+         "$pyRoot = Split-Path (Split-Path $loc); $xexe = Join-Path $pyRoot 'Scripts\xlwings.exe'; " & _
+         "if (-not (Test-Path -LiteralPath $xexe)) { Write-Error ('xlwings.exe が見つかりません: ' + $xexe); exit 94 }; " & _
+         "& $xexe addin install }; " & _
+         "if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; exit 0"
+    shellCmd = "powershell -NoProfile -ExecutionPolicy Bypass -Command " & Chr(34) & ps & Chr(34)
+    RunPipInstallWithRefreshedPath = wsh.Run(shellCmd, 1, True)
+End Function
+
+Sub InstallComponents()
+    Dim wsh As Object
+    Dim wingetExit As Long
+    Dim pipExit As Long
+    Dim msg As String
+    
+    Set wsh = CreateObject("WScript.Shell")
+    
+    If Not IsPython3Available(wsh) Then
+        MsgBox "Python 3（py -3）が見つかりません。" & vbCrLf & _
+               "自動インストールを開始します（winget → 失敗時は python.org のインストーラ）。" & vbCrLf & _
+               "管理者権限や UAC の承認が求められる場合があります。数分かかることがあります。", vbInformation
+        
+        On Error Resume Next
+        wingetExit = wsh.Run("cmd.exe /c winget --version", 0, True)
+        On Error GoTo 0
+        
+        If wingetExit = 0 Then
+            Call TryInstallPythonViaWinget(wsh)
+        End If
+        
+        If Not IsPython3Available(wsh) Then
+            If Not TryInstallPythonViaOfficialInstaller(wsh) Then
+                MsgBox "公式インストーラによるセットアップに失敗しました。" & vbCrLf & _
+                       "https://www.python.org/downloads/windows/ から Python 3.12 をインストール（Add python.exe to PATH）後、本マクロを再実行してください。", vbCritical
+                Exit Sub
+            End If
+        End If
+        
+        If Not IsPython3Available(wsh) Then
+            MsgBox "インストール後も py -3 を認識できませんでした。" & vbCrLf & _
+                   "Excel をいったん終了し、再起動してから再度「環境構築」を実行してください。", vbExclamation
+            Exit Sub
+        End If
+        
+        msg = Trim$(Py3VersionOutput(wsh))
+        MsgBox "Python を検出しました: " & Left$(msg, 120) & vbCrLf & _
+               "続いて pip でライブラリをインストールします。", vbInformation
+    End If
+    
+    pipExit = RunPipInstallWithRefreshedPath(wsh)
+    If pipExit <> 0 Then
+        MsgBox "pip / xlwings アドインの実行に失敗しました（exitCode=" & CStr(pipExit) & "）。" & vbCrLf & _
+               "管理者権限の cmd で次を試すか、Excel を終了してから再実行してください。" & vbCrLf & _
+               "py -3 -m pip install --upgrade pip" & vbCrLf & _
+               "py -3 -m pip install --upgrade pandas ""openpyxl>=3.1"" google-genai xlwings" & vbCrLf & _
+               "xlwings addin install", vbCritical
+        Exit Sub
+    End If
+    
+    MsgBox "すべてのコンポーネントの準備が完了しました！" & vbCrLf & vbCrLf & _
+           "xlwings のリボンが見えない場合は、Excel をいったん終了してから再度開いてください。", vbInformation
+End Sub
+
+' =========================================================
+' 【補助】Python planning_core 用 Gemini 認証
+' シート「設定」B1 に認証 JSON のフルパス。平文または暗号化 JSON（encrypt_gemini_credentials.py）。
+' 暗号化時の復号パスフレーズは planning_core 内で固定。gemini_credentials.example.json 参照。
+' =========================================================
+Private Function GeminiCredentialsJsonPathIsConfigured() As Boolean
+    Dim rng As Range
+    GeminiCredentialsJsonPathIsConfigured = False
+    On Error Resume Next
+    Set rng = ThisWorkbook.Worksheets(SHEET_SETTINGS).Range("B1")
+    If Err.Number = 0 And Not rng Is Nothing Then
+        If Len(Trim$(CStr(rng.Value))) > 0 Then
+            GeminiCredentialsJsonPathIsConfigured = True
+        End If
+    End If
+    On Error GoTo 0
+End Function
+
+' =========================================================
+' Power Query / データ接続の更新（マクロ処理の先頭で呼ぶ）
+' ※ Application.CalculateUntilAsyncQueriesDone は非同期クエリが完了しないと戻らず
+'    Excel がフリーズしたように見えることがあるため呼びません。
+'    RefreshAll により同期クエリは完了します。
+' =========================================================
+Private Function TryRefreshWorkbookQueries() As Boolean
+    Dim prevSU As Boolean
+    On Error GoTo EH
+    prevSU = Application.ScreenUpdating
+    Application.ScreenUpdating = False
+    If SKIP_WORKBOOK_REFRESH_ALL Then
+        Application.StatusBar = "（SKIP_WORKBOOK_REFRESH_ALL）接続の一括更新を省略しました"
+        DoEvents
+        Application.StatusBar = False
+    Else
+        Application.StatusBar = "データ接続を更新しています（完了までお待ちください）..."
+        DoEvents
+        ThisWorkbook.RefreshAll
+        Application.StatusBar = False
+    End If
+    Application.ScreenUpdating = prevSU
+    TryRefreshWorkbookQueries = True
+    Exit Function
+EH:
+    Application.StatusBar = False
+    Application.ScreenUpdating = prevSU
+    MsgBox "データの更新（Power Query / 接続）でエラーが発生しました。" & vbCrLf & Err.Description, vbExclamation, "クエリ更新"
+    TryRefreshWorkbookQueries = False
+End Function
+
+' Python の execution_log は UTF-8(BOM 付き)。cmd の 2>&1 リダイレクトは環境で Shift_JIS になりがちなので BOM で切り替える。
+Private Function FileHasUtf8Bom(ByVal filePath As String) As Boolean
+    Dim ff As Integer
+    Dim b1 As Byte, b2 As Byte, b3 As Byte
+    On Error GoTo CleanFail
+    If Len(Dir(filePath)) = 0 Then FileHasUtf8Bom = False: Exit Function
+    ff = FreeFile
+    Open filePath For Binary Access Read As #ff
+    Get #ff, 1, b1
+    Get #ff, 2, b2
+    Get #ff, 3, b3
+    Close #ff
+    FileHasUtf8Bom = (b1 = &HEF And b2 = &HBB And b3 = &HBF)
+    Exit Function
+CleanFail:
+    On Error Resume Next
+    If ff <> 0 Then Close #ff
+    FileHasUtf8Bom = False
+End Function
+
+Private Function ReadTextFileWithCharset(ByVal filePath As String, ByVal charset As String) As String
+    Dim stm As Object
+    Set stm = CreateObject("ADODB.Stream")
+    stm.Type = 2
+    stm.Charset = charset
+    stm.Open
+    stm.LoadFromFile filePath
+    ReadTextFileWithCharset = stm.ReadText
+    stm.Close
+    Set stm = Nothing
+End Function
+
+' cmd.exe が生成した capture ログ用（UTF-8 BOM が無ければ日本語環境では Shift_JIS として読む）
+Private Function ReadCmdCaptureLogText(ByVal filePath As String) As String
+    On Error GoTo EH
+    If Len(Dir(filePath)) = 0 Then Exit Function
+    If FileHasUtf8Bom(filePath) Then
+        ReadCmdCaptureLogText = ReadTextFileWithCharset(filePath, "utf-8")
+    Else
+        ReadCmdCaptureLogText = ReadTextFileWithCharset(filePath, "Windows-932")
+    End If
+    Exit Function
+EH:
+    ReadCmdCaptureLogText = ""
+End Function
+
+' Excel で式として解釈される先頭 "=" を文字列として保持する
+Private Function EscapeExcelFormulaText(ByVal s As String) As String
+    If Len(s) > 0 Then
+        If Left$(s, 1) = "=" Then
+            EscapeExcelFormulaText = "'" & s
+            Exit Function
+        End If
+    End If
+    EscapeExcelFormulaText = s
+End Function
+
+' 段階2 完了後: 特別指定_備考用 Gemini のプロンプト・応答ログを LOG_AI シートに転記（pause の代わりにブック内で確認）
+Private Sub LOG_AIシートへ特別指定Geminiファイルを反映(ByVal targetDir As String)
+    Const SH_LOG_AI As String = "LOG_AI"
+    Const MAX_CELL As Long = 32700
+    Dim ws As Worksheet
+    Dim wasProtected As Boolean
+    Dim promptPath As String
+    Dim remarkPath As String
+    Dim fileBody As String
+    Dim lines() As String
+    Dim r As Long
+    Dim i As Long
+    
+    promptPath = targetDir & "\log\ai_task_special_last_prompt.txt"
+    remarkPath = targetDir & "\log\ai_task_special_remark_last.txt"
+    
+    ' ※呼び出し元で On Error Resume Next の直後だと Err が残っていることがある。
+    ' Set ws = Worksheets(...) 成功時も Err は自動クリアされないため、
+    ' Err.Number 判定で「無い」と誤認し別シートへ書くと LOG_AI が空のままになる。
+    Set ws = Nothing
+    Err.Clear
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(SH_LOG_AI)
+    On Error GoTo 0
+    If ws Is Nothing Then
+        Set ws = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        On Error Resume Next
+        ws.Name = SH_LOG_AI
+        On Error GoTo 0
+    End If
+    If ws Is Nothing Then Exit Sub
+
+    ' 保護シートだと Cells(...).Value で 1004 になるため、書き込み前に解除（再保護はしない）
+    wasProtected = ws.ProtectContents
+    If wasProtected Then
+        On Error Resume Next
+        ws.Unprotect
+        On Error GoTo 0
+        If ws.ProtectContents Then
+            MsgBox "LOG_AI シートが保護されているため、AIログを書き込めません。保護を解除してください。", vbExclamation
+            Exit Sub
+        End If
+    End If
+    
+    ws.Cells.Clear
+    r = 1
+    
+    ws.Cells(r, 1).Value = "[log\ai_task_special_last_prompt.txt]"
+    ws.Cells(r, 1).Font.Bold = True
+    r = r + 1
+    If Len(Dir(promptPath)) > 0 Then
+        fileBody = ReadTextFileWithCharset(promptPath, "utf-8")
+        fileBody = Replace(fileBody, vbCrLf, vbLf)
+        lines = Split(fileBody, vbLf)
+        For i = LBound(lines) To UBound(lines)
+            If Len(lines(i)) > MAX_CELL Then
+                ws.Cells(r, 1).Value = EscapeExcelFormulaText(Left$(lines(i), MAX_CELL) & "…(切り詰め)")
+            Else
+                ws.Cells(r, 1).Value = EscapeExcelFormulaText(lines(i))
+            End If
+            r = r + 1
+        Next i
+    Else
+        ws.Cells(r, 1).Value = "(ファイルなし: " & promptPath & ")"
+        r = r + 1
+    End If
+    
+    r = r + 1
+    ws.Cells(r, 1).Value = "[log\ai_task_special_remark_last.txt]"
+    ws.Cells(r, 1).Font.Bold = True
+    r = r + 1
+    If Len(Dir(remarkPath)) > 0 Then
+        fileBody = ReadTextFileWithCharset(remarkPath, "utf-8")
+        fileBody = Replace(fileBody, vbCrLf, vbLf)
+        lines = Split(fileBody, vbLf)
+        For i = LBound(lines) To UBound(lines)
+            If Len(lines(i)) > MAX_CELL Then
+                ws.Cells(r, 1).Value = EscapeExcelFormulaText(Left$(lines(i), MAX_CELL) & "…(切り詰め)")
+            Else
+                ws.Cells(r, 1).Value = EscapeExcelFormulaText(lines(i))
+            End If
+            r = r + 1
+        Next i
+    Else
+        ws.Cells(r, 1).Value = "(ファイルなし: " & remarkPath & ")"
+        r = r + 1
+    End If
+    
+    ws.Columns(1).ColumnWidth = 100
+End Sub
+
+' =========================================================
+' 設定_配台不要工程: シートの新規作成と見出し行のみ VBA（Python は工程+機械行の同期・AI・保存）
+' 手動で空シートだけ用意したい場合も本マクロを実行可。
+' =========================================================
+Public Sub 設定_配台不要工程_シートを確保()
+    Dim ws As Worksheet
+    Dim sh As Worksheet
+    Dim prevDA As Boolean
+
+    On Error GoTo ErrHandler
+    prevDA = Application.DisplayAlerts
+    Application.DisplayAlerts = False
+
+    Set ws = Nothing
+    For Each sh In ThisWorkbook.Worksheets
+        If StrComp(sh.Name, SHEET_EXCLUDE_ASSIGNMENT, vbBinaryCompare) = 0 Then
+            Set ws = sh
+            Exit For
+        End If
+    Next sh
+
+    If ws Is Nothing Then
+        Set ws = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(ThisWorkbook.Worksheets.Count))
+        ws.Name = SHEET_EXCLUDE_ASSIGNMENT
+    End If
+
+    If StrComp(ws.Name, SHEET_EXCLUDE_ASSIGNMENT, vbBinaryCompare) <> 0 Then
+        Err.Raise vbObjectError + 524, , "シート名を「" & SHEET_EXCLUDE_ASSIGNMENT & "」にできません（現在の名前: " & ws.Name & "）。同名シートや禁則文字を確認してください。"
+    End If
+
+    ' 非常に非表示のシートはタブに出ないため、確保時に必ず表示へ戻す
+    ws.Visible = xlSheetVisible
+
+    ' 1 行目は常に planning_core と同一見出し（空・不一致でも確実に揃える）
+    ws.Cells(1, 1).Value = "工程名"
+    ws.Cells(1, 2).Value = "機械名"
+    ws.Cells(1, 3).Value = "配台不要"
+    ws.Cells(1, 4).Value = "配台不能ロジック"
+    ws.Cells(1, 5).Value = "ロジック式"
+
+    Application.DisplayAlerts = prevDA
+    Exit Sub
+ErrHandler:
+    Application.DisplayAlerts = prevDA
+    Err.Raise Err.Number, Err.Source, Err.Description
+End Sub
+
+' =========================================================
+' Python が出力した log\exclude_rules_e_column_vba.tsv から E 列（ロジック式）を書き込む。
+' COM は A〜D のみ同期するため、段階1/段階2 の Python 直後に呼ぶ。
+' =========================================================
+Private Function NormalizeWorkbookPathForCompare(ByVal p As String) As String
+    NormalizeWorkbookPathForCompare = LCase$(Replace(Replace(Trim$(p), "/", "\"), vbTab, ""))
+End Function
+
+' NodeTypedValue は Variant（Byte 配列）のため、引数は Variant にしてから Byte() へ代入する。
+Private Function Utf8BytesToString(ByVal data As Variant) As String
+    Dim stm As Object
+    Dim bytes() As Byte
+    On Error GoTo CleanFail
+    bytes = data
+    Set stm = CreateObject("ADODB.Stream")
+    stm.Type = 1
+    stm.Open
+    stm.Write bytes
+    stm.Position = 0
+    stm.Type = 2
+    stm.Charset = "UTF-8"
+    Utf8BytesToString = stm.ReadText
+    stm.Close
+    Exit Function
+CleanFail:
+    Utf8BytesToString = ""
+End Function
+
+Private Function DecodeBase64Utf8(ByVal b64 As String) As String
+    On Error GoTo Fail
+    Dim xml As Object, node As Object
+    Set xml = CreateObject("MSXML2.DOMDocument.6.0")
+    Set node = xml.createElement("b64")
+    node.DataType = "bin.base64"
+    node.Text = b64
+    DecodeBase64Utf8 = Utf8BytesToString(node.NodeTypedValue)
+    Exit Function
+Fail:
+    On Error GoTo Fail2
+    Set xml = CreateObject("MSXML2.DOMDocument.3.0")
+    Set node = xml.createElement("b64")
+    node.DataType = "bin.base64"
+    node.Text = b64
+    DecodeBase64Utf8 = Utf8BytesToString(node.NodeTypedValue)
+    Exit Function
+Fail2:
+    DecodeBase64Utf8 = ""
+End Function
+
+Public Sub 設定_配台不要工程_E列_TSVから反映()
+    Dim targetDir As String
+    Dim tsvPath As String
+    Dim jsonPath As String
+    Dim stm As Object
+    Dim text As String
+    Dim lines() As String
+    Dim i As Long
+    Dim hdrEnd As Long
+    Dim ln As String
+    Dim wbExpected As String
+    Dim colE As Long
+    Dim ws As Worksheet
+    Dim parts() As String
+    Dim rNum As Long
+    Dim cellVal As String
+
+    On Error GoTo CleanFail
+
+    targetDir = ThisWorkbook.Path
+    If Len(targetDir) = 0 Then Exit Sub
+
+    tsvPath = targetDir & "\log\exclude_rules_e_column_vba.tsv"
+    If Len(Dir(tsvPath)) = 0 Then Exit Sub
+
+    Set stm = CreateObject("ADODB.Stream")
+    stm.Charset = "UTF-8"
+    stm.Open
+    stm.LoadFromFile tsvPath
+    text = stm.ReadText
+    stm.Close
+    Set stm = Nothing
+
+    text = Replace(text, vbCrLf, vbLf)
+    lines = Split(text, vbLf)
+
+    wbExpected = ""
+    colE = 5
+    hdrEnd = -1
+    For i = LBound(lines) To UBound(lines)
+        ln = Trim$(lines(i))
+        If Len(ln) = 0 Then GoTo NextHdr
+        If ln = "---" Then
+            hdrEnd = i
+            Exit For
+        End If
+        If Left$(ln, 9) = "workbook" & vbTab Then wbExpected = Mid$(ln, 10)
+        If Left$(ln, 9) = "column_e" & vbTab Then colE = CLng(Trim$(Mid$(ln, 10)))
+NextHdr:
+    Next i
+
+    If hdrEnd < 0 Then Exit Sub
+    If Len(wbExpected) = 0 Then Exit Sub
+    If NormalizeWorkbookPathForCompare(wbExpected) <> NormalizeWorkbookPathForCompare(ThisWorkbook.FullName) Then Exit Sub
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(SHEET_EXCLUDE_ASSIGNMENT)
+    On Error GoTo CleanFail
+    If ws Is Nothing Then Exit Sub
+
+    For i = hdrEnd + 1 To UBound(lines)
+        ln = lines(i)
+        If Len(Trim$(ln)) = 0 Then GoTo NextData
+        parts = Split(ln, vbTab)
+        If UBound(parts) < 1 Then GoTo NextData
+        On Error GoTo NextData
+        rNum = CLng(Trim$(parts(0)))
+        cellVal = DecodeBase64Utf8(Trim$(parts(1)))
+        On Error GoTo CleanFail
+        If rNum >= 2 And Len(cellVal) > 0 Then ws.Cells(rNum, colE).Value = cellVal
+NextData:
+    Next i
+
+    On Error Resume Next
+    Kill tsvPath
+    jsonPath = targetDir & "\log\exclude_rules_e_column_pending.json"
+    Kill jsonPath
+    On Error GoTo 0
+
+    On Error Resume Next
+    ThisWorkbook.Save
+    On Error GoTo 0
+    Exit Sub
+CleanFail:
+    On Error Resume Next
+    Set stm = Nothing
+    On Error GoTo 0
+End Sub
+
+' =========================================================
+' Python が出力した log\exclude_rules_matrix_vba.tsv から
+' 「設定_配台不要工程」の A〜E を書き込む（ブックが Excel で開いたまま openpyxl が保存できないとき）。
+' =========================================================
+Public Sub 設定_配台不要工程_AからE_TSVから反映()
+    Dim targetDir As String
+    Dim matrixPath As String
+    Dim stm As Object
+    Dim text As String
+    Dim lines() As String
+    Dim i As Long
+    Dim hdrEnd As Long
+    Dim ln As String
+    Dim wbExpected As String
+    Dim ws As Worksheet
+    Dim parts() As String
+    Dim rNum As Long
+    Dim c As Long
+    Dim cellTxt As String
+    Dim jsonPath As String
+    Dim tsvEPath As String
+
+    On Error GoTo MatrixFail
+
+    targetDir = ThisWorkbook.Path
+    If Len(targetDir) = 0 Then Exit Sub
+
+    matrixPath = targetDir & "\log\exclude_rules_matrix_vba.tsv"
+    If Len(Dir(matrixPath)) = 0 Then Exit Sub
+
+    Set stm = CreateObject("ADODB.Stream")
+    stm.Charset = "UTF-8"
+    stm.Open
+    stm.LoadFromFile matrixPath
+    text = stm.ReadText
+    stm.Close
+    Set stm = Nothing
+
+    text = Replace(text, vbCrLf, vbLf)
+    lines = Split(text, vbLf)
+
+    wbExpected = ""
+    hdrEnd = -1
+    For i = LBound(lines) To UBound(lines)
+        ln = Trim$(lines(i))
+        If Len(ln) = 0 Then GoTo NextHdrM
+        If ln = "---" Then
+            hdrEnd = i
+            Exit For
+        End If
+        If Left$(ln, 9) = "workbook" & vbTab Then wbExpected = Mid$(ln, 10)
+NextHdrM:
+    Next i
+
+    If hdrEnd < 0 Then Exit Sub
+    If Len(wbExpected) = 0 Then Exit Sub
+    If NormalizeWorkbookPathForCompare(wbExpected) <> NormalizeWorkbookPathForCompare(ThisWorkbook.FullName) Then Exit Sub
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(SHEET_EXCLUDE_ASSIGNMENT)
+    On Error GoTo MatrixFail
+    If ws Is Nothing Then Exit Sub
+
+    For i = hdrEnd + 1 To UBound(lines)
+        ln = lines(i)
+        If Len(Trim$(ln)) = 0 Then GoTo NextRowM
+        parts = Split(ln, vbTab)
+        If UBound(parts) < 5 Then GoTo NextRowM
+        On Error GoTo NextRowM
+        rNum = CLng(Trim$(parts(0)))
+        On Error GoTo MatrixFail
+        If rNum < 1 Then GoTo NextRowM
+        For c = 1 To 5
+            cellTxt = DecodeBase64Utf8(Trim$(parts(c)))
+            If Len(cellTxt) = 0 Then
+                ws.Cells(rNum, c).ClearContents
+            Else
+                ws.Cells(rNum, c).Value = cellTxt
+            End If
+        Next c
+NextRowM:
+    Next i
+
+    On Error Resume Next
+    Kill matrixPath
+    tsvEPath = targetDir & "\log\exclude_rules_e_column_vba.tsv"
+    Kill tsvEPath
+    jsonPath = targetDir & "\log\exclude_rules_e_column_pending.json"
+    Kill jsonPath
+    On Error GoTo 0
+
+    On Error Resume Next
+    ThisWorkbook.Save
+    On Error GoTo 0
+    Exit Sub
+MatrixFail:
+    On Error Resume Next
+    Set stm = Nothing
+    On Error GoTo 0
+End Sub
+
+' =========================================================
+' 段階1コア: task_extract_stage1.py → plan_input_tasks.xlsx →「配台計画_タスク入力」取込
+' MsgBox は出さない。m_lastStage1ExitCode / m_lastStage1ErrMsg を参照（クエリ更新失敗時は TryRefresh 側で既に表示）
+' =========================================================
+Private Sub 段階1_コア実行()
+    Dim wsh As Object
+    Dim cmd As String
+    Dim targetDir As String
+    Dim wsLog As Worksheet
+    Dim logFilePath As String
+    Dim exitCode As Long
+    Dim prevScreenUpdating As Boolean
+    Dim prevDisplayAlerts As Boolean
+    Dim adoStream As Object
+    Dim outputText As String
+    Dim logLines() As String
+    Dim i As Long
+    Dim warnRow As Long
+
+    On Error GoTo ErrStage1
+    m_lastStage1ExitCode = -1
+    m_lastStage1ErrMsg = ""
+
+    prevScreenUpdating = Application.ScreenUpdating
+    prevDisplayAlerts = Application.DisplayAlerts
+    targetDir = ThisWorkbook.Path
+    If targetDir = "" Then
+        m_lastStage1ErrMsg = "先にこのExcelファイルを保存してください。"
+        Exit Sub
+    End If
+
+    ' 接続更新より先に設定シートを確保（Refresh で止まる・失敗して Exit したとき無言でシート未作成になるのを防ぐ）
+    設定_配台不要工程_シートを確保
+
+    If Not TryRefreshWorkbookQueries() Then
+        m_lastStage1ErrMsg = "データ接続の更新に失敗したため段階1を中断しました。（「設定_配台不要工程」シートは作成済みの可能性があります）"
+        Exit Sub
+    End If
+
+    Application.StatusBar = "ブックを保存しています..."
+    DoEvents
+    On Error Resume Next
+    ThisWorkbook.Save
+    Application.StatusBar = False
+    On Error GoTo ErrStage1
+
+    On Error Resume Next
+    Set wsLog = ThisWorkbook.Sheets("LOG")
+    On Error GoTo ErrStage1
+    If wsLog Is Nothing Then
+        m_lastStage1ErrMsg = "「LOG」シートが見つかりません。"
+        Exit Sub
+    End If
+
+    wsLog.Cells.Clear
+    wsLog.Cells(1, 1).Value = "実行ブック: " & ThisWorkbook.FullName
+    If Not GeminiCredentialsJsonPathIsConfigured() Then
+        wsLog.Cells(1, 2).Value = "【要設定】シート「設定」B1 に Gemini 認証 JSON のフルパス（例: Z:\社内\gemini_credentials.json）。gemini_credentials.example.json 参照。"
+    End If
+    Set wsh = CreateObject("WScript.Shell")
+    wsh.Environment("Process")("TASK_INPUT_WORKBOOK") = ThisWorkbook.FullName
+
+    On Error Resume Next
+    Kill targetDir & "\log\execution_log.txt"
+    On Error GoTo ErrStage1
+
+    wsh.CurrentDirectory = Environ("TEMP")
+    cmd = "cmd.exe /c pushd """ & targetDir & """ && chcp 65001>nul && echo [段階1] Python を実行しています...  LOGシート・log\execution_log.txt でも確認できます && py -u task_extract_stage1.py" _
+        & " & echo. & echo [段階1] 終了 ERRORLEVEL=%ERRORLEVEL%"
+    exitCode = wsh.Run(cmd, 1, True)
+    m_lastStage1ExitCode = exitCode
+
+    ' Gemini サマリ・設定シートは planning_core が openpyxl で保存（ブックが閉じているとき）。
+    ' Excel で開いたままのときは log の TSV/テキストをマクロで反映する。
+    On Error Resume Next
+    Call 設定_配台不要工程_AからE_TSVから反映
+    Call 設定_配台不要工程_E列_TSVから反映
+    Call メインシート_Gemini利用サマリをP列に反映(targetDir)
+    On Error GoTo ErrStage1
+
+    logFilePath = targetDir & "\log\execution_log.txt"
+    If Len(Dir(logFilePath)) = 0 Then
+        wsLog.Range("A2").Value = "execution_log.txt が見つかりませんでした。exitCode=" & CStr(exitCode)
+    Else
+        Set adoStream = CreateObject("ADODB.Stream")
+        adoStream.Charset = "UTF-8"
+        adoStream.Open
+        adoStream.LoadFromFile logFilePath
+        outputText = adoStream.ReadText
+        adoStream.Close
+        Set adoStream = Nothing
+        outputText = Replace(outputText, vbCrLf, vbLf)
+        logLines = Split(outputText, vbLf)
+        Application.ScreenUpdating = False
+        For i = LBound(logLines) To UBound(logLines)
+            wsLog.Cells(i + 2, 1).Value = logLines(i)
+        Next i
+        If exitCode <> 0 Then
+            warnRow = UBound(logLines) - LBound(logLines) + 3
+            If warnRow < 1 Then warnRow = 2
+            wsLog.Cells(warnRow, 1).Value = "■ Pythonの終了コード: " & CStr(exitCode) & " （詳細は上記ログ参照）"
+        End If
+    End If
+
+    If Not ImportPlanInputTasksFromOutput(targetDir) Then
+        m_lastStage1ExitCode = -1
+        Exit Sub
+    End If
+    On Error Resume Next
+    配台計画_タスク入力を前へ並べ替え
+    配台計画_タスク入力_A1を選択
+    On Error GoTo 0
+
+    Application.ScreenUpdating = prevScreenUpdating
+    Application.DisplayAlerts = prevDisplayAlerts
+    On Error Resume Next
+    ThisWorkbook.Save
+    On Error GoTo 0
+    Exit Sub
+
+ErrStage1:
+    m_lastStage1ExitCode = -1
+    m_lastStage1ErrMsg = "段階1: " & Err.Description
+    Application.StatusBar = False
+    Application.ScreenUpdating = prevScreenUpdating
+    Application.DisplayAlerts = prevDisplayAlerts
+End Sub
+
+' 互換・他モジュール用: 段階1のみ（完了・エラー MsgBox あり）
+Public Sub RunPythonStage1()
+    段階1_コア実行
+    If m_lastStage1ExitCode < 0 Then
+        If Len(m_lastStage1ErrMsg) > 0 Then MsgBox m_lastStage1ErrMsg, vbExclamation, "段階1"
+        Exit Sub
+    End If
+    If m_lastStage1ExitCode <> 0 Then
+        MsgBox "段階1の Python 終了コードが " & CStr(m_lastStage1ExitCode) & " です。" & vbCrLf & "LOG シート・log\execution_log.txt を確認してください。", vbExclamation, "段階1"
+        Exit Sub
+    End If
+    MsgBox "段階1が完了しました。「配台計画_タスク入力」を編集後、計画生成（段階2）を実行してください。", vbInformation, "段階1"
+End Sub
+
+' 互換: 段階1→段階2（完了ダイアログは段階2の取り込み結果のみ）
+Public Sub RunPythonStage1ThenStage2()
+    段階1_コア実行
+    If m_lastStage1ExitCode < 0 Then
+        If Len(m_lastStage1ErrMsg) > 0 Then MsgBox m_lastStage1ErrMsg, vbExclamation, "段階1+2"
+        Exit Sub
+    End If
+    If m_lastStage1ExitCode <> 0 Then
+        MsgBox "段階1の Python 終了コードが " & CStr(m_lastStage1ExitCode) & " のため、段階2は実行しません。" & vbCrLf & "LOG シート・log\execution_log.txt を確認してください。", vbExclamation, "段階1+2"
+        Exit Sub
+    End If
+    段階2_コア実行 True
+    If Len(m_lastStage2ErrMsg) > 0 Then
+        MsgBox m_lastStage2ErrMsg, vbCritical, "段階1+2"
+        Exit Sub
+    End If
+    段階2_取り込み結果をMsgBox
+End Sub
+
+' 段階1取り込み前: 既存「配台計画_タスク入力」のフォント（名・サイズ）を退避（Clear で消えるため）
+Private Sub 配台計画_タスク入力_既存シートの基準フォントを取得( _
+    ByVal ws As Worksheet, _
+    ByRef fontName As String, _
+    ByRef fontSize As Double, _
+    ByRef haveFont As Boolean)
+    Dim r As Long, c As Long
+    Dim ur As Range
+    Dim r0 As Long, c0 As Long, rMax As Long, cMax As Long
+    
+    fontName = "": fontSize = 0: haveFont = False
+    If ws Is Nothing Then Exit Sub
+    On Error Resume Next
+    Set ur = ws.UsedRange
+    On Error GoTo 0
+    If ur Is Nothing Then Exit Sub
+    
+    r0 = ur.Row
+    c0 = ur.Column
+    rMax = r0 + ur.Rows.Count - 1
+    cMax = c0 + ur.Columns.Count - 1
+    
+    ' 先頭行を見出しとみなし、その次行以降で最初の非空セルのフォントを採用
+    For r = r0 + 1 To rMax
+        For c = c0 To cMax
+            If Len(Trim$(CStr(ws.Cells(r, c).Value))) > 0 Then
+                fontName = ws.Cells(r, c).Font.Name
+                fontSize = ws.Cells(r, c).Font.Size
+                If Len(fontName) > 0 And fontSize > 0 Then
+                    haveFont = True
+                    Exit Sub
+                End If
+            End If
+        Next c
+    Next r
+    
+    On Error Resume Next
+    fontName = ws.Cells(r0, c0).Font.Name
+    fontSize = ws.Cells(r0, c0).Font.Size
+    On Error GoTo 0
+    If Len(fontName) > 0 And fontSize > 0 Then haveFont = True
+End Sub
+
+' 取り込み直後: xlsx 側の既定フォントを上書きし、退避した体裁に戻す
+Private Sub 配台計画_タスク入力_UsedRangeにフォント名とサイズを適用( _
+    ByVal ws As Worksheet, _
+    ByVal fontName As String, _
+    ByVal fontSize As Double)
+    On Error Resume Next
+    If ws Is Nothing Then Exit Sub
+    If Len(fontName) = 0 Or fontSize <= 0 Then Exit Sub
+    With ws.UsedRange.Font
+        .Name = fontName
+        .Size = fontSize
+    End With
+    On Error GoTo 0
+End Sub
+
+Private Function ImportPlanInputTasksFromOutput(ByVal targetDir As String) As Boolean
+    Const PLAN_SHEET As String = "配台計画_タスク入力"
+    Dim path As String
+    Dim srcWb As Workbook
+    Dim srcWs As Worksheet
+    Dim ws As Worksheet
+    Dim da As Boolean
+    Dim preserveFontName As String
+    Dim preserveFontSize As Double
+    Dim havePreserveFont As Boolean
+
+    path = targetDir & "\output\plan_input_tasks.xlsx"
+    If Len(Dir(path)) = 0 Then
+        m_lastStage1ErrMsg = "plan_input_tasks.xlsx が見つかりません: " & path
+        ImportPlanInputTasksFromOutput = False
+        Exit Function
+    End If
+
+    da = Application.DisplayAlerts
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = False
+
+    Set srcWb = Workbooks.Open(path)
+    Set srcWs = srcWb.Sheets(1)
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Sheets(PLAN_SHEET)
+    On Error GoTo 0
+
+    If ws Is Nothing Then
+        srcWs.Copy After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count)
+        Set ws = ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count)
+        On Error Resume Next
+        ws.Name = PLAN_SHEET
+        On Error GoTo 0
+    Else
+        preserveFontName = "": preserveFontSize = 0: havePreserveFont = False
+        配台計画_タスク入力_既存シートの基準フォントを取得 ws, preserveFontName, preserveFontSize, havePreserveFont
+        ws.Cells.Clear
+        srcWs.UsedRange.Copy Destination:=ws.Range("A1")
+    End If
+
+    srcWb.Close SaveChanges:=False
+    Set srcWb = Nothing
+
+    On Error Resume Next
+    ws.UsedRange.Columns.AutoFit
+    If havePreserveFont Then
+        配台計画_タスク入力_UsedRangeにフォント名とサイズを適用 ws, preserveFontName, preserveFontSize
+    End If
+    With ws.UsedRange.Rows(1)
+        .Font.Bold = True
+        .Interior.Color = RGB(226, 239, 218)
+    End With
+    ws.UsedRange.Borders.LineStyle = 1
+    ws.UsedRange.Borders.Weight = 2
+
+    ' 指定納期順（昇順）にソートし、オートフィルタを有効化
+    ' ※ ヘッダー行は1行目。列名は「指定納期」を想定。
+    Dim colSpecifiedDue As Long
+    Dim lastRow As Long
+    Dim lastCol As Long
+    Dim keyRange As Range
+    colSpecifiedDue = FindColHeader(ws, "指定納期")
+    If colSpecifiedDue > 0 Then
+        lastRow = ws.Cells(ws.Rows.Count, colSpecifiedDue).End(xlUp).Row
+        lastCol = ws.Cells(1, ws.Columns.Count).End(xlToLeft).Column
+        If lastRow >= 2 And lastCol >= 1 Then
+            On Error Resume Next
+            If ws.AutoFilterMode Then ws.AutoFilterMode = False
+            On Error GoTo 0
+
+            Set keyRange = ws.Range(ws.Cells(2, colSpecifiedDue), ws.Cells(lastRow, colSpecifiedDue))
+            ws.Sort.SortFields.Clear
+            ws.Sort.SortFields.Add Key:=keyRange, SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
+            With ws.Sort
+                .SetRange ws.Range(ws.Cells(1, 1), ws.Cells(lastRow, lastCol))
+                .Header = xlYes
+                .MatchCase = False
+                .Orientation = xlTopToBottom
+                .Apply
+            End With
+
+            ws.Range(ws.Cells(1, 1), ws.Cells(lastRow, lastCol)).AutoFilter
+        End If
+    End If
+    On Error GoTo 0
+
+    ' 上書き入力列に薄い黄色（Python planning_core と同系色）— 取り込み後も確実に付与
+    配台計画_タスク入力_上書き列に入力色を付与 ws
+
+    Application.DisplayAlerts = da
+    Application.ScreenUpdating = True
+    ImportPlanInputTasksFromOutput = True
+End Function
+
+' 配台計画_タスク入力シートを表示し A1 をアクティブにする（段階1取り込み・並べ替え後）
+Private Sub 配台計画_タスク入力_A1を選択()
+    Const PLAN_SHEET As String = "配台計画_タスク入力"
+    Dim ws As Worksheet
+    On Error Resume Next
+    Set ws = ThisWorkbook.Sheets(PLAN_SHEET)
+    If ws Is Nothing Then Exit Sub
+    ws.Activate
+    ws.Range("A1").Select
+    On Error GoTo 0
+End Sub
+
+' 配台計画_タスク入力: 上書き列（AI解析列を除く）のデータ行に入力用の薄黄色を付ける
+Private Sub 配台計画_タスク入力_上書き列に入力色を付与(ByVal ws As Worksheet)
+    Dim headers As Variant
+    Dim i As Long
+    Dim c As Long
+    Dim lastRow As Long
+    Dim rng As Range
+    If ws Is Nothing Then Exit Sub
+    On Error Resume Next
+    headers = Array( _
+        "配台不要", _
+        "必要人数", _
+        "必要OP人数", _
+        "加工速度_上書き", _
+        "タスク加工効率", _
+        "優先度", _
+        "指定納期_上書き", _
+        "加工開始日_指定", _
+        "加工開始時刻_指定", _
+        "担当OP_指定", _
+        "特別指定_備考")
+    lastRow = ws.UsedRange.Row + ws.UsedRange.Rows.Count - 1
+    If lastRow < 2 Then Exit Sub
+    For i = LBound(headers) To UBound(headers)
+        c = FindColHeader(ws, CStr(headers(i)))
+        If c > 0 Then
+            Set rng = ws.Range(ws.Cells(2, c), ws.Cells(lastRow, c))
+            rng.Interior.Color = RGB(255, 242, 204)
+        End If
+    Next i
+    On Error GoTo 0
+End Sub
+
+' 段階2: Python がブック保存で矛盾ハイライトを書けなかったとき、output の TSV を読み開いているシートへ適用
+Private Sub ApplyPlanningConflictHighlightSidecar()
+    Const SIDECAR As String = "planning_conflict_highlight.tsv"
+    Dim p As String
+    Dim adoStream As Object
+    Dim txt As String
+    Dim lines() As String
+    Dim i As Long
+    Dim ws As Worksheet
+    Dim sheetName As String
+    Dim numData As Long
+    Dim clearCols() As String
+    Dim headerMap As Object
+    Dim r As Long
+    Dim c As Long
+    Dim colName As Variant
+    Dim ci As Long
+    Dim oneLine As String
+    Dim parts() As String
+    Dim cn As String
+    Dim hv As Variant
+    Dim lastRow As Long
+    Dim lastCol As Long
+    Dim prevSU As Boolean
+
+    p = ThisWorkbook.Path & "\log\" & SIDECAR
+    If Len(Dir(p)) = 0 Then Exit Sub
+
+    On Error GoTo CleanFail
+
+    Set adoStream = CreateObject("ADODB.Stream")
+    adoStream.Charset = "UTF-8"
+    adoStream.Open
+    adoStream.LoadFromFile p
+    txt = adoStream.ReadText
+    adoStream.Close
+    Set adoStream = Nothing
+
+    txt = Replace(txt, vbCrLf, vbLf)
+    txt = Replace(txt, vbCr, vbLf)
+    lines = Split(txt, vbLf)
+
+    If UBound(lines) < 3 Then GoTo CleanDelete
+
+    If Trim$(lines(0)) <> "V1" Then GoTo CleanDelete
+
+    sheetName = Trim$(lines(1))
+    numData = CLng(Val(Trim$(lines(2))))
+    clearCols = Split(Trim$(lines(3)), vbTab)
+
+    Set ws = ThisWorkbook.Sheets(sheetName)
+
+    Set headerMap = CreateObject("Scripting.Dictionary")
+    lastCol = ws.Cells(1, ws.Columns.Count).End(xlToLeft).Column
+    For c = 1 To lastCol
+        hv = ws.Cells(1, c).Value
+        If Not IsError(hv) Then
+            If Not IsEmpty(hv) Then
+                headerMap(Trim$(CStr(hv))) = c
+            End If
+        End If
+    Next c
+
+    lastRow = 1 + numData
+    If lastRow < 2 Then lastRow = 2
+
+    prevSU = Application.ScreenUpdating
+    Application.ScreenUpdating = False
+
+    ' 矛盾のないセルは段階1と同じ薄黄色へ。フォントは触らない（体裁維持）。
+    ' AI解析列は黄色対象外（段階1の仕様に合わせる）
+    For r = 2 To lastRow
+        For Each colName In clearCols
+            cn = Trim$(CStr(colName))
+            If Len(cn) > 0 Then
+                If headerMap.Exists(cn) Then
+                    ci = headerMap(cn)
+                    With ws.Cells(r, ci)
+                        If StrComp(cn, "AI特別指定_解析", vbBinaryCompare) = 0 Then
+                            .Interior.Pattern = xlNone
+                        Else
+                            .Interior.Color = RGB(255, 242, 204)
+                        End If
+                    End With
+                End If
+            End If
+        Next colName
+    Next r
+
+    For i = 4 To UBound(lines)
+        oneLine = Trim$(lines(i))
+        If Len(oneLine) > 0 Then
+            parts = Split(oneLine, vbTab, 2)
+            If UBound(parts) >= 1 Then
+                r = CLng(Val(parts(0)))
+                cn = Trim$(parts(1))
+                If r >= 2 Then
+                    If headerMap.Exists(cn) Then
+                        ci = headerMap(cn)
+                        With ws.Cells(r, ci)
+                            .Interior.Color = RGB(255, 0, 0)
+                            .Font.Color = RGB(255, 255, 255)
+                            .Font.Bold = True
+                        End With
+                    End If
+                End If
+            End If
+        End If
+    Next i
+
+    Application.ScreenUpdating = prevSU
+    Kill p
+    Exit Sub
+
+CleanDelete:
+    On Error Resume Next
+    Kill p
+    Exit Sub
+
+CleanFail:
+    On Error Resume Next
+    If Not adoStream Is Nothing Then
+        adoStream.Close
+        Set adoStream = Nothing
+    End If
+    Application.ScreenUpdating = True
+End Sub
+
+' production_plan 取り込み直後: Sheets(Count) だけだと末尾が _FontPick 等の固定シートになり、
+' 実際にコピーされた「結果_*」ではなく _FontPick を参照してしまうことがある。名前優先で解決する。
+Private Function 取込ブック内のコピー先シートを取得(ByVal wb As Workbook, ByVal expectedSheetName As String) As Worksheet
+    Dim sh As Worksheet
+    Dim si As Long
+    
+    On Error Resume Next
+    Set sh = wb.Sheets(expectedSheetName)
+    On Error GoTo 0
+    If Not sh Is Nothing Then
+        Set 取込ブック内のコピー先シートを取得 = sh
+        Exit Function
+    End If
+    
+    On Error Resume Next
+    Set sh = wb.Sheets(wb.Sheets.Count)
+    On Error GoTo 0
+    
+    If Not sh Is Nothing Then
+        If StrComp(sh.Name, SCRATCH_SHEET_FONT, vbBinaryCompare) <> 0 Then
+            Set 取込ブック内のコピー先シートを取得 = sh
+            Exit Function
+        End If
+    End If
+    
+    For si = 1 To wb.Sheets.Count
+        If StrComp(wb.Sheets(si).Name, expectedSheetName, vbBinaryCompare) = 0 Then
+            Set 取込ブック内のコピー先シートを取得 = wb.Sheets(si)
+            Exit Function
+        End If
+    Next si
+    
+    Set 取込ブック内のコピー先シートを取得 = sh
+End Function
+
+' 段階2の取り込み結果を MsgBox（m_stage2PlanImported / m_stage2MemberImported を参照）
+Private Sub 段階2_取り込み結果をMsgBox()
+    If m_stage2PlanImported And m_stage2MemberImported Then
+        MsgBox "Pythonの実行が完了しました。" & vbCrLf & "計画（結果_*）と個人別スケジュール（個人_*）を取り込みました。", vbInformation, "計画生成"
+    ElseIf m_stage2PlanImported Then
+        MsgBox "Pythonの実行が完了しました。" & vbCrLf & "計画シートを取り込みました。（member_schedule_*.xlsx が見つかりませんでした）", vbInformation, "計画生成"
+    ElseIf m_stage2MemberImported Then
+        MsgBox "Pythonの実行が完了しました。" & vbCrLf & "個人別スケジュール（個人_*）のみ取り込みました。（production_plan が見つかりませんでした）", vbInformation, "計画生成"
+    Else
+        MsgBox "Pythonの実行は完了しましたが、output フォルダに計画・個人別のいずれの xlsx も見つかりませんでした。", vbExclamation, "計画生成"
+    End If
+End Sub
+
+' =========================================================
+' 段階2コア: plan_simulation_stage2.py → 結果取り込み・メイン更新
+' MsgBox は出さない。m_lastStage2ErrMsg / m_lastStage2ExitCode / m_stage2* を参照
+' preserveStage1LogOnLogSheet=True … 段階1+2 連続時。LOG に段階1ログを残してから段階2を追記
+' =========================================================
+Private Sub 段階2_コア実行(Optional ByVal preserveStage1LogOnLogSheet As Boolean = False)
+    Dim wsh As Object
+    Dim cmd As String
+    Dim outputText As String
+    Dim targetDir As String
+    Dim wsLog As Worksheet
+    Dim logLines() As String
+    Dim i As Long
+    Dim adoStream As Object
+    Dim logFilePath As String
+    Dim cmdLogPath As String
+    Dim outputFilePath As String
+    Dim exitCode As Long
+    Dim prevScreenUpdating As Boolean
+    Dim prevDisplayAlerts As Boolean
+    Dim sourceWb As Workbook
+    Dim targetWb As Workbook
+    Dim sourceWs As Worksheet
+    Dim ws As Worksheet
+    Dim sheetName As String
+    Dim memberWb As Workbook
+    Dim memberPath As String
+    Dim newSheetName As String
+    Dim planImported As Boolean
+    Dim memberImported As Boolean
+    Dim warnRow2 As Long
+    Dim preserved As Collection
+    Dim logStartRow As Long
+    Dim logWriteRow As Long
+    Dim lastLogR As Long
+    Dim r As Long
+    Dim pr As Long
+    
+    On Error GoTo ErrHandler
+    
+    m_lastStage2ErrMsg = ""
+    m_lastStage2ExitCode = -1
+    m_stage2PlanImported = False
+    m_stage2MemberImported = False
+    
+    prevScreenUpdating = Application.ScreenUpdating
+    prevDisplayAlerts = Application.DisplayAlerts
+    
+    ' 1. 現在のExcelファイルの場所を取得 (UNCパス対応のため)
+    targetDir = ThisWorkbook.Path
+    If targetDir = "" Then
+        m_lastStage2ErrMsg = "先にこのExcelファイルを保存してください。"
+        Exit Sub
+    End If
+    
+    ' 2. 「LOG」シートが存在するか確認
+    On Error Resume Next
+    Set wsLog = ThisWorkbook.Sheets("LOG")
+    On Error GoTo 0
+    If wsLog Is Nothing Then
+        m_lastStage2ErrMsg = "「LOG」シートが見つかりません。"
+        Exit Sub
+    End If
+
+    設定_配台不要工程_シートを確保
+
+    If Not TryRefreshWorkbookQueries() Then Exit Sub
+    
+    Set preserved = New Collection
+    If preserveStage1LogOnLogSheet Then
+        lastLogR = wsLog.Cells(wsLog.Rows.Count, 1).End(xlUp).Row
+        For r = 2 To lastLogR
+            preserved.Add wsLog.Cells(r, 1).Value
+        Next r
+    End If
+    
+    ' ここでLOGシートは一旦クリア（連続実行時は直前に段階1行を退避済み）
+    wsLog.Cells.Clear
+    wsLog.Cells(1, 1).Value = "実行ブック: " & ThisWorkbook.FullName
+    
+    logStartRow = 2
+    If preserveStage1LogOnLogSheet And preserved.Count > 0 Then
+        wsLog.Cells(2, 1).Value = "---- 段階1（task_extract_stage1）----"
+        logStartRow = 3
+        For pr = 1 To preserved.Count
+            wsLog.Cells(logStartRow, 1).Value = preserved(pr)
+            logStartRow = logStartRow + 1
+        Next pr
+        wsLog.Cells(logStartRow, 1).Value = "---- 段階2（plan_simulation_stage2）----"
+        logStartRow = logStartRow + 1
+    End If
+    
+    Set wsh = CreateObject("WScript.Shell")
+    
+    If Not GeminiCredentialsJsonPathIsConfigured() Then
+        wsLog.Cells(1, 2).Value = "【要設定】シート「設定」B1 に Gemini 認証 JSON のフルパス（例: Z:\社内\gemini_credentials.json）。gemini_credentials.example.json 参照。"
+    End If
+
+    ' タスク入力：TASK_INPUT_WORKBOOK でブックパスを渡す
+    ' 段階2(plan_simulation_stage2.py) は「配台計画_タスク入力」シートを読みます
+    ' 任意: シート「列設定_結果_タスク一覧」（列名・表示）で結果_タスク一覧の列順と表示/非表示を変更可。
+    '       表示=FALSE の列は結果シートで列非表示。マクロ「列設定_結果_タスク一覧_チェックボックスを配置」でチェックボックスを表示列(B)に連動可能。
+    wsh.Environment("Process")("TASK_INPUT_WORKBOOK") = ThisWorkbook.FullName
+    
+    ' ★修正：削除対象のログファイルのパスを output フォルダ配下に変更
+    On Error Resume Next
+    Kill targetDir & "\log\execution_log.txt"
+    Kill targetDir & "\log\cmd_stage2.log"
+    On Error GoTo 0
+    
+    ' ---------------------------------------------------------
+    ' 【重要】UNCパス警告を回避する確実な方法
+    ' ---------------------------------------------------------
+    ' ① コマンドプロンプトが起動する瞬間の警告を防ぐため、裏で一時フォルダを指定
+    wsh.CurrentDirectory = Environ("TEMP")
+    
+    ' 段階2: Python は TASK_INPUT_WORKBOOK のディスク上のファイルを読むため、
+    ' 未保存の「配台計画_タスク入力」等が反映されないのを防ぐ
+    Application.StatusBar = "ブックを保存しています..."
+    DoEvents
+    ThisWorkbook.Save
+    Application.StatusBar = False
+    
+    ' ② 「pushd」コマンドを使用し、UNCパスに一時的なドライブ文字を割り当てて確実に移動してからPythonを実行する
+    ' リダイレクトは付けない（付けるとコンソールが真っ黒になる）。ログは Python が execution_log.txt にも出力する。
+    cmdLogPath = targetDir & "\log\cmd_stage2.log"
+    cmd = "cmd.exe /c pushd """ & targetDir & """ && chcp 65001>nul && echo [段階2] 計画生成を実行中... 進捗はこの画面に表示されます。保存済みログ: log\execution_log.txt && py -u plan_simulation_stage2.py" _
+        & " & echo. & echo [段階2] 終了 ERRORLEVEL=%ERRORLEVEL%"
+    
+    ' 4. コマンドプロンプトを表示＆完了まで待機（モーダル化）
+    ' 第2引数(1) = 通常のウィンドウを表示、第3引数(True) = 処理が終わるまでVBAを停止して待つ
+    exitCode = wsh.Run(cmd, 1, True)
+    m_lastStage2ExitCode = exitCode
+
+    ' Gemini サマリ・設定シートは Python が openpyxl で保存を試みる。開きっぱなし時は log をマクロで反映。
+    On Error Resume Next
+    Call 設定_配台不要工程_AからE_TSVから反映
+    Call 設定_配台不要工程_E列_TSVから反映
+    Call メインシート_Gemini利用サマリをP列に反映(targetDir)
+    On Error GoTo ErrHandler
+    
+    LOG_AIシートへ特別指定Geminiファイルを反映 targetDir
+    
+    ' 5. Python側で生成したログファイル(UTF-8)を読み込む
+    logFilePath = targetDir & "\log\execution_log.txt"
+    
+    If Len(Dir(logFilePath)) = 0 Then
+        wsLog.Cells(logStartRow, 1).Value = "execution_log.txt が見つかりませんでした。exitCode=" & CStr(exitCode)
+        GoTo Finish
+    End If
+    
+    Set adoStream = CreateObject("ADODB.Stream")
+    adoStream.Charset = "UTF-8"
+    adoStream.Open
+    
+    adoStream.LoadFromFile logFilePath
+    
+    outputText = adoStream.ReadText
+    adoStream.Close
+    Set adoStream = Nothing
+    
+    ' 5. 改行コードを統一して配列に分割
+    outputText = Replace(outputText, vbCrLf, vbLf)
+    logLines = Split(outputText, vbLf)
+    
+    ' 6. LOGシートに一行ずつ書き出す（段階1退避があるときは logStartRow から）
+    Application.ScreenUpdating = False
+    logWriteRow = logStartRow
+    For i = LBound(logLines) To UBound(logLines)
+        wsLog.Cells(logWriteRow, 1).Value = logLines(i)
+        logWriteRow = logWriteRow + 1
+    Next i
+    Application.ScreenUpdating = prevScreenUpdating
+    
+    If exitCode <> 0 Then
+        warnRow2 = logWriteRow
+        If warnRow2 < 1 Then warnRow2 = 2
+        wsLog.Cells(warnRow2, 1).Value = "■ Pythonの終了コード: " & CStr(exitCode) & " （詳細は上記・実行時のコンソール・log\execution_log.txt を参照）"
+    End If
+
+    ' cmd.exe の標準出力/標準エラーも LOG シート末尾に追記（リダイレクトは環境により UTF-8 または Shift_JIS）
+    If Len(Dir(cmdLogPath)) > 0 Then
+        Dim cmdText As String
+        Dim cmdLines() As String
+        Dim baseRow As Long
+        cmdText = ReadCmdCaptureLogText(cmdLogPath)
+        cmdText = Replace(cmdText, vbCrLf, vbLf)
+        cmdLines = Split(cmdText, vbLf)
+        baseRow = wsLog.Cells(wsLog.Rows.Count, 1).End(xlUp).Row + 2
+        wsLog.Cells(baseRow, 1).Value = "---- cmd.exe stdout/stderr ----"
+        For i = LBound(cmdLines) To UBound(cmdLines)
+            wsLog.Cells(baseRow + 1 + i, 1).Value = cmdLines(i)
+        Next i
+    End If
+
+    ' ブックが開いたままだと Python 側の openpyxl 保存が失敗することがある → TSV 経由でハイライトを反映
+    ApplyPlanningConflictHighlightSidecar
+    
+    ' ---------------------------------------------------------
+    ' 7. 生成されたExcelファイルのシートをこのブックに取り込む
+    ' ---------------------------------------------------------
+    planImported = False
+    memberImported = False
+    Set targetWb = ThisWorkbook
+    
+    ' 7a. production_plan_multi_day_*.xlsx（結果_* シート）
+    outputFilePath = GetLatestOutputFile(targetDir & "\output", "production_plan_multi_day_*.xlsx")
+    
+    If outputFilePath <> "" Then
+        ' 画面描画と警告を一時停止（削除確認ダイアログ等を非表示）
+        Application.ScreenUpdating = False
+        Application.DisplayAlerts = False
+        
+        ' 列設定シートは削除せずに取り込むと同名で (2) が増えるため、事前に掃除
+        列設定結果タスク一覧_番号付き重複シートを削除 targetWb
+        
+        ' 出力されたブックを開く
+        Set sourceWb = Workbooks.Open(outputFilePath)
+        
+        For Each sourceWs In sourceWb.Sheets
+            sheetName = sourceWs.Name
+            
+            ' 既存シートがあれば削除（結果_* または 列設定_結果_タスク一覧）
+            If Left$(sheetName, 3) = "結果_" Or StrComp(sheetName, SHEET_COL_CONFIG_RESULT_TASK, vbBinaryCompare) = 0 Then
+                On Error Resume Next
+                Set ws = targetWb.Sheets(sheetName)
+                On Error GoTo ErrHandler
+                If Not ws Is Nothing Then
+                    ws.Delete
+                End If
+                Set ws = Nothing
+            End If
+            
+            ' シートをコピー（ターゲットブックの末尾に）
+            sourceWs.Copy After:=targetWb.Sheets(targetWb.Sheets.Count)
+            
+            ' コピーしたシートの書式設定（列幅、罫線、見出し）
+            ' ※ Sheets(Count) だけだと末尾が _FontPick のとき誤参照するため、取り込み元と同名で引き直す
+            Set ws = 取込ブック内のコピー先シートを取得(targetWb, sheetName)
+            
+            ' (1) セルフォントは上書きしない（Python 出力・ユーザーが「全シートフォント」で変更した体裁を段階2で維持する）
+            
+            ' (1b) 列幅: Python 出力では列幅を書かない。設備ガントは専用、それ以外は AutoFit。
+            '     結果_タスク一覧 は非表示列があるため、全列 Select+AutoFit すると非表示が解除される。
+            If sheetName = "結果_設備ガント" Then
+                結果_設備ガント_列幅を設定 ws
+            ElseIf StrComp(sheetName, "結果_タスク一覧", vbBinaryCompare) = 0 Then
+                結果シート_列幅_AutoFit非表示を維持 ws
+            Else
+                結果シート_列幅_AutoFit安定 ws
+            End If
+            
+            ' (2) 使用している範囲全体に罫線(実線・細線)を引く
+            ws.UsedRange.Borders.LineStyle = 1 ' xlContinuous
+            ws.UsedRange.Borders.Weight = 2    ' xlThin
+            
+            ' (3) 見出し（1行目）：太字・薄い黄緑（表形式シート向け）
+            '     結果_設備ガント は 1 行目がレポートタイトル（Python でサイズ・背景を指定）のため上書きしない
+            If StrComp(sheetName, "結果_設備ガント", vbBinaryCompare) <> 0 Then
+                With ws.UsedRange.Rows(1)
+                    .Font.Bold = True
+                    .Interior.Color = RGB(226, 239, 218) ' 薄い黄緑色
+                End With
+            End If
+            
+            ' (3b) 結果_設備ガントのみ：タイトル A1（結合先頭）を強制的に左寄せ
+            If sheetName = "結果_設備ガント" Then
+                結果_設備ガント_タイトルA1を左寄せに固定 ws
+            End If
+            
+            ' (4) 結果_* のみ：メインシートへ戻るリンク（1行目・見出し行の右余白）
+            If Left$(sheetName, 3) = "結果_" Then
+                On Error Resume Next
+                結果シート_メインへ戻るリンクを付与 ws
+                Err.Clear
+                On Error GoTo ErrHandler
+            End If
+            
+        Next sourceWs
+        
+        ' ソースブックを閉じる（保存しない）
+        sourceWb.Close SaveChanges:=False
+        Set sourceWb = Nothing
+        
+        planImported = True
+        
+        ' 画面描画と警告を元に戻す
+        Application.DisplayAlerts = prevDisplayAlerts
+        Application.ScreenUpdating = prevScreenUpdating
+        
+        ' 最初（一番左）のシートを選択状態にする（お好みで）
+        targetWb.Sheets(1).Activate
+    End If
+    
+    ' 7b. member_schedule_*.xlsx（メンバー名シート → 個人_プレフィックスで取り込み）
+    memberPath = GetLatestOutputFile(targetDir & "\output", "member_schedule_*.xlsx")
+    If Len(memberPath) > 0 Then
+        Application.ScreenUpdating = False
+        Application.DisplayAlerts = False
+        
+        Set memberWb = Workbooks.Open(memberPath)
+        
+        For Each sourceWs In memberWb.Sheets
+            sheetName = sourceWs.Name
+            newSheetName = SafePersonalSheetName(sheetName)
+            
+            ' 既に「個人_*」シートがある場合は削除せず、内容をクリアしてから上書き
+            On Error Resume Next
+            Set ws = targetWb.Sheets(newSheetName)
+            If Err.Number <> 0 Then
+                Err.Clear
+                On Error GoTo ErrHandler
+                sourceWs.Copy After:=targetWb.Sheets(targetWb.Sheets.Count)
+                Set ws = 取込ブック内のコピー先シートを取得(targetWb, sheetName)
+                On Error Resume Next
+                ws.Name = newSheetName
+                On Error GoTo ErrHandler
+            Else
+                Err.Clear
+                On Error GoTo ErrHandler
+                ws.Cells.Clear
+                sourceWs.UsedRange.Copy Destination:=ws.Range("A1")
+            End If
+            
+            ' 個人_* もセルフォントは上書きしない（同上）
+            ' 個人シートの列幅も Python 側では設定しない（同上 AutoFit）
+            結果シート_列幅_AutoFit安定 ws
+            ws.UsedRange.Borders.LineStyle = 1
+            ws.UsedRange.Borders.Weight = 2
+            With ws.UsedRange.Rows(1)
+                .Font.Bold = True
+                .Interior.Color = RGB(226, 239, 218)
+            End With
+        Next sourceWs
+        
+        memberWb.Close SaveChanges:=False
+        Set memberWb = Nothing
+        memberImported = True
+        
+        Application.DisplayAlerts = prevDisplayAlerts
+        Application.ScreenUpdating = prevScreenUpdating
+    End If
+    
+    ' メインシート：メンバーへのリンク ＋ 前日から12日間の出退勤（失敗しても本処理は継続）
+    On Error Resume Next
+    メインシート_メンバー一覧と出勤表示 True
+    ' 個人_* シートをブック末尾へ（失敗しても継続）
+    個人シートを末尾へ並べ替え
+    ' 「設定」の一つ前に列設定シートを置く（取り込みでは末尾に付くため）
+    On Error Resume Next
+    列設定_結果_タスク一覧を設定の直前へ移動 ThisWorkbook
+    On Error GoTo ErrHandler
+    
+    ' 完了ダイアログ直前はメインシートを表示（A1）
+    On Error Resume Next
+    Application.ScreenUpdating = True
+    メインシートA1を選択
+    DoEvents
+    On Error GoTo ErrHandler
+    
+    m_stage2PlanImported = planImported
+    m_stage2MemberImported = memberImported
+
+Finish:
+    On Error Resume Next
+    If Not adoStream Is Nothing Then
+        adoStream.Close
+        Set adoStream = Nothing
+    End If
+    If Not sourceWb Is Nothing Then
+        sourceWb.Close SaveChanges:=False
+        Set sourceWb = Nothing
+    End If
+    If Not memberWb Is Nothing Then
+        memberWb.Close SaveChanges:=False
+        Set memberWb = Nothing
+    End If
+    On Error GoTo 0
+    
+    Application.DisplayAlerts = prevDisplayAlerts
+    Application.ScreenUpdating = prevScreenUpdating
+    
+    On Error Resume Next
+    メインシートA1を選択
+    On Error GoTo 0
+    
+    On Error Resume Next
+    ThisWorkbook.Save
+    On Error GoTo 0
+    
+    Exit Sub
+    
+ErrHandler:
+    m_lastStage2ErrMsg = "VBAエラー: " & Err.Number & " / " & Err.Description
+    If Not wsLog Is Nothing Then
+        wsLog.Cells(1, 1).Value = m_lastStage2ErrMsg
+    End If
+    Resume Finish
+End Sub
+
+' 互換・他モジュール用: 段階2のみ（エラー・取り込み完了の MsgBox あり）
+Public Sub RunPython(Optional ByVal preserveStage1LogOnLogSheet As Boolean = False)
+    段階2_コア実行 preserveStage1LogOnLogSheet
+    If Len(m_lastStage2ErrMsg) > 0 Then
+        MsgBox m_lastStage2ErrMsg, vbCritical, "計画生成"
+        Exit Sub
+    End If
+    段階2_取り込み結果をMsgBox
+End Sub
+
+' =========================================================
+' 【補助】個人別スケジュール用シート名（個人_プレフィックス・禁則文字除去・31文字以内）
+' =========================================================
+Private Function SafePersonalSheetName(ByVal baseName As String) As String
+    Dim s As String
+    s = "個人_" & Trim$(baseName)
+    ' Excel シート名に使えない文字を除去
+    s = Replace(s, "\", "")
+    s = Replace(s, "/", "")
+    s = Replace(s, "?", "")
+    s = Replace(s, "*", "")
+    s = Replace(s, "[", "")
+    s = Replace(s, "]", "")
+    s = Replace(s, ":", "")
+    If Len(s) = 0 Then s = "個人_Sheet"
+    If Len(s) > 31 Then s = Left$(s, 31)
+    SafePersonalSheetName = s
+End Function
+
+' =========================================================
+' 【補助関数】最新の出力ファイルを取得する
+' =========================================================
+Function GetLatestOutputFile(folderPath As String, filePattern As String) As String
+    Dim latestPath As String
+    Dim latestDate As Date
+
+    If Len(Dir(folderPath, vbDirectory)) = 0 Then
+        GetLatestOutputFile = ""
+        Exit Function
+    End If
+
+    latestDate = 0
+    latestPath = ""
+    CollectLatestOutputFileRecursive folderPath, filePattern, latestPath, latestDate
+    GetLatestOutputFile = latestPath
+End Function
+
+Private Sub CollectLatestOutputFileRecursive(ByVal folderPath As String, ByVal filePattern As String, ByRef latestPath As String, ByRef latestDate As Date)
+    Dim fso As Object
+    Dim fldr As Object
+    Dim subFldr As Object
+    Dim fil As Object
+    Dim currDate As Date
+    If Len(folderPath) = 0 Then Exit Sub
+
+    On Error Resume Next
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    If fso Is Nothing Then Exit Sub
+    If Not fso.FolderExists(folderPath) Then Exit Sub
+    Set fldr = fso.GetFolder(folderPath)
+    If fldr Is Nothing Then Exit Sub
+    On Error GoTo 0
+
+    For Each fil In fldr.Files
+        If LCase$(fil.Name) Like LCase$(filePattern) Then
+            On Error Resume Next
+            currDate = fil.DateLastModified
+            If Err.Number = 0 Then
+                If currDate > latestDate Then
+                    latestDate = currDate
+                    latestPath = CStr(fil.Path)
+                End If
+            Else
+                Err.Clear
+            End If
+            On Error GoTo 0
+        End If
+    Next fil
+
+    For Each subFldr In fldr.SubFolders
+        CollectLatestOutputFileRecursive CStr(subFldr.Path), filePattern, latestPath, latestDate
+    Next subFldr
+End Sub
+
+' =========================================================
+' 全シートのセルフォントを統一（手動実行・ボタン割当可）
+' ※セルグリッドのみ。図形・グラフ内テキストは対象外。
+' ※保護シートはスキップし、ダイアログに列挙。
+' ※「リスト選択」は Excel 標準の［セルの書式設定］→［フォント］ダイアログを使用。
+' ※図形のマクロには「アニメ付き_全シートフォントをリストから選択して統一」を指定（押下アニメ用。本体を直指定すると AnimateButtonPush が動かない）。
+' =========================================================
+Private Function GetOrCreateFontScratchSheet() As Worksheet
+    Dim ws As Worksheet
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(SCRATCH_SHEET_FONT)
+    On Error GoTo 0
+    If ws Is Nothing Then
+        Set ws = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        On Error Resume Next
+        ws.Name = SCRATCH_SHEET_FONT
+        On Error GoTo 0
+        ws.Range("A1").Value = "（フォント選択用・削除しないでください）"
+        ws.Visible = xlSheetVeryHidden
+    End If
+    Set GetOrCreateFontScratchSheet = ws
+End Function
+
+Private Sub RestoreCellFontProps(ByVal r As Range, ByVal oldName As String, _
+    ByVal oldSize As Variant, ByVal oldBold As Variant, ByVal oldItalic As Variant, _
+    ByVal oldUnderline As Variant, ByVal oldColor As Variant, ByVal oldStrike As Variant)
+    On Error Resume Next
+    With r.Font
+        .Name = oldName
+        If Not IsEmpty(oldSize) Then .Size = oldSize
+        If Not IsEmpty(oldBold) Then .Bold = oldBold
+        If Not IsEmpty(oldItalic) Then .Italic = oldItalic
+        If Not IsEmpty(oldUnderline) Then .Underline = oldUnderline
+        If Not IsEmpty(oldColor) Then .Color = oldColor
+        If Not IsEmpty(oldStrike) Then .Strikethrough = oldStrike
+    End With
+    On Error GoTo 0
+End Sub
+
+Private Function FontNameExistsInExcel(ByVal fontName As String) As Boolean
+    Dim i As Long
+    For i = 1 To Application.FontNames.Count
+        If StrComp(Application.FontNames(i), fontName, vbTextCompare) = 0 Then
+            FontNameExistsInExcel = True
+            Exit Function
+        End If
+    Next i
+End Function
+
+Private Sub ApplyFontToAllSheetCells(ByVal fontName As String, ByRef skippedOut As String)
+    Dim ws As Worksheet
+    Dim errNum As Long
+    Dim errDesc As String
+    
+    skippedOut = ""
+    On Error GoTo EH
+    
+    For Each ws In ThisWorkbook.Worksheets
+        Err.Clear
+        On Error Resume Next
+        ws.Cells.Font.Name = fontName
+        If Err.Number <> 0 Then
+            skippedOut = skippedOut & "・" & ws.Name & "（" & Err.Description & "）" & vbCrLf
+        End If
+        On Error GoTo EH
+    Next ws
+    
+    Exit Sub
+    
+EH:
+    errNum = Err.Number
+    errDesc = Err.Description
+    Err.Raise errNum, , errDesc
+End Sub
+
+' Excel 標準の［フォント］ダイアログで選んで全シートに適用
+Public Sub 全シートフォントをリストから選択して統一()
+    Dim wsScratch As Worksheet
+    Dim r As Range
+    Dim prevWs As Worksheet
+    Dim prevVis As XlSheetVisibility
+    Dim oldName As String
+    Dim oldSize As Variant
+    Dim oldBold As Variant
+    Dim oldItalic As Variant
+    Dim oldUnderline As Variant
+    Dim oldColor As Variant
+    Dim oldStrike As Variant
+    Dim picked As String
+    Dim skipped As String
+    
+    Set prevWs = ActiveSheet
+    Set wsScratch = GetOrCreateFontScratchSheet()
+    prevVis = wsScratch.Visible
+    
+    Set r = wsScratch.Range("A1")
+    With r.Font
+        oldName = .Name
+        oldSize = .Size
+        oldBold = .Bold
+        oldItalic = .Italic
+        oldUnderline = .Underline
+        oldColor = .Color
+        oldStrike = .Strikethrough
+    End With
+    
+    wsScratch.Visible = xlSheetVisible
+    wsScratch.Activate
+    r.Select
+    
+    If Not Application.Dialogs(xlDialogFormatFont).Show Then
+        RestoreCellFontProps r, oldName, oldSize, oldBold, oldItalic, oldUnderline, oldColor, oldStrike
+        wsScratch.Visible = prevVis
+        On Error Resume Next
+        prevWs.Activate
+        On Error GoTo 0
+        Exit Sub
+    End If
+    
+    picked = r.Font.Name
+    RestoreCellFontProps r, oldName, oldSize, oldBold, oldItalic, oldUnderline, oldColor, oldStrike
+    wsScratch.Visible = prevVis
+    On Error Resume Next
+    prevWs.Activate
+    On Error GoTo 0
+    
+    On Error GoTo Fail
+    ApplyFontToAllSheetCells picked, skipped
+    On Error GoTo 0
+    
+    If Len(skipped) = 0 Then
+        MsgBox "全シートのセルフォントを「" & picked & "」に設定しました。", vbInformation
+    Else
+        MsgBox "フォント「" & picked & "」を設定しました。スキップしたシート:" & vbCrLf & vbCrLf & skipped, vbExclamation
+    End If
+    On Error Resume Next
+    メインシート_AからK列_AutoFit
+    On Error GoTo 0
+    Exit Sub
+    
+Fail:
+    MsgBox "フォント設定でエラー: " & Err.Description, vbCritical
+End Sub
+
+Public Sub 全シートフォントを選択して統一()
+    Call アニメ付き_全シートフォントをリストから選択して統一
+End Sub
+
+Public Sub 全シートフォントを手入力で統一()
+    Dim v As Variant
+    Dim fontName As String
+    Dim skipped As String
+    
+    v = Application.InputBox( _
+        "適用するフォント名を入力してください。" & vbCrLf & _
+        "（ホームのフォントボックスと同じ表記）", _
+        "全シートのフォント統一（手入力）", _
+        BIZ_UDP_GOTHIC_FONT_NAME, _
+        Type:=2)
+    If VarType(v) = vbBoolean Then Exit Sub
+    
+    fontName = Trim$(CStr(v))
+    If Len(fontName) = 0 Then
+        MsgBox "フォント名が空のため中止しました。", vbExclamation
+        Exit Sub
+    End If
+    
+    If Not FontNameExistsInExcel(fontName) Then
+        If MsgBox( _
+            "フォント「" & fontName & "」が一覧に見つかりませんでした。" & vbCrLf & _
+            "このまま適用を試みますか？", _
+            vbQuestion Or vbYesNo, "確認") = vbNo Then
+            Exit Sub
+        End If
+    End If
+    
+    On Error GoTo FailHand
+    ApplyFontToAllSheetCells fontName, skipped
+    On Error GoTo 0
+    
+    If Len(skipped) = 0 Then
+        MsgBox "全シートのセルフォントを「" & fontName & "」に設定しました。", vbInformation
+    Else
+        MsgBox "フォント「" & fontName & "」を設定しました。スキップ:" & vbCrLf & vbCrLf & skipped, vbExclamation
+    End If
+    On Error Resume Next
+    メインシート_AからK列_AutoFit
+    On Error GoTo 0
+    Exit Sub
+    
+FailHand:
+    MsgBox "フォント設定でエラー: " & Err.Description, vbCritical
+End Sub
+
+Public Sub 全シートフォント_BIZ_UDPゴシックに統一()
+    Dim skipped As String
+    On Error GoTo FailB
+    ApplyFontToAllSheetCells BIZ_UDP_GOTHIC_FONT_NAME, skipped
+    On Error GoTo 0
+    
+    If Len(skipped) = 0 Then
+        MsgBox "全シートのセルフォントを「" & BIZ_UDP_GOTHIC_FONT_NAME & "」に設定しました。", vbInformation
+    Else
+        MsgBox "フォントを設定しました。スキップ:" & vbCrLf & vbCrLf & skipped, vbExclamation
+    End If
+    On Error Resume Next
+    メインシート_AからK列_AutoFit
+    On Error GoTo 0
+    Exit Sub
+    
+FailB:
+    MsgBox "フォント設定でエラー: " & Err.Description, vbCritical
+End Sub
+
+'==============================================================================
+' 列設定_結果_タスク一覧 — 表示列(B)と連動するフォームのチェックボックスを配置
+' 開発タブ → 挿入 → フォーム コントロールの「チェックボックス」と同等。
+' 再実行すると既存のチェックボックスを削除して付け直します（セルの TRUE/FALSE は保持）。
+'==============================================================================
+Public Sub 列設定_結果_タスク一覧_チェックボックスを配置()
+    Dim ws As Worksheet
+    Dim r As Long
+    Dim lastR As Long
+    Dim cb As CheckBox
+    Dim rng As Range
+    Dim linkAddr As String
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(SHEET_COL_CONFIG_RESULT_TASK)
+    On Error GoTo 0
+    If ws Is Nothing Then
+        MsgBox "シート「" & SHEET_COL_CONFIG_RESULT_TASK & "」が見つかりません。", vbExclamation, "列設定"
+        Exit Sub
+    End If
+
+    On Error GoTo FailChk
+    Do While ws.CheckBoxes.Count > 0
+        ws.CheckBoxes(1).Delete
+    Loop
+
+    lastR = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+    If lastR < 2 Then
+        MsgBox "データ行がありません（1行目は見出し、2行目以降に列名を入れてください）。", vbInformation
+        Exit Sub
+    End If
+
+    linkAddr = "'" & Replace(ws.Name, "'", "''") & "'!"
+
+    For r = 2 To lastR
+        If Len(Trim$(CStr(ws.Cells(r, 1).Value))) = 0 Then GoTo NextLoop
+
+        Set rng = ws.Cells(r, 2)
+        If Len(Trim$(CStr(rng.Value))) = 0 Then
+            rng.Value = True
+        End If
+
+        Set cb = ws.CheckBoxes.Add(rng.Left + 2, rng.Top + 0.5, 50, 14)
+        With cb
+            .LinkedCell = linkAddr & rng.Address(True, True)
+            .Caption = ""
+        End With
+NextLoop:
+    Next r
+
+    MsgBox "チェックボックスを配置しました。" & vbCrLf & _
+        "表示列(B)の TRUE/FALSE と連動します。", vbInformation
+    Exit Sub
+
+FailChk:
+    MsgBox "チェックボックス配置でエラー: " & Err.Description, vbCritical
+End Sub
+
+'==============================================================================
+' デバッグ: ブックを開いたまま「どのシートが COM 的に触りにくいか」を一覧する
+' 開発タブ → マクロ → 「COM操作テスト_全シートをログに出す」を実行。
+' シート「COM操作テストログ」を末尾に作成し、シートごとの OK/NG を出します。
+' （Excel 本体からの操作の目安。外部 Python/pywin32 の COM とはプロセスが異なる場合があります）
+'==============================================================================
+Public Sub COM操作テスト_全シートをログに出す()
+    Const LOG_SHEET As String = "COM操作テストログ"
+    Const TEST_A99_ADDR As String = "A99"
+    Const TEST_A99_TEXT As String = "A666"
+    Dim wsLog As Worksheet
+    Dim s As Object
+    Dim ws As Worksheet
+    Dim r As Long
+    Dim detail As String
+    Dim oldA99 As Variant
+    Dim backA99 As Variant
+    
+    Application.ScreenUpdating = False
+    On Error Resume Next
+    Set wsLog = ThisWorkbook.Worksheets(LOG_SHEET)
+    If Not wsLog Is Nothing Then
+        Application.DisplayAlerts = False
+        wsLog.Delete
+        Application.DisplayAlerts = True
+    End If
+    On Error GoTo 0
+    
+    Set wsLog = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+    On Error Resume Next
+    wsLog.Name = LOG_SHEET
+    On Error GoTo 0
+    
+    wsLog.Cells(1, 1).Value = "シート名"
+    wsLog.Cells(1, 2).Value = "TypeName"
+    wsLog.Cells(1, 3).Value = "表示状態"
+    wsLog.Cells(1, 4).Value = "セル保護"
+    wsLog.Cells(1, 5).Value = "読取 A1"
+    wsLog.Cells(1, 6).Value = "UsedRange"
+    wsLog.Cells(1, 7).Value = "ZZ1000 書込"
+    wsLog.Cells(1, 8).Value = "A99へA666"
+    wsLog.Cells(1, 9).Value = "Activate"
+    wsLog.Cells(1, 10).Value = "メモ"
+    
+    r = 2
+    For Each s In ThisWorkbook.Sheets
+        If StrComp(s.Name, LOG_SHEET, vbBinaryCompare) = 0 Then GoTo NextSheetIter
+        
+        detail = ""
+        wsLog.Cells(r, 1).Value = s.Name
+        wsLog.Cells(r, 2).Value = TypeName(s)
+        
+        Select Case s.Visible
+            Case xlSheetVisible
+                wsLog.Cells(r, 3).Value = "表示"
+            Case xlSheetHidden
+                wsLog.Cells(r, 3).Value = "非表示"
+            Case xlSheetVeryHidden
+                wsLog.Cells(r, 3).Value = "VeryHidden"
+            Case Else
+                wsLog.Cells(r, 3).Value = CStr(s.Visible)
+        End Select
+        
+        If TypeName(s) = "Worksheet" Then
+            Set ws = s
+            On Error Resume Next
+            If ws.ProtectContents Then
+                wsLog.Cells(r, 4).Value = "保護中"
+            Else
+                wsLog.Cells(r, 4).Value = "なし"
+            End If
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 4).Value = "確認不可: " & Err.Description
+                detail = detail & "ProtectContents " & Err.Description & "; "
+            End If
+            Err.Clear
+            
+            Dim dummy As Variant
+            dummy = ws.Range("A1").Value
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 5).Value = "NG"
+                detail = detail & "読取 " & Err.Description & "; "
+            Else
+                wsLog.Cells(r, 5).Value = "OK"
+            End If
+            Err.Clear
+            
+            Dim urAdr As String
+            urAdr = ws.UsedRange.Address
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 6).Value = "NG"
+                detail = detail & "UsedRange " & Err.Description & "; "
+            Else
+                wsLog.Cells(r, 6).Value = "OK (" & urAdr & ")"
+            End If
+            Err.Clear
+            
+            ws.Range("ZZ1000").Value = "__COM_TEST__"
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 7).Value = "NG"
+                detail = detail & "ZZ書込 " & Err.Description & "; "
+            Else
+                wsLog.Cells(r, 7).Value = "OK"
+                ws.Range("ZZ1000").ClearContents
+            End If
+            Err.Clear
+            
+            ' A99 に文字列 A666 を書き、読み戻して一致したら OK（元の値に復元）
+            oldA99 = ws.Range(TEST_A99_ADDR).Value
+            Err.Clear
+            ws.Range(TEST_A99_ADDR).Value = TEST_A99_TEXT
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 8).Value = "NG(書込)"
+                detail = detail & "A99書込Err " & Err.Description & "; "
+                Err.Clear
+            Else
+                backA99 = ws.Range(TEST_A99_ADDR).Value
+                If Err.Number <> 0 Then
+                    wsLog.Cells(r, 8).Value = "NG(読取)"
+                    detail = detail & "A99読取Err " & Err.Description & "; "
+                    Err.Clear
+                ElseIf CStr(backA99) <> TEST_A99_TEXT Then
+                    wsLog.Cells(r, 8).Value = "不一致"
+                    detail = detail & "A99期待=" & TEST_A99_TEXT & " 実際=" & CStr(backA99) & "; "
+                Else
+                    wsLog.Cells(r, 8).Value = "OK"
+                End If
+                ws.Range(TEST_A99_ADDR).Value = oldA99
+                If Err.Number <> 0 Then
+                    detail = detail & "A99復元Err " & Err.Description & "; "
+                    Err.Clear
+                End If
+            End If
+            
+            ws.Activate
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 9).Value = "NG"
+                detail = detail & "Activate " & Err.Description & "; "
+            Else
+                wsLog.Cells(r, 9).Value = "OK"
+            End If
+            Err.Clear
+            On Error GoTo 0
+        Else
+            wsLog.Cells(r, 4).Value = "—"
+            wsLog.Cells(r, 5).Value = "—"
+            wsLog.Cells(r, 6).Value = "—"
+            wsLog.Cells(r, 7).Value = "—"
+            wsLog.Cells(r, 8).Value = "—"
+            On Error Resume Next
+            s.Activate
+            If Err.Number <> 0 Then
+                wsLog.Cells(r, 9).Value = "NG"
+                detail = detail & "Activate " & Err.Description
+            Else
+                wsLog.Cells(r, 9).Value = "OK"
+            End If
+            Err.Clear
+            On Error GoTo 0
+            detail = detail & "（Worksheet 以外はセル系テスト対象外）"
+        End If
+        
+        wsLog.Cells(r, 10).Value = detail
+        r = r + 1
+NextSheetIter:
+    Next s
+    
+    wsLog.Columns("A:J").AutoFit
+    Application.ScreenUpdating = True
+    wsLog.Activate
+    wsLog.Range("A1").Select
+    
+    MsgBox "シート「" & LOG_SHEET & "」に結果を出しました。" & vbCrLf & vbCrLf & _
+        "列の意味:" & vbCrLf & _
+        "・A99 列: 文字列「A666」を A99 に書き、読み戻して一致→OK、元の値に復元。" & vbCrLf & _
+        "・読取/UsedRange/書込/Activate の NG は、その操作で Err が出たシートです。" & vbCrLf & _
+        "・保護中で書込 NG は正常なことが多いです。" & vbCrLf & _
+        "・VBA からの試験です。Python 等の別プロセス COM は環境により異なります。", _
+        vbInformation, "COM 操作テスト"
+End Sub
+

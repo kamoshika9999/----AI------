@@ -1,1 +1,0 @@
-{"ignore_skill_requirements": false, "ignore_need_minimum": false, "abolish_all_scheduling_limits": false, "task_preferred_operators": {}, "interpretation_ja": "4月1日は工場が臨時休業となるため、この日の配台計画は不要です。"}

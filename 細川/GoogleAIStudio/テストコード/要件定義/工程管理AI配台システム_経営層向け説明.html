@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工程管理AI配台システム — 経営層・非エンジニア向け説明</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d0d0d0;
+      --accent: #1565c0;
+      --accent-bg: #e3f2fd;
+      --table-head: #1565c0;
+      --table-head-text: #fff;
+      --code-bg: #f4f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      background: #fafafa;
+    }
+    .doc {
+      background: #fff;
+      padding: 2.5rem 2.75rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    @media print {
+      body { background: #fff; padding: 0; max-width: none; }
+      .doc { box-shadow: none; padding: 1rem; border-radius: 0; }
+      a { color: #000; text-decoration: none; }
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid var(--accent);
+      color: var(--accent);
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.85rem;
+      padding: 0.35rem 0 0.35rem 0.65rem;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(90deg, var(--accent-bg), transparent);
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.35rem 0 0.6rem;
+      color: #263238;
+    }
+    .meta {
+      background: var(--accent-bg);
+      border: 1px solid #bbdefb;
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .meta p { margin: 0.35rem 0; }
+    .meta strong { color: var(--accent); }
+    p { margin: 0.65rem 0; }
+    ul { margin: 0.5rem 0 0.75rem; padding-left: 1.35rem; }
+    li { margin: 0.25rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0 1.25rem;
+      font-size: 0.95rem;
+    }
+    thead th {
+      background: var(--table-head);
+      color: var(--table-head-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #0d47a1;
+    }
+    tbody td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .footnote {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .toc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .toc a { color: var(--accent); }
+    .disclaimer {
+      border-left: 4px solid #c62828;
+      background: #ffebee;
+      padding: 1rem 1.15rem;
+      margin: 1rem 0 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .disclaimer strong { color: #b71c1c; }
+    h3.cost-sub {
+      font-size: 1.02rem;
+      margin: 1.25rem 0 0.5rem;
+      color: #37474f;
+    }
+  </style>
+</head>
+<body>
+  <article class="doc">
+    <h1>工程管理AI配台システム — 経営層・非エンジニア向け説明</h1>
+
+    <div class="meta">
+      <p><strong>文書の目的</strong>：本システムが「何のためのものか」「どんな価値と制約があるか」を、<strong>プログラムやIT用語に不慣れな方</strong>にも伝わる言葉で整理する。</p>
+      <p><strong>想定読者</strong>：社内の経営層、部門長、企画・管理職（技術詳細は不要な方）</p>
+      <p><strong>詳細仕様</strong>：技術者・委託先向けは別紙 <a href="./工程管理AI配台システム_要件定義書.html">工程管理AI配台システム 要件定義書（HTML）</a> ／ <a href="./工程管理AI配台システム_要件定義書.md">Markdown</a> を参照。</p>
+      <p><strong>社内推進（Cursor）</strong>：外注せず社内で保守開発を進める方針は <a href="./工程管理AI配台システム_Cursor活用_社内運用保守_経営層向け.html">Cursor活用・社内運用保守（HTML）</a> ／ <a href="./工程管理AI配台システム_Cursor活用_社内運用保守_経営層向け.md">Markdown</a>。</p>
+      <p><strong>文書バージョン</strong>：1.4（2026-03-28）</p>
+    </div>
+
+    <nav class="toc" aria-label="目次">
+      <strong>目次</strong>：
+      <a href="#s1">1. 何をするか</a> ／
+      <a href="#s2">2. なぜ必要か</a> ／
+      <a href="#s3">3. 利用の流れ</a> ／
+      <a href="#s4">4. AIの役割</a> ／
+      <a href="#s5">5. 技術のイメージ</a> ／
+      <a href="#s6">6. メリットと留意点</a> ／
+      <a href="#s7">7. 社内で決めること</a> ／
+      <a href="#s8">8. 委託費用</a>（<a href="#s80">8.0 概算</a>・<a href="#s84">8.4 ソース試算</a>）／
+      <a href="#s9">9. まとめ</a>
+    </nav>
+
+    <h2 id="s1">1. このシステムは何をするか（一言）</h2>
+    <p>工場の <strong>「いつ・どの機械で・誰が・何をするか」</strong> を、<strong>加工計画データと勤務・スキル情報</strong>から <strong>自動で組み立て</strong>、<strong>日次〜複数日の生産計画表</strong>と<strong>担当者別の予定</strong>を <strong>Microsoft Excel 上</strong>にまとめる仕組みです。現場が慣れ親しんだ表形式のまま、配台（割付）作業の負荷を下げることを狙います。</p>
+
+    <h2 id="s2">2. なぜ必要か（ビジネス上の位置づけ）</h2>
+    <table>
+      <thead>
+        <tr><th>観点</th><th>説明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>現場負荷</strong></td>
+          <td>依頼・納期・設備・人の制約が重なると、配台調整は時間がかかり属人的になりやすい。</td>
+        </tr>
+        <tr>
+          <td><strong>見える化</strong></td>
+          <td>設備ごとの時間割、メンバーごとの予定を一覧化し、調整・説明の材料にする。</td>
+        </tr>
+        <tr>
+          <td><strong>ルールの統一</strong></td>
+          <td>優先度や納期、スキル条件などを、システム側のルールとして繰り返し適用しやすくする。</td>
+        </tr>
+        <tr>
+          <td><strong>例外の扱い</strong></td>
+          <td>「この案件だけ特別に」といった指示を、画面上の備考やメインシートの記載から反映する設計がある（詳細は要件定義書）。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="s3">3. 利用の流れ（業務の言葉で）</h2>
+    <p>大きく <strong>2ステップ</strong> です。</p>
+    <ol>
+      <li><strong>ステップ1 — やることリストの整理</strong><br>
+        加工計画に載っている仕事から、<strong>まだ完了していない仕事</strong>を取り出し、配台用の入力表に並べます。</li>
+      <li><strong>ステップ2 — 配台案の自動作成</strong><br>
+        入力表と、<strong>マスタ（スキル・必要人数・出勤など）</strong> を踏まえて、<strong>機械への割付</strong>と<strong>担当者の割付</strong>を計算し、<strong>生産計画表</strong>や<strong>個人別スケジュール</strong>として Excel に出力します。</li>
+    </ol>
+    <p>担当者はステップ1のあと、必要に応じて <strong>上書き欄や特別な指示</strong> を表に書き込み、ステップ2でその内容が反映される運用を想定しています。ステップ1と2は <strong>続けて実行</strong> することもできます。</p>
+
+    <h2 id="s4">4. 「AI」は具体的に何をしているか</h2>
+    <p>ここでいう AI は、<strong>Google が提供するクラウド上の生成AI（Gemini）</strong> を利用します。<strong>インターネット経由</strong>でサービスにアクセスします。</p>
+    <p><strong>主に任せていることの例</strong>（人が細かくルールを書かなくても、文章や表の文言から意味を取り出す用途）：</p>
+    <ul>
+      <li>配台計画上の <strong>備考・特記事項</strong> の解釈</li>
+      <li><strong>配台不要</strong> としたい工程の条件を、機械が処理しやすい形に整理すること</li>
+      <li><strong>勤務や休暇まわりの備考</strong> の読み取り補助</li>
+      <li>メインシートの <strong>自然言語による全体指示</strong>（例: 特定の案件の扱いを変える）の解釈</li>
+    </ul>
+    <p><strong>重要</strong>：本システムでは <strong>Gemini を利用できる状態を前提</strong> に主要機能が設計されています。API キー（利用権限）を用意し、社内の情報セキュリティ方針に沿って管理する必要があります。利用には <strong>通信料に加え、Google の課金・利用枠</strong> が発生し得ます（契約内容に依存）。</p>
+
+    <h2 id="s5">5. 技術構成を「比喩」で理解する（詳細は不要な方向け）</h2>
+    <table>
+      <thead>
+        <tr><th>いま表現しているもの</th><th>実際のイメージ</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Excel（マクロ付きブック）</strong></td>
+          <td>画面・ボタン・表の置き場。現場が触る主たる場所。</td>
+        </tr>
+        <tr>
+          <td><strong>マスタ用 Excel</strong></td>
+          <td>スキルや出勤など、計算の土台となるデータ。</td>
+        </tr>
+        <tr>
+          <td><strong>裏側の計算プログラム</strong></td>
+          <td>表の読み書きと配台ロジックを担当。Excel から自動で起動される。</td>
+        </tr>
+        <tr>
+          <td><strong>出力フォルダ</strong></td>
+          <td>計算結果のファイルやログが保存される場所。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>「プログラムの名前」や「ライブラリ名」は経営判断には通常不要です。<strong>Windows PC と Excel が動く環境</strong>で、初回だけ <strong>環境のセットアップ</strong>（社内ITまたは手順書に沿った作業）が必要、という理解で足ります。</p>
+
+    <h2 id="s6">6. メリットと、あらかじめ知っておきたいこと</h2>
+    <h3>メリット（期待しうる効果）</h3>
+    <ul>
+      <li>配台表作成の <strong>作業時間短縮</strong>、担当者による <strong>ブレの低減</strong>（ルールの再現性）。</li>
+      <li><strong>納期・優先度・スキル</strong> など複数条件を同時に考慮した案を素早く出せる。</li>
+      <li>結果が <strong>Excel</strong> に残るため、説明・共有・印刷がしやすい。</li>
+    </ul>
+    <h3>留意点・リスク（経営・管理側の論点）</h3>
+    <table>
+      <thead>
+        <tr><th>項目</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>クラウドAI依存</strong></td>
+          <td>Gemini 利用には <strong>ネットワーク</strong> と <strong>契約・キー管理</strong> が必須。止まると設計どおりの機能が使えない。</td>
+        </tr>
+        <tr>
+          <td><strong>コスト</strong></td>
+          <td>API の <strong>従量課金・枠</strong> は利用量次第。運用ルール（誰がどれだけ実行するか）の整理が望ましい。</td>
+        </tr>
+        <tr>
+          <td><strong>情報の取り扱い</strong></td>
+          <td>送信・保存されるデータの範囲を、<strong>個人情報・顧客情報・機密</strong>の観点で社内規程と照合すること。</td>
+        </tr>
+        <tr>
+          <td><strong>Excel 前提</strong></td>
+          <td>大規模な同時利用やモバイル中心運用には向かない構成。拡張時は Web 化など別アーキテクチャが検討対象になり得る。</td>
+        </tr>
+        <tr>
+          <td><strong>環境の均一性</strong></td>
+          <td>PC ごとにセットアップ差があると「動く／動かない」が分かれやすい。配布手順と IT 連携が重要。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="s7">7. 社内で決めておくとよいこと（チェックリスト）</h2>
+    <ul class="checklist">
+      <li><strong>Gemini API</strong> の契約主体・請求先・利用上限の監視方法</li>
+      <li><strong>API キー</strong> の保管場所、アクセス権、漏えい時の対応</li>
+      <li>計画データに含まれる情報の <strong>機密度</strong> と、クラウド送信の可否（必要に応じ <strong>外部専門家</strong> と確認）</li>
+      <li><strong>標準PC環境</strong>（Windows・Excel 版・ネットワーク）の定義と、テスト担当</li>
+      <li>障害時の <strong>代替運用</strong>（手作業配台に戻すまでの手順）</li>
+    </ul>
+
+    <h2 id="s8">8. ソフトウェア会社へ依頼した場合の費用の目安（参考）</h2>
+    <div class="disclaimer" role="note">
+      <p><strong>重要（必ずお読みください）</strong></p>
+      <p>以下は <strong>公的な相場表ではなく</strong>、国内のシステム開発・保守委託において <strong>経営企画・概算検討でよく使われるオーダー感</strong> を整理したものです。<strong>会社規模・地域・契約形態（準委任／請負）・求める品質・契約で定めるサービス品質（SLA：応答時間・復旧目安など）・セキュリティ要件</strong>で実際の見積は <strong>数倍の差</strong> が出ます。<strong>契約・予算決裁の根拠</strong>には <strong>必ず複数社からの正式見積（RFP）</strong> を取得してください。</p>
+      <p><strong>含まれないものの例</strong>：Google Gemini 等の <strong>クラウド利用料</strong>（従量）、<strong>Microsoft 365／Excel のライセンス</strong>、お客様側の <strong>業務整理・データ整備・検証工数</strong>。</p>
+      <p><strong>金額の単位</strong>：以下の概算はいずれも <strong>日本円・税抜</strong>（消費税は別途）。<strong>端数は説明のため四捨五入・丸め</strong>してあり、実契約とは一致しません。</p>
+      <p><strong>§8.0 の金額の根拠</strong>：<strong>本システムのソースコードを AI が工数積み上げで解析した公式見積ではありません。</strong> <strong>国内の開発・保守委託でよく参照される単価帯・割合</strong>と、<strong>要件定義書に記載された構成の大まかな複雑さ</strong>（Excel／マクロ、Python による計算、外部生成AI 連携など）を組み合わせた <strong>経営説明・稟議用の例示</strong> です。実際の金額は、委託先が <strong>機能一覧・工数表・リスク・検収条件</strong> に基づいて算出します。</p>
+    </div>
+
+    <h3 class="cost-sub" id="s80">8.0 概算価格一覧（税抜・参考例）</h3>
+    <p>経営会議や稟議のたたき台として、<strong>よくある3パターン</strong>に金額を当てはめた例です（ベンダー・地域・スコープで <strong>±50%以上</strong> ずれることは普通です）。</p>
+
+    <h4 style="margin:1rem 0 0.4rem;font-size:1rem;color:#37474f;">① 同等機能を一から作り直す場合</h4>
+    <table>
+      <thead>
+        <tr><th>パターン</th><th>内容のイメージ</th><th>初期開発（概算・税抜）</th><th>月額保守（概算・税抜）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A｜コンパクト</strong></td>
+          <td>要件・ソース・VBA バックアップが揃い、Excel 構成のまま再実装。試験・移行は最小限に寄せる前提。</td>
+          <td><strong>約 800万円 〜 1,200万円</strong></td>
+          <td><strong>約 12万円 〜 25万円／月</strong>（初期の年 <strong>約15〜20%</strong> を月割りしたイメージ）</td>
+        </tr>
+        <tr>
+          <td><strong>B｜標準</strong></td>
+          <td>要件整理から本番移行・教育まで。品質・テストを通常レベルで実施。</td>
+          <td><strong>約 1,500万円 〜 2,500万円</strong></td>
+          <td><strong>約 25万円 〜 45万円／月</strong>（同上の考え方）</td>
+        </tr>
+        <tr>
+          <td><strong>C｜手厚い</strong></td>
+          <td>大規模SI、セキュリティ監査、複数拠点、可用性・文書要求が重い場合。</td>
+          <td><strong>約 4,000万円 〜 8,000万円</strong>（<strong>それ以上</strong>もあり得る）</td>
+          <td><strong>約 70万円 〜 150万円／月</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>変更・追加開発の概算（税抜）</strong> — 単価を <strong>1人日あたり 10万円〜18万円</strong> と仮定した例：</p>
+    <table>
+      <thead>
+        <tr><th>変更の大きさ</th><th>工数目安（人日）</th><th>概算（税抜）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>小（表示・1機能・軽微バグ）</td>
+          <td>3 〜 5 人日</td>
+          <td><strong>約 30万円 〜 90万円</strong></td>
+        </tr>
+        <tr>
+          <td>中（画面・ロジックの一部改修）</td>
+          <td>10 〜 20 人日</td>
+          <td><strong>約 100万円 〜 360万円</strong></td>
+        </tr>
+        <tr>
+          <td>大（配台ルールの追加・AI連携範囲の変更など）</td>
+          <td>30 人日 〜</td>
+          <td><strong>約 300万円 〜</strong>（都度見積）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>※ 緊急・休日・深夜対応は <strong>1.3〜2倍</strong> などの割増が付くことが多い。</p>
+
+    <h4 style="margin:1.25rem 0 0.4rem;font-size:1rem;color:#37474f;">② 現行システムの保守・運用を外注する場合</h4>
+    <table>
+      <thead>
+        <tr><th>パターン</th><th>内容のイメージ</th><th>月額（概算・税抜）</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ライト</strong></td>
+          <td>メール／チケット対応、営業日内の回答、軽微な調査のみ。</td>
+          <td><strong>約 8万円 〜 20万円／月</strong></td>
+          <td>改修工数は <strong>別見積</strong> が一般的。</td>
+        </tr>
+        <tr>
+          <td><strong>スタンダード</strong></td>
+          <td>月 <strong>数時間〜十数時間</strong> の改修・調査枠、定例会あり。</td>
+          <td><strong>約 30万円 〜 70万円／月</strong></td>
+          <td>よく選ばれる帯の一例。</td>
+        </tr>
+        <tr>
+          <td><strong>プレミアム</strong></td>
+          <td>担当者アサイン、<strong>契約で応答時間が定められた</strong>優先サポート（SLA）。</td>
+          <td><strong>約 80万円 〜 150万円／月</strong></td>
+          <td>契約書で <strong>時間・範囲</strong> を固定するとブレが減る。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>初期のみ（キックオフ）の概算（税抜）</strong>：ソース引渡し・環境説明・機密手続きなど <strong>約 30万円 〜 100万円</strong> が別途かかることがある（ベンダーにより <strong>0円</strong> に含める場合もある）。</p>
+    <p><strong>運用業務を足す場合（月額の上乗せイメージ・税抜）</strong>：配布代行・ログ確認・APIキー運用などを <strong>+ 約 10万円 〜 40万円／月</strong> 程度と見積もる例がある（<strong>別契約</strong>にすることが多い）。</p>
+
+    <h3 class="cost-sub" id="s8-1">8.1 ① 本システムをベースに「一から作り直す」場合</h3>
+    <p>現行のように <strong>Excel（マクロ）＋ローカル計算＋外部生成AI連携</strong> が一体となった業務システムは、<strong>要件定義・設計・実装・結合試験・移行・教育</strong>まで含めると、外注では <strong>複数人月〜十数人月以上</strong> がかかる規模になり得ます。<strong>§8.0 の表</strong>がその金額イメージです。</p>
+    <table>
+      <thead>
+        <tr><th>区分</th><th>一般的なイメージ（税抜・幅大）</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>初期開発（新規構築）</strong></td>
+          <td><strong>数百万円台後半〜数千万円規模</strong> がよく議論される帯。大企業向けSI・高い可用性・監査対応・複数拠点展開まで含めると <strong>それ以上</strong> になることもある。</td>
+          <td>既に <strong>要件定義書・ソース・VBA バックアップ</strong> があると調査・仕様の言語化コストは下がりやすいが、「<strong>同じ見た目・同じ挙動で再実装</strong>」でも <strong>テストと移行</strong> は必ず工数がかかる。Web化やDB正規化まで求めると別見積になる。</td>
+        </tr>
+        <tr>
+          <td><strong>月次の保守契約</strong></td>
+          <td>初期開発費をベースに、年 <strong>おおよそ 15〜25%</strong> を月割りした <strong>定額保守</strong> とする契約が、<strong>よくある話</strong>として挙げられる（業界慣行の一例）。実額は <strong>月数万円〜月数十万円（小規模）</strong>、<strong>月数十万円〜数百万円（担当アサイン・応答時間などを契約に明記）</strong> まで幅がある。</td>
+          <td>「<strong>何時間まで無償／超過分は別料金</strong>」「<strong>本番障害の応答時間</strong>」を契約書で定義すると単価が変わる。</td>
+        </tr>
+        <tr>
+          <td><strong>変更・機能追加</strong></td>
+          <td>ほぼ例外なく <strong>見積後の請負または準委任</strong>。<strong>人日（または人月）× 単価</strong> が一般的。開発者の日あたり換算で <strong>おおよそ 8万円〜25万円／人日</strong> 程度を幅として聞くことが多い（役割・ベンダーにより上下）。</td>
+          <td>仕様が曖昧なままだと <strong>追加工数</strong> になりやすい。<strong>変更管理（版管理・影響範囲・退行テスト）</strong> も工数に含まれる。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="cost-sub" id="s8-2">8.2 ② 現行システムの「保守・運用」を外注する場合</h3>
+    <p>既に動く成果物があり、<strong>バグ修正・OS/Excel バージョン対応・ライブラリ更新・問い合わせ対応・軽微な改修</strong> を任せるパターン。<strong>§8.0 の表</strong>が月額の目安です。</p>
+    <table>
+      <thead>
+        <tr><th>区分</th><th>一般的なイメージ（税抜・幅大）</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>月額保守（定額）</strong></td>
+          <td><strong>月 5万円〜30万円前後</strong>：メール／チケットでの <strong>問い合わせ枠のみ</strong>・返答時間は営業日ベース、など <strong>ライト</strong> な契約の例。<strong>月 30万円〜150万円前後</strong>：<strong>月○時間までの改修・調査込み</strong>、<strong>優先対応</strong>、<strong>定例会</strong> などを付けた契約でよくある帯の一例。</td>
+          <td>ソースの <strong>引き渡し・説明負担</strong>、<strong>機密保持</strong>、<strong>アクセス方法（VPN 等）</strong> によって初期の <strong>キックオフ費用</strong> が別途かかることがある。</td>
+        </tr>
+        <tr>
+          <td><strong>スポット対応</strong></td>
+          <td><strong>実工数 × 単価</strong>（人日単価の幅は 8.1 と同様に大きい）。</td>
+          <td>緊急対応・休日対応は <strong>割増</strong> となることが一般的。</td>
+        </tr>
+        <tr>
+          <td><strong>運用</strong>（定義次第）</td>
+          <td>「運用」を <strong>マクロブック配布・バックアップ確認・ログ監視・APIキーローテーション</strong> まで含めると <strong>別契約（運用受託）</strong> となり、<strong>月額の上乗せ</strong> または <strong>人月単位</strong> になりやすい。</td>
+          <td><strong>Gemini の利用料</strong> は原則 <strong>お客様契約のまま</strong> か、<strong>代理請求</strong> かを契約で明確にする。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="cost-sub" id="s8-3">8.3 経営側で押さえると見積がぶれにくいポイント</h3>
+    <ul>
+      <li><strong>スコープ</strong>：「Excel のまま」か「Web/API 化まで」か、<strong>AI は必須かオプションか</strong>。</li>
+      <li><strong>検収条件</strong>：誰が何をもって「完了」とするか（試験観点・本番データでの試行）。</li>
+      <li><strong>保守の範囲</strong>：バグのみか、<strong>OS アップデート対応</strong> や <strong>Excel 新バージョン</strong> まで含むか。</li>
+      <li><strong>セキュリティ</strong>：個人情報の取り扱い、クラウド送信の可否、<strong>委託先の作業環境</strong>（機密保持、接続方法など）。</li>
+    </ul>
+
+    <h3 class="cost-sub" id="s84">8.4 ソースコード規模に基づく試算（2026-03-28 時点・AI による自動計測）</h3>
+    <p><strong>計測方法</strong></p>
+    <ul>
+      <li>ローカルリポジトリ上のテキストを <strong>UTF-8 で 1 行カウント</strong>（空行・コメント行も 1 行として数える）。</li>
+      <li>Python は <code>テストコード/python</code> 以下の <code>.py</code>。<strong>本番系</strong>と検証用サブフォルダ <strong><code>テスト用コード/</code></strong> を分けて記載。</li>
+      <li>VBA は <code>生産管理_AI配台テスト_xlsm_VBA.txt</code> および <code>master_xlsm_VBA.txt</code>（ブックからエクスポートされたテキスト）の行数。</li>
+    </ul>
+    <p><strong>計測結果（行数）</strong></p>
+    <table>
+      <thead>
+        <tr><th>区分</th><th>ファイル・範囲</th><th>行数（概算）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Python 中核</td>
+          <td><code>planning_core.py</code></td>
+          <td><strong>8,134</strong>（<code>def</code> 関数 <strong>約 201</strong>）</td>
+        </tr>
+        <tr>
+          <td>Python 本番その他</td>
+          <td><code>task_extract_stage1.py</code> / <code>plan_simulation_stage2.py</code> / <code>setup_environment.py</code> / <code>encrypt_gemini_credentials.py</code> / <code>main.py</code> など</td>
+          <td><strong>約 301</strong></td>
+        </tr>
+        <tr>
+          <td>Python 小計（本番寄り）</td>
+          <td>上記</td>
+          <td><strong>約 8,435</strong></td>
+        </tr>
+        <tr>
+          <td>Python 検証用</td>
+          <td><code>python/テスト用コード/*.py</code></td>
+          <td><strong>約 1,472</strong></td>
+        </tr>
+        <tr>
+          <td>Python 合計</td>
+          <td><code>python/</code> ツリー全体</td>
+          <td><strong>約 9,907</strong></td>
+        </tr>
+        <tr>
+          <td>VBA（配台ブック）</td>
+          <td><code>生産管理_AI配台テスト_xlsm_VBA.txt</code></td>
+          <td><strong>約 3,381</strong></td>
+        </tr>
+        <tr>
+          <td>VBA（マスタ）</td>
+          <td><code>master_xlsm_VBA.txt</code></td>
+          <td><strong>約 758</strong></td>
+        </tr>
+        <tr>
+          <td><strong>再実装対象の目安合計</strong></td>
+          <td>本番 Python ＋ 両 VBA テキスト</td>
+          <td><strong>約 12,574 行</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>試算ロジック（仮定を明示）</strong></p>
+    <p>同等機能を <strong>一から外注で再構築</strong>すると仮定し、<strong>ソース行数 ÷ 実効生産性（行/人日）</strong> で工数を粗く算出する。業務ロジック・Excel I/O・生成AI 連携が混在するため、<strong>25〜50 行/人日</strong> を幅とした（設計・単体試験・手戻り余力を含む粗い係数であり、<strong>正式見積の手法ではない</strong>）。</p>
+    <ol>
+      <li>実装中心工数（人日）≒ 12,574 ÷ 50 〜 12,574 ÷ 25 → <strong>約 251 〜 503 人日</strong></li>
+      <li>結合試験・移行・プロジェクト管理の上乗せ <strong>+25〜35%</strong> → <strong>約 315 〜 680 人日</strong></li>
+      <li>人月換算（<strong>1 人月 = 20 人日</strong> と仮定）→ <strong>約 16 〜 34 人月</strong></li>
+    </ol>
+    <p><strong>金額レンジ（税抜・人月単価のみの積み上げ）</strong></p>
+    <table>
+      <thead>
+        <tr><th>人月単価（税抜・仮定）</th><th>下限（約 16 人月）</th><th>上限（約 34 人月）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>80 万円/人月</strong></td>
+          <td><strong>約 1,280 万円</strong></td>
+          <td><strong>約 2,720 万円</strong></td>
+        </tr>
+        <tr>
+          <td><strong>100 万円/人月</strong></td>
+          <td><strong>約 1,600 万円</strong></td>
+          <td><strong>約 3,400 万円</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>この試算がカバーしにくいコスト</strong>：要件定義・業務フローの再整理、<strong>Web 化・DB 正規化</strong>、<strong>セキュリティ監査</strong>、複数拠点展開、<strong>Gemini API 等の従量課金</strong>、本番データでの受入試験・教育の <strong>社内工数</strong>。</p>
+    <p><strong>試算の限界（必読）</strong>：<strong>コメント・空行率</strong>、テンプレ重複、<strong>生成ツールによる作成比率</strong>で実工数は増減する。<strong>単一ファイル約 8,100 行</strong>は、再設計・モジュール分割を求めると <strong>上振れ</strong> しやすい。<strong>本節は AI が行数を機械集計し、上記係数で換算したもの</strong>であり、<strong>第三者監査やベンダー見積の代替にはならない</strong>。</p>
+    <p><strong>ソース試算を踏まえた保守月額のイメージ（税抜）</strong>：再構築コストを <strong>約 2,400 万円（上記レンジの中間付近）</strong> と仮定し、年間 <strong>18%</strong> の定額保守とすると <strong>年 約 432 万円 → 月 約 36 万円</strong>（<strong>約 35 万〜40 万円/月</strong> のオーダー）。</p>
+
+    <h2 id="s9">9. まとめ</h2>
+    <p>本システムは、<strong>工場の配台業務を Excel 中心の運用のまま支援し</strong>、<strong>Google Gemini による文章・ルールの解釈</strong>を組み合わせたものです。<strong>業務効率と再現性の向上</strong>が期待できる一方、<strong>クラウドAIのコスト・セキュリティ・可用性</strong>は経営・管理層での合意と運用設計が不可欠です。</p>
+
+    <p class="footnote">本紙は意思決定・説明用の要約であり、契約・検収の唯一の根拠にはしません。§8.0 は <strong>市場感の例示</strong>、§8.4 は <strong>ソース行数と仮定係数による試算</strong> であり、いずれも見積・契約金額を保証するものではありません。正式な金額は委託先からの見積を正としてください。</p>
+  </article>
+</body>
+</html>

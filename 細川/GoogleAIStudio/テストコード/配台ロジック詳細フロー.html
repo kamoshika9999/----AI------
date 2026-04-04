@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>配台ロジック詳細フロー（Excel由来・変数対応）</title>
+  <style>
+    :root { --bd: #ccc; --bg2: #f6f8fa; --accent: #0d47a1; }
+    body { font-family: "Segoe UI", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif; line-height: 1.55; margin: 0 auto; max-width: 1180px; padding: 1.25rem 1.5rem 3rem; color: #222; }
+    h1 { font-size: 1.45rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.35rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; color: var(--accent); }
+    h3 { font-size: 1.02rem; margin-top: 1.25rem; }
+    p.note { font-size: 0.92rem; color: #444; background: var(--bg2); padding: 0.65rem 0.85rem; border-left: 4px solid var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1.25rem; font-size: 0.88rem; }
+    th, td { border: 1px solid var(--bd); padding: 0.4rem 0.55rem; vertical-align: top; }
+    th { background: var(--bg2); text-align: left; }
+    code, .mono { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 0.86em; }
+    .mermaid { margin: 1rem 0; overflow-x: auto; background: #fafafa; padding: 1rem; border: 1px solid var(--bd); }
+    ul.compact li { margin: 0.25rem 0; }
+    .src { color: #555; font-size: 0.85rem; }
+    caption { caption-side: bottom; font-size: 0.82rem; color: #666; text-align: left; margin-top: 0.35rem; }
+  </style>
+</head>
+<body>
+
+<h1>配台ロジック詳細フロー（Excel 元データ → 変数対応付き）</h1>
+<p class="note">
+  本書は <span class="mono">planning_core.py</span> の <span class="mono">generate_plan()</span> および周辺（段階2）に基づく技術メモです。
+  列名・シート名はソース定数（<span class="mono">TASK_COL_*</span> / <span class="mono">PLAN_COL_*</span> 等）と一致させています。
+  実装の更新により差異が出た場合はソースを優先してください。
+</p>
+
+<h2>1. 参照する Excel ブックとファイル</h2>
+<table>
+  <thead>
+    <tr><th>種別</th><th>パス・名前</th><th>環境変数 / 定数</th><th>主な用途</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>マクロ実行ブック</td>
+      <td>VBA / RunPython が渡すパス</td>
+      <td><span class="mono">TASK_INPUT_WORKBOOK</span></td>
+      <td>メイン「グローバルコメント」、<span class="mono">加工計画DATA</span>（データ抽出日）、<span class="mono">配台計画_タスク入力</span>（段階2入力）、設定シート</td>
+    </tr>
+    <tr>
+      <td>マスタ</td>
+      <td>カレント直下 <span class="mono">master.xlsm</span></td>
+      <td><span class="mono">MASTER_FILE</span></td>
+      <td><span class="mono">skills</span> / <span class="mono">need</span>、メンバー名と一致する勤怠シート（<span class="mono">日付</span>列ほか）</td>
+    </tr>
+    <tr>
+      <td>計画入力シート名</td>
+      <td>既定「配台計画_タスク入力」</td>
+      <td><span class="mono">TASK_PLAN_SHEET</span> で上書き可 → <span class="mono">PLAN_INPUT_SHEET_NAME</span></td>
+      <td><span class="mono">load_planning_tasks_df()</span> が <span class="mono">read_excel(..., sheet_name=PLAN_INPUT_SHEET_NAME)</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>2. <span class="mono">master.xlsm</span> シート → Python 側の変数</h2>
+<table>
+  <thead>
+    <tr><th>シート / 構造</th><th>読込関数</th><th>戻り値・内部構造</th><th>配台での使われ方</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>skills</strong><br />新: 1行目=工程名、2行目=機械名、A列以降=メンバー行。交差セルに <span class="mono">OP1</span> / <span class="mono">AS3</span> 等</td>
+      <td><span class="mono">load_skills_and_needs()</span></td>
+      <td>
+        <span class="mono">skills_dict[メンバー名]["工程+機械"]</span> など、<br />
+        <span class="mono">members</span>（メンバー名リスト）,<br />
+        <span class="mono">equipment_list</span>（<span class="mono">工程+機械</span>の列キー配列）
+      </td>
+      <td>日次ループで <span class="mono">capable_members</span> を絞り込み（<span class="mono">parse_op_as_skill_cell</span>）。設備列キー <span class="mono">equipment_line_key</span> の解決にも使用</td>
+    </tr>
+    <tr>
+      <td><strong>need</strong><br />「工程名」「機械名」行のあと、A列に「必要人数」を含む基本行、その直下に「配台時追加人数」行、さらに「特別指定1」〜行</td>
+      <td>同上</td>
+      <td>
+        <span class="mono">req_map</span>（キー: <span class="mono">工程+機械</span> および工程名・機械名単独のフォールバック）,<br />
+        <span class="mono">surplus_map</span>（追加人数上限）,<br />
+        <span class="mono">need_rules</span>（依頼NO条件つき上書き）
+      </td>
+      <td><span class="mono">resolve_need_required_op_explain</span> / <span class="mono">resolve_need_surplus_extra_max_explain</span> で <span class="mono">req_num</span>・<span class="mono">extra_max</span> を決定</td>
+    </tr>
+    <tr>
+      <td><strong>各メンバー名シート</strong>（<span class="mono">skills</span> のメンバーと同名。カレンダー/need/skills 以外）</td>
+      <td><span class="mono">load_attendance_and_analyze(members)</span></td>
+      <td><span class="mono">attendance_data[日付][メンバー]</span> … 出勤・<span class="mono">start_dt</span> / <span class="mono">end_dt</span> / <span class="mono">breaks_dt</span> / <span class="mono">efficiency</span> / <span class="mono">eligible_for_assignment</span> 等</td>
+      <td>その日の <span class="mono">avail_dt</span>、チームの終業上限・休憩マージ</td>
+    </tr>
+    <tr>
+      <td>勤怠列 <span class="mono">備考</span>（<span class="mono">ATT_COL_REMARK</span>）、<span class="mono">休暇区分</span>（<span class="mono">ATT_COL_LEAVE_TYPE</span>）</td>
+      <td>勤怠AI（Gemini、キャッシュあり）</td>
+      <td>構造化結果が日次レコードに反映</td>
+      <td>配台可能メンバー・時刻帯の解釈</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. マクロブック（<span class="mono">TASK_INPUT_WORKBOOK</span>）の読み取り箇所</h2>
+<table>
+  <thead>
+    <tr><th>シート・位置</th><th>関数</th><th>代入先</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>「メイン」または名前に「メイン」を含むシート。見出しセルが「グローバルコメント」相当の<strong>直下セル</strong></td>
+      <td><span class="mono">load_main_sheet_global_priority_override_text()</span> → <span class="mono">analyze_global_priority_override_comment()</span></td>
+      <td><span class="mono">global_priority_override</span>（工場休業日、<span class="mono">ignore_skill_requirements</span>、<span class="mono">ignore_need_minimum</span>、<span class="mono">abolish_all_scheduling_limits</span>、依頼別の基準日・速度倍率・担当OP指名など）</td>
+    </tr>
+    <tr>
+      <td><span class="mono">加工計画DATA</span> シートの列 <strong>データ抽出日</strong>（先頭の非空値）</td>
+      <td><span class="mono">_extract_data_extraction_datetime()</span></td>
+      <td><span class="mono">base_now_dt</span> / <span class="mono">run_date</span> / <span class="mono">macro_run_date</span> / <span class="mono">macro_now_dt</span>（当日開始下限に使用）</td>
+    </tr>
+    <tr>
+      <td><span class="mono">配台計画_タスク入力</span>（または <span class="mono">TASK_PLAN_SHEET</span>）</td>
+      <td><span class="mono">load_planning_tasks_df()</span></td>
+      <td><span class="mono">tasks_df</span>（DataFrame 1行 = 1タスク行）</td>
+    </tr>
+    <tr>
+      <td>「設定」シート A3 以降（依頼NO）</td>
+      <td><span class="mono">_read_trace_schedule_task_ids_from_config_sheet()</span></td>
+      <td>A 列の依頼NO集合が <span class="mono">TRACE_SCHEDULE_TASK_IDS</span>（ログ用。環境変数は使わない）</td>
+    </tr>
+  </tbody>
+</table>
+<p class="note">
+  メインのグローバルコメント解析結果を計画シート列に書き出す表示用列（AX/AY 付近）はありますが、<strong>配台計算の入力経路はメイン「グローバルコメント」1系統</strong>です（二重適用にならない設計）。
+</p>
+
+<h2>4. 「配台計画_タスク入力」列 → <span class="mono">task_queue</span> の dict キー</h2>
+<p class="src">変換本体: <span class="mono">build_task_queue_from_planning_df()</span>（<span class="mono">planning_core.py</span>）</p>
+<table>
+  <thead>
+    <tr><th>Excel 列名（定数名）</th><th>dict キー / 内部変数</th><th>内容・算出メモ</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="mono">依頼NO</span> <span class="mono">TASK_COL_TASK_ID</span></td><td><span class="mono">task_id</span></td><td>行から文字列化。重複行は <span class="mono">same_request_line_seq</span> で区別</td></tr>
+    <tr><td><span class="mono">工程名</span> <span class="mono">TASK_COL_MACHINE</span></td><td><span class="mono">machine</span></td><td>need / skills のキー左側</td></tr>
+    <tr><td><span class="mono">機械名</span> <span class="mono">TASK_COL_MACHINE_NAME</span></td><td><span class="mono">machine_name</span></td><td>need / skills のキー右側</td></tr>
+    <tr><td>上記＋<span class="mono">equipment_list</span></td><td><span class="mono">equipment_line_key</span></td><td><span class="mono">_resolve_equipment_line_key_for_task()</span>（設備時間割・同一設備判定の列キー）</td></tr>
+    <tr><td><span class="mono">換算数量</span> <span class="mono">TASK_COL_QTY</span></td><td><span class="mono">total_qty_m</span>、残量計算の基礎</td><td><span class="mono">qty_total</span>。完了相当を差し引いた <span class="mono">qty</span> が正の行だけキューへ</td></tr>
+    <tr><td><span class="mono">受注数</span> <span class="mono">TASK_COL_ORDER_QTY</span><br /><span class="mono">実出来高</span> <span class="mono">TASK_COL_ACTUAL_OUTPUT</span><br /><span class="mono">実加工数</span> <span class="mono">TASK_COL_ACTUAL_DONE</span></td><td><span class="mono">done_qty_reported</span>（<span class="mono">calc_done_qty_equivalent_from_row</span>）</td><td>実出来高×換算数量/受注数（受注数不正時は実加工数へフォールバック）</td></tr>
+    <tr><td><span class="mono">加工速度</span> <span class="mono">TASK_COL_SPEED</span></td><td>速度（上書きと合算後 <span class="mono">speed</span>）</td><td><span class="mono">加工速度_上書き</span>があれば優先。メイン全局の <span class="mono">global_speed_rules</span> で倍率可</td></tr>
+    <tr><td><span class="mono">製品名</span> <span class="mono">TASK_COL_PRODUCT</span></td><td><span class="mono">unit_m</span></td><td><span class="mono">infer_unit_m_from_product_name()</span> で1単位のメートル換算</td></tr>
+    <tr><td><span class="mono">回答納期</span> / <span class="mono">指定納期</span> / <span class="mono">原反投入日</span></td><td><span class="mono">answer_due_date</span> / <span class="mono">specified_due_date</span> / <span class="mono">raw_input_date</span></td><td>結果シート表示・基準納期ルールの材料</td></tr>
+    <tr><td><span class="mono">在庫場所</span> <span class="mono">TASK_COL_STOCK_LOCATION</span></td><td>—</td><td>加工計画DATA から段階1でコピー（原反投入日の右隣）。配台キューdictには含めない表示用</td></tr>
+    <tr><td><span class="mono">指定納期_上書き</span> <span class="mono">PLAN_COL_SPECIFIED_DUE_OVERRIDE</span></td><td><span class="mono">specified_due_override</span>、<span class="mono">due_basis_date</span>候補</td><td>優先順位は下記「計画基準納期」フロー参照</td></tr>
+    <tr><td><span class="mono">加工内容</span> <span class="mono">TASK_COL_PROCESS_CONTENT</span></td><td><span class="mono">process_sequence_rank</span></td><td>同一依頼NO内の工程順リストから工程名の位置</td></tr>
+    <tr><td><span class="mono">加工完了区分</span></td><td>—</td><td><span class="mono">row_has_completion_keyword()</span> で True なら<strong>キューに載せない</strong></td></tr>
+    <tr><td><span class="mono">配台不要</span> <span class="mono">PLAN_COL_EXCLUDE_FROM_ASSIGNMENT</span></td><td>—</td><td><span class="mono">_plan_row_exclude_from_assignment()</span> True ならスキップ</td></tr>
+    <tr><td><span class="mono">必要人数</span> <span class="mono">PLAN_COL_REQUIRED_OP</span></td><td><span class="mono">required_op</span></td><td><span class="mono">_merge_task_row_with_ai</span>。配台ループでは <span class="mono">ignore_need_minimum</span> で 1 に落とし得る</td></tr>
+    <tr><td><span class="mono">加工速度_上書き</span></td><td>同上（速度上書き）</td><td>AIキー <span class="mono">speed_override</span> とマージ</td></tr>
+    <tr><td><span class="mono">タスク加工効率</span></td><td><span class="mono">task_eff_factor</span></td><td>単位あたり実働時間に乗算</td></tr>
+    <tr><td><span class="mono">優先度</span></td><td><span class="mono">priority</span></td><td>空なら 999。備考に納期系文言が無い行は AI の priority を使わない制御あり</td></tr>
+    <tr><td><span class="mono">加工開始日_指定</span> / <span class="mono">加工開始時刻_指定</span></td><td><span class="mono">start_date_req</span>の上書き源、<span class="mono">earliest_start_time</span></td><td>デフォルト開始日は原反の翌日または <span class="mono">run_date</span></td></tr>
+    <tr><td><span class="mono">担当OP_指定</span></td><td><span class="mono">preferred_operator_raw</span></td><td>メイン全局・AIより後に全局指名で上書き可</td></tr>
+    <tr><td><span class="mono">特別指定_備考</span></td><td>AI解析 <span class="mono">ai_by_tid</span>、フラグ類</td><td><span class="mono">analyze_task_special_remarks()</span> → <span class="mono">_merge_task_row_with_ai</span> 等。納期関連文言がある行のみ AI の目標日・開始日を基準納期に使い得る</td></tr>
+  </tbody>
+</table>
+
+<h3>4.1 計画基準納期 <span class="mono">due_basis_date</span> の優先順（コードコメント準拠）</h3>
+<ol class="compact">
+  <li>メイン・グローバルコメント AI の依頼NO別基準日（<span class="mono">due_source_rank=0</span>）</li>
+  <li>備考に納期・期限・最優先等の文言があり、かつ AI に目標完了系日付がある（<span class="mono">ai_target_due</span>）</li>
+  <li>同上で AI の <span class="mono">start_date</span></li>
+  <li><span class="mono">指定納期_上書き</span></li>
+  <li><span class="mono">原反投入日</span>（原反がある行）</li>
+  <li><span class="mono">回答納期</span></li>
+  <li><span class="mono">指定納期</span></li>
+</ol>
+
+<h3>4.2 開始日 <span class="mono">start_date_req</span>（実効）</h3>
+<ul class="compact">
+  <li>原反投入日がある: <span class="mono">max(run_date, 原反投入日+1日)</span>（指定開始日が原反以前なら当日開始を許容するログ付き分岐あり）</li>
+  <li>原反なし: <span class="mono">run_date</span></li>
+  <li><span class="mono">加工開始日_指定</span>（または備考AIの start_date がマージされた値）があればそれで上書き</li>
+  <li>原反と同一日にしか開始できない場合 <span class="mono">same_day_raw_start_limit = 12:50</span>（コード上 <span class="mono">time(12,50)</span>）</li>
+  <li>シミュレーション開始前に、<span class="mono">start_date_req</span> が非稼働日なら直近の稼働日へ寄せる</li>
+</ul>
+
+<h3>4.3 キュー上のその他キー</h3>
+<table>
+  <thead><tr><th>キー</th><th>由来</th></tr></thead>
+  <tbody>
+    <tr><td><span class="mono">remaining_units</span> / <span class="mono">initial_remaining_units</span></td><td><span class="mono">qty / unit_m</span>（ロール等の単位数）</td></tr>
+    <tr><td><span class="mono">base_time_per_unit</span></td><td>換算数量・速度・単位から単位あたり時間</td></tr>
+    <tr><td><span class="mono">due_urgent</span></td><td><span class="mono">due_basis_date <= run_date</span></td></tr>
+    <tr><td><span class="mono">in_progress</span></td><td><span class="mono">done_qty > 0</span></td></tr>
+    <tr><td><span class="mono">roll_pipeline_ec</span> / <span class="mono">roll_pipeline_inspection</span></td><td>工程名・機械名が §B-2 パイプライン定義に一致するか</td></tr>
+    <tr><td><span class="mono">planning_sheet_row_seq</span></td><td>DataFrame 読込順（依頼NO直列モードの順序に使用）</td></tr>
+    <tr><td><span class="mono">dispatch_trial_order</span></td><td>初回 <span class="mono">task_queue.sort</span> 後に <span class="mono">enumerate(..., start=1)</span> で付与。<strong>納期シフト再実行でキューを再ソートした後は、ソース上はこの番号を付け直していない</strong>点に注意</td></tr>
+  </tbody>
+</table>
+
+<h2>5. <span class="mono">generate_plan</span> 全体フロー</h2>
+<p class="note">外側 <span class="mono">while True</span> は、<strong>納期超過リトライ</strong>で日中の <span class="mono">for current_date</span> を途中 break したときに<strong>次のラウンド</strong>へ進みます。<strong>カレンダーを最後まで通した</strong>ラウンドの末尾で <span class="mono">_run_b2_inspection_rewind_pass</span> が一度だけ走り、その後 <span class="mono">while</span> を抜けます（実装: <span class="mono">planning_core.generate_plan</span>）。</p>
+<div class="mermaid">
+flowchart TB
+  subgraph prep["読込・準備"]
+    A[generate_plan] --> B[skills/need・勤怠・tasks_df・メイン全局・特別指定AI]
+    B --> C[task_queue 構築・初回ソート]
+    C --> D[dispatch_trial_order 付与]
+    D --> E[残量・履歴・timeline_events 初期化]
+  end
+  subgraph outer["外側 while True"]
+    E --> F{_outer_retry_round > 0 ?}
+    F -->|Yes| F1[勤怠の拡張日を除去し sorted_dates をテンプレに戻す]
+    F -->|No| G
+    F1 --> G[plan_day_iter で全日を順に走査]
+    G --> H[各 current_date: 日内マルチパス §6]
+    H --> I{当日終了: 納期超過で当該依頼を巻き戻し?}
+    I -->|Yes for を break 全日程未完了扱い| F
+    I -->|No| J{次の計画日がある?}
+    J -->|Yes| G
+    J -->|No| K{デバッグ早期終了?}
+    K -->|Yes| END[while 脱出]
+    K -->|No| L{full_calendar_without_deadline_restart ?}
+    L -->|Yes| M[B-2 _run_b2_inspection_rewind_pass]
+    M --> N[while True を break]
+    L -->|No 再度外側へ| F
+    N --> END
+  end
+  subgraph post["while 脱出後"]
+    END --> P[配台トレース集計・余力サブ追記・Excel 出力]
+  end
+</div>
+
+<h3>5.1 試行順優先（既定）の 1 パス二相と B-2 リワインド</h3>
+<p class="src"><span class="mono">STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=1</span> のときの <span class="mono">_trial_order_first_schedule_pass</span> と、全日終了後の再走査を図示しています。B-2 検査は <span class="mono">_trial_order_flow_eligible_tasks</span> で <strong>同一依頼の EC が全日完走するまで前進候補に入りません</strong>（<span class="file">配台ルール.md</span> B-2 節参照）。</p>
+<div class="mermaid">
+flowchart TB
+  subgraph onepass["_trial_order_first_schedule_pass の 1 パス"]
+    T0[eligible = _trial_order_flow_eligible_tasks] --> T1{候補あり?}
+    T0 -.-> E0
+    T1 -->|No| TF[進捗なしでパス終了]
+    T1 -->|Yes| T2[dispatch_trial_order 昇順に並べ替え]
+    T2 --> T3[フェーズ1: B-2 検査行以外を順に _drain_rolls_for_task]
+    T3 --> T4[フェーズ2: B-2 検査行のみ同順に _drain]
+    T4 --> T5{いずれかでロール確定?}
+    T5 -->|Yes| TO[進捗あり]
+    T5 -->|No| TF
+  end
+  subgraph drain["_drain_rolls_for_task（概要）"]
+    D0{remaining_units > 0 ?} -->|No| Dend[終了]
+    D0 -->|Yes| D1[_assign_one_roll_trial_order_flow]
+    D1 -->|None| Dend
+    D1 -->|OK| D2[timeline_events 追記・avail と machine 空き更新]
+    D2 --> D0
+  end
+  subgraph eligible_note["B-2 検査の候補条件（抜粋）"]
+    E0["assign_room で枠ゼロなら除外 / 同一依頼で EC 未完走なら除外 / 先行工程・設備占有・試行順 等"]
+  end
+  subgraph rewind["_run_b2_inspection_rewind_pass（全日通し後）"]
+    R0{EC 完走かつ検査に残ありの B-2 依頼がある?} -->|No| Rskip[何もしない]
+    R0 -->|Yes| R1[sorted_dates 先頭から日付ループ]
+    R1 --> R2[timeline から seeds し _trial_order_first_schedule_pass を繰り返し]
+    R2 --> R3[検査ロールを詰める]
+  end
+</div>
+
+<h2>6. 1 日の処理（詳細）</h2>
+<div class="mermaid">
+flowchart TB
+  D0[current_date] --> D1{稼働メンバー avail_dt あり?}
+  D1 -->|いいえ| nextd[翌日]
+  D1 -->|はい| D2[machine_avail_dt 初期化 + タイムラインから設備空きシード]
+  D2 --> D3[tasks_today = 残量>0 かつ start_date_req <= current_date]
+  D3 --> D4{STAGE2_SERIAL_DISPATCH_BY_TASK_ID}
+  D4 -->|ON| D5[直列リスト順で最初の未完了依頼NOに限定]
+  D4 -->|OFF| D6[そのまま]
+  D5 --> MP[日内マルチパス]
+  D6 --> MP
+  MP --> MP1[ソート済タスクを順に試行]
+  MP1 --> MP2{スキップ条件チェーン}
+  MP2 -->|先行工程| c1[continue]
+  MP2 -->|EC完走前の検査| c1
+  MP2 -->|検査ロール枠0| c1
+  MP2 -->|同一設備検査占有| c1
+  MP2 -->|同一設備で若い試行順が当日開始可能かつ残あり| c1
+  MP2 -->|OK| MP3[req_num / capable_members / チーム組合せ]
+  MP3 --> MP4{候補チームで単位>0?}
+  MP4 -->|いいえ| c1
+  MP4 -->|はい| MP5[最良チーム採用・timeline・残量・空き更新]
+  MP5 --> MP1
+  c1 --> MP1
+  MP1 -->|1パス終了| MP6{進展あった?}
+  MP6 -->|いいえ| nextd
+  MP6 -->|はい| MP
+  nextd --> D0
+</div>
+<p class="src"><strong>試行順優先（<code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=1</code>・既定）</strong>: 上図の「ソート済タスクを順に試行」は、実装では <code>_trial_order_flow_eligible_tasks</code> で絞ったあと <strong><code>dispatch_trial_order</code> 昇順</strong>の意味に読み替えてください。<strong>1 パス</strong>では先頭タスクから見ますが、<strong>1 ロールでも進んだタスクについては連続ロール割付（<code>_drain_rolls_for_task</code>）し、進展があればそのパスは終了</strong>します（同一パス内で試行順の後続タスクへは進みません）。外側のマルチパスで再び昇順の先頭から繰り返します。<code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0</code> のときは §8 の <code>_day_schedule_task_sort_key</code> でソートした 1 本ループが主経路です。</p>
+<p class="src"><strong>納期シフト再試行</strong>: ラウンドごとに <code>task_queue.sort</code> は再実行されますが、<strong><code>dispatch_trial_order</code> は初回付与のまま再付与されません</strong>（<span class="file">配台ルール.md</span> §2.0.3）。</p>
+
+<h3>6.1 チーム開始時刻の下限（Excel・変数との対応）</h3>
+<ul class="compact">
+  <li>メンバー: <span class="mono">avail_dt[メンバー]</span>（勤怠シート由来のその日の開始）</li>
+  <li>設備: <span class="mono">machine_avail_dt[eq_line]</span>（同一設備の直前チャンク終了）。<span class="mono">abolish_all_scheduling_limits</span> なら適用しない</li>
+  <li>原反同日: <span class="mono">same_day_raw_start_limit</span>（12:50）</li>
+  <li>行指定: <span class="mono">earliest_start_time</span>（<span class="mono">加工開始時刻_指定</span>）</li>
+  <li>当日かつデータ抽出日: <span class="mono">macro_now_dt</span> より前に開始しない</li>
+</ul>
+
+<h2>7. 主要なソース内定数・環境変数（抜粋）</h2>
+<table>
+  <thead><tr><th>名前</th><th>意味（概要）</th></tr></thead>
+  <tbody>
+    <tr><td><span class="mono">STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST</span></td><td><code>1</code>（既定）で <code>_trial_order_first_schedule_pass</code>（配台試行順昇順・1 パスは先頭タスクを連続詰め）。<code>0</code> で日内は <code>_day_schedule_task_sort_key</code> 順</td></tr>
+    <tr><td><span class="mono">STAGE2_SERIAL_DISPATCH_BY_TASK_ID</span></td><td><code>1</code> のとき当日は直列リスト上の1依頼NOだけを候補に（ソース既定は <code>0</code>）</td></tr>
+    <tr><td><span class="mono">STAGE2_EXTEND_ATTENDANCE_CALENDAR</span></td><td>残タスクがあれば勤怠日付を複製拡張するか</td></tr>
+    <tr><td><span class="mono">STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING</span></td><td>納期超過検出時に計画基準+1日して当該依頼だけ巻き戻し再実行</td></tr>
+    <tr><td><span class="mono">STAGE2_RETRY_SHIFT_DUE_MAX_ROUNDS</span></td><td>依頼ごとの +1 日リトライ上限</td></tr>
+    <tr><td><span class="mono">PLANNING_B1_INSPECTION_EXCLUSIVE_MACHINE</span></td><td>熱融着検査の同一設備占有（環境変数で無効化可）</td></tr>
+    <tr><td><span class="mono">TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF</span></td><td>チーム採用スコア（人数優先 vs 開始早さ）</td></tr>
+    <tr><td><span class="mono">TEAM_ASSIGN_START_SLACK_WAIT_MINUTES</span></td><td>開始の遅れ許容（分）</td></tr>
+    <tr><td><span class="mono">TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW</span></td><td>need の追加人数行を無視し req のみで試行</td></tr>
+    <tr><td><span class="mono">TRACE_TEAM_ASSIGN_TASK_ID</span></td><td>チーム割当ログ詳細化（配台トレースは設定シート A 列のみ）</td></tr>
+  </tbody>
+</table>
+
+<h2>8. 同一日内のタスク試行順（<span class="mono">_day_schedule_task_sort_key</span>）</h2>
+<p class="src"><strong>適用範囲</strong>: このキーでソートした順に試行するのは <code>STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0</code> のときです。<code>=1</code>（既定）では §6 の補足どおり <code>_trial_order_first_schedule_pass</code> が主経路で、本表はフォールバック経路の並びです。</p>
+<p class="src">辞書式比較で<strong>先に来るほど早く試行</strong>されます（タプル左から比較）。<code>dispatch_trial_order</code> は複合キーの一部であり、単独の最優先キーではありません。</p>
+<table>
+  <thead><tr><th>順</th><th>キー要素</th><th>主な由来</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><span class="mono">due_basis_date</span></td><td>計画基準納期（無ければ <span class="mono">date.max</span>）</td></tr>
+    <tr><td>2</td><td>機械名正規化キー</td><td><span class="mono">machine_name</span></td></tr>
+    <tr><td>3</td><td>依頼NOタイブレーク</td><td><span class="mono">_task_id_same_machine_due_tiebreak_key</span></td></tr>
+    <tr><td>4</td><td>§B-1 試行順繰り上げ</td><td><span class="mono">roll_pipeline_inspection</span> かつ <span class="mono">in_progress</span> のとき <span class="mono">(0, dispatch_trial_order)</span> を rank より前へ</td></tr>
+    <tr><td>5</td><td><span class="mono">process_sequence_rank</span></td><td><span class="mono">加工内容</span>から算出した工程順</td></tr>
+    <tr><td>6</td><td><span class="mono">same_request_line_seq</span></td><td>同一依頼NO内の行順（読込順）</td></tr>
+    <tr><td>7</td><td><span class="mono">dispatch_trial_order</span></td><td>キュー全体の試行順（初回ソート後 enumerate）</td></tr>
+    <tr><td>8</td><td>§B-2 帯内順</td><td><span class="mono">b2_roll_pipeline_stage</span>：0=<span class="mono">roll_pipeline_ec</span>（EC 先行）、1=未着手<span class="mono">roll_pipeline_inspection</span>、2=その他</td></tr>
+    <tr><td>9</td><td>計画シート優先度</td><td><span class="mono">_plan_sheet_priority_sort_value</span></td></tr>
+    <tr><td>10+</td><td><span class="mono">_result_task_sheet_sort_key</span></td><td>結果一覧用の安定ソートキー</td></tr>
+  </tbody>
+</table>
+<p class="note">
+  初回の <span class="mono">task_queue.sort</span> に使われるキー（納期ソースランク・優先度・<span class="mono">start_date_req</span> 等）は、上記の「キュー構築後ソート」とは<strong>別のタプル</strong>です（ソース内 <span class="mono">generate_plan</span> の <span class="mono">task_queue.sort(key=lambda x: (...))</span> を参照）。
+</p>
+
+<h2>9. 出力（タイムライン → Excel）</h2>
+<p>
+  割付成功ごとに <span class="mono">timeline_events</span> にイベントが追加され、計画期間の各日・各設備列（<span class="mono">equipment_list</span> 由来の見出し）に対し 10 分刻みグリッドで
+  <span class="mono">production_plan_multi_day_*.xlsx</span> 等へ書き出します。結果タスク一覧では <span class="mono">plan_window_by_task_id</span> から最早開始・最遅終了を集約します。
+</p>
+
+<h2>10. 初回 <span class="mono">task_queue.sort</span> のキー（キュー構築直後）</h2>
+<table>
+  <thead><tr><th>順（タプル左→右）</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><span class="mono">due_source_rank</span>（グローバルAI基準=0 … 指定納期=6 等）</td></tr>
+    <tr><td>2</td><td>完了日指定系オーバーライド（<span class="mono">has_done_deadline_override</span>）</td></tr>
+    <tr><td>3</td><td><span class="mono">b_tier</span>（0=§B-1 加工途中の熱融着検査、1=§B-2 同パイプライン・未着手、2=その他）</td></tr>
+    <tr><td>4</td><td>§B-1 試行順タイブレーク（<span class="mono">planning_sheet_row_seq</span>）</td></tr>
+    <tr><td>5</td><td>§B 対象外の加工途中 <span class="mono">in_progress</span></td></tr>
+    <tr><td>6</td><td><span class="mono">priority</span>（シート・AIマージ後）</td></tr>
+    <tr><td>7</td><td><span class="mono">due_urgent</span></td></tr>
+    <tr><td>8</td><td><span class="mono">due_basis_date</span></td></tr>
+    <tr><td>9</td><td>機械名正規化</td></tr>
+    <tr><td>10</td><td>依頼NOタイブレーク</td></tr>
+    <tr><td>11</td><td><span class="mono">start_date_req</span></td></tr>
+    <tr><td>12</td><td><span class="mono">_task_id_priority_key</span></td></tr>
+    <tr><td>13</td><td>必要OPの負符号（大きいほど先）</td></tr>
+  </tbody>
+</table>
+
+<hr />
+<p class="src">生成: planning_core の列定数・generate_plan 付近の実装に基づく。§5 / §5.1 の Mermaid は 2026-04-02 時点の制御フロー。ファイル: 配台ロジック詳細フロー.html</p>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: "neutral", flowchart: { curve: "basis" } });
+  await mermaid.run({ querySelector: ".mermaid" });
+</script>
+</body>
+</html>

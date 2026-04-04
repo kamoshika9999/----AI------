@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工程管理AI配台システム 要件定義書</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d0d0d0;
+      --accent: #0d47a1;
+      --accent-bg: #e3f2fd;
+      --table-head: #1565c0;
+      --table-head-text: #fff;
+      --code-bg: #f4f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      background: #fafafa;
+    }
+    .doc {
+      background: #fff;
+      padding: 2.5rem 2.75rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    @media print {
+      body { background: #fff; padding: 0; max-width: none; }
+      .doc { box-shadow: none; padding: 1rem; border-radius: 0; }
+      a { color: #000; text-decoration: none; }
+    }
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid var(--accent);
+      color: var(--accent);
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin: 2rem 0 0.85rem;
+      padding: 0.35rem 0 0.35rem 0.65rem;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(90deg, var(--accent-bg), transparent);
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.35rem 0 0.6rem;
+      color: #263238;
+    }
+    h4 {
+      font-size: 0.98rem;
+      margin: 1.25rem 0 0.5rem;
+      color: #37474f;
+      font-weight: 600;
+    }
+    .meta {
+      background: var(--accent-bg);
+      border: 1px solid #bbdefb;
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .meta p { margin: 0.35rem 0; }
+    .meta strong { color: var(--accent); }
+    p { margin: 0.65rem 0; }
+    ul { margin: 0.5rem 0 0.75rem; padding-left: 1.35rem; }
+    li { margin: 0.25rem 0; }
+    ol { margin: 0.5rem 0 0.75rem; padding-left: 1.35rem; }
+    ol li { margin: 0.35rem 0; }
+    code, .path {
+      font-family: Consolas, "Segoe UI Mono", "MS Gothic", monospace;
+      font-size: 0.9em;
+      background: var(--code-bg);
+      padding: 0.12em 0.4em;
+      border-radius: 4px;
+      border: 1px solid #e8e8ec;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0 1.25rem;
+      font-size: 0.95rem;
+    }
+    thead th {
+      background: var(--table-head);
+      color: var(--table-head-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #0d47a1;
+    }
+    tbody td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    .section-rule {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 2rem 0;
+    }
+    .footnote {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .toc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .toc a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <article class="doc">
+    <h1>工程管理AI配台システム 要件定義書</h1>
+
+    <div class="meta">
+      <p><strong>文書目的</strong>：本システムの業務ロジック・技術構成・データ仕様を整理し、ソフトウェアの新規開発・保守・移管を依頼する委託先が要件を把握できるようにする。</p>
+      <p><strong>想定読者</strong>：受託開発会社の PM / アーキテクト / 実装担当</p>
+      <p><strong>前提</strong>：現行は <strong>Microsoft Excel（.xlsm）＋ローカル Python 3</strong> によるハイブリッド構成。仕様の一次情報はリポジトリ内の <code>python/planning_core.py</code> および <code>生産管理_AI配台テスト_xlsm_VBA.txt</code> に存在する。<strong>Google Gemini API は本システムの要件として必須</strong>（運用上「設定」B1 に有効な認証を常に配置すること。未設定時は実装上フォールバックする箇所があるが、設計された機能は成立しない）。</p>
+      <p><strong>文書バージョン</strong>：0.4（2026-03-28）</p>
+    </div>
+
+    <nav class="toc" aria-label="目次">
+      <strong>目次</strong>：
+      <a href="#sec1">1. システム概要</a> ／
+      <a href="#sec2">2. 機能要件</a>（<a href="#sec2-5">2.5 環境</a>）／
+      <a href="#sec3">3. データ要件</a> ／
+      <a href="#sec4">4. 非機能要件</a> ／
+      <a href="#sec5">5. 外部インタフェース</a> ／
+      <a href="#sec6">6. 移管・再実装</a> ／
+      <a href="#sec7">7. 参考ファイル</a> ／
+      <a href="#sec8">8. 改訂履歴</a>
+    </nav>
+
+    <hr class="section-rule">
+
+    <h2 id="sec1">1. システム概要</h2>
+
+    <h3>1.1 業務目的</h3>
+    <p>工場の <strong>加工計画（タスク）</strong> に対し、<strong>設備（工程・機械）</strong> と <strong>担当オペレータ（OP）</strong> の割付（配台）を自動計算し、日次〜複数日の <strong>生産計画表</strong> および <strong>メンバー別スケジュール</strong> を Excel で出力する。</p>
+
+    <h3>1.2 構成要素</h3>
+    <table>
+      <thead>
+        <tr><th>要素</th><th>役割</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>生産管理_AI配台テスト.xlsm</strong></td>
+          <td>操作 UI・マクロ・設定シート・結果取り込み・LOG 表示。Python 起動の親プロセス。</td>
+        </tr>
+        <tr>
+          <td><strong>master.xlsm</strong></td>
+          <td>スキル・必要人数（need）・勤怠カレンダー由来の出勤データ等のマスタ。<code>planning_core</code> が参照。</td>
+        </tr>
+        <tr>
+          <td><strong>Python（planning_core 中心）</strong></td>
+          <td>段階1・段階2の計算コア、openpyxl による xlsx 生成、<strong>Gemini API 連携（必須）</strong>。</td>
+        </tr>
+        <tr>
+          <td><strong>output/</strong></td>
+          <td>段階1中間成果物、段階2の日付別成果 xlsx、ログ。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>1.3 処理の二段階モデル</h3>
+    <table>
+      <thead>
+        <tr><th>段階</th><th>トリガ</th><th>概要</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>段階1（タスク抽出）</strong></td>
+          <td>VBA → <code>task_extract_stage1.py</code></td>
+          <td>マクロブックの「加工計画DATA」から未完了タスクを抽出し、<code>output/plan_input_tasks.xlsx</code> を生成。VBA が「配台計画_タスク入力」シートへ取り込み。</td>
+        </tr>
+        <tr>
+          <td><strong>段階2（計画生成）</strong></td>
+          <td>VBA → <code>plan_simulation_stage2.py</code></td>
+          <td>「配台計画_タスク入力」を読み、マスタ勤怠・スキルに基づき配台シミュレーション。成果 xlsx を生成し、VBA がマクロブックへシート取り込み。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>ユーザーは段階1後に <strong>配台計画シート上で上書き列・特別指定</strong> を編集し、段階2で反映させる運用を想定する。段階1→段階2の <strong>連続実行</strong> も可能。</p>
+
+    <hr class="section-rule">
+
+    <h2 id="sec2">2. 機能要件</h2>
+
+    <h3>2.1 段階1（タスク抽出）</h3>
+    <p><strong>入力</strong></p>
+    <ul>
+      <li>マクロブック内シート <strong>「加工計画DATA」</strong>（列定義は <code>planning_core</code> の <code>TASK_*</code> / <code>SOURCE_BASE_COLUMNS</code> と一致が必要）。</li>
+    </ul>
+    <p><strong>抽出ロジック（要旨）</strong></p>
+    <ul>
+      <li><strong>完了扱い</strong> の行は除外（完了キーワード・実出来高等による換算残量が 0 など）。</li>
+      <li>残 <strong>換算数量</strong>（総量 − 完了相当）が正で、<strong>依頼NO</strong>・<strong>工程名</strong> が有効な行のみ対象。</li>
+      <li><strong>「配台計画_タスク入力」</strong> 向け列集合にマッピング（上書き用空列を含む）。</li>
+      <li><strong>参照列「（元）…」</strong> はマスタ need 等から再計算（<code>planning_core._refresh_plan_reference_columns</code>）。</li>
+      <li><strong>設定_配台不要工程</strong> シートのルールにより、条件に合致する行へ <strong>配台不要</strong> を自動設定可能（AI・JSON 式評価を含む）。</li>
+      <li>同一依頼NOで同一機械に複数行ある場合の <strong>分割行</strong> に対する <strong>配台不要自動設定</strong>（<code>_apply_auto_exclude_bunkatsu_duplicate_machine</code>）がある。</li>
+    </ul>
+    <p><strong>出力</strong></p>
+    <ul>
+      <li><code>output/plan_input_tasks.xlsx</code>、シート名 <strong>「タスク一覧」</strong>。</li>
+      <li>日付列の表示形式、上書き列の視覚的ハイライト（黄）等の後処理あり。</li>
+    </ul>
+    <p><strong>VBA 側</strong></p>
+    <ul>
+      <li>環境変数 <strong><code>TASK_INPUT_WORKBOOK</code></strong> にマクロブックのフルパスを設定のうえ Python 実行。</li>
+      <li>生成 xlsx を <strong>「配台計画_タスク入力」</strong> に取り込み、既存体裁フォントの退避・復元、クエリ更新（RefreshAll）等。</li>
+    </ul>
+
+    <h3>2.2 段階2（配台計画シミュレーション）</h3>
+    <p><strong>入力</strong></p>
+    <ul>
+      <li><strong>「配台計画_タスク入力」</strong>（列順・列名は <code>plan_input_sheet_column_order()</code> と一致）。</li>
+      <li><strong>master.xlsm</strong>：skills / need / 勤怠（メンバー別出勤・休憩・休暇区分・備考等）。</li>
+      <li><strong>マクロブック「メイン」シート</strong>（名前解決は VBA/Python で「メイン」「Main」「メイン」を含むシート名）：<strong>グローバルコメント</strong>・<strong>再優先特別記載</strong> 等、計画全体への自然言語指示（Gemini 解析）のソースになり得る。</li>
+    </ul>
+    <p><strong>計画基準日時</strong></p>
+    <ul>
+      <li>原則 <strong>「加工計画DATA」のデータ抽出日</strong>（列 <code>データ抽出日</code>）。無い場合は実行時刻にフォールバック。</li>
+    </ul>
+    <p><strong>勤怠・稼働</strong></p>
+    <ul>
+      <li>カレンダー／出勤簿ロジックに基づき、日ごと・メンバーごとに <strong>稼働可否</strong>、<strong>始終業</strong>、<strong>休憩帯</strong>、<strong>中抜け</strong>（AI または文言推定）を構造化。</li>
+      <li>メインのコメントから <strong>工場休業日</strong> を解析し、勤怠に反映する処理あり。</li>
+    </ul>
+    <p><strong>配台アルゴリズム（要旨）</strong></p>
+    <ul>
+      <li>タスクを <strong>優先度・納期・進行状況・特別指定（AI 解析含む）</strong> でキュー化（<code>build_task_queue_from_planning_df</code>）。</li>
+      <li><strong>日付ループ</strong> で、設備（機械）ごとにタイムラインを更新しつつ OP を割当（チーム編成・need の必要人数・余剰人員の扱い等）。</li>
+      <li><strong>休憩を除いた実働分</strong> で加工時間を換算（<code>get_actual_work_minutes</code> / <code>calculate_end_time</code>）。</li>
+      <li><strong>設備ガント</strong>、<strong>設備毎時間割</strong>、<strong>タスク一覧</strong>、<strong>メンバー別</strong> 等の結果シート用データを生成し、<strong>日付階層の output フォルダ</strong> に xlsx 保存。</li>
+      <li>矛盾（特別指定と AI 解析の不整合等）を検出し、可能なら <strong>Excel 上の配台シートに視覚的ハイライト</strong>。ブックを Excel で開いたままだと Python からファイルを直接保存できないことがあるため、そのときは <strong><code>log\planning_conflict_highlight.tsv</code> などの補助ファイル（タブ区切り）に内容を書き出し</strong>、段階2終了後に VBA がそのファイルを読んで <strong>開いているシートへセルを塗る</strong>（<code>ApplyPlanningConflictHighlightSidecar</code>）。</li>
+    </ul>
+
+    <h4>タスクの優先順位（<code>task_queue</code> の並び＝同一日内の割付検討順）</h4>
+    <p>段階2では <code>generate_plan</code> 内で <code>task_queue.sort(...)</code> により <strong>先頭に近いタスクほど同条件で先に機械・OP を占有しやすい</strong>。タプルは <strong>辞書式順（小さい方が先）</strong>。実装キー（<code>planning_core.generate_plan</code>）の要約は次のとおり。</p>
+    <ol>
+      <li><strong>納期ソースの強さ</strong>（<code>due_source_rank</code>）：<strong>指定納期_上書き（セル）</strong> → <strong>特別指定備考 AI の目標納期系</strong> → <strong>AI の開始日（締め扱い）</strong> → <strong>回答納期</strong> → <strong>指定納期</strong> → なし（最大ランク）。数値が小さいほど先。</li>
+      <li><strong>AI／上書きによる「完了期限系」の指定</strong>（<code>has_done_deadline_override</code>）：<strong>ある</strong>行を <strong>ない</strong>行より先。</li>
+      <li><strong>加工途中</strong>（実績数量あり、<code>in_progress</code>）：<strong>ある</strong>方を先。</li>
+      <li><strong>配台計画の「優先度」列</strong>（<code>PLAN_COL_PRIORITY</code>）：<strong>数値が小さいほど高優先</strong>。未入力は実装上 <strong>999</strong> 扱い。</li>
+      <li><strong>当日基準日以前が納期根拠</strong>（<code>due_urgent</code>）：<strong>緊急</strong>（納期根拠日が基準日以前）を先。</li>
+      <li><strong>納期根拠日</strong>（<code>due_basis_date</code>）：<strong>早い</strong>日付を先。</li>
+      <li><strong>開始可能日</strong>（<code>start_date_req</code>）：<strong>早い</strong>日付を先。</li>
+      <li><strong>依頼NO のタイブレーク</strong>（<code>_task_id_priority_key</code>）：同一プレフィックスなら <strong>ハイフン後の数値が小さい</strong> 方を先（例: Y3-24 を Y3-34 より先）。</li>
+      <li><strong>必要人数</strong>（need／行上書き解決後）：<strong>多い</strong>方を先（実装では人数にマイナスを付与してソート）。</li>
+    </ol>
+    <p>補足：<strong>メインシート「再優先特別記載」</strong>（Gemini 解釈）により、スキル無視・チーム1名固定・配台制約の撤廃など <strong>キュー以前のグローバル上書き</strong> が入る場合がある。</p>
+
+    <h4>配台の優先順位（チーム候補・スキルセル）</h4>
+    <ul>
+      <li><strong>チーム編成の候補同士の優劣</strong>（<code>_team_assignment_sort_tuple</code>）：環境変数 <strong><code>TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF</code></strong>（既定 <code>1</code>＝有効）のとき、<strong>(1) 人数が多いチーム</strong> → <strong>(2) チーム全体の作業開始が早い</strong> → <strong>(3) その日にこなす単位数が多い</strong> → <strong>(4) メンバーごとの skills 交差セル優先度の合計が小さい</strong> の順で優先。無効時は <strong>開始が早い</strong> を最優先とし、その後 <strong>単位数</strong>・<strong>スキル優先度合計</strong>。</li>
+      <li><strong>master.xlsm「skills」交差セル</strong>（<code>parse_op_as_skill_cell</code>）：<strong>OP／AS の後に付く整数が小さいほど、その設備への割当で先に選ばれる</strong>。数字省略の <code>OP</code>／<code>AS</code> は優先度 <strong>1</strong>。OP/AS で始まらないセルは当該組み合わせではスキルなし扱い。</li>
+    </ul>
+
+    <p><strong>出力ファイル（代表）</strong></p>
+    <ul>
+      <li><code>production_plan_multi_day_*.xlsx</code>（結果_* シート群・列設定シート等）。</li>
+      <li><code>member_schedule_*.xlsx</code>（メンバー名シート → VBA で <strong>個人_*</strong> にリネーム取り込み）。</li>
+    </ul>
+    <p><strong>VBA 側</strong></p>
+    <ul>
+      <li>上記 xlsx を開き、既存 <strong>結果_*</strong> / <strong>列設定_結果_タスク一覧</strong> を削除してからコピー。</li>
+      <li>列幅・罫線・見出し色・<strong>メイン</strong> の結果リンク・メンバー一覧・出勤表示の更新。</li>
+      <li>段階1/2 成功後 <strong>全シート UsedRange のフォントを BIZ UDPゴシックに統一</strong>（自動）する仕様あり。</li>
+    </ul>
+
+    <h3>2.3 Google Gemini API 連携（<strong>必須要件</strong>）</h3>
+    <p>本システムの <strong>要件として Gemini API を利用可能な状態にすること</strong> を求める。認証未設定時、実装は一部処理をスキップするが、<strong>特別指定備考の構造化・配台不要ルールの JSON 化・勤怠解釈・メイン「再優先特別記載」の解釈・工場休業日の抽出</strong> 等、設計上の主機能が期待どおり動かないため、<strong>本番・検収環境では API キー（または暗号化認証 JSON）の配置を必須</strong>とする。</p>
+    <ul>
+      <li><strong>主な用途</strong>：配台計画 <strong>特別指定_備考</strong> の解析、<strong>設定_配台不要工程</strong> の日本語ロジック→JSON、<strong>勤怠備考・結果カレンダー</strong> 周りの解釈、<strong>メイン「再優先特別記載」</strong> の自然言語→配台フラグ（スキル無視・1名チーム・制約撤廃・依頼NO別担当指名など）、その他計画補助。</li>
+      <li><strong>認証</strong>：マクロブック <strong>「設定」B1</strong> に Gemini 認証 JSON のパス（平文または暗号化形式）。復号パスフレーズは <strong>Python ソース内定数</strong>（セキュリティ方針としてシートに書かない）。</li>
+      <li><strong>依存パッケージ</strong>：<code>google-genai</code>（<code>requirements.txt</code>）。</li>
+      <li><strong>運用</strong>：API 利用状況のサマリを <strong>メイン P 列</strong> 等へ反映する処理あり。料金・クォータは別途運用設計すること。</li>
+    </ul>
+
+    <h3>2.4 その他マクロ機能（UI・運用）</h3>
+    <ul>
+      <li><strong>環境構築</strong>：<code>python/setup_environment.py</code> 実行（pip / requirements / xlwings アドイン）。ブック直下ではなく <strong><code>python\</code> 配下</strong> を優先参照。</li>
+      <li><strong>全シートフォント統一</strong>（リスト選択 / 手入力 / BIZ UDP 固定）。</li>
+      <li><strong>設定_配台不要工程</strong> シートの確保・Power Query 更新・TSV フォールバック同期。</li>
+      <li><strong>master.xlsm を開く</strong> ボタン配置用マクロ。</li>
+      <li>master 側（別ファイル <code>master_xlsm_VBA.txt</code>）には <strong>カレンダーからメンバー出勤簿生成</strong> 等、マスタ整備用マクロが含まれる。</li>
+    </ul>
+
+    <h3 id="sec2-5">2.5 Python 実行環境・必要コンポーネント（<strong>xlwings 含む</strong>）</h3>
+
+    <h4>ランタイム・起動方法</h4>
+    <ul>
+      <li><strong>OS</strong>：Windows（Excel デスクトップとセット）。</li>
+      <li><strong>Python</strong>：3 系（VBA「環境構築」は <strong>Python 3.12</strong> の winget / 公式インストーラ URL を想定）。コマンドは <strong><code>py -3</code></strong>（Python Launcher）を前提にマクロから <code>cmd.exe</code> 経由で起動する。</li>
+      <li><strong>カレントディレクトリ</strong>：<code>planning_core</code> はモジュール読込時に <strong>テストコード直下</strong>（<code>python\</code> の親）へ <code>chdir</code> する実装。ブック・<code>master.xlsm</code>・<code>output\</code>・<code>log\</code> と同じ階層に <code>python\</code> を置くこと。</li>
+    </ul>
+
+    <h4>pip パッケージ（<code>python/requirements.txt</code>）</h4>
+    <table>
+      <thead>
+        <tr><th>パッケージ</th><th>バージョン目安</th><th>役割</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>pandas</strong></td>
+          <td>≥2.0</td>
+          <td>タスク DataFrame、<code>read_excel</code> 等による表データ処理。</td>
+        </tr>
+        <tr>
+          <td><strong>openpyxl</strong></td>
+          <td>≥3.1</td>
+          <td><strong>主経路</strong>：閉じた xlsx/xlsm の読み書き、スタイル・シート生成（段階1/2 成果物、設定シート保守の保存試行など）。</td>
+        </tr>
+        <tr>
+          <td><strong>xlwings</strong></td>
+          <td>≥0.30</td>
+          <td><strong>環境標準コンポーネント</strong>として <code>requirements.txt</code> に含める。下記「xlwings アドイン」とセットで導入する。</td>
+        </tr>
+        <tr>
+          <td><strong>google-genai</strong></td>
+          <td>≥1.0</td>
+          <td>Google <strong>Gemini API</strong> クライアント（必須要件に連動）。</td>
+        </tr>
+        <tr>
+          <td><strong>cryptography</strong></td>
+          <td>≥42.0</td>
+          <td>Gemini 認証 JSON の <strong>暗号化形式</strong>の復号、<code>encrypt_gemini_credentials.py</code> 等。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>xlwings（パッケージ＋Excel アドイン）— 要件としての位置づけ</h4>
+    <ul>
+      <li><strong>pip の <code>xlwings</code></strong>：上表のとおり必ずインストール対象に含める。</li>
+      <li><strong>Excel アドイン（<code>xlwings.xlam</code>）</strong>：<code>python/setup_environment.py</code> の最後で <strong><code>xlwings addin install</code></strong> を実行し、ユーザーの Excel スタートアップ（通常は <code>%APPDATA%\Microsoft\Excel\XLSTART</code> 等）へ配置する。マクロ <strong>「環境構築」（<code>InstallComponents</code>）</strong> も同スクリプトを呼び出すため、<strong>初回セットアップ完了＝アドイン配置まで含む</strong>。</li>
+      <li><strong>現行アーキテクチャとの関係</strong>：
+        <ul>
+          <li><strong>段階1・段階2の本体</strong>は VBA が <strong><code>WScript.Shell</code> で <code>py -3 -u python\task_extract_stage1.py</code> / <code>plan_simulation_stage2.py</code> を子プロセス起動</strong>する方式であり、<strong>計算ループ自体は xlwings のランタイム API に依存しない</strong>（<code>planning_core</code> 側は主に openpyxl）。</li>
+          <li>それでも <strong>xlwings は「Excel と Python を公式に橋渡しする標準スタック」として requirements に含め、アドインを配布物と同等に扱う</strong>。将来の <strong>RunPython / UDF / リボン連携</strong> や、リポジトリ内 <strong>検証用スクリプト</strong>（COM/xlwings 系テスト）との整合のため。</li>
+        </ul>
+      </li>
+      <li><strong>運用</strong>：アドインインストール後は <strong>Excel の一度の終了・再起動</strong>でリボン反映を確認すること。信頼できる場所にブックを置く・マクロ有効化は Excel セキュリティ設定に従う。</li>
+    </ul>
+
+    <h4>pywin32（COM）— 明示されていないが実装で使用</h4>
+    <ul>
+      <li><code>requirements.txt</code> には <strong>列挙されていない</strong>が、<code>planning_core</code> は <strong>Excel で対象ブックを開いたまま</strong>のとき、<strong><code>win32com.client</code>（pywin32）</strong> でブックに接続する <strong>COM フォールバック経路</strong>を持つ。</li>
+      <li><strong>xlwings を pip インストールすると pywin32 が依存として入る</strong>ことが多く、その場合 COM 経路も利用可能になりやすい。pywin32 が無い環境では当該 COM 経路のみ使えず、<strong>openpyxl でブックを閉じた状態から保存する</strong>か、<strong>補助 TSV＋マクロ反映</strong>に切り替わる。<strong>補助 TSV</strong>とは、保存や COM が使えないとき Python が <code>log\</code> 等へ出力する <strong>タブ区切りテキスト</strong>であり、VBA（例: <code>設定_配台不要工程_AからE_TSVから反映</code>）が読み込んで <strong>Excel 上のセルへ書き戻す</strong>仕組みである（英語圏の「sidecar＝本編の横に付く別ファイル」という意味でコード内に使われることがある）。</li>
+    </ul>
+
+    <h4>初回セットアップ手順（要点）</h4>
+    <ol>
+      <li>マクロブックを保存可能なフォルダに配置し、<strong><code>python\</code></strong> に <code>planning_core.py</code>・<code>requirements.txt</code>・<code>setup_environment.py</code>・エントリ <code>.py</code> を配置。</li>
+      <li>マクロ <strong>「環境構築」</strong>（パスワード確認後 <code>InstallComponents</code>）またはコマンドプロンプトで <code>cd /d &lt;テストコード直下&gt;</code> → <strong><code>py -3 python\setup_environment.py</code></strong></li>
+      <li>処理内容：<strong>pip 自身の更新</strong> → <strong><code>pip install -r python\requirements.txt</code></strong> → <strong><code>xlwings addin install</code></strong>。</li>
+      <li><strong>HTTPS</strong>：Gemini 利用のためインターネット接続・プロキシ設定が必要な場合あり。</li>
+    </ol>
+
+    <hr class="section-rule">
+
+    <h2 id="sec3">3. データ要件（シート・列の整合）</h2>
+    <p>委託先は <strong>Excel 見出し文字列と Python 定数の 1:1 一致</strong> を維持することが必須。主要な定数名は <code>planning_core.py</code> 先頭付近の <code>TASK_*</code> / <code>PLAN_*</code> / <code>ACT_*</code> / <code>EXCLUDE_RULE_*</code> / <code>RESULT_*</code> 等。</p>
+    <p><strong>特に重要なシート名（例）</strong></p>
+    <ul>
+      <li>加工計画DATA、配台計画_タスク入力、設定、設定_配台不要工程、LOG、メイン、結果_*、個人_*、列設定_結果_タスク一覧、結果_カレンダー(出勤簿) 等。</li>
+    </ul>
+    <p><strong>設定シート（マクロブック）</strong></p>
+    <ul>
+      <li><strong>B1</strong>：<strong>Gemini 認証 JSON パス（必須運用）</strong> — 本番では空にしないこと。</li>
+      <li><strong>B4 / B5</strong>：Python 生成 xlsx に埋め込むフォント名・サイズ（B4 空のときは書体名を openpyxl で付与しない設計）</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <h2 id="sec4">4. 非機能要件</h2>
+    <table>
+      <thead>
+        <tr><th>区分</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>実行環境</strong></td>
+          <td>Windows、Excel デスクトップ、Python 3（<code>py -3</code> ランチャー想定）。<a href="#sec2-5">§2.5</a> の pip 一式・<strong>xlwings アドイン</strong>を含む。</td>
+        </tr>
+        <tr>
+          <td><strong>パス</strong></td>
+          <td>マクロブックと <strong>同一フォルダ</strong> に <code>python\</code>、<code>output\</code>、<code>log\</code>、<code>master.xlsm</code>（または <code>planning_core.MASTER_FILE</code> で指定）を配置する運用。UNC パスでは <code>pushd</code> 利用等の対策あり。</td>
+        </tr>
+        <tr>
+          <td><strong>ログ</strong></td>
+          <td><code>log/execution_log.txt</code>、ブック内 <strong>LOG</strong> シート。</td>
+        </tr>
+        <tr>
+          <td><strong>同時実行</strong></td>
+          <td>Excel でブックを開きっぱなしにすると openpyxl のファイル上書き保存が失敗することがある。その場合は <strong>COM（pywin32）で Excel 経由保存</strong>を試すか、<strong><code>log\</code> の補助 TSV を VBA が読んでセルへ反映</strong>する経路に切り替わる（§2.2・§2.5）。</td>
+        </tr>
+        <tr>
+          <td><strong>セキュリティ</strong></td>
+          <td>Gemini キーは JSON・暗号化ファイルで管理。ソースに埋め込まれた復号用定数の取り扱いは契約で規定すること。</td>
+        </tr>
+        <tr>
+          <td><strong>外部 API</strong></td>
+          <td><strong>Google Gemini API は必須</strong>（本番・検収）。ネットワーク出口・プロキシ・キーローテーションは運用で確保する。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <h2 id="sec5">5. 外部インタフェース</h2>
+    <ul>
+      <li><strong>環境変数（プロセス）</strong>：<code>TASK_INPUT_WORKBOOK</code>（必須）、その他 <code>planning_core</code> 内 <code>os.environ</code> 参照のデバッグ用変数（例: <code>TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF</code> でチーム優先モード切替）。</li>
+      <li><strong>ファイル I/O</strong>：入力 xlsm/xlsx、出力 xlsx、ログ、オプションで <code>json\</code> や <code>API_Payment\</code> 等（既存コード参照）。</li>
+      <li><strong>Google Gemini API（必須）</strong>：HTTPS（<code>google-genai</code>）。<strong>設定 B1 未設定時は設計機能が欠落する</strong>ため、システム要件として常時利用可能とする。</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <h2 id="sec6">6. 移管・再実装時の注意（委託先向け）</h2>
+    <ol>
+      <li><strong>単一巨大モジュール</strong> <code>planning_core.py</code> に業務ロジックが集中している。リファクタ時は段階1/2境界・<code>generate_plan</code> 内日付ループ・タスクキュー・設備タイムラインを分解単位の候補とする。</li>
+      <li><strong>VBA と Python の契約</strong>（シート名・列名・環境変数・出力ファイル命名・取り込み順）を変更する場合は <strong>双方を同時改修</strong> すること。</li>
+      <li><strong>Excel 依存</strong>を減らし Web/API 化する場合、<strong>配台コア</strong>をサービス化し、Excel はクライアントに退ける案が一般的。</li>
+      <li>現行の <strong>フォント・罫線・メインシート UI</strong> は VBA で強く依存しているため、UI フレームワーク変更時は同等の運用要件（リンク、メンバー表、LOG）を要件に明記すること。</li>
+    </ol>
+
+    <hr class="section-rule">
+
+    <h2 id="sec7">7. 参考ファイル一覧（リポジトリ内）</h2>
+    <p><strong>社内経営層・非エンジニア向けの要約</strong>：同フォルダの <a href="./工程管理AI配台システム_経営層向け説明.html">工程管理AI配台システム 経営層向け説明（HTML）</a> ／ <a href="./工程管理AI配台システム_経営層向け説明.md">Markdown</a>。</p>
+    <p><strong>社内運用・保守を Cursor で推進する場合（経営向け）</strong>：<a href="./工程管理AI配台システム_Cursor活用_社内運用保守_経営層向け.html">Cursor活用・社内運用保守（HTML）</a> ／ <a href="./工程管理AI配台システム_Cursor活用_社内運用保守_経営層向け.md">Markdown</a>。</p>
+    <table>
+      <thead>
+        <tr><th>パス</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>python/planning_core.py</code></td><td>中核ロジック・定数・段階1/2</td></tr>
+        <tr><td><code>python/task_extract_stage1.py</code></td><td>段階1エントリ</td></tr>
+        <tr><td><code>python/plan_simulation_stage2.py</code></td><td>段階2エントリ</td></tr>
+        <tr><td><code>python/setup_environment.py</code></td><td>依存パッケージ・xlwings アドイン</td></tr>
+        <tr><td><code>python/requirements.txt</code></td><td>pip 依存</td></tr>
+        <tr><td><code>生産管理_AI配台テスト_xlsm_VBA.txt</code></td><td>配台マクロブック VBA テキストバックアップ</td></tr>
+        <tr><td><code>master_xlsm_VBA.txt</code></td><td>マスタブック VBA テキストバックアップ</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <h2 id="sec8">8. 改訂履歴</h2>
+    <table>
+      <thead>
+        <tr><th>版</th><th>日付</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.1</td><td>2026-03-28</td><td>初版（現行コードベースに基づく要件整理）</td></tr>
+        <tr><td>0.2</td><td>2026-03-28</td><td>タスク優先順位・配台（チーム／skills）優先を追記。Gemini API を必須要件として明記。</td></tr>
+        <tr><td>0.3</td><td>2026-03-28</td><td>Python 実行に必要なコンポーネント・requirements・xlwings／アドイン・pywin32（COM）・環境構築手順を §2.5 で網羅。</td></tr>
+        <tr><td>0.4</td><td>2026-03-28</td><td>「TSV サイドカー＋VBA 反映」を補助 TSV とマクロによるセル書き戻しとして平易化（矛盾ハイライト・配台不要設定の具体例を追記）。</td></tr>
+      </tbody>
+    </table>
+
+    <p class="footnote">本書は実装の完全な網羅ではなく、委託見積・設計レビューのたたき台とする。詳細仕様はソースおよび既存 Excel ひな形を正とする。</p>
+  </article>
+</body>
+</html>
