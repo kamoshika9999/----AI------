@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""planning_core å®Ÿè£…æœ¬ä½“ï¼ˆãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†…ï¼‰ã€‚``import planning_core`` ã§ bootstrap ãŒå…ˆã«å®Ÿè¡Œã•ã‚Œã‚‹ã“ã¨ã€‚"""
+"""planning_core À‘•–{‘ÌiƒpƒbƒP[ƒW“àjB``import planning_core`` ‚Å bootstrap ‚ªæ‚ÉÀs‚³‚ê‚é‚±‚ÆB"""
 import pandas as pd
 from datetime import datetime, timedelta, time, date
 from collections import Counter, defaultdict
@@ -44,7 +44,7 @@ from .bootstrap import (
 
 PLAN_DUE_DAY_COMPLETION_TIME = time(16, 0)
 
-# AI å‚™è€ƒãƒ»é…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯ Dâ†’E ã® TTL ã‚­ãƒ£ãƒƒã‚·ãƒ¥ï¼ˆæ—§ output/ ã‹ã‚‰ json/ ã¸ç§»è¡Œï¼‰
+# AI ”õlE”z‘ä•s”\ƒƒWƒbƒN D¨E ‚Ì TTL ƒLƒƒƒbƒVƒ…i‹Œ output/ ‚©‚ç json/ ‚ÖˆÚsj
 _ai_remarks_cache_name = "ai_remarks_cache.json"
 _ai_cache_legacy = os.path.join(output_dir, _ai_remarks_cache_name)
 _ai_cache_new = os.path.join(json_data_dir, _ai_remarks_cache_name)
@@ -54,46 +54,46 @@ if os.path.isfile(_ai_cache_legacy) and not os.path.isfile(_ai_cache_new):
     except OSError:
         pass
 ai_cache_path = _ai_cache_new
-# ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ã‚·ãƒ¼ãƒˆä½œæˆãƒ»ä¿å­˜ã®æˆå¦ãƒ‡ãƒãƒƒã‚°ï¼ˆexecution_log ã¨ä½µç”¨ï¼‰
+# uİ’è_”z‘ä•s—vH’övƒV[ƒgì¬E•Û‘¶‚Ì¬”ÛƒfƒoƒbƒOiexecution_log ‚Æ•¹—pj
 exclude_rules_sheet_debug_log_path = os.path.join(log_dir, "exclude_rules_sheet_debug.txt")
-# ä¿å­˜å¤±æ•—æ™‚ã« E åˆ—ï¼ˆãƒ­ã‚¸ãƒƒã‚¯å¼ï¼‰ã ã‘ã‚’é€€é¿ã—ã€æ¬¡å› run_exclude_rules_sheet_maintenance ã§è‡ªå‹•é©ç”¨ã™ã‚‹ï¼ˆjson ãƒ•ã‚©ãƒ«ãƒ€ï¼‰
+# •Û‘¶¸”s‚É E —ñiƒƒWƒbƒN®j‚¾‚¯‚ğ‘Ş”ğ‚µAŸ‰ñ run_exclude_rules_sheet_maintenance ‚Å©“®“K—p‚·‚éijson ƒtƒHƒ‹ƒ_j
 EXCLUDE_RULES_E_SIDECAR_FILENAME = "exclude_rules_e_column_pending.json"
-# openpyxl ä¿å­˜å¤±æ•—æ™‚ã« VBA ãŒ E åˆ—ã¸æ›¸ãè¾¼ã‚€ãŸã‚ã® UTF-8 TSVï¼ˆBase64ï¼‰ã€‚
+# openpyxl •Û‘¶¸”s‚É VBA ‚ª E —ñ‚Ö‘‚«‚Ş‚½‚ß‚Ì UTF-8 TSViBase64jB
 EXCLUDE_RULES_E_VBA_TSV_FILENAME = "exclude_rules_e_column_vba.tsv"
-# openpyxl ä¿å­˜å¤±æ•—æ™‚ã« VBA ãŒ Aã€œE ã‚’ä¸€æ‹¬åæ˜ ã™ã‚‹ UTF-8 TSVï¼ˆè¡Œã”ã¨ã« 5 ã‚»ãƒ«åˆ† Base64ï¼‰ã€‚
+# openpyxl •Û‘¶¸”s‚É VBA ‚ª A?E ‚ğˆêŠ‡”½‰f‚·‚é UTF-8 TSVis‚²‚Æ‚É 5 ƒZƒ‹•ª Base64jB
 EXCLUDE_RULES_MATRIX_VBA_FILENAME = "exclude_rules_matrix_vba.tsv"
-# VBA ãŒãƒ¡ã‚¤ãƒ³ P åˆ—ã¸æ›¸ãè¾¼ã‚€ãŸã‚ã® UTF-8 ãƒ†ã‚­ã‚¹ãƒˆï¼ˆExcel é–‹ã„ãŸã¾ã¾ save ã§ããªã„å•é¡Œã®å›é¿ï¼‰
+# VBA ‚ªƒƒCƒ“ P —ñ‚Ö‘‚«‚Ş‚½‚ß‚Ì UTF-8 ƒeƒLƒXƒgiExcel ŠJ‚¢‚½‚Ü‚Ü save ‚Å‚«‚È‚¢–â‘è‚Ì‰ñ”ğj
 GEMINI_USAGE_SUMMARY_FOR_MAIN_FILE = "gemini_usage_summary_for_main.txt"
-# å…¨å®Ÿè¡Œã‚’é€šã—ãŸ Gemini åˆ©ç”¨ãƒ»æ¨å®šæ–™é‡‘ã®ç´¯è¨ˆï¼ˆAPI å¿œç­”ã”ã¨ã«æ›´æ–°ã€‚ä¿å­˜å…ˆã¯ API_Payment ãƒ•ã‚©ãƒ«ãƒ€ï¼‰
+# ‘SÀs‚ğ’Ê‚µ‚½ Gemini —˜—pE„’è—¿‹à‚Ì—İŒviAPI ‰“š‚²‚Æ‚ÉXVB•Û‘¶æ‚Í API_Payment ƒtƒHƒ‹ƒ_j
 GEMINI_USAGE_CUMULATIVE_JSON_FILE = "gemini_usage_cumulative.json"
-# æœŸé–“åˆ¥ãƒã‚±ãƒƒãƒˆã‚’ãƒ•ãƒ©ãƒƒãƒˆåŒ–ã—ãŸ CSVï¼ˆExcel ã®æŠ˜ã‚Œç·šãƒ»æ£’ã‚°ãƒ©ãƒ•ç”¨ï¼‰
+# ŠúŠÔ•ÊƒoƒPƒbƒg‚ğƒtƒ‰ƒbƒg‰»‚µ‚½ CSViExcel ‚ÌÜ‚êüE–_ƒOƒ‰ƒt—pj
 GEMINI_USAGE_BUCKETS_CSV_FILE = "gemini_usage_buckets_for_chart.csv"
-# ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆãƒ»Gemini æ—¥æ¬¡æ¨ç§»ï¼ˆxlwings: Qã€œRï¼æ–™é‡‘ã¾ãŸã¯å‘¼å‡ºã—ã€Sã€œTï¼åˆè¨ˆãƒˆãƒ¼ã‚¯ãƒ³ï¼‰
+# ƒƒCƒ“ƒV[ƒgEGemini “úŸ„ˆÚixlwings: Q?R—¿‹à‚Ü‚½‚ÍŒÄo‚µAS?T‡Œvƒg[ƒNƒ“j
 GEMINI_USAGE_CHART_COL_DATE = 17  # Q
 GEMINI_USAGE_CHART_COL_VALUE = 18  # R
-GEMINI_USAGE_CHART_COL_TOK_DATE = 19  # Sï¼ˆã‚°ãƒ©ãƒ•ç”¨ã«æ—¥ä»˜ã‚’è¤‡è£½ï¼‰
-GEMINI_USAGE_CHART_COL_TOK_VALUE = 20  # Tï¼ˆtotal_tokens ç›¸å½“ï¼‰
+GEMINI_USAGE_CHART_COL_TOK_DATE = 19  # SiƒOƒ‰ƒt—p‚É“ú•t‚ğ•¡»j
+GEMINI_USAGE_CHART_COL_TOK_VALUE = 20  # Titotal_tokens ‘Š“–j
 GEMINI_USAGE_CHART_HEADER_ROW = 16
 GEMINI_USAGE_CHART_ANCHOR_CELL = "T16"
 GEMINI_USAGE_CHART_TOKENS_ANCHOR_CELL = "AA16"
 GEMINI_USAGE_CHART_MAX_DAYS = 14
 GEMINI_USAGE_CHART_CLEAR_ROWS = 36
-# xlwings ã§è²¼ã‚‹æŠ˜ã‚Œç·šã®åå‰ï¼ˆå†å®Ÿè¡Œæ™‚ã«å‰Šé™¤ã—ã¦ã‹ã‚‰ä½œã‚Šç›´ã™ï¼‰
+# xlwings ‚Å“\‚éÜ‚êü‚Ì–¼‘OiÄÀs‚Éíœ‚µ‚Ä‚©‚çì‚è’¼‚·j
 GEMINI_USAGE_XLW_CHART_NAME = "_GeminiApiDailyTrend"
 GEMINI_USAGE_XLW_CHART_TOKENS_NAME = "_GeminiApiDailyTokens"
-# ãƒ†ã‚¹ãƒˆ: EXCLUDE_RULES_TEST_E1234=1 ã§ EXCLUDE_RULES_SHEET_NAMEï¼ˆã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ï¼‰ã® E åˆ—ã« "1234" ã‚’æ›¸ãï¼ˆä¿å­˜çµŒè·¯ã®ç¢ºèªç”¨ï¼‰ã€‚
-# TASK_INPUT_WORKBOOK ã¯ã€ŒåŠ å·¥è¨ˆç”»DATAã€ã‚·ãƒ¼ãƒˆä»˜ããƒ–ãƒƒã‚¯ï¼ˆä¾‹: ç”Ÿç”£ç®¡ç†_AIé…å°ãƒ†ã‚¹ãƒˆ.xlsmï¼‰ã‚’æŒ‡å®šã™ã‚‹ã“ã¨ã€‚
-# è¡Œã¯ EXCLUDE_RULES_TEST_E1234_ROWï¼ˆæ—¢å®š 9ã€2 æœªæº€ã¯ 9 ã«ä¸¸ã‚ã‚‹ï¼‰ã€‚
+# ƒeƒXƒg: EXCLUDE_RULES_TEST_E1234=1 ‚Å EXCLUDE_RULES_SHEET_NAMEiuİ’è_”z‘ä•s—vH’övj‚Ì E —ñ‚É "1234" ‚ğ‘‚­i•Û‘¶Œo˜H‚ÌŠm”F—pjB
+# TASK_INPUT_WORKBOOK ‚Íu‰ÁHŒv‰æDATAvƒV[ƒg•t‚«ƒuƒbƒNi—á: ¶YŠÇ—_AI”z‘äƒeƒXƒg.xlsmj‚ğw’è‚·‚é‚±‚ÆB
+# s‚Í EXCLUDE_RULES_TEST_E1234_ROWiŠù’è 9A2 –¢–‚Í 9 ‚ÉŠÛ‚ß‚éjB
 
 # =========================================================
-# ã€è¨­å®šã€‘APIã‚­ãƒ¼ / åŸºæœ¬ãƒ«ãƒ¼ãƒ« / ãƒ•ã‚¡ã‚¤ãƒ«å
+# yİ’èzAPIƒL[ / Šî–{ƒ‹[ƒ‹ / ƒtƒ@ƒCƒ‹–¼
 # =========================================================
-# Gemini API ã‚­ãƒ¼ã¯ TASK_INPUT_WORKBOOK ç¢ºå®šå¾Œã€ä¸‹è¨˜ã€Œè¨­å®šã€B1 ã® JSON ã‹ã‚‰è§£æ±ºï¼ˆå¹³æ–‡ã¾ãŸã¯ format_version 2 ã®æš—å·åŒ–ï¼‰ã€‚
-# æœªè¨­å®šæ™‚ã®ã¿ç§»è¡Œç”¨ã«ç’°å¢ƒå¤‰æ•° GEMINI_API_KEY ã‚’å‚ç…§ã€‚
+# Gemini API ƒL[‚Í TASK_INPUT_WORKBOOK Šm’èŒãA‰º‹Luİ’èvB1 ‚Ì JSON ‚©‚ç‰ğŒˆi•½•¶‚Ü‚½‚Í format_version 2 ‚ÌˆÃ†‰»jB
+# –¢İ’è‚Ì‚İˆÚs—p‚ÉŠÂ‹«•Ï” GEMINI_API_KEY ‚ğQÆB
 
 GEMINI_MODEL_FLASH = "gemini-2.5-flash"
-# æ¨å®šæ–™é‡‘: USD / 1M tokensï¼ˆå…¥åŠ›, å‡ºåŠ›ï¼‰ã€‚å…¬å¼ã®æœ€æ–°å˜ä¾¡ã«åˆã‚ã›ã¦æ›´æ–°ã™ã‚‹ã“ã¨ã€‚
-# ç’°å¢ƒå¤‰æ•° GEMINI_PRICE_USD_IN_PER_M / GEMINI_PRICE_USD_OUT_PER_M ã§ä¸Šæ›¸ãå¯ï¼ˆFlash å‘ã‘ï¼‰ã€‚
+# „’è—¿‹à: USD / 1M tokensi“ü—Í, o—ÍjBŒö®‚ÌÅV’P‰¿‚É‡‚í‚¹‚ÄXV‚·‚é‚±‚ÆB
+# ŠÂ‹«•Ï” GEMINI_PRICE_USD_IN_PER_M / GEMINI_PRICE_USD_OUT_PER_M ‚Åã‘‚«‰ÂiFlash Œü‚¯jB
 _GEMINI_FLASH_IN_PER_M = float(
     os.environ.get("GEMINI_PRICE_USD_IN_PER_M", "0.075") or 0.075
 )
@@ -103,60 +103,60 @@ _GEMINI_FLASH_OUT_PER_M = float(
 GEMINI_JPY_PER_USD = float(os.environ.get("GEMINI_JPY_PER_USD", "150") or 150)
 
 # ---------------------------------------------------------------------------
-# ä»¥é™ã®å®šæ•°ãƒ–ãƒ­ãƒƒã‚¯ã¯ã€ŒExcel åˆ—è¦‹å‡ºã—ã€ã¨ 1:1 ã§å¯¾å¿œã•ã›ã‚‹ã€‚
-# åˆ—åã‚’å¤‰ãˆã‚‹å ´åˆã¯ VBAãƒ»ãƒã‚¯ãƒ­å´ã‚·ãƒ¼ãƒˆã¨åŒæ™‚ã«ç›´ã™ã“ã¨ã€‚
+# ˆÈ~‚Ì’è”ƒuƒƒbƒN‚ÍuExcel —ñŒ©o‚µv‚Æ 1:1 ‚Å‘Î‰‚³‚¹‚éB
+# —ñ–¼‚ğ•Ï‚¦‚éê‡‚Í VBAEƒ}ƒNƒ‘¤ƒV[ƒg‚Æ“¯‚É’¼‚·‚±‚ÆB
 # ---------------------------------------------------------------------------
 
-MASTER_FILE = "master.xlsm" # skillsã¨attendance(ãŠã‚ˆã³tasks)ã‚’çµ±åˆã—ãŸãƒ•ã‚¡ã‚¤ãƒ«
-# VBAã€Œmaster_æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚’ä½œæˆã€ã‚·ãƒ¼ãƒˆï¼ˆ1 æ™‚é–“ã‚¹ãƒ­ãƒƒãƒˆå æœ‰ã‚’æ®µéš2ã® machine_avail_dt ã«åæ˜ ï¼‰
-SHEET_MACHINE_CALENDAR = "æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼"
-# ``generate_plan`` é–‹å§‹æ™‚ã«å†è¨­å®šã€‚date -> è¨­å‚™ã‚­ãƒ¼ -> [ (start, end), ... ] åŠé–‹åŒºé–“ [start, end)
+MASTER_FILE = "master.xlsm" # skills‚Æattendance(‚¨‚æ‚Ñtasks)‚ğ“‡‚µ‚½ƒtƒ@ƒCƒ‹
+# VBAumaster_‹@ŠBƒJƒŒƒ“ƒ_[‚ğì¬vƒV[ƒgi1 ŠÔƒXƒƒbƒgè—L‚ğ’iŠK2‚Ì machine_avail_dt ‚É”½‰fj
+SHEET_MACHINE_CALENDAR = "‹@ŠBƒJƒŒƒ“ƒ_["
+# ``generate_plan`` ŠJn‚ÉÄİ’èBdate -> İ”õƒL[ -> [ (start, end), ... ] ”¼ŠJ‹æŠÔ [start, end)
 _MACHINE_CALENDAR_BLOCKS_BY_DATE: dict[
     date, dict[str, list[tuple[datetime, datetime]]]
 ] = {}
 
-# master.xlsm: ä¾é ¼NO ãŒå¤‰ã‚ã‚‹å‰å¾Œã®å·¥ç¨‹Ã—æ©Ÿæ¢°ã”ã¨ã®æº–å‚™ãƒ»å¾Œå§‹æœ«ï¼ˆåˆ†ï¼‰ï¼æ©Ÿæ¢°ã”ã¨ã®æ—¥æ¬¡å§‹æ¥­æº–å‚™ï¼ˆåˆ†ï¼‰
-SHEET_MACHINE_CHANGEOVER = "è¨­å®š_ä¾é ¼åˆ‡æ›¿å‰å¾Œæ™‚é–“"
-SHEET_MACHINE_DAILY_STARTUP = "è¨­å®š_æ©Ÿæ¢°_æ—¥æ¬¡å§‹æ¥­æº–å‚™"
-# ``generate_plan`` é–‹å§‹æ™‚ã«å†è¨­å®šï¼ˆã‚·ãƒ¼ãƒˆç„¡ã—ãƒ»ç©ºã¯ç©ºè¾æ›¸ï¼å¾“æ¥ã©ãŠã‚Šï¼‰
+# master.xlsm: ˆË—ŠNO ‚ª•Ï‚í‚é‘OŒã‚ÌH’ö~‹@ŠB‚²‚Æ‚Ì€”õEŒãn––i•ªj^‹@ŠB‚²‚Æ‚Ì“úŸn‹Æ€”õi•ªj
+SHEET_MACHINE_CHANGEOVER = "İ’è_ˆË—ŠØ‘Ö‘OŒãŠÔ"
+SHEET_MACHINE_DAILY_STARTUP = "İ’è_‹@ŠB_“úŸn‹Æ€”õ"
+# ``generate_plan`` ŠJn‚ÉÄİ’èiƒV[ƒg–³‚µE‹ó‚Í‹ó«‘]—ˆ‚Ç‚¨‚èj
 _STAGE2_MACHINE_CHANGEOVER_BY_EQ: dict[str, tuple[int, int]] = {}
 _STAGE2_MACHINE_DAILY_STARTUP_MIN_BY_MACHINE: dict[str, int] = {}
-# master ãƒ¡ã‚¤ãƒ³ A15ï¼ˆå®šå¸¸é–‹å§‹ï¼‰ã€‚æ—¥æ¬¡å§‹æ¥­æº–å‚™ã‚’å‹¤æ€  forward ã§ã¯ãªã [é–‹å§‹, é–‹å§‹+Nåˆ†) ã®å£æ™‚è¨ˆã«è¼‰ã›ã‚‹ã€‚
+# master ƒƒCƒ“ A15i’èíŠJnjB“úŸn‹Æ€”õ‚ğ‹Î‘Ó forward ‚Å‚Í‚È‚­ [ŠJn, ŠJn+N•ª) ‚Ì•ÇŒv‚ÉÚ‚¹‚éB
 _STAGE2_REGULAR_SHIFT_START: time | None = None
-# timeline_events ã® event_kindï¼ˆçœç•¥æ™‚ã¯åŠ å·¥ã¨ã¿ãªã™ï¼‰
+# timeline_events ‚Ì event_kindiÈ—ª‚Í‰ÁH‚Æ‚İ‚È‚·j
 TIMELINE_EVENT_MACHINING = "machining"
 TIMELINE_EVENT_MACHINE_DAILY_STARTUP = "machine_daily_startup"
 TIMELINE_EVENT_CHANGEOVER_CLEANUP = "changeover_cleanup"
 TIMELINE_EVENT_CHANGEOVER_PREP = "changeover_prep"
-# VBAã€Œmaster_çµ„ã¿åˆã‚ã›è¡¨ã‚’æ›´æ–°ã€ã§ä½œã‚‹ã‚·ãƒ¼ãƒˆï¼ˆå·¥ç¨‹+æ©Ÿæ¢°ã‚­ãƒ¼ã¨ãƒ¡ãƒ³ãƒãƒ¼ç·¨æˆï¼‰
-MASTER_SHEET_TEAM_COMBINATIONS = "çµ„ã¿åˆã‚ã›è¡¨"
-# ãƒ¡ãƒ³ãƒãƒ¼åˆ¥å‹¤æ€ ã‚·ãƒ¼ãƒˆ: master.xlsm ã§ã¯ã€Œä¼‘æš‡åŒºåˆ†ã€ã¨ã€Œå‚™è€ƒã€ãŒåˆ¥åˆ—ã€‚
-# å‹¤æ€ AIã®å…¥åŠ›ã¯å‚™è€ƒã®ã¿ã€‚ãŸã ã— reasonï¼ˆè¡¨ç¤ºãƒ»ä¸­æŠœã‘è£œæ­£ãƒ»å€‹äººã‚·ãƒ¼ãƒˆã®ä¼‘æ†©/ä¼‘æš‡æ–‡è¨€ï¼‰ã¯ã€å‚™è€ƒãŒç©ºã®ã¨ãä¼‘æš‡åŒºåˆ†ã‚’å¼•ãç¶™ãã€‚
-# master ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ï¼å‡ºå‹¤ç°¿.txt æº–æ‹ : å‰ä¼‘=åˆå‰å¹´ä¼‘ãƒ»ä¼‘æ†©æ™‚é–“1_çµ‚äº†ï½å®šå¸¸çµ‚äº†ï¼ˆåˆå¾Œä¼‘æ†©14:45ï½15:00ï¼‰ï¼å¾Œä¼‘=å®šå¸¸é–‹å§‹ï½ä¼‘æ†©æ™‚é–“1_é–‹å§‹ãƒ»åˆå¾Œå¹´ä¼‘ï¼å›½=ä»–æ‹ ç‚¹å‹¤å‹™ã€‚
-# å‚™è€ƒåˆ—ãƒ»ä¼‘æš‡åŒºåˆ†ã¯å‹¤æ€  AI ã§æ§‹é€ åŒ–ï¼ˆé…å°ä¸å‚åŠ ãƒ»is_holidayãƒ»ä¸­æŠœã‘ç­‰ï¼‰ã€‚å‚™è€ƒãŒç©ºã§ã‚‚ä¼‘æš‡åŒºåˆ†ã®ã¿ã®è¡Œã¯ AI ã«æ¸¡ã™ã€‚
-ATT_COL_LEAVE_TYPE = "ä¼‘æš‡åŒºåˆ†"
-ATT_COL_REMARK = "å‚™è€ƒ"
-# ãƒ¡ãƒ³ãƒãƒ¼å‹¤æ€ ã‚·ãƒ¼ãƒˆï¼ˆmaster.xlsmï¼‰: å®šæ™‚ã®ã€Œé€€å‹¤æ™‚é–“ã€ã¨åˆ†ã‘ã¦é€€å‹¤ä¸Šé™ã‚’æŒ‡å®šï¼ˆä»»æ„åˆ—ï¼‰
-ATT_COL_OT_END = "æ®‹æ¥­çµ‚æ¥­"
-# å‹¤æ€ å‚™è€ƒ AI ã® JSON ã‚¹ã‚­ãƒ¼ãƒã‚’å¤‰ãˆãŸã‚‰æ›´æ–°ã—ã€ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚­ãƒ¼ã‚’ç„¡åŠ¹åŒ–ã™ã‚‹
+# VBAumaster_‘g‚İ‡‚í‚¹•\‚ğXVv‚Åì‚éƒV[ƒgiH’ö+‹@ŠBƒL[‚Æƒƒ“ƒo[•Ò¬j
+MASTER_SHEET_TEAM_COMBINATIONS = "‘g‚İ‡‚í‚¹•\"
+# ƒƒ“ƒo[•Ê‹Î‘ÓƒV[ƒg: master.xlsm ‚Å‚Íu‹x‰É‹æ•ªv‚Æu”õlv‚ª•Ê—ñB
+# ‹Î‘ÓAI‚Ì“ü—Í‚Í”õl‚Ì‚İB‚½‚¾‚µ reasoni•\¦E’†”²‚¯•â³EŒÂlƒV[ƒg‚Ì‹xŒe/‹x‰É•¶Œ¾j‚ÍA”õl‚ª‹ó‚Ì‚Æ‚«‹x‰É‹æ•ª‚ğˆø‚«Œp‚®B
+# master ƒJƒŒƒ“ƒ_[^o‹Î•ë.txt €‹’: ‘O‹x=Œß‘O”N‹xE‹xŒeŠÔ1_I—¹`’èíI—¹iŒßŒã‹xŒe14:45`15:00j^Œã‹x=’èíŠJn`‹xŒeŠÔ1_ŠJnEŒßŒã”N‹x^‘=‘¼‹’“_‹Î–±B
+# ”õl—ñE‹x‰É‹æ•ª‚Í‹Î‘Ó AI ‚Å\‘¢‰»i”z‘ä•sQ‰ÁEis_holidayE’†”²‚¯“™jB”õl‚ª‹ó‚Å‚à‹x‰É‹æ•ª‚Ì‚İ‚Ìs‚Í AI ‚É“n‚·B
+ATT_COL_LEAVE_TYPE = "‹x‰É‹æ•ª"
+ATT_COL_REMARK = "”õl"
+# ƒƒ“ƒo[‹Î‘ÓƒV[ƒgimaster.xlsmj: ’è‚Ìu‘Ş‹ÎŠÔv‚Æ•ª‚¯‚Ä‘Ş‹ÎãŒÀ‚ğw’èi”CˆÓ—ñj
+ATT_COL_OT_END = "c‹ÆI‹Æ"
+# ‹Î‘Ó”õl AI ‚Ì JSON ƒXƒL[ƒ}‚ğ•Ï‚¦‚½‚çXV‚µAƒLƒƒƒbƒVƒ…ƒL[‚ğ–³Œø‰»‚·‚é
 ATTENDANCE_REMARK_AI_SCHEMA_ID = "v2_haitai_fuka"
-# need ã‚·ãƒ¼ãƒˆ: ã€ŒåŸºæœ¬å¿…è¦äººæ•°ã€è¡Œï¼ˆAåˆ—ã«ã€Œå¿…è¦äººæ•°ã€ã‚’å«ã‚€ï¼‰ï¼‹ ãã®ç›´ä¸‹ã®ã€Œé…å°æ™‚è¿½åŠ äººæ•°ï¼ä½™åŠ›æ™‚è¿½åŠ äººæ•°ã€ç­‰
-# ï¼ˆExcel ä¸Šã¯æ¦‚ã­ 5 è¡Œç›®ä»˜è¿‘ã€‚ä½™å‰°æ™‚ã«å¢—ã‚„ã›ã‚‹äººæ•°ä¸Šé™ãƒ»å·¥ç¨‹Ã—æ©Ÿæ¢°åˆ—ï¼‰
-# ï¼‹ è¡Œã€Œç‰¹åˆ¥æŒ‡å®š1ã€ï½ã€Œç‰¹åˆ¥æŒ‡å®š99ã€ï¼ˆå¿…è¦äººæ•°ã®ä¸Šæ›¸ããƒ»1ï½99ï¼‰
-NEED_COL_CONDITION = "ä¾é ¼NOæ¡ä»¶"
-NEED_COL_NOTE = "å‚™è€ƒ"
-# needã€Œé…å°æ™‚è¿½åŠ äººæ•°ã€ã‚’æº€æ ä½¿ã£ã¦ã‚‚ã€å˜ä½ã‚ãŸã‚ŠåŠ å·¥æ™‚é–“ãŒçŸ­ããªã‚‹ã®ã¯æœ€å¤§ã§ã“ã®å‰²åˆï¼ˆä¾‹: 0.05 â‰’ 5%ï¼‰
+# need ƒV[ƒg: uŠî–{•K—vl”vsiA—ñ‚Éu•K—vl”v‚ğŠÜ‚Şj{ ‚»‚Ì’¼‰º‚Ìu”z‘ä’Ç‰Ál”^—]—Í’Ç‰Ál”v“™
+# iExcel ã‚ÍŠT‚Ë 5 s–Ú•t‹ßB—]è‚É‘‚â‚¹‚él”ãŒÀEH’ö~‹@ŠB—ñj
+# { su“Á•Êw’è1v`u“Á•Êw’è99vi•K—vl”‚Ìã‘‚«E1`99j
+NEED_COL_CONDITION = "ˆË—ŠNOğŒ"
+NEED_COL_NOTE = "”õl"
+# needu”z‘ä’Ç‰Ál”v‚ğ–˜gg‚Á‚Ä‚àA’PˆÊ‚ ‚½‚è‰ÁHŠÔ‚ª’Z‚­‚È‚é‚Ì‚ÍÅ‘å‚Å‚±‚ÌŠ„‡i—á: 0.05 à 5%j
 SURPLUS_TEAM_MAX_SPEEDUP_RATIO = 0.05
-# ã‚¿ã‚¹ã‚¯ã¯ tasks.xlsx ã‚’ä½¿ã‚ãšã€VBA ã‹ã‚‰æ¸¡ã™ TASK_INPUT_WORKBOOK ã®ã€ŒåŠ å·¥è¨ˆç”»DATAã€ã®ã¿
+# ƒ^ƒXƒN‚Í tasks.xlsx ‚ğg‚í‚¸AVBA ‚©‚ç“n‚· TASK_INPUT_WORKBOOK ‚Ìu‰ÁHŒv‰æDATAv‚Ì‚İ
 TASKS_INPUT_WORKBOOK = os.environ.get("TASK_INPUT_WORKBOOK", "").strip()
-TASKS_SHEET_NAME = "åŠ å·¥è¨ˆç”»DATA"
+TASKS_SHEET_NAME = "‰ÁHŒv‰æDATA"
 
-# ã“ã®ã‚·ãƒ¼ãƒˆåã‚’å«ã‚€ãƒ–ãƒƒã‚¯ã¯ openpyxl ãŒèª­ã¿æ›¸ãã«å¤±æ•—ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ãŸã‚ã€load_workbook ã‚’è©¦è¡Œã—ãªã„
-OPENPYXL_INCOMPATIBLE_SHEET_MARKER = "é…å°_é…å°ä¸è¦å·¥ç¨‹"
+# ‚±‚ÌƒV[ƒg–¼‚ğŠÜ‚ŞƒuƒbƒN‚Í openpyxl ‚ª“Ç‚İ‘‚«‚É¸”s‚·‚é‚±‚Æ‚ª‚ ‚é‚½‚ßAload_workbook ‚ğs‚µ‚È‚¢
+OPENPYXL_INCOMPATIBLE_SHEET_MARKER = "”z‘ä_”z‘ä•s—vH’ö"
 
 
 def _ooxml_workbook_sheet_names(wb_path: str) -> list[str] | None:
-    """ZIP å†… xl/workbook.xml ã‹ã‚‰ã‚·ãƒ¼ãƒˆåä¸€è¦§ã‚’å–ã‚‹ï¼ˆopenpyxl ã‚’ä½¿ã‚ãªã„ï¼‰ã€‚"""
+    """ZIP “à xl/workbook.xml ‚©‚çƒV[ƒg–¼ˆê——‚ğæ‚éiopenpyxl ‚ğg‚í‚È‚¢jB"""
     import zipfile
     import xml.etree.ElementTree as ET
 
@@ -188,7 +188,7 @@ def _ooxml_workbook_sheet_names(wb_path: str) -> list[str] | None:
 
 
 def _workbook_should_skip_openpyxl_io(wb_path: str) -> bool:
-    """å½“è©²ãƒ‘ã‚¹ãŒ OOXML ã§ã‚·ãƒ¼ãƒˆã€Œé…å°_é…å°ä¸è¦å·¥ç¨‹ã€ã‚’å«ã‚€ã¨ã Trueï¼ˆopenpyxl åˆ©ç”¨ã‚’é¿ã‘ã‚‹ï¼‰ã€‚"""
+    """“–ŠYƒpƒX‚ª OOXML ‚ÅƒV[ƒgu”z‘ä_”z‘ä•s—vH’öv‚ğŠÜ‚Ş‚Æ‚« Trueiopenpyxl —˜—p‚ğ”ğ‚¯‚éjB"""
     p = (wb_path or "").strip()
     if not p:
         return False
@@ -198,9 +198,9 @@ def _workbook_should_skip_openpyxl_io(wb_path: str) -> bool:
     return OPENPYXL_INCOMPATIBLE_SHEET_MARKER in names
 
 
-# ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®šã€B1: ç¤¾å†…å…±æœ‰ä¸Šã® Gemini èªè¨¼ JSON ã®ãƒ‘ã‚¹
-APP_CONFIG_SHEET_NAME = "è¨­å®š"
-# æš—å·åŒ–èªè¨¼ JSONï¼ˆformat_version 2ï¼‰ã®å¾©å·ã¯å¸¸ã«ã“ã®å®šæ•°ã®ã¿ï¼ˆç¤¾å†…æ‰‹é †ã®ãƒ‘ã‚¹ãƒ•ãƒ¬ãƒ¼ã‚ºã¨ä¸€è‡´ã•ã›ã‚‹ã€‚ãƒ­ã‚°ãƒ»UI ã«å‡ºã•ãªã„ï¼‰ã€‚
+# ƒ}ƒNƒƒuƒbƒNuİ’èvB1: Ğ“à‹¤—Lã‚Ì Gemini ”FØ JSON ‚ÌƒpƒX
+APP_CONFIG_SHEET_NAME = "İ’è"
+# ˆÃ†‰»”FØ JSONiformat_version 2j‚Ì•œ†‚Íí‚É‚±‚Ì’è”‚Ì‚İiĞ“àè‡‚ÌƒpƒXƒtƒŒ[ƒY‚Æˆê’v‚³‚¹‚éBƒƒOEUI ‚Éo‚³‚È‚¢jB
 _GEMINI_CREDENTIALS_PASSPHRASE_FIXED = "nagaoka1234"
 _GEMINI_CREDENTIALS_PBKDF2_ITERATIONS_DEFAULT = 480_000
 
@@ -222,12 +222,12 @@ def _resolve_path_relative_to_workbook(wb_path: str, user_path: str) -> str:
 
 
 def _read_gemini_credentials_json_path_from_workbook(wb_path: str) -> str | None:
-    """ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ B1 ã‹ã‚‰èªè¨¼ JSON ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’èª­ã‚€ã€‚ç„¡ã‘ã‚Œã° Noneã€‚"""
+    """uİ’èvƒV[ƒg B1 ‚©‚ç”FØ JSON ƒtƒ@ƒCƒ‹ƒpƒX‚ğ“Ç‚ŞB–³‚¯‚ê‚Î NoneB"""
     if not wb_path or not os.path.isfile(wb_path):
         return None
     if _workbook_should_skip_openpyxl_io(wb_path):
         logging.debug(
-            "Gemini: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã€Œ%sã€!B1 ã‚’èª­ã¿ã¾ã›ã‚“ã€‚",
+            "Gemini: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚Åu%sv!B1 ‚ğ“Ç‚İ‚Ü‚¹‚ñB",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
             APP_CONFIG_SHEET_NAME,
         )
@@ -246,7 +246,7 @@ def _read_gemini_credentials_json_path_from_workbook(wb_path: str) -> str | None
             wb.close()
     except Exception as ex:
         logging.debug(
-            "Gemini: ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œ%sã€ã®ã€Œ%sã€!B1 ã‚’èª­ã‚ã¾ã›ã‚“: %s",
+            "Gemini: ƒ}ƒNƒƒuƒbƒNu%sv‚Ìu%sv!B1 ‚ğ“Ç‚ß‚Ü‚¹‚ñ: %s",
             wb_path,
             APP_CONFIG_SHEET_NAME,
             ex,
@@ -266,16 +266,16 @@ def _read_task_ids_from_config_sheet_column(
     openpyxl_skip_hint: str | None = None,
 ) -> list[str]:
     """
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆã®æŒ‡å®šåˆ—ï¼ˆ1=A, 2=Bï¼‰3 è¡Œç›®ä»¥é™ã‹ã‚‰ä¾é ¼NOã‚’èª­ã‚€ã€‚
-    ç©ºã‚»ãƒ«ã¯ã‚¹ã‚­ãƒƒãƒ—ã€‚é€£ç¶š 30 ã‚»ãƒ«ç©ºã§æ‰“ã¡åˆ‡ã‚Šã€‚æœ€å¤§ 500 è¡Œã€‚ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Šã§è¤‡æ•°å¯ã€‚
+    ƒ}ƒNƒƒuƒbƒNuİ’èvƒV[ƒg‚Ìw’è—ñi1=A, 2=Bj3 s–ÚˆÈ~‚©‚çˆË—ŠNO‚ğ“Ç‚ŞB
+    ‹óƒZƒ‹‚ÍƒXƒLƒbƒvB˜A‘± 30 ƒZƒ‹‹ó‚Å‘Å‚¿Ø‚èBÅ‘å 500 sBƒJƒ“ƒ}‹æØ‚è‚Å•¡”‰ÂB
     """
     out: list[str] = []
     if not wb_path or not os.path.isfile(wb_path):
         return out
     if _workbook_should_skip_openpyxl_io(wb_path):
         msg = (
-            f"{log_label}: ãƒ–ãƒƒã‚¯ã«ã€Œ{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}ã€ãŒã‚ã‚‹ãŸã‚"
-            f"ã€Œ{APP_CONFIG_SHEET_NAME}ã€!{column_letter_desc}3 ä»¥é™ã¯ openpyxl ã§èª­ã‚ã¾ã›ã‚“ã€‚"
+            f"{log_label}: ƒuƒbƒN‚Éu{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}v‚ª‚ ‚é‚½‚ß"
+            f"u{APP_CONFIG_SHEET_NAME}v!{column_letter_desc}3 ˆÈ~‚Í openpyxl ‚Å“Ç‚ß‚Ü‚¹‚ñB"
         )
         if openpyxl_skip_hint:
             msg += " " + openpyxl_skip_hint.strip()
@@ -310,7 +310,7 @@ def _read_task_ids_from_config_sheet_column(
             wb.close()
     except Exception as ex:
         logging.warning(
-            "%s: ã€Œ%sã€!%s3 ä»¥é™ã®ä¾é ¼NOã‚’èª­ã‚ã¾ã›ã‚“ï¼ˆç„¡è¦–ï¼‰: %s",
+            "%s: u%sv!%s3 ˆÈ~‚ÌˆË—ŠNO‚ğ“Ç‚ß‚Ü‚¹‚ñi–³‹j: %s",
             log_label,
             APP_CONFIG_SHEET_NAME,
             column_letter_desc,
@@ -322,47 +322,47 @@ def _read_task_ids_from_config_sheet_column(
 
 def _read_trace_schedule_task_ids_from_config_sheet(wb_path: str) -> list[str]:
     """
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ A åˆ—ã® 3 è¡Œç›®ä»¥é™ã‚’ã€é…å°ãƒˆãƒ¬ãƒ¼ã‚¹å¯¾è±¡ã®ä¾é ¼NOã¨ã—ã¦èª­ã‚€ã€‚
-    ç©ºã‚»ãƒ«ã¯ã‚¹ã‚­ãƒƒãƒ—ã€‚é€£ç¶š 30 ã‚»ãƒ«ç©ºãªã‚‰æ‰“ã¡åˆ‡ã‚Šã€‚æœ€å¤§ 500 è¡Œã¾ã§èµ°æŸ»ã€‚
+    ƒ}ƒNƒƒuƒbƒNuİ’èvƒV[ƒg A —ñ‚Ì 3 s–ÚˆÈ~‚ğA”z‘äƒgƒŒ[ƒX‘ÎÛ‚ÌˆË—ŠNO‚Æ‚µ‚Ä“Ç‚ŞB
+    ‹óƒZƒ‹‚ÍƒXƒLƒbƒvB˜A‘± 30 ƒZƒ‹‹ó‚È‚ç‘Å‚¿Ø‚èBÅ‘å 500 s‚Ü‚Å‘–¸B
     """
     return _read_task_ids_from_config_sheet_column(
         wb_path,
         1,
-        "é…å°ãƒˆãƒ¬ãƒ¼ã‚¹",
+        "”z‘äƒgƒŒ[ƒX",
         "A",
-        openpyxl_skip_hint="é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ã¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ A åˆ—ã‚’ openpyxl ã§èª­ã‚ãªã„ãŸã‚ç„¡åŠ¹ã§ã™ã€‚",
+        openpyxl_skip_hint="”z‘äƒgƒŒ[ƒX‚Íuİ’èvƒV[ƒg A —ñ‚ğ openpyxl ‚Å“Ç‚ß‚È‚¢‚½‚ß–³Œø‚Å‚·B",
     )
 
 
 def _read_debug_dispatch_task_ids_from_config_sheet(wb_path: str) -> list[str]:
     """
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ B åˆ—ã® 3 è¡Œç›®ä»¥é™ã‚’ã€æ®µéš2ãƒ‡ãƒãƒƒã‚°é…å°ã®å¯¾è±¡ä¾é ¼NOã¨ã—ã¦èª­ã‚€ã€‚
-    1 ä»¶ã‚‚ç„¡ã„å ´åˆã¯æ®µéš2ã¯é€šå¸¸ãƒ¢ãƒ¼ãƒ‰ï¼ˆå…¨ä»¶é…å°ï¼‰ã€‚ç©ºã‚»ãƒ«ãƒ»æ‰“ã¡åˆ‡ã‚Šç­‰ã¯ A åˆ—ãƒˆãƒ¬ãƒ¼ã‚¹ã¨åŒã˜ã€‚
+    ƒ}ƒNƒƒuƒbƒNuİ’èvƒV[ƒg B —ñ‚Ì 3 s–ÚˆÈ~‚ğA’iŠK2ƒfƒoƒbƒO”z‘ä‚Ì‘ÎÛˆË—ŠNO‚Æ‚µ‚Ä“Ç‚ŞB
+    1 Œ‚à–³‚¢ê‡‚Í’iŠK2‚Í’Êíƒ‚[ƒhi‘SŒ”z‘äjB‹óƒZƒ‹E‘Å‚¿Ø‚è“™‚Í A —ñƒgƒŒ[ƒX‚Æ“¯‚¶B
     """
     return _read_task_ids_from_config_sheet_column(
         wb_path,
         2,
-        "ãƒ‡ãƒãƒƒã‚°é…å°",
+        "ƒfƒoƒbƒO”z‘ä",
         "B",
-        openpyxl_skip_hint="ãƒ‡ãƒãƒƒã‚°é…å°ã¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ B åˆ—ã‚’ openpyxl ã§èª­ã‚ãªã„ãŸã‚ç„¡åŠ¹ï¼ˆå…¨ä»¶é…å°ï¼‰ã§ã™ã€‚",
+        openpyxl_skip_hint="ƒfƒoƒbƒO”z‘ä‚Íuİ’èvƒV[ƒg B —ñ‚ğ openpyxl ‚Å“Ç‚ß‚È‚¢‚½‚ß–³Œøi‘SŒ”z‘äj‚Å‚·B",
     )
 
 
 def _show_stage2_debug_dispatch_mode_dialog(task_ids_sorted: list[str]) -> None:
-    """è¨­å®šã‚·ãƒ¼ãƒˆ B3ä»¥é™ãŒç©ºã§ãªã„ã¨ãã ã‘å‘¼ã¶ã€‚Windows ã§ã¯ MessageBoxã€ãã‚Œä»¥å¤–ã¯ WARNING ãƒ­ã‚°ã€‚"""
+    """İ’èƒV[ƒg B3ˆÈ~‚ª‹ó‚Å‚È‚¢‚Æ‚«‚¾‚¯ŒÄ‚ÔBWindows ‚Å‚Í MessageBoxA‚»‚êˆÈŠO‚Í WARNING ƒƒOB"""
     if not task_ids_sorted:
         return
     preview_lines = task_ids_sorted[:30]
     preview = "\n".join(preview_lines)
     if len(task_ids_sorted) > 30:
-        preview += "\nâ€¦"
+        preview += "\nc"
     body = (
-        "ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã§å®Ÿè¡Œã—ã¾ã™ã€‚\n\n"
-        "ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ B3ä»¥é™ã«å…¥åŠ›ã—ãŸä¾é ¼NOã®ã¿ã‚’é…å°å¯¾è±¡ã¨ã—ã¾ã™ã€‚\n\n"
-        "å¯¾è±¡ä¾é ¼NO:\n"
+        "ƒfƒoƒbƒOƒ‚[ƒh‚ÅÀs‚µ‚Ü‚·B\n\n"
+        "uİ’èvƒV[ƒg B3ˆÈ~‚É“ü—Í‚µ‚½ˆË—ŠNO‚Ì‚İ‚ğ”z‘ä‘ÎÛ‚Æ‚µ‚Ü‚·B\n\n"
+        "‘ÎÛˆË—ŠNO:\n"
         + preview
     )
-    title = "æ®µéš2ï¼ˆé…å°ï¼‰â€” ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰"
+    title = "’iŠK2i”z‘äj? ƒfƒoƒbƒOƒ‚[ƒh"
     if sys.platform != "win32":
         logging.warning("%s\n%s", title, body)
         return
@@ -370,7 +370,7 @@ def _show_stage2_debug_dispatch_mode_dialog(task_ids_sorted: list[str]) -> None:
         ctypes.windll.user32.MessageBoxW(0, body, title, 0x00000040)
     except Exception as ex:
         logging.warning(
-            "ãƒ‡ãƒãƒƒã‚°é…å°: ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤ºã§ãã¾ã›ã‚“ (%s)ã€‚%s", ex, body
+            "ƒfƒoƒbƒO”z‘ä: ƒƒbƒZ[ƒWƒ{ƒbƒNƒX‚ğ•\¦‚Å‚«‚Ü‚¹‚ñ (%s)B%s", ex, body
         )
 
 
@@ -380,7 +380,7 @@ def _extract_gemini_api_key_from_plain_dict(data: dict, json_path: str) -> str |
         key = data.get("GEMINI_API_KEY")
     if key is None:
         logging.warning(
-            "Gemini: èªè¨¼ãƒ‡ãƒ¼ã‚¿ã« gemini_api_keyï¼ˆã¾ãŸã¯ GEMINI_API_KEYï¼‰ãŒã‚ã‚Šã¾ã›ã‚“ï¼ˆ%sï¼‰ã€‚",
+            "Gemini: ”FØƒf[ƒ^‚É gemini_api_keyi‚Ü‚½‚Í GEMINI_API_KEYj‚ª‚ ‚è‚Ü‚¹‚ñi%sjB",
             json_path,
         )
         return None
@@ -420,50 +420,50 @@ def _decrypt_gemini_credentials_v2(
         from cryptography.fernet import Fernet
     except ImportError:
         logging.warning(
-            "Gemini: æš—å·åŒ–èªè¨¼ JSON ã«ã¯ cryptography ãŒå¿…è¦ã§ã™ï¼ˆpip install cryptographyï¼‰ã€‚"
+            "Gemini: ˆÃ†‰»”FØ JSON ‚É‚Í cryptography ‚ª•K—v‚Å‚·ipip install cryptographyjB"
         )
         return None
     token_s = (data.get("fernet_ciphertext") or "").strip()
     if not token_s:
         logging.warning(
-            "Gemini: æš—å·åŒ–èªè¨¼ JSON ã« fernet_ciphertext ãŒã‚ã‚Šã¾ã›ã‚“ï¼ˆ%sï¼‰ã€‚",
+            "Gemini: ˆÃ†‰»”FØ JSON ‚É fernet_ciphertext ‚ª‚ ‚è‚Ü‚¹‚ñi%sjB",
             json_path,
         )
         return None
     salt_b64 = (data.get("salt_b64") or "").strip()
     if not salt_b64:
         logging.warning(
-            "Gemini: æš—å·åŒ–èªè¨¼ JSON ã« salt_b64 ãŒã‚ã‚Šã¾ã›ã‚“ï¼ˆ%sï¼‰ã€‚",
+            "Gemini: ˆÃ†‰»”FØ JSON ‚É salt_b64 ‚ª‚ ‚è‚Ü‚¹‚ñi%sjB",
             json_path,
         )
         return None
     try:
         salt = base64.standard_b64decode(salt_b64)
     except Exception as ex:
-        logging.warning("Gemini: salt_b64 ã®è§£é‡ˆã«å¤±æ•—ã—ã¾ã—ãŸï¼ˆ%sï¼‰: %s", json_path, ex)
+        logging.warning("Gemini: salt_b64 ‚Ì‰ğß‚É¸”s‚µ‚Ü‚µ‚½i%sj: %s", json_path, ex)
         return None
     iterations = int(data.get("iterations") or _GEMINI_CREDENTIALS_PBKDF2_ITERATIONS_DEFAULT)
     kdf_name = (data.get("kdf") or "pbkdf2_sha256").strip()
     if kdf_name != "pbkdf2_sha256":
-        logging.warning("Gemini: æœªå¯¾å¿œã® kdfï¼ˆ%sï¼‰: %s", kdf_name, json_path)
+        logging.warning("Gemini: –¢‘Î‰‚Ì kdfi%sj: %s", kdf_name, json_path)
         return None
     try:
         fkey = _derive_fernet_key_from_passphrase(passphrase, salt, iterations)
         plain = Fernet(fkey).decrypt(token_s.encode("ascii"))
     except Exception:
-        logging.debug("Gemini: æš—å·åŒ–èªè¨¼ã®å¾©å·å‡¦ç†ã«å¤±æ•—ã—ã¾ã—ãŸï¼ˆ%sï¼‰ã€‚", json_path)
+        logging.debug("Gemini: ˆÃ†‰»”FØ‚Ì•œ†ˆ—‚É¸”s‚µ‚Ü‚µ‚½i%sjB", json_path)
         return None
     try:
         inner = json.loads(plain.decode("utf-8"))
     except (json.JSONDecodeError, UnicodeDecodeError) as ex:
         logging.warning(
-            "Gemini: å¾©å·å¾Œã® JSON ãŒä¸æ­£ã§ã™ï¼ˆ%sï¼‰: %s",
+            "Gemini: •œ†Œã‚Ì JSON ‚ª•s³‚Å‚·i%sj: %s",
             json_path,
             ex,
         )
         return None
     if not isinstance(inner, dict):
-        logging.warning("Gemini: å¾©å·å¾Œã® JSON ã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ï¼ˆ%sï¼‰ã€‚", json_path)
+        logging.warning("Gemini: •œ†Œã‚Ì JSON ‚ÍƒIƒuƒWƒFƒNƒg‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·i%sjB", json_path)
         return None
     return inner
 
@@ -471,18 +471,18 @@ def _decrypt_gemini_credentials_v2(
 def _load_gemini_api_key_from_credentials_json(
     json_path: str, workbook_path: str | None = None
 ) -> tuple[str | None, bool]:
-    """æˆ»ã‚Šå€¤: (api_key ã¾ãŸã¯ None, æš—å·åŒ–å½¢å¼ã ã£ãŸã‹)ã€‚æš—å·åŒ–æ™‚ã¯ _GEMINI_CREDENTIALS_PASSPHRASE_FIXED ã®ã¿ã§å¾©å·ã€‚"""
+    """–ß‚è’l: (api_key ‚Ü‚½‚Í None, ˆÃ†‰»Œ`®‚¾‚Á‚½‚©)BˆÃ†‰»‚Í _GEMINI_CREDENTIALS_PASSPHRASE_FIXED ‚Ì‚İ‚Å•œ†B"""
     try:
         with open(json_path, encoding="utf-8") as f:
             data = json.load(f)
     except OSError as ex:
-        logging.warning("Gemini: èªè¨¼ JSON ã‚’é–‹ã‘ã¾ã›ã‚“: %s (%s)", json_path, ex)
+        logging.warning("Gemini: ”FØ JSON ‚ğŠJ‚¯‚Ü‚¹‚ñ: %s (%s)", json_path, ex)
         return None, False
     except json.JSONDecodeError as ex:
-        logging.warning("Gemini: èªè¨¼ JSON ã®å½¢å¼ãŒä¸æ­£ã§ã™: %s (%s)", json_path, ex)
+        logging.warning("Gemini: ”FØ JSON ‚ÌŒ`®‚ª•s³‚Å‚·: %s (%s)", json_path, ex)
         return None, False
     if not isinstance(data, dict):
-        logging.warning("Gemini: èªè¨¼ JSON ã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå½¢å¼ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™: %s", json_path)
+        logging.warning("Gemini: ”FØ JSON ‚ÍƒIƒuƒWƒFƒNƒgŒ`®‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·: %s", json_path)
         return None, False
     if _credentials_json_is_encrypted_v2(data):
         inner = _decrypt_gemini_credentials_v2(
@@ -503,19 +503,19 @@ if _cred_path and os.path.isfile(_cred_path):
     )
     if API_KEY:
         if _used_encrypted_credentials:
-            logging.info("Gemini API ã‚­ãƒ¼: æš—å·åŒ–èªè¨¼ JSON ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚")
+            logging.info("Gemini API ƒL[: ˆÃ†‰»”FØ JSON ‚©‚ç“Ç‚İ‚İ‚Ü‚µ‚½B")
         else:
             logging.info(
-                "Gemini API ã‚­ãƒ¼: ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œ%sã€B1 ã®ãƒ‘ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚",
+                "Gemini API ƒL[: ƒ}ƒNƒƒuƒbƒNu%svB1 ‚ÌƒpƒX‚©‚ç“Ç‚İ‚İ‚Ü‚µ‚½B",
                 APP_CONFIG_SHEET_NAME,
             )
 elif _cred_path:
     logging.warning(
-        "Gemini: ã€Œ%sã€B1 ã§æŒ‡å®šã•ã‚ŒãŸèªè¨¼ JSON ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚",
+        "Gemini: u%svB1 ‚Åw’è‚³‚ê‚½”FØ JSON ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB",
         APP_CONFIG_SHEET_NAME,
     )
 
-# B1 ãŒæš—å·åŒ– JSON ãªã®ã«ã‚­ãƒ¼ãŒå–ã‚Œãªã„ï¼ˆå¹³æ–‡ JSON ã§ã‚­ãƒ¼æ¬ è½ã¨ã®åŒºåˆ¥ï¼‰ã€‚åŸå› ã®ç‰¹å®šã¯ãƒ­ã‚°ã«æ›¸ã‹ãšæ±ç”¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã¿ã€‚
+# B1 ‚ªˆÃ†‰» JSON ‚È‚Ì‚ÉƒL[‚ªæ‚ê‚È‚¢i•½•¶ JSON ‚ÅƒL[Œ‡—‚Æ‚Ì‹æ•ÊjBŒ´ˆö‚Ì“Á’è‚ÍƒƒO‚É‘‚©‚¸”Ä—pƒƒbƒZ[ƒW‚Ì‚İB
 _encrypted_json_missing_key = (
     bool(_cred_path)
     and os.path.isfile(_cred_path)
@@ -524,58 +524,58 @@ _encrypted_json_missing_key = (
 )
 if _encrypted_json_missing_key:
     logging.error(
-        "Gemini: ã€Œ%sã€B1 ã®èªè¨¼ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ API ã‚­ãƒ¼ã‚’åˆ©ç”¨ã§ãã¾ã›ã‚“ã€‚"
-        " ç¤¾å†…æ‰‹é †ã«å¾“ã„èªè¨¼ã‚’å†è¨­å®šã™ã‚‹ã‹ã€ç®¡ç†è€…ã«å•ã„åˆã‚ã›ã¦ãã ã•ã„ã€‚",
+        "Gemini: u%svB1 ‚Ì”FØƒtƒ@ƒCƒ‹‚©‚ç API ƒL[‚ğ—˜—p‚Å‚«‚Ü‚¹‚ñB"
+        " Ğ“àè‡‚É]‚¢”FØ‚ğÄİ’è‚·‚é‚©AŠÇ—Ò‚É–â‚¢‡‚í‚¹‚Ä‚­‚¾‚³‚¢B",
         APP_CONFIG_SHEET_NAME,
     )
 
 if not API_KEY:
     logging.warning(
-        "Gemini API ã‚­ãƒ¼ãŒæœªè¨­å®šã§ã™ã€‚ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ã‚·ãƒ¼ãƒˆã‚’ç”¨æ„ã— B1 ã«èªè¨¼ JSON ã®ãƒ•ãƒ«ãƒ‘ã‚¹ã‚’æ›¸ã„ã¦ãã ã•ã„ã€‚"
-        " å‚™è€ƒã® AI è§£æç­‰ã¯ã‚¹ã‚­ãƒƒãƒ—ã•ã‚Œã¾ã™ã€‚"
-        " ã²ãªå‹: gemini_credentials.example.json / encrypt_gemini_credentials.pyï¼ˆæš—å·åŒ–ï¼‰ã€‚",
+        "Gemini API ƒL[‚ª–¢İ’è‚Å‚·Bƒ}ƒNƒƒuƒbƒN‚Éu%svƒV[ƒg‚ğ—pˆÓ‚µ B1 ‚É”FØ JSON ‚Ìƒtƒ‹ƒpƒX‚ğ‘‚¢‚Ä‚­‚¾‚³‚¢B"
+        " ”õl‚Ì AI ‰ğÍ“™‚ÍƒXƒLƒbƒv‚³‚ê‚Ü‚·B"
+        " ‚Ğ‚ÈŒ^: gemini_credentials.example.json / encrypt_gemini_credentials.pyiˆÃ†‰»jB",
         APP_CONFIG_SHEET_NAME,
     )
 
-RESULT_SHEET_GANTT_NAME = "çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆ"
+RESULT_SHEET_GANTT_NAME = "Œ‹‰Ê_İ”õƒKƒ“ƒg"
 
-# ã‚¿ã‚¹ã‚¯åˆ—åï¼ˆãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã€ŒåŠ å·¥è¨ˆç”»DATAã€ï¼‰
-TASK_COL_TASK_ID = "ä¾é ¼NO"
-TASK_COL_MACHINE = "å·¥ç¨‹å"
-TASK_COL_MACHINE_NAME = "æ©Ÿæ¢°å"
-TASK_COL_QTY = "æ›ç®—æ•°é‡"
-TASK_COL_ORDER_QTY = "å—æ³¨æ•°"
-TASK_COL_SPEED = "åŠ å·¥é€Ÿåº¦"
-TASK_COL_PRODUCT = "è£½å“å"
-TASK_COL_ANSWER_DUE = "å›ç­”ç´æœŸ"
-TASK_COL_SPECIFIED_DUE = "æŒ‡å®šç´æœŸ"
-TASK_COL_RAW_INPUT_DATE = "åŸåæŠ•å…¥æ—¥"
-# åŠ å·¥è¨ˆç”»DATA ç”±æ¥ã€‚é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã§ã¯åŸåæŠ•å…¥æ—¥ã®å³éš£ï¼ˆSOURCE_BASE_COLUMNS é †ï¼‰ã€‚
-TASK_COL_STOCK_LOCATION = "åœ¨åº«å ´æ‰€"
-# åŒä¸€ä¾é ¼NOã®å·¥ç¨‹é †ï¼ˆã‚«ãƒ³ãƒåŒºåˆ‡ã‚Šã®å·¥ç¨‹åï¼‰ã€‚åŠ å·¥è¨ˆç”»DATAï¼é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€‚
-TASK_COL_PROCESS_CONTENT = "åŠ å·¥å†…å®¹"
-# æŠ•å…¥å¯èƒ½æ—¥ã®ç›®å®‰ã¯ã€Œå›ç­”ç´æœŸã€ã€æœªå…¥åŠ›æ™‚ã¯ã€ŒæŒ‡å®šç´æœŸã€ï¼ˆå‰æ—¥åŸºæº–ãƒ»å½“æ—¥/é…ã‚Œã¯æœ€å„ªå…ˆï¼‰ã€‚ã€ŒåŠ å·¥é–‹å§‹æ—¥ã€åˆ—ã¯å‚ç…§ã—ãªã„ã€‚
-# å®Œäº†åˆ¤å®šãƒ»é€²æ—ï¼ˆåŠ å·¥è¨ˆç”»DATAï¼‰
-TASK_COL_COMPLETION_FLAG = "åŠ å·¥å®Œäº†åŒºåˆ†"
-TASK_COL_ACTUAL_DONE = "å®ŸåŠ å·¥æ•°"   # æ—§äº’æ›ï¼ˆç›´æ¥ã®åŠ å·¥æ¸ˆæ•°é‡ï¼‰
-TASK_COL_ACTUAL_OUTPUT = "å®Ÿå‡ºæ¥é«˜"  # å®Œæˆå“æ•°é‡ï¼ˆæ›ç®—ã«ä½¿ã†ï¼‰
-TASK_COL_DATA_EXTRACTION_DT = "ãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥"
-AI_CACHE_TTL_SECONDS = 6 * 60 * 60  # 6æ™‚é–“
-# json/ai_remarks_cache.json å†…ã®ã‚­ãƒ¼æ¥é ­è¾ï¼ˆè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ãƒ»é…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯ Dâ†’Eï¼‰
+# ƒ^ƒXƒN—ñ–¼iƒ}ƒNƒÀsƒuƒbƒNu‰ÁHŒv‰æDATAvj
+TASK_COL_TASK_ID = "ˆË—ŠNO"
+TASK_COL_MACHINE = "H’ö–¼"
+TASK_COL_MACHINE_NAME = "‹@ŠB–¼"
+TASK_COL_QTY = "Š·Z”—Ê"
+TASK_COL_ORDER_QTY = "ó’”"
+TASK_COL_SPEED = "‰ÁH‘¬“x"
+TASK_COL_PRODUCT = "»•i–¼"
+TASK_COL_ANSWER_DUE = "‰ñ“š”[Šú"
+TASK_COL_SPECIFIED_DUE = "w’è”[Šú"
+TASK_COL_RAW_INPUT_DATE = "Œ´”½“Š“ü“ú"
+# ‰ÁHŒv‰æDATA —R—ˆB”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚Å‚ÍŒ´”½“Š“ü“ú‚Ì‰E—×iSOURCE_BASE_COLUMNS ‡jB
+TASK_COL_STOCK_LOCATION = "İŒÉêŠ"
+# “¯ˆêˆË—ŠNO‚ÌH’ö‡iƒJƒ“ƒ}‹æØ‚è‚ÌH’ö–¼jB‰ÁHŒv‰æDATA^”z‘äŒv‰æ_ƒ^ƒXƒN“ü—ÍB
+TASK_COL_PROCESS_CONTENT = "‰ÁH“à—e"
+# “Š“ü‰Â”\“ú‚Ì–ÚˆÀ‚Íu‰ñ“š”[ŠúvA–¢“ü—Í‚Íuw’è”[Šúvi‘O“úŠî€E“–“ú/’x‚ê‚ÍÅ—DæjBu‰ÁHŠJn“úv—ñ‚ÍQÆ‚µ‚È‚¢B
+# Š®—¹”»’èEi’»i‰ÁHŒv‰æDATAj
+TASK_COL_COMPLETION_FLAG = "‰ÁHŠ®—¹‹æ•ª"
+TASK_COL_ACTUAL_DONE = "À‰ÁH”"   # ‹ŒŒİŠ·i’¼Ú‚Ì‰ÁHÏ”—Êj
+TASK_COL_ACTUAL_OUTPUT = "Ào—ˆ‚"  # Š®¬•i”—ÊiŠ·Z‚Ég‚¤j
+TASK_COL_DATA_EXTRACTION_DT = "ƒf[ƒ^’Šo“ú"
+AI_CACHE_TTL_SECONDS = 6 * 60 * 60  # 6ŠÔ
+# json/ai_remarks_cache.json “à‚ÌƒL[Ú“ª«iİ’è_”z‘ä•s—vH’öE”z‘ä•s”\ƒƒWƒbƒN D¨Ej
 AI_CACHE_KEY_PREFIX_EXCLUDE_RULE_DE = "exclude_rule_de_v1"
 
-# ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€ŒåŠ å·¥å®Ÿç¸¾DATAã€ï¼ˆPower Query ç­‰ã§å–ã‚Šè¾¼ã¿æƒ³å®šï¼‰
-ACTUALS_SHEET_NAME = "åŠ å·¥å®Ÿç¸¾DATA"
-ACT_COL_TASK_ID = "ä¾é ¼NO"
-ACT_COL_PROCESS = "å·¥ç¨‹å"
-ACT_COL_OPERATOR = "æ‹…å½“è€…"
-ACT_COL_START_DT = "é–‹å§‹æ—¥æ™‚"
-ACT_COL_END_DT = "çµ‚äº†æ—¥æ™‚"
-ACT_COL_START_ALT = "å®Ÿç¸¾é–‹å§‹"
-ACT_COL_END_ALT = "å®Ÿç¸¾çµ‚äº†"
-ACT_COL_DAY = "æ—¥ä»˜"
-ACT_COL_TIME_START = "é–‹å§‹æ™‚åˆ»"
-ACT_COL_TIME_END = "çµ‚äº†æ™‚åˆ»"
+# ƒ}ƒNƒƒuƒbƒNu‰ÁHÀÑDATAviPower Query “™‚Åæ‚è‚İ‘z’èj
+ACTUALS_SHEET_NAME = "‰ÁHÀÑDATA"
+ACT_COL_TASK_ID = "ˆË—ŠNO"
+ACT_COL_PROCESS = "H’ö–¼"
+ACT_COL_OPERATOR = "’S“–Ò"
+ACT_COL_START_DT = "ŠJn“ú"
+ACT_COL_END_DT = "I—¹“ú"
+ACT_COL_START_ALT = "ÀÑŠJn"
+ACT_COL_END_ALT = "ÀÑI—¹"
+ACT_COL_DAY = "“ú•t"
+ACT_COL_TIME_START = "ŠJn"
+ACT_COL_TIME_END = "I—¹"
 ACTUAL_HEADER_CANONICAL = (
     ACT_COL_TASK_ID,
     ACT_COL_PROCESS,
@@ -589,30 +589,30 @@ ACTUAL_HEADER_CANONICAL = (
     ACT_COL_TIME_END,
 )
 
-# --- 2æ®µéšå‡¦ç†: æ®µéš1æŠ½å‡º â†’ ãƒ–ãƒƒã‚¯ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ç·¨é›† â†’ æ®µéš2è¨ˆç”» ---
+# --- 2’iŠKˆ—: ’iŠK1’Šo ¨ ƒuƒbƒNu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív•ÒW ¨ ’iŠK2Œv‰æ ---
 STAGE1_OUTPUT_FILENAME = "plan_input_tasks.xlsx"
-PLAN_INPUT_SHEET_NAME = os.environ.get("TASK_PLAN_SHEET", "").strip() or "é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›"
-PLAN_COL_SPEED_OVERRIDE = "åŠ å·¥é€Ÿåº¦_ä¸Šæ›¸ã"
-# ç©ºç™½ã®ã¨ãã¯åˆ—ã€ŒåŸåæŠ•å…¥æ—¥ã€ï¼ˆåŠ å·¥è¨ˆç”»DATA ç”±æ¥ï¼‰ã‚’ãã®ã¾ã¾ä½¿ã†ã€‚æ—¥ä»˜ã‚ã‚Šã®ã¨ãã¯é…å°ã®åŸååˆ¶ç´„ãƒ»çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§è¡¨ç¤ºã®ä¸¡æ–¹ã§ã“ã®æ—¥ä»˜ã‚’æ¡ç”¨ã€‚
-PLAN_COL_RAW_INPUT_DATE_OVERRIDE = "åŸåæŠ•å…¥æ—¥_ä¸Šæ›¸ã"
-PLAN_COL_PREFERRED_OP = "æ‹…å½“OP_æŒ‡å®š"
-PLAN_COL_SPECIAL_REMARK = "ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒ"
-# å‚ç…§åˆ—ã€Œï¼ˆå…ƒï¼‰é…å°ä¸è¦ã€ã¯ç½®ã‹ãªã„ï¼ˆå…ƒãƒ‡ãƒ¼ã‚¿ã«ç›¸å½“ã™ã‚‹ãƒã‚¹ã‚¿åˆ—ãŒç„¡ã„ãŸã‚ï¼‰ã€‚
-# ã‚»ãƒ«å€¤ã®ä¾‹ï¼ˆé…å°ã‹ã‚‰å¤–ã™ï¼‰: Excel ã® TRUE / æ•°å€¤ 1 / æ–‡å­—åˆ—ã€Œã¯ã„ã€ã€Œyesã€ã€Œtrueã€ã€Œâ—‹ã€ã€Œã€‡ã€ã€Œâ—ã€ç­‰ã€‚
-# ç©ºãƒ»FALSEãƒ»0ãƒ»ã€Œã„ã„ãˆã€ç­‰ã¯é…å°å¯¾è±¡ã€‚è©³ç´°ã¯ _plan_row_exclude_from_assignmentã€‚
-PLAN_COL_EXCLUDE_FROM_ASSIGNMENT = "é…å°ä¸è¦"
-PLAN_COL_AI_PARSE = "AIç‰¹åˆ¥æŒ‡å®š_è§£æ"
-PLAN_COL_PROCESS_FACTOR = "åŠ å·¥å·¥ç¨‹ã®æ±ºå®šãƒ—ãƒ­ã‚»ã‚¹ã®å› å­"
-# 1ãƒ­ãƒ¼ãƒ«ã‚ãŸã‚Šã®é•·ã•ï¼ˆmï¼‰ã€‚é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã«ã®ã¿å­˜åœ¨ï¼ˆåŠ å·¥è¨ˆç”»DATA ã«ã¯ç„¡ã„ï¼‰ã€‚è£½å“ååˆ—ã®å³éš£ã«é…ç½®ã€‚
-PLAN_COL_ROLL_UNIT_LENGTH = "ãƒ­ãƒ¼ãƒ«å˜ä½é•·ã•"
+PLAN_INPUT_SHEET_NAME = os.environ.get("TASK_PLAN_SHEET", "").strip() or "”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í"
+PLAN_COL_SPEED_OVERRIDE = "‰ÁH‘¬“x_ã‘‚«"
+# ‹ó”’‚Ì‚Æ‚«‚Í—ñuŒ´”½“Š“ü“úvi‰ÁHŒv‰æDATA —R—ˆj‚ğ‚»‚Ì‚Ü‚Üg‚¤B“ú•t‚ ‚è‚Ì‚Æ‚«‚Í”z‘ä‚ÌŒ´”½§–ñEŒ‹‰Ê_ƒ^ƒXƒNˆê——•\¦‚Ì—¼•û‚Å‚±‚Ì“ú•t‚ğÌ—pB
+PLAN_COL_RAW_INPUT_DATE_OVERRIDE = "Œ´”½“Š“ü“ú_ã‘‚«"
+PLAN_COL_PREFERRED_OP = "’S“–OP_w’è"
+PLAN_COL_SPECIAL_REMARK = "“Á•Êw’è_”õl"
+# QÆ—ñuiŒ³j”z‘ä•s—vv‚Í’u‚©‚È‚¢iŒ³ƒf[ƒ^‚É‘Š“–‚·‚éƒ}ƒXƒ^—ñ‚ª–³‚¢‚½‚ßjB
+# ƒZƒ‹’l‚Ì—ái”z‘ä‚©‚çŠO‚·j: Excel ‚Ì TRUE / ”’l 1 / •¶š—ñu‚Í‚¢vuyesvutruevu›vuZvuœv“™B
+# ‹óEFALSEE0Eu‚¢‚¢‚¦v“™‚Í”z‘ä‘ÎÛBÚ×‚Í _plan_row_exclude_from_assignmentB
+PLAN_COL_EXCLUDE_FROM_ASSIGNMENT = "”z‘ä•s—v"
+PLAN_COL_AI_PARSE = "AI“Á•Êw’è_‰ğÍ"
+PLAN_COL_PROCESS_FACTOR = "‰ÁHH’ö‚ÌŒˆ’èƒvƒƒZƒX‚Ìˆöq"
+# 1ƒ[ƒ‹‚ ‚½‚è‚Ì’·‚³imjB”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚É‚Ì‚İ‘¶İi‰ÁHŒv‰æDATA ‚É‚Í–³‚¢jB»•i–¼—ñ‚Ì‰E—×‚É”z’uB
+PLAN_COL_ROLL_UNIT_LENGTH = "ƒ[ƒ‹’PˆÊ’·‚³"
 DEBUG_TASK_ID = os.environ.get("DEBUG_TASK_ID", "Y3-26").strip()
-# ä¾‹: set TRACE_TEAM_ASSIGN_TASK_ID=W3-14 â€¦ é…å°ãƒ«ãƒ¼ãƒ—ã§ã€Œäººæ•°åˆ¥ã®æœ€è‰¯å€™è£œã€ã¨æ¡ç”¨ç†ç”±ã‚’ INFO ãƒ­ã‚°ã«å‡ºã™
+# —á: set TRACE_TEAM_ASSIGN_TASK_ID=W3-14 c ”z‘äƒ‹[ƒv‚Åul”•Ê‚ÌÅ—ÇŒó•âv‚ÆÌ—p——R‚ğ INFO ƒƒO‚Éo‚·
 TRACE_TEAM_ASSIGN_TASK_ID = os.environ.get("TRACE_TEAM_ASSIGN_TASK_ID", "").strip()
-# é…å°ãƒˆãƒ¬ãƒ¼ã‚¹å¯¾è±¡ã¯ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®šã€ã‚·ãƒ¼ãƒˆ A åˆ— 3 è¡Œç›®ä»¥é™ã®ã¿ï¼ˆgenerate_plan å†’é ­ã§ç¢ºå®šï¼‰ã€‚ç’°å¢ƒå¤‰æ•°ã¯ä½¿ã‚ãªã„ã€‚
+# ”z‘äƒgƒŒ[ƒX‘ÎÛ‚Íƒ}ƒNƒƒuƒbƒNuİ’èvƒV[ƒg A —ñ 3 s–ÚˆÈ~‚Ì‚İigenerate_plan –`“ª‚ÅŠm’èjBŠÂ‹«•Ï”‚Íg‚í‚È‚¢B
 TRACE_SCHEDULE_TASK_IDS: frozenset[str] = frozenset()
-# æ®µéš2ãƒ‡ãƒãƒƒã‚°é…å°: ã€Œè¨­å®šã€B åˆ— 3 è¡Œç›®ä»¥é™ã«ä¾é ¼NOãŒã‚ã‚‹ã¨ãã®ã¿ã€ãã®ä¾é ¼ã®è¡Œã ã‘é…å°ï¼ˆgenerate_plan å†’é ­ã§ç¢ºå®šï¼‰ã€‚ç©ºãªã‚‰å…¨ä»¶ã€‚
+# ’iŠK2ƒfƒoƒbƒO”z‘ä: uİ’èvB —ñ 3 s–ÚˆÈ~‚ÉˆË—ŠNO‚ª‚ ‚é‚Æ‚«‚Ì‚İA‚»‚ÌˆË—Š‚Ìs‚¾‚¯”z‘äigenerate_plan –`“ª‚ÅŠm’èjB‹ó‚È‚ç‘SŒB
 DEBUG_DISPATCH_ONLY_TASK_IDS: frozenset[str] = frozenset()
-# ç´æœŸè¶…éãƒªãƒˆãƒ©ã‚¤ã®å¤–å´ãƒ©ã‚¦ãƒ³ãƒ‰ï¼ˆ0=åˆå›ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼é€šã—ã€ä»¥é™ã¯ while å…ˆé ­ã§æ›´æ–°ï¼‰ã€‚é…å°ãƒˆãƒ¬ãƒ¼ã‚¹å‡ºåŠ›ã®ãƒ•ã‚¡ã‚¤ãƒ«åãƒ»æ¥é ­è¾ã«ä½¿ç”¨ã€‚
+# ”[Šú’´‰ßƒŠƒgƒ‰ƒC‚ÌŠO‘¤ƒ‰ƒEƒ“ƒhi0=‰‰ñƒJƒŒƒ“ƒ_[’Ê‚µAˆÈ~‚Í while æ“ª‚ÅXVjB”z‘äƒgƒŒ[ƒXo—Í‚Ìƒtƒ@ƒCƒ‹–¼EÚ“ª«‚Ég—pB
 DISPATCH_TRACE_OUTER_ROUND: int = 0
 
 
@@ -623,7 +623,7 @@ def _trace_schedule_task_enabled(task_id) -> bool:
 
 
 def _sanitize_dispatch_trace_filename_part(task_id: str) -> str:
-    """ä¾é ¼NOã‚’ log ãƒ•ã‚¡ã‚¤ãƒ«åã«ä½¿ã†ãŸã‚ã®ç°¡æ˜“ã‚µãƒ‹ã‚¿ã‚¤ã‚ºï¼ˆWindows ç¦æ­¢æ–‡å­—ã‚’é¿ã‘ã‚‹ï¼‰ã€‚"""
+    """ˆË—ŠNO‚ğ log ƒtƒ@ƒCƒ‹–¼‚Ég‚¤‚½‚ß‚ÌŠÈˆÕƒTƒjƒ^ƒCƒYiWindows ‹Ö~•¶š‚ğ”ğ‚¯‚éjB"""
     s = "".join(
         c if (c.isalnum() or c in "-_.") else "_"
         for c in str(task_id or "").strip()
@@ -633,10 +633,10 @@ def _sanitize_dispatch_trace_filename_part(task_id: str) -> str:
 
 def _reset_dispatch_trace_per_task_logfiles() -> None:
     """
-    æ®µéš2å®Ÿè¡Œã®å†’é ­ã§1å›ã€log å†…ã® dispatch_trace_*.txt ã‚’ã™ã¹ã¦å‰Šé™¤ã™ã‚‹ï¼ˆéå»å®Ÿè¡Œã®æ®‹éª¸ã‚’æ®‹ã•ãªã„ï¼‰ã€‚
-    å„å¤–å´ãƒ©ã‚¦ãƒ³ãƒ‰ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã¯ generate_plan ã® while å…ˆé ­ã§ _dispatch_trace_begin_outer_round ãŒãƒ˜ãƒƒãƒ€ä»˜ãæ–°è¦ä½œæˆã™ã‚‹ã€‚
-    execution_log.txt ã¨ã¯åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã€‚å†…å®¹ã¯ [é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=â€¦] è¡Œã‚’ _log_dispatch_trace_schedule ã§è¿½è¨˜
-    ï¼ˆæ—¥æ¬¡æ®‹ãƒ»ãƒ­ãƒ¼ãƒ«ç¢ºå®šã®ä½™å‰°æœ‰ç„¡ãƒ»ä½™åŠ›è¿½è¨˜ãƒ»çµ‚äº†æ™‚ã‚µãƒãƒªç­‰ï¼‰ã€‚
+    ’iŠK2Às‚Ì–`“ª‚Å1‰ñAlog “à‚Ì dispatch_trace_*.txt ‚ğ‚·‚×‚Äíœ‚·‚éi‰ß‹Às‚ÌcŠ[‚ğc‚³‚È‚¢jB
+    ŠeŠO‘¤ƒ‰ƒEƒ“ƒh—pƒtƒ@ƒCƒ‹‚Í generate_plan ‚Ì while æ“ª‚Å _dispatch_trace_begin_outer_round ‚ªƒwƒbƒ_•t‚«V‹Kì¬‚·‚éB
+    execution_log.txt ‚Æ‚Í•Êƒtƒ@ƒCƒ‹B“à—e‚Í [”z‘äƒgƒŒ[ƒX task=c] s‚ğ _log_dispatch_trace_schedule ‚Å’Ç‹L
+    i“úŸcEƒ[ƒ‹Šm’è‚Ì—]è—L–³E—]—Í’Ç‹LEI—¹ƒTƒ}ƒŠ“™jB
     """
     if not TRACE_SCHEDULE_TASK_IDS:
         return
@@ -660,7 +660,7 @@ def _reset_dispatch_trace_per_task_logfiles() -> None:
 
 
 def _dispatch_trace_begin_outer_round(round_n: int) -> None:
-    """ç´æœŸè¶…éãƒªãƒˆãƒ©ã‚¤ã®å¤–å´ãƒ©ã‚¦ãƒ³ãƒ‰ç•ªå·ã‚’ç¢ºå®šã—ã€å½“ãƒ©ã‚¦ãƒ³ãƒ‰ç”¨ dispatch_trace_*_rNN.txt ã®ãƒ˜ãƒƒãƒ€ã‚’1å›ã ã‘æ›¸ãã€‚"""
+    """”[Šú’´‰ßƒŠƒgƒ‰ƒC‚ÌŠO‘¤ƒ‰ƒEƒ“ƒh”Ô†‚ğŠm’è‚µA“–ƒ‰ƒEƒ“ƒh—p dispatch_trace_*_rNN.txt ‚Ìƒwƒbƒ_‚ğ1‰ñ‚¾‚¯‘‚­B"""
     global DISPATCH_TRACE_OUTER_ROUND
     DISPATCH_TRACE_OUTER_ROUND = max(0, int(round_n))
     if not TRACE_SCHEDULE_TASK_IDS:
@@ -683,16 +683,16 @@ def _dispatch_trace_begin_outer_round(round_n: int) -> None:
         try:
             with open(path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(
-                    "# é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ï¼ˆä¾é ¼NOã”ã¨ãƒ»å¤–å´ãƒ©ã‚¦ãƒ³ãƒ‰åˆ¥ï¼‰ã€‚åŒä¸€è¡Œã¯ log/execution_log.txt ã«ã‚‚å‡ºåŠ›ã•ã‚Œã¾ã™ã€‚\n"
+                    "# ”z‘äƒgƒŒ[ƒXiˆË—ŠNO‚²‚ÆEŠO‘¤ƒ‰ƒEƒ“ƒh•ÊjB“¯ˆês‚Í log/execution_log.txt ‚É‚ào—Í‚³‚ê‚Ü‚·B\n"
                     f"# task_id={t}  outer_round={DISPATCH_TRACE_OUTER_ROUND}  "
-                    "# ï¼ˆ0=åˆå›ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼é€šã—ã€ä»¥é™ã¯ç´æœŸè¶…éãƒªãƒˆãƒ©ã‚¤ã”ã¨ã« +1ï¼‰\n\n"
+                    "# i0=‰‰ñƒJƒŒƒ“ƒ_[’Ê‚µAˆÈ~‚Í”[Šú’´‰ßƒŠƒgƒ‰ƒC‚²‚Æ‚É +1j\n\n"
                 )
         except OSError as ex:
-            logging.warning("dispatch_trace ãƒ­ã‚°ã®åˆæœŸåŒ–ã«å¤±æ•—: %s (%s)", path, ex)
+            logging.warning("dispatch_trace ƒƒO‚Ì‰Šú‰»‚É¸”s: %s (%s)", path, ex)
 
 
 def _log_dispatch_trace_schedule(task_id, msg: str, *args) -> None:
-    """[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=â€¦] ã‚’ execution_log ã«å‡ºã—ã¤ã¤ã€å¯¾è±¡ä¾é ¼NOå°‚ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã«ã‚‚è¿½è¨˜ã™ã‚‹ã€‚"""
+    """[”z‘äƒgƒŒ[ƒX task=c] ‚ğ execution_log ‚Éo‚µ‚Â‚ÂA‘ÎÛˆË—ŠNOê—pƒtƒ@ƒCƒ‹‚É‚à’Ç‹L‚·‚éB"""
     t = str(task_id or "").strip()
     body_raw = msg % args if args else msg
     body = body_raw
@@ -713,19 +713,19 @@ def _log_dispatch_trace_schedule(task_id, msg: str, *args) -> None:
             f.write(line)
     except OSError as ex:
         try:
-            logging.warning("dispatch_trace å´ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®è¿½è¨˜ã«å¤±æ•—: %s (%s)", path, ex)
+            logging.warning("dispatch_trace ‘¤ƒtƒ@ƒCƒ‹‚Ö‚Ì’Ç‹L‚É¸”s: %s (%s)", path, ex)
         except Exception:
             pass
 
 
-# True: å¾“æ¥ã®ã€Œäººæ•°æœ€å„ªå…ˆã€ã‚¿ãƒ—ãƒ« (-äººæ•°, é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ)ã€‚False ã®ã¨ãä¸‹è¨˜ã‚¹ãƒ©ãƒƒã‚¯åˆ†ã¨çµ„ã¿åˆã‚ã›
+# True: ]—ˆ‚Ìul”Å—Dævƒ^ƒvƒ‹ (-l”, ŠJn, -’PˆÊ”, —Dæ“x‡Œv)BFalse ‚Ì‚Æ‚«‰º‹LƒXƒ‰ƒbƒN•ª‚Æ‘g‚İ‡‚í‚¹
 TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF = os.environ.get(
     "TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF", "0"
-).strip().lower() not in ("0", "false", "no", "off", "ã„ã„ãˆ")
+).strip().lower() not in ("0", "false", "no", "off", "‚¢‚¢‚¦")
 
 
 def _team_assign_start_slack_wait_minutes() -> int:
-    """å…¨æ—¥å€™è£œã®æœ€æ—©é–‹å§‹ã‹ã‚‰ã“ã®åˆ†ä»¥å†…ã®é…ã‚Œãªã‚‰ã€é–‹å§‹ã‚ˆã‚Šäººæ•°ã‚’å„ªå…ˆï¼ˆåˆ†ï¼‰ã€‚0 ã§ç„¡åŠ¹ã€‚"""
+    """‘S“úŒó•â‚ÌÅ‘ŠJn‚©‚ç‚±‚Ì•ªˆÈ“à‚Ì’x‚ê‚È‚çAŠJn‚æ‚èl”‚ğ—Dæi•ªjB0 ‚Å–³ŒøB"""
     raw = os.environ.get("TEAM_ASSIGN_START_SLACK_WAIT_MINUTES", "60").strip()
     try:
         v = int(raw)
@@ -736,76 +736,76 @@ def _team_assign_start_slack_wait_minutes() -> int:
 
 TEAM_ASSIGN_START_SLACK_WAIT_MINUTES = _team_assign_start_slack_wait_minutes()
 
-# True ã®ã¨ã need ã‚·ãƒ¼ãƒˆã€Œé…å°æ™‚è¿½åŠ äººæ•°ã€è¡Œã‚’ç„¡è¦–ã—ã€ãƒãƒ¼ãƒ äººæ•°ã¯åŸºæœ¬å¿…è¦äººæ•°ï¼ˆreq_numï¼‰ã®ã¿è©¦è¡Œã—ã€ãƒ¡ã‚¤ãƒ³å¾Œè¿½è¨˜ã‚‚ã—ãªã„ã€‚
+# True ‚Ì‚Æ‚« need ƒV[ƒgu”z‘ä’Ç‰Ál”vs‚ğ–³‹‚µAƒ`[ƒ€l”‚ÍŠî–{•K—vl”ireq_numj‚Ì‚İs‚µAƒƒCƒ“Œã’Ç‹L‚à‚µ‚È‚¢B
 TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW = (
     os.environ.get("TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW", "0")
     .strip()
     .lower()
-    in ("1", "true", "yes", "on", "ã¯ã„")
+    in ("1", "true", "yes", "on", "‚Í‚¢")
 )
 
-# True: å¾“æ¥ã©ãŠã‚Šãƒ¡ã‚¤ãƒ³å‰²ä»˜ã®çµ„ã¿åˆã‚ã›æ¢ç´¢ã§ req_numã€œreq_num+è¿½åŠ äººæ•°ä¸Šé™ã¾ã§è©¦ã™ã€‚
-# Falseï¼ˆæ—¢å®šï¼‰: ãƒ¡ã‚¤ãƒ³ã¯ req_num ã®ã¿ã€‚è¿½åŠ äººæ•°ä¸Šé™ã¯å…¨ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³å®Œäº†å¾Œã€å½“è©²ãƒ–ãƒ­ãƒƒã‚¯æ™‚é–“ã«
-#     ä»–ã‚¿ã‚¹ã‚¯ã¸æœªå‰²å½“ï¼ˆæ™‚é–“é‡ãªã‚Šãªã—ï¼‰ã‹ã¤ skills é©åˆã®è€…ã‚’ã‚µãƒ–ã¨ã—ã¦è¿½è¨˜ï¼ˆappend_surplus_staff_after_main_dispatchï¼‰ã€‚
+# True: ]—ˆ‚Ç‚¨‚èƒƒCƒ“Š„•t‚Ì‘g‚İ‡‚í‚¹’Tõ‚Å req_num?req_num+’Ç‰Ál”ãŒÀ‚Ü‚Å‚·B
+# FalseiŠù’èj: ƒƒCƒ“‚Í req_num ‚Ì‚İB’Ç‰Ál”ãŒÀ‚Í‘SƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“Š®—¹ŒãA“–ŠYƒuƒƒbƒNŠÔ‚É
+#     ‘¼ƒ^ƒXƒN‚Ö–¢Š„“–iŠÔd‚È‚è‚È‚µj‚©‚Â skills “K‡‚ÌÒ‚ğƒTƒu‚Æ‚µ‚Ä’Ç‹Liappend_surplus_staff_after_main_dispatchjB
 TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS = (
     os.environ.get("TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS", "")
     .strip()
     .lower()
-    in ("1", "true", "yes", "on", "ã¯ã„")
+    in ("1", "true", "yes", "on", "‚Í‚¢")
 )
 
-# Trueï¼ˆæ—¢å®šï¼‰: ãƒ¡ã‚¤ãƒ³é…å°ã®å¿…è¦äººæ•°ã¯ needï¼ˆåŸºæœ¬å¿…è¦äººæ•°ï¼‹ç‰¹åˆ¥æŒ‡å®šï¼‰ã®ã¿ã€‚
-# False ã®ã¨ãã¯ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ AI ã® required_op ã®ã¿è¨ˆç”»å´ã‹ã‚‰å‚ç…§ã—å¾—ã‚‹ï¼ˆã‚·ãƒ¼ãƒˆåˆ—ã€Œå¿…è¦äººæ•°ã€ã¯å»ƒæ­¢æ¸ˆã¿ï¼‰ã€‚
+# TrueiŠù’èj: ƒƒCƒ“”z‘ä‚Ì•K—vl”‚Í neediŠî–{•K—vl”{“Á•Êw’èj‚Ì‚İB
+# False ‚Ì‚Æ‚«‚Í“Á•Êw’è”õl AI ‚Ì required_op ‚Ì‚İŒv‰æ‘¤‚©‚çQÆ‚µ“¾‚éiƒV[ƒg—ñu•K—vl”v‚Í”p~Ï‚İjB
 TEAM_ASSIGN_HEADCOUNT_FROM_NEED_ONLY = (
     os.environ.get("TEAM_ASSIGN_HEADCOUNT_FROM_NEED_ONLY", "1")
     .strip()
     .lower()
-    not in ("0", "false", "no", "off", "ã„ã„ãˆ")
+    not in ("0", "false", "no", "off", "‚¢‚¢‚¦")
 )
-# Trueï¼ˆæ—¢å®šï¼‰: masterã€Œçµ„ã¿åˆã‚ã›è¡¨ã€ã«è©²å½“è¡ŒãŒã‚ã‚‹å·¥ç¨‹+æ©Ÿæ¢°ã¯ã€çµ„åˆã›å„ªå…ˆåº¦ã®æ˜‡é †ã§
-# æœ€åˆã«æˆç«‹ã—ãŸãƒ¡ãƒ³ãƒãƒ¼ç·¨æˆã‚’æ¡ç”¨ã€‚ã™ã¹ã¦ä¸å¯ãªã‚‰å¾“æ¥ã® itertools çµ„åˆã›æ¢ç´¢ã€‚
+# TrueiŠù’èj: masteru‘g‚İ‡‚í‚¹•\v‚ÉŠY“–s‚ª‚ ‚éH’ö+‹@ŠB‚ÍA‘g‡‚¹—Dæ“x‚Ì¸‡‚Å
+# Å‰‚É¬—§‚µ‚½ƒƒ“ƒo[•Ò¬‚ğÌ—pB‚·‚×‚Ä•s‰Â‚È‚ç]—ˆ‚Ì itertools ‘g‡‚¹’TõB
 TEAM_ASSIGN_USE_MASTER_COMBO_SHEET = (
     os.environ.get("TEAM_ASSIGN_USE_MASTER_COMBO_SHEET", "1")
     .strip()
     .lower()
-    not in ("0", "false", "no", "off", "ã„ã„ãˆ")
+    not in ("0", "false", "no", "off", "‚¢‚¢‚¦")
 )
 
-# Â§B-2 ç†±èç€æ¤œæŸ»ã‚’åŒä¸€è¨­å‚™ï¼ˆå·¥ç¨‹åˆ—ã‚­ãƒ¼ï¼‰ã§ã€Œé–‹å§‹æ¸ˆã¿1ä»¶ã«æ®‹ãƒ­ãƒ¼ãƒ«ãŒã‚ã‚‹é–“ã¯ä»–ä¾é ¼ã®æ¤œæŸ»ã‚’è©¦ã•ãªã„ã€ã‹ã€‚
-# 0 / false / no / off ã§ç„¡åŠ¹ã«ã™ã‚‹ã¨è¨­å‚™æ™‚é–“å‰²ä¸Šã§ä¾é ¼ãŒæ··åœ¨ã—å¾—ã‚‹ãŒã€å æœ‰ã«ã‚ˆã‚‹é•·æœŸãƒ–ãƒ­ãƒƒã‚¯ï¼ˆä¾‹: W3-14 å‹ï¼‰ã‚’é¿ã‘ã‚‰ã‚Œã‚‹ã€‚
+# ˜B-2 ”M—Z’…ŒŸ¸‚ğ“¯ˆêİ”õiH’ö—ñƒL[j‚ÅuŠJnÏ‚İ1Œ‚Écƒ[ƒ‹‚ª‚ ‚éŠÔ‚Í‘¼ˆË—Š‚ÌŒŸ¸‚ğ‚³‚È‚¢v‚©B
+# 0 / false / no / off ‚Å–³Œø‚É‚·‚é‚Æİ”õŠÔŠ„ã‚ÅˆË—Š‚ª¬İ‚µ“¾‚é‚ªAè—L‚É‚æ‚é’·ŠúƒuƒƒbƒNi—á: W3-14 Œ^j‚ğ”ğ‚¯‚ç‚ê‚éB
 PLANNING_B1_INSPECTION_EXCLUSIVE_MACHINE = (
     os.environ.get("PLANNING_B1_INSPECTION_EXCLUSIVE_MACHINE", "1")
     .strip()
     .lower()
-    not in ("0", "false", "no", "off", "ã„ã„ãˆ", "ç„¡åŠ¹")
+    not in ("0", "false", "no", "off", "‚¢‚¢‚¦", "–³Œø")
 )
 
-# Â§B-2 / Â§B-3 åŒä¸€ä¾é ¼ã§ EC ã¨å¾Œç¶šï¼ˆæ¤œæŸ»ï¼å·»è¿”ã—ï¼‰ã®æ‹…å½“è€…é›†åˆã‚’æ’ä»–ã™ã‚‹ã‹ã€‚
-# 0 / false / no / off / ã„ã„ãˆ / ç„¡åŠ¹ ã§ç„¡åŠ¹åŒ–ã™ã‚‹ã¨ã€å±¥æ­´ãƒ™ãƒ¼ã‚¹ã®ç›¸äº’é™¤å¤–ã‚’è¡Œã‚ãšåŒä¸€äººç‰©ãŒä¸¡å´ã®å€™è£œã«æ®‹ã‚Šå¾—ã‚‹ã€‚
+# ˜B-2 / ˜B-3 “¯ˆêˆË—Š‚Å EC ‚ÆŒã‘±iŒŸ¸^Šª•Ô‚µj‚Ì’S“–ÒW‡‚ğ”r‘¼‚·‚é‚©B
+# 0 / false / no / off / ‚¢‚¢‚¦ / –³Œø ‚Å–³Œø‰»‚·‚é‚ÆA—š—ğƒx[ƒX‚Ì‘ŠŒİœŠO‚ğs‚í‚¸“¯ˆêl•¨‚ª—¼‘¤‚ÌŒó•â‚Éc‚è“¾‚éB
 PLANNING_B2_EC_FOLLOWER_DISJOINT_TEAMS = (
     os.environ.get("PLANNING_B2_EC_FOLLOWER_DISJOINT_TEAMS", "1")
     .strip()
     .lower()
-    not in ("0", "false", "no", "off", "ã„ã„ãˆ", "ç„¡åŠ¹")
+    not in ("0", "false", "no", "off", "‚¢‚¢‚¦", "–³Œø")
 )
 
-# ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€: æ—¢å®šã§ã¯ openpyxl save ã‚’è©¦ã•ãš xlwings åŒæœŸâ†’Saveï¼ˆExcel å æœ‰æ™‚ã¯ openpyxl ãŒå®Ÿè³ªå¤±æ•—ã™ã‚‹ãŸã‚ï¼‰ã€‚å¤±æ•—æ™‚ã¯ TSVâ†’VBA åæ˜ ã€‚
-# ã‚³ãƒãƒ³ãƒ‰ç­‰ã§ openpyxl ã‚’è©¦ã™å ´åˆã¯ EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1ã€‚
-EXCLUDE_RULES_SHEET_NAME = "è¨­å®š_é…å°ä¸è¦å·¥ç¨‹"
+# ƒ}ƒNƒƒuƒbƒNuİ’è_”z‘ä•s—vH’öv: Šù’è‚Å‚Í openpyxl save ‚ğ‚³‚¸ xlwings “¯Šú¨SaveiExcel è—L‚Í openpyxl ‚ªÀ¿¸”s‚·‚é‚½‚ßjB¸”s‚Í TSV¨VBA ”½‰fB
+# ƒRƒ}ƒ“ƒh“™‚Å openpyxl ‚ğ‚·ê‡‚Í EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1B
+EXCLUDE_RULES_SHEET_NAME = "İ’è_”z‘ä•s—vH’ö"
 EXCLUDE_RULES_SKIP_OPENPYXL_SAVE = os.environ.get(
     "EXCLUDE_RULES_TRY_OPENPYXL_SAVE", ""
 ).strip().lower() not in ("1", "true", "yes", "on")
-EXCLUDE_RULE_COL_PROCESS = "å·¥ç¨‹å"
-EXCLUDE_RULE_COL_MACHINE = "æ©Ÿæ¢°å"
-EXCLUDE_RULE_COL_FLAG = "é…å°ä¸è¦"
-EXCLUDE_RULE_COL_LOGIC_JA = "é…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯"
-EXCLUDE_RULE_COL_LOGIC_JSON = "ãƒ­ã‚¸ãƒƒã‚¯å¼"
-# å…ƒãƒ–ãƒƒã‚¯ãŒãƒ­ãƒƒã‚¯ã•ã‚Œåˆ¥åä¿å­˜ã—ãŸå ´åˆã€åŒä¸€ãƒ—ãƒ­ã‚»ã‚¹å†…ã®ãƒ«ãƒ¼ãƒ«èª­è¾¼ã¯ã“ã®ãƒ‘ã‚¹ã‚’å„ªå…ˆ
+EXCLUDE_RULE_COL_PROCESS = "H’ö–¼"
+EXCLUDE_RULE_COL_MACHINE = "‹@ŠB–¼"
+EXCLUDE_RULE_COL_FLAG = "”z‘ä•s—v"
+EXCLUDE_RULE_COL_LOGIC_JA = "”z‘ä•s”\ƒƒWƒbƒN"
+EXCLUDE_RULE_COL_LOGIC_JSON = "ƒƒWƒbƒN®"
+# Œ³ƒuƒbƒN‚ªƒƒbƒN‚³‚ê•Ê–¼•Û‘¶‚µ‚½ê‡A“¯ˆêƒvƒƒZƒX“à‚Ìƒ‹[ƒ‹“Ç‚Í‚±‚ÌƒpƒX‚ğ—Dæ
 _exclude_rules_effective_read_path: str | None = None
-# ç›´å¾Œã® apply_exclude_rulesï¼ˆåŒä¸€ãƒ—ãƒ­ã‚»ã‚¹ï¼‰ç”¨: VBA åæ˜ å‰ã§ã‚‚ E åˆ—ä»˜ããƒ«ãƒ¼ãƒ«ã‚’ä½¿ã†
+# ’¼Œã‚Ì apply_exclude_rulesi“¯ˆêƒvƒƒZƒXj—p: VBA ”½‰f‘O‚Å‚à E —ñ•t‚«ƒ‹[ƒ‹‚ğg‚¤
 _exclude_rules_rules_snapshot: list | None = None
 _exclude_rules_snapshot_wb: str | None = None
-# ãƒ«ãƒ¼ãƒ« JSON ã® conditions ã§å‚ç…§å¯èƒ½ãªåˆ—ï¼ˆAI ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã¨è©•ä¾¡å™¨ã‚’ä¸€è‡´ã•ã›ã‚‹ï¼‰
+# ƒ‹[ƒ‹ JSON ‚Ì conditions ‚ÅQÆ‰Â”\‚È—ñiAI ƒvƒƒ“ƒvƒg‚Æ•]‰¿Ší‚ğˆê’v‚³‚¹‚éj
 EXCLUDE_RULE_ALLOWED_COLUMNS = frozenset(
     {
         TASK_COL_TASK_ID,
@@ -833,23 +833,23 @@ EXCLUDE_RULE_ALLOWED_COLUMNS = frozenset(
     }
 )
 
-# è¨ˆç”»çµæœãƒ–ãƒƒã‚¯ã€Œçµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ã®åˆ—é †ãƒ»è¡¨ç¤ºï¼ˆãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã®åŒåã‚·ãƒ¼ãƒˆã§ä¸Šæ›¸ãå¯ï¼‰
-RESULT_TASK_SHEET_NAME = "çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§"
-RESULT_EQUIPMENT_SCHEDULE_SHEET_NAME = "çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²"
-# ä½™åŠ›è¿½è¨˜å‰ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’å¯è¦–åŒ–ï¼ˆçµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã¨åŒã˜ 10 åˆ†æ ãƒ»åˆ—æ§‹é€ ï¼‰
-TEMP_EQUIPMENT_SCHEDULE_SHEET_NAME = "TEMP_è¨­å‚™æ¯ã®æ™‚é–“å‰²"
-# è¨­å‚™ãƒ»äººã®å æœ‰ï¼ˆãƒ–ãƒ­ãƒƒã‚¯ï¼‰ã‚’ 10 åˆ†æ ã§ä¸€è¦§ï¼ˆèª¿æŸ»ãƒ»æ¤œè¨¼ç”¨ï¼‰
-BLOCK_TABLE_SHEET_NAME = "ãƒ–ãƒ­ãƒƒã‚¯ãƒ†ãƒ¼ãƒ–ãƒ«"
-# å·¥ç¨‹å+æ©Ÿæ¢°ã®è¤‡åˆåˆ—ã§ã¯ãªãã€æ©Ÿæ¢°åå˜ä½ã§å„æ ã®ä¾é ¼NOã‚’æŠŠæ¡ã—ã‚„ã™ãã™ã‚‹
-RESULT_EQUIPMENT_BY_MACHINE_SHEET_NAME = "çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²_æ©Ÿæ¢°åæ¯"
-# master ãƒ¡ã‚¤ãƒ³ A15/B15 ã®å®šå¸¸å¤–ã®ã€Œæ—¥æ™‚å¸¯ã€è¦‹å‡ºã—ç€è‰²ï¼ˆçµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ãƒ»çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆï¼‰
+# Œv‰æŒ‹‰ÊƒuƒbƒNuŒ‹‰Ê_ƒ^ƒXƒNˆê——v‚Ì—ñ‡E•\¦iƒ}ƒNƒÀsƒuƒbƒN‚Ì“¯–¼ƒV[ƒg‚Åã‘‚«‰Âj
+RESULT_TASK_SHEET_NAME = "Œ‹‰Ê_ƒ^ƒXƒNˆê——"
+RESULT_EQUIPMENT_SCHEDULE_SHEET_NAME = "Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„"
+# —]—Í’Ç‹L‘O‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğ‰Â‹‰»iŒ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Æ“¯‚¶ 10 •ª˜gE—ñ\‘¢j
+TEMP_EQUIPMENT_SCHEDULE_SHEET_NAME = "TEMP_İ”õ–ˆ‚ÌŠÔŠ„"
+# İ”õEl‚Ìè—LiƒuƒƒbƒNj‚ğ 10 •ª˜g‚Åˆê——i’²¸EŒŸØ—pj
+BLOCK_TABLE_SHEET_NAME = "ƒuƒƒbƒNƒe[ƒuƒ‹"
+# H’ö–¼+‹@ŠB‚Ì•¡‡—ñ‚Å‚Í‚È‚­A‹@ŠB–¼’PˆÊ‚ÅŠe˜g‚ÌˆË—ŠNO‚ğ”cˆ¬‚µ‚â‚·‚­‚·‚é
+RESULT_EQUIPMENT_BY_MACHINE_SHEET_NAME = "Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„_‹@ŠB–¼–ˆ"
+# master ƒƒCƒ“ A15/B15 ‚Ì’èíŠO‚Ìu“ú‘ÑvŒ©o‚µ’…FiŒ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„EŒ‹‰Ê_İ”õƒKƒ“ƒgj
 RESULT_OUTSIDE_REGULAR_TIME_FILL = "FCE4D6"
-# çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²_æ©Ÿæ¢°åæ¯: é…å°æ¸ˆã¿ä¾é ¼NOã‚»ãƒ«ï¼ˆæ©Ÿæ¢°åˆ—ï¼‰ã®è–„ã„ã‚°ãƒªãƒ¼ãƒ³
-# çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ï¼ˆãŠã‚ˆã³ TEMPï¼‰: åŠ å·¥å‰æº–å‚™ãƒ»ä¾é ¼åˆ‡æ›¿å¾Œå§‹æœ«ã®è¨­å‚™ã‚»ãƒ«ã‚‚åŒç³»è‰²
+# Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„_‹@ŠB–¼–ˆ: ”z‘äÏ‚İˆË—ŠNOƒZƒ‹i‹@ŠB—ñj‚Ì”–‚¢ƒOƒŠ[ƒ“
+# Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„i‚¨‚æ‚Ñ TEMPj: ‰ÁH‘O€”õEˆË—ŠØ‘ÖŒãn––‚Ìİ”õƒZƒ‹‚à“¯ŒnF
 RESULT_DISPATCHED_REQUEST_FILL = "C6EFCE"
-# çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²: masterã€Œæ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã€å æœ‰ã¨é‡ãªã‚‹è¨­å‚™ã‚»ãƒ«ï¼ˆ10åˆ†æ ï¼‰
+# Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„: masteru‹@ŠBƒJƒŒƒ“ƒ_[vè—L‚Æd‚È‚éİ”õƒZƒ‹i10•ª˜gj
 RESULT_MACHINE_CALENDAR_BLOCK_FILL = "D4B3E8"
-# çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆ: æ©Ÿæ¢°åã‚°ãƒ«ãƒ¼ãƒ—ï¼ˆæ©Ÿæ¢°ååˆ—ã®åŒä¸€åç§°ï¼‰ã”ã¨ã« Bã€œE åˆ—ã‚’åŒºåˆ¥ã™ã‚‹æ·¡è‰²ï¼ˆé †ã«å‰²å½“ãƒ»å¾ªç’°ï¼‰
+# Œ‹‰Ê_İ”õƒKƒ“ƒg: ‹@ŠB–¼ƒOƒ‹[ƒvi‹@ŠB–¼—ñ‚Ì“¯ˆê–¼Ìj‚²‚Æ‚É B?E —ñ‚ğ‹æ•Ê‚·‚é’WFi‡‚ÉŠ„“–EzŠÂj
 RESULT_EQUIP_GANTT_MACHINE_GROUP_FILL_COLORS = (
     "E8F4FC",
     "FCE8F0",
@@ -862,29 +862,29 @@ RESULT_EQUIP_GANTT_MACHINE_GROUP_FILL_COLORS = (
     "F5F5E0",
     "F0E8E8",
 )
-# é…å°ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³é–‹å§‹å‰ï¼ˆåˆå› task_queue.sort å¾Œï¼‰ã®ã‚­ãƒ¥ãƒ¼é †ã€‚1 å§‹ã¾ã‚Šãƒ»å…¨æ—¥ç¨‹ã§ä¸å¤‰
-RESULT_TASK_COL_DISPATCH_TRIAL_ORDER = "é…å°è©¦è¡Œé †ç•ª"
-# é…å®Œ_åŠ å·¥çµ‚äº†ãŒã€Œå›ç­”ç´æœŸ+16:00ã€ã¾ãŸã¯ã€ŒæŒ‡å®šç´æœŸ+16:00ã€ï¼ˆå›ç­”ãŒç©ºã®ã¨ãï¼‰ä»¥å‰ã‹ã‚’è¡¨ç¤º
-RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16 = "é…å®Œ_å›ç­”æŒ‡å®š16æ™‚ã¾ã§"
-# ãƒã‚¹ã‚¿ skills ã®å·¥ç¨‹+æ©Ÿæ¢°åˆ—ã”ã¨ã® OP/AS å‰²å½“å‚è€ƒé †ï¼ˆå„ªå…ˆåº¦å€¤ãƒ»æ°åé †ï¼‰ã¨ãƒãƒ¼ãƒ æ¡ç”¨ãƒ«ãƒ¼ãƒ«ã®èª¬æ˜
-RESULT_MEMBER_PRIORITY_SHEET_NAME = "çµæœ_äººå“¡é…å°å„ªå…ˆé †"
-COLUMN_CONFIG_SHEET_NAME = "åˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§"
-COLUMN_CONFIG_HEADER_COL = "åˆ—å"
-COLUMN_CONFIG_VISIBLE_COL = "è¡¨ç¤º"
-# æ®µéš2ã®çµæœ xlsx ç”Ÿæˆå¾Œã€å…¥åŠ›ãƒ–ãƒƒã‚¯ã®åˆ—è¨­å®šã‚·ãƒ¼ãƒˆä¸Šã®å›³å½¢ï¼ˆãƒ•ã‚©ãƒ¼ãƒ ãƒœã‚¿ãƒ³ç­‰ï¼‰ã‚’ xlwings ã§è¤‡è£½ã™ã‚‹ï¼ˆæ—¢å®š ONã€‚ç„¡åŠ¹åŒ–ã¯ STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT=0ï¼‰
+# ”z‘äƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“ŠJn‘Oi‰‰ñ task_queue.sort Œãj‚ÌƒLƒ…[‡B1 n‚Ü‚èE‘S“ú’ö‚Å•s•Ï
+RESULT_TASK_COL_DISPATCH_TRIAL_ORDER = "”z‘äs‡”Ô"
+# ”zŠ®_‰ÁHI—¹‚ªu‰ñ“š”[Šú+16:00v‚Ü‚½‚Íuw’è”[Šú+16:00vi‰ñ“š‚ª‹ó‚Ì‚Æ‚«jˆÈ‘O‚©‚ğ•\¦
+RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16 = "”zŠ®_‰ñ“šw’è16‚Ü‚Å"
+# ƒ}ƒXƒ^ skills ‚ÌH’ö+‹@ŠB—ñ‚²‚Æ‚Ì OP/AS Š„“–Ql‡i—Dæ“x’lE–¼‡j‚Æƒ`[ƒ€Ì—pƒ‹[ƒ‹‚Ìà–¾
+RESULT_MEMBER_PRIORITY_SHEET_NAME = "Œ‹‰Ê_lˆõ”z‘ä—Dæ‡"
+COLUMN_CONFIG_SHEET_NAME = "—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——"
+COLUMN_CONFIG_HEADER_COL = "—ñ–¼"
+COLUMN_CONFIG_VISIBLE_COL = "•\¦"
+# ’iŠK2‚ÌŒ‹‰Ê xlsx ¶¬ŒãA“ü—ÍƒuƒbƒN‚Ì—ñİ’èƒV[ƒgã‚Ì}Œ`iƒtƒH[ƒ€ƒ{ƒ^ƒ““™j‚ğ xlwings ‚Å•¡»‚·‚éiŠù’è ONB–³Œø‰»‚Í STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT=0j
 STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT = os.environ.get(
     "STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT", "1"
 ).strip().lower() in ("1", "true", "yes", "on")
-# çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®æ—¥ä»˜ç³»ï¼ˆyyyy/mm/dd æ–‡å­—åˆ—ï¼‰ã«ä»˜ã‘ã‚‹ãƒ•ã‚©ãƒ³ãƒˆè‰²ã€‚å±¥æ­´åˆ—ã®ã€æ—¥ä»˜ã€‘ã¨æƒãˆã‚‹
+# Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì“ú•tŒniyyyy/mm/dd •¶š—ñj‚É•t‚¯‚éƒtƒHƒ“ƒgFB—š—ğ—ñ‚Ìy“ú•tz‚Æ‘µ‚¦‚é
 RESULT_TASK_DATE_STYLE_HEADERS = frozenset(
     {
-        "å›ç­”ç´æœŸ",
-        "æŒ‡å®šç´æœŸ",
-        "è¨ˆç”»åŸºæº–ç´æœŸ",
+        "‰ñ“š”[Šú",
+        "w’è”[Šú",
+        "Œv‰æŠî€”[Šú",
         TASK_COL_RAW_INPUT_DATE,
-        "åŠ å·¥é–‹å§‹æ—¥",
-        "é…å®Œ_åŠ å·¥é–‹å§‹",
-        "é…å®Œ_åŠ å·¥çµ‚äº†",
+        "‰ÁHŠJn“ú",
+        "”zŠ®_‰ÁHŠJn",
+        "”zŠ®_‰ÁHI—¹",
     }
 )
 
@@ -902,39 +902,39 @@ PLAN_OVERRIDE_COLUMNS = [
     PLAN_COL_SPECIAL_REMARK,
     PLAN_COL_AI_PARSE,
 ]
-# çŸ›ç›¾æ¤œå‡ºã§ãƒªã‚»ãƒƒãƒˆå¯¾è±¡ã«ã™ã‚‹åˆ—ï¼ˆè¦‹å‡ºã—è¡Œã®æ–‡è¨€ã¨ä¸€è‡´ã™ã‚‹ã“ã¨ï¼‰
+# –µ‚ŒŸo‚ÅƒŠƒZƒbƒg‘ÎÛ‚É‚·‚é—ñiŒ©o‚µs‚Ì•¶Œ¾‚Æˆê’v‚·‚é‚±‚Æj
 PLAN_CONFLICT_STYLABLE_COLS = tuple(PLAN_OVERRIDE_COLUMNS)
-# æ®µéš1å†æŠ½å‡ºæ™‚ã€æ—¢å­˜ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã‹ã‚‰ç¶™æ‰¿ã™ã‚‹åˆ—ï¼ˆAIã®è§£æçµæœåˆ—ã¯æ¯å›ç©ºã«æˆ»ã™ï¼‰
+# ’iŠK1Ä’ŠoAŠù‘¶u”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív‚©‚çŒp³‚·‚é—ñiAI‚Ì‰ğÍŒ‹‰Ê—ñ‚Í–ˆ‰ñ‹ó‚É–ß‚·j
 PLAN_STAGE1_MERGE_COLUMNS = tuple(c for c in PLAN_OVERRIDE_COLUMNS if c != PLAN_COL_AI_PARSE)
-# ä¸Šæ›¸ãä»¥å¤–ã§ã€å†æŠ½å‡ºæ™‚ã«æ—§ã‚·ãƒ¼ãƒˆã‹ã‚‰å¼•ãç¶™ãåˆ—ï¼ˆã‚»ãƒ«ãŒç©ºã§ãªã„ã¨ãã®ã¿ï¼‰
-# é…å°è©¦è¡Œé †ç•ªã¯æ¯å›ç©ºã‚¯ãƒªã‚¢ã®ã†ãˆ fill_plan_dispatch_trial_order_column_stage1 ã§ä»˜ã‘ç›´ã™ãŸã‚å¯¾è±¡å¤–ã€‚
+# ã‘‚«ˆÈŠO‚ÅAÄ’Šo‚É‹ŒƒV[ƒg‚©‚çˆø‚«Œp‚®—ñiƒZƒ‹‚ª‹ó‚Å‚È‚¢‚Æ‚«‚Ì‚İj
+# ”z‘äs‡”Ô‚Í–ˆ‰ñ‹óƒNƒŠƒA‚Ì‚¤‚¦ fill_plan_dispatch_trial_order_column_stage1 ‚Å•t‚¯’¼‚·‚½‚ß‘ÎÛŠOB
 PLAN_STAGE1_MERGE_EXTRA_COLUMNS = (PLAN_COL_ROLL_UNIT_LENGTH,)
-# openpyxl ä¿å­˜ãŒãƒ–ãƒƒã‚¯ãƒ­ãƒƒã‚¯ã§å¤±æ•—ã—ãŸã¨ãã€VBA ãŒé–‹ã„ã¦ã„ã‚‹ãƒ–ãƒƒã‚¯ã¸æ›¸å¼é©ç”¨ã™ã‚‹ãŸã‚ã®æŒ‡ç¤ºãƒ•ã‚¡ã‚¤ãƒ«
+# openpyxl •Û‘¶‚ªƒuƒbƒNƒƒbƒN‚Å¸”s‚µ‚½‚Æ‚«AVBA ‚ªŠJ‚¢‚Ä‚¢‚éƒuƒbƒN‚Ö‘®“K—p‚·‚é‚½‚ß‚Ìw¦ƒtƒ@ƒCƒ‹
 PLANNING_CONFLICT_SIDECAR = "planning_conflict_highlight.tsv"
-# é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã¸ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã€ã‚’æ›¸ãåˆ—ï¼ˆè¡¨ã®å³ç«¯ã‚ˆã‚Šå¤–å´ã€‚1è¡Œç›®ã‹ã‚‰ç¸¦ã«ãƒ©ãƒ™ãƒ«ï¼å€¤ï¼‰
-# â˜… å‚ç…§è¡¨ç¤ºã®ã¿: load_planning_tasks_df ç­‰ã¯æœ¬åˆ—ã‚’ä¸€åˆ‡èª­ã¾ãªã„ã€‚é…å°é©ç”¨ã¯å¸¸ã«ãƒ¡ã‚¤ãƒ³ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€1çµŒè·¯ã®ãŸã‚äºŒé‡é©ç”¨ã«ãªã‚‰ãªã„ã€‚
+# ”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚ÖuƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍv‚ğ‘‚­—ñi•\‚Ì‰E’[‚æ‚èŠO‘¤B1s–Ú‚©‚çc‚Éƒ‰ƒxƒ‹^’lj
+# š QÆ•\¦‚Ì‚İ: load_planning_tasks_df “™‚Í–{—ñ‚ğˆêØ“Ç‚Ü‚È‚¢B”z‘ä“K—p‚Íí‚ÉƒƒCƒ“uƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv1Œo˜H‚Ì‚½‚ß“ñd“K—p‚É‚È‚ç‚È‚¢B
 PLAN_SHEET_GLOBAL_PARSE_LABEL_COL = 50  # AX
 PLAN_SHEET_GLOBAL_PARSE_VALUE_COL = 51  # AY
 PLAN_SHEET_GLOBAL_PARSE_MAX_ROWS = 42
 
 
 def plan_reference_column_name(override_col: str) -> str:
-    """ä¸Šæ›¸ãåˆ—ã®å·¦éš£ã«ç½®ãå‚ç…§åˆ—ã®è¦‹å‡ºã—ï¼ˆã‚»ãƒ«å€¤ã¯æ‹¬å¼§ä»˜ãã§å…ƒãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤ºï¼‰ã€‚"""
-    return f"ï¼ˆå…ƒï¼‰{override_col}"
+    """ã‘‚«—ñ‚Ì¶—×‚É’u‚­QÆ—ñ‚ÌŒ©o‚µiƒZƒ‹’l‚ÍŠ‡ŒÊ•t‚«‚ÅŒ³ƒf[ƒ^‚ğ•\¦jB"""
+    return f"iŒ³j{override_col}"
 
 
 def plan_input_sheet_column_order():
     """
-    é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã®åˆ—é †ï¼ˆæ®µéš1å‡ºåŠ›ãƒ»æ®µéš2èª­è¾¼ã§å…±é€šï¼‰ã€‚
+    ”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚Ì—ñ‡i’iŠK1o—ÍE’iŠK2“Ç‚Å‹¤’ÊjB
 
-    0. é…å°è©¦è¡Œé †ç•ªï¼ˆæ®µéš1æŠ½å‡ºç›´å¾Œã«ç©ºã‚¯ãƒªã‚¢â†’æ®µéš2ã¨åŒè¶£æ—¨ã«ä»˜ä¸ã€‚æ®µéš2ã¯å…¨è¡Œã«å€¤ãŒã‚ã‚‹ã¨ãã“ã®é †ã‚’å„ªå…ˆï¼‰
-    1. é…å°ä¸è¦ï¼ˆå‚ç…§åˆ—ãªã—ï¼‰
-    2. åŠ å·¥è¨ˆç”»DATA ç”±æ¥ï¼ˆSOURCE_BASE_COLUMNSï¼‰â€¦ ä¾é ¼NOã€œå®Ÿå‡ºæ¥é«˜ã¾ã§ï¼ˆè£½å“åã®ç›´å¾Œã«ãƒ­ãƒ¼ãƒ«å˜ä½é•·ã•ã€åŸåæŠ•å…¥æ—¥ã®ç›´å¾Œã«åœ¨åº«å ´æ‰€ï¼‰
-    3. åŠ å·¥å·¥ç¨‹ã®æ±ºå®šãƒ—ãƒ­ã‚»ã‚¹ã®å› å­
-    4. ä¸Šæ›¸ãåˆ—â€¦ å„åˆ—ã®ç›´å‰ã«ã€Œï¼ˆå…ƒï¼‰â€¦ã€å‚ç…§åˆ—ã€‚AIç‰¹åˆ¥æŒ‡å®š_è§£æã®ã¿å‚ç…§åˆ—ãªã—ã€‚
-       ï¼ˆæ—¥ä»˜ç³»ä¸Šæ›¸ãã« åŸåæŠ•å…¥æ—¥_ä¸Šæ›¸ã ã‚’å«ã‚€ã€‚ç©ºç™½æ™‚ã¯åˆ—ã€ŒåŸåæŠ•å…¥æ—¥ã€ã‚’é…å°ã«ä½¿ç”¨ï¼‰
+    0. ”z‘äs‡”Ôi’iŠK1’Šo’¼Œã‚É‹óƒNƒŠƒA¨’iŠK2‚Æ“¯ï|‚É•t—^B’iŠK2‚Í‘Ss‚É’l‚ª‚ ‚é‚Æ‚«‚±‚Ì‡‚ğ—Dæj
+    1. ”z‘ä•s—viQÆ—ñ‚È‚µj
+    2. ‰ÁHŒv‰æDATA —R—ˆiSOURCE_BASE_COLUMNSjc ˆË—ŠNO?Ào—ˆ‚‚Ü‚Åi»•i–¼‚Ì’¼Œã‚Éƒ[ƒ‹’PˆÊ’·‚³AŒ´”½“Š“ü“ú‚Ì’¼Œã‚ÉİŒÉêŠj
+    3. ‰ÁHH’ö‚ÌŒˆ’èƒvƒƒZƒX‚Ìˆöq
+    4. ã‘‚«—ñc Še—ñ‚Ì’¼‘O‚ÉuiŒ³jcvQÆ—ñBAI“Á•Êw’è_‰ğÍ‚Ì‚İQÆ—ñ‚È‚µB
+       i“ú•tŒnã‘‚«‚É Œ´”½“Š“ü“ú_ã‘‚« ‚ğŠÜ‚ŞB‹ó”’‚Í—ñuŒ´”½“Š“ü“úv‚ğ”z‘ä‚Ég—pj
 
-    global_speed_rules ç­‰ã§å¤‰ã‚ã‚‹å®ŸåŠ¹é€Ÿåº¦ã¯ã‚·ãƒ¼ãƒˆåˆ—ã§ã¯æŒãŸãšã€é…å°å†…éƒ¨ã®ã¿ã§åæ˜ ã™ã‚‹ã€‚
+    global_speed_rules “™‚Å•Ï‚í‚éÀŒø‘¬“x‚ÍƒV[ƒg—ñ‚Å‚Í‚½‚¸A”z‘ä“à•”‚Ì‚İ‚Å”½‰f‚·‚éB
     """
     cols = [RESULT_TASK_COL_DISPATCH_TRIAL_ORDER, PLAN_COL_EXCLUDE_FROM_ASSIGNMENT]
     for c in SOURCE_BASE_COLUMNS:
@@ -954,46 +954,46 @@ def plan_input_sheet_column_order():
 
 
 def _format_paren_ref_scalar(val):
-    """å‚ç…§è¡¨ç¤ºç”¨: ç©ºã¯ï¼ˆâ€•ï¼‰ã€æ—¥ä»˜ãƒ»ãã®ä»–ã¯ï¼ˆå€¤ï¼‰ã€‚"""
+    """QÆ•\¦—p: ‹ó‚Íi\jA“ú•tE‚»‚Ì‘¼‚Íi’ljB"""
     if val is None or (isinstance(val, float) and pd.isna(val)):
-        return "ï¼ˆâ€•ï¼‰"
+        return "i\j"
     if isinstance(val, datetime):
         d = val.date() if hasattr(val, "date") else val
         if isinstance(d, date):
-            return f"ï¼ˆ{d.year}/{d.month}/{d.day}ï¼‰"
+            return f"i{d.year}/{d.month}/{d.day}j"
     if isinstance(val, date):
-        return f"ï¼ˆ{val.year}/{val.month}/{val.day}ï¼‰"
+        return f"i{val.year}/{val.month}/{val.day}j"
     s = str(val).strip()
     if not s or s.lower() in ("nan", "none"):
-        return "ï¼ˆâ€•ï¼‰"
-    return f"ï¼ˆ{s}ï¼‰"
+        return "i\j"
+    return f"i{s}j"
 
 
 def _reference_text_for_override_row(row, override_col: str, req_map: dict, need_rules: list) -> str:
-    """1è¡Œåˆ†ã®ä¸Šæ›¸ãåˆ—ã«å¯¾å¿œã™ã‚‹å‚ç…§æ–‡è¨€ï¼ˆæ‹¬å¼§ä»˜ãï¼‰ã€‚"""
-    _ = (req_map, need_rules)  # æ—§ã€Œï¼ˆå…ƒï¼‰å¿…è¦äººæ•°ã€å‚ç…§ã§ä½¿ç”¨ã€‚åˆ—å»ƒæ­¢ã«ã‚ˆã‚Šæœªä½¿ç”¨ã ãŒå‘¼ã³å‡ºã—äº’æ›ã®ãŸã‚æ®‹ã™ã€‚
+    """1s•ª‚Ìã‘‚«—ñ‚É‘Î‰‚·‚éQÆ•¶Œ¾iŠ‡ŒÊ•t‚«jB"""
+    _ = (req_map, need_rules)  # ‹ŒuiŒ³j•K—vl”vQÆ‚Åg—pB—ñ”p~‚É‚æ‚è–¢g—p‚¾‚ªŒÄ‚Ño‚µŒİŠ·‚Ì‚½‚ßc‚·B
     if override_col == PLAN_COL_SPEED_OVERRIDE:
         v = row.get(TASK_COL_SPEED)
         if v is None or (isinstance(v, float) and pd.isna(v)):
-            return "ï¼ˆâ€•ï¼‰"
+            return "i\j"
         try:
             x = float(v)
             if abs(x - round(x)) < 1e-9:
-                return f"ï¼ˆ{int(round(x))}ï¼‰"
-            return f"ï¼ˆ{x}ï¼‰"
+                return f"i{int(round(x))}j"
+            return f"i{x}j"
         except (TypeError, ValueError):
             return _format_paren_ref_scalar(v)
     if override_col in (PLAN_COL_PREFERRED_OP, PLAN_COL_SPECIAL_REMARK):
-        return "ï¼ˆâ€•ï¼‰"
+        return "i\j"
     if override_col == PLAN_COL_RAW_INPUT_DATE_OVERRIDE:
         return _format_paren_ref_scalar(
             parse_optional_date(_planning_df_cell_scalar(row, TASK_COL_RAW_INPUT_DATE))
         )
-    return "ï¼ˆâ€•ï¼‰"
+    return "i\j"
 
 
 def _refresh_plan_reference_columns(df, req_map: dict, need_rules: list):
-    """åŠ å·¥è¨ˆç”»DATAï¼need ã«åŸºã¥ãã€Œï¼ˆå…ƒï¼‰â€¦ã€åˆ—ã‚’å†è¨ˆç®—ï¼ˆãƒãƒ¼ã‚¸å¾Œã«å¿…ãšå‘¼ã¶ï¼‰ã€‚"""
+    """‰ÁHŒv‰æDATA^need ‚ÉŠî‚Ã‚«uiŒ³jcv—ñ‚ğÄŒvZiƒ}[ƒWŒã‚É•K‚¸ŒÄ‚ÔjB"""
     if df is None or df.empty:
         return df
     need_rules = need_rules or []
@@ -1012,16 +1012,16 @@ def _refresh_plan_reference_columns(df, req_map: dict, need_rules: list):
     return df
 
 
-def _apply_plan_input_visual_format(path: str, sheet_name: str = "ã‚¿ã‚¹ã‚¯ä¸€è¦§"):
-    """ä¸Šæ›¸ãå…¥åŠ›åˆ—ã«è–„ã„é»„è‰²ã‚’ä»˜ä¸ï¼ˆå‚ç…§åˆ—ã¯æœªç€è‰²ã€‚AIè§£æåˆ—ã¯é™¤å¤–ï¼‰ã€‚"""
-    # è¦‹å‡ºã—æ–‡å­—ã®è¡¨è¨˜ã‚†ã‚Œã§åˆ—åæ¤œç´¢ã«å¤±æ•—ã—ãŒã¡ãªãŸã‚ã€æ®µéš1ã®åˆ—é †ï¼ˆplan_input_sheet_column_orderï¼‰ã®
-    # 1-based åˆ—ç•ªå·ã§å¡—ã‚‹ï¼ˆto_excel ã®åˆ—é †ã¨ä¸€è‡´ã•ã›ã‚‹ï¼‰ã€‚
+def _apply_plan_input_visual_format(path: str, sheet_name: str = "ƒ^ƒXƒNˆê——"):
+    """ã‘‚«“ü—Í—ñ‚É”–‚¢‰©F‚ğ•t—^iQÆ—ñ‚Í–¢’…FBAI‰ğÍ—ñ‚ÍœŠOjB"""
+    # Œ©o‚µ•¶š‚Ì•\‹L‚ä‚ê‚Å—ñ–¼ŒŸõ‚É¸”s‚µ‚ª‚¿‚È‚½‚ßA’iŠK1‚Ì—ñ‡iplan_input_sheet_column_orderj‚Ì
+    # 1-based —ñ”Ô†‚Å“h‚éito_excel ‚Ì—ñ‡‚Æˆê’v‚³‚¹‚éjB
     fill_yellow = PatternFill(start_color="FFF2CC", end_color="FFF2CC", fill_type="solid")
     order = plan_input_sheet_column_order()
     col_1based = {name: i + 1 for i, name in enumerate(order)}
     if _workbook_should_skip_openpyxl_io(path):
         logging.info(
-            "é…å°è¨ˆç”»ã®è¦–è¦šæ•´å½¢: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã®ç€è‰²ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+            "”z‘äŒv‰æ‚Ì‹Šo®Œ`: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚Å‚Ì’…F‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
         return
@@ -1063,8 +1063,8 @@ def _remove_planning_conflict_sidecar_safe():
 
 def write_planning_conflict_highlight_sidecar(sheet_name, num_data_rows, conflicts_by_row):
     """
-    Excel ãŒãƒ–ãƒƒã‚¯ã‚’é–‹ã„ãŸã¾ã¾ã®ã¨ãä¿å­˜ã§ããªã„å ´åˆã«ã€VBA ç”¨ã® TSV ã‚’ log ã«æ›¸ãã€‚
-    å½¢å¼: V1 / ã‚·ãƒ¼ãƒˆå / ãƒ‡ãƒ¼ã‚¿è¡Œæ•° / ã‚¯ãƒªã‚¢åˆ—ã‚’ã‚¿ãƒ–çµåˆ / ä»¥é™ è¡Œç•ªå·\\tåˆ—å
+    Excel ‚ªƒuƒbƒN‚ğŠJ‚¢‚½‚Ü‚Ü‚Ì‚Æ‚«•Û‘¶‚Å‚«‚È‚¢ê‡‚ÉAVBA —p‚Ì TSV ‚ğ log ‚É‘‚­B
+    Œ`®: V1 / ƒV[ƒg–¼ / ƒf[ƒ^s” / ƒNƒŠƒA—ñ‚ğƒ^ƒuŒ‹‡ / ˆÈ~ s”Ô†\\t—ñ–¼
     """
     path = _planning_conflict_sidecar_path()
     clear_cols = "\t".join(PLAN_CONFLICT_STYLABLE_COLS)
@@ -1075,7 +1075,7 @@ def write_planning_conflict_highlight_sidecar(sheet_name, num_data_rows, conflic
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
 
-# æ®µéš1å‡ºåŠ›ãƒ»ãƒ–ãƒƒã‚¯å†…ã®æ—¥ä»˜åˆ—ã‚’ Excel ä¸Šã€Œæ—¥ä»˜ã®ã¿ã€(æ™‚åˆ»ãªã—è¡¨ç¤º) ã«æ•´ãˆã‚‹
+# ’iŠK1o—ÍEƒuƒbƒN“à‚Ì“ú•t—ñ‚ğ Excel ãu“ú•t‚Ì‚İv(‚È‚µ•\¦) ‚É®‚¦‚é
 STAGE1_SHEET_DATEONLY_HEADERS = frozenset(
     {
         TASK_COL_ANSWER_DUE,
@@ -1087,7 +1087,7 @@ STAGE1_SHEET_DATEONLY_HEADERS = frozenset(
 
 
 def _result_font(**kwargs):
-    """çµæœãƒ–ãƒƒã‚¯ç”¨ Fontï¼ˆå‘¼ã³å‡ºã—å´ãŒ name/size ç­‰ã‚’æŒ‡å®šï¼‰ã€‚"""
+    """Œ‹‰ÊƒuƒbƒN—p FontiŒÄ‚Ño‚µ‘¤‚ª name/size “™‚ğw’èjB"""
     return Font(**kwargs)
 
 
@@ -1096,7 +1096,7 @@ def _output_book_font(bold=False):
 
 
 def _apply_output_font_to_result_sheet(ws):
-    """çµæœ_* ã®ã†ã¡ã‚¬ãƒ³ãƒˆä»¥å¤–å‘ã‘: æ—¢å®šãƒ•ã‚©ãƒ³ãƒˆãƒ»1è¡Œç›®å¤ªå­—ã®ã¿ï¼ˆåˆ—å¹…ã¯ VBA AutoFitï¼‰ã€‚"""
+    """Œ‹‰Ê_* ‚Ì‚¤‚¿ƒKƒ“ƒgˆÈŠOŒü‚¯: Šù’èƒtƒHƒ“ƒgE1s–Ú‘¾š‚Ì‚İi—ñ•‚Í VBA AutoFitjB"""
     base = _output_book_font(bold=False)
     hdr = _output_book_font(bold=True)
     mr, mc = ws.max_row or 1, ws.max_column or 1
@@ -1108,13 +1108,13 @@ def _apply_output_font_to_result_sheet(ws):
 
 
 def _apply_excel_date_columns_date_only_display(path, sheet_name, header_names=None):
-    """openpyxl: æŒ‡å®šãƒ˜ãƒƒãƒ€ãƒ¼åˆ—ã‚’ yyyy/mm/dd ã®æ—¥ä»˜è¡¨ç¤ºã«ã™ã‚‹ï¼ˆæ™‚åˆ»ã‚’è¡¨ç¤ºã—ãªã„ï¼‰ã€‚"""
+    """openpyxl: w’èƒwƒbƒ_[—ñ‚ğ yyyy/mm/dd ‚Ì“ú•t•\¦‚É‚·‚éi‚ğ•\¦‚µ‚È‚¢jB"""
     from openpyxl import load_workbook
 
     headers = header_names or STAGE1_SHEET_DATEONLY_HEADERS
     if _workbook_should_skip_openpyxl_io(path):
         logging.info(
-            "æ—¥ä»˜åˆ—è¡¨ç¤ºæ•´å½¢: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã®å‡¦ç†ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+            "“ú•t—ñ•\¦®Œ`: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚Å‚Ìˆ—‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
         return
@@ -1155,7 +1155,7 @@ def _apply_excel_date_columns_date_only_display(path, sheet_name, header_names=N
 
 def _extract_data_extraction_datetime():
     """
-    `åŠ å·¥è¨ˆç”»DATA` ã‚·ãƒ¼ãƒˆã® `ãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥` ã‹ã‚‰ datetime ã‚’å–å¾—ã™ã‚‹ã€‚
+    `‰ÁHŒv‰æDATA` ƒV[ƒg‚Ì `ƒf[ƒ^’Šo“ú` ‚©‚ç datetime ‚ğæ“¾‚·‚éB
     """
     try:
         if not TASKS_INPUT_WORKBOOK or not os.path.exists(TASKS_INPUT_WORKBOOK):
@@ -1185,22 +1185,22 @@ def _extract_data_extraction_datetime():
 
 def _extract_data_extraction_datetime_str():
     """
-    `åŠ å·¥è¨ˆç”»DATA` ã‚·ãƒ¼ãƒˆã® `ãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥` ã‹ã‚‰ã€Œãƒ‡ãƒ¼ã‚¿å¸å‡ºã—æ—¥æ™‚ã€ã‚’å–å¾—ã—ã¦æ–‡å­—åˆ—åŒ–ã™ã‚‹ã€‚
+    `‰ÁHŒv‰æDATA` ƒV[ƒg‚Ì `ƒf[ƒ^’Šo“ú` ‚©‚çuƒf[ƒ^‹zo‚µ“úv‚ğæ“¾‚µ‚Ä•¶š—ñ‰»‚·‚éB
     """
     try:
         dt = _extract_data_extraction_datetime()
         if dt is None:
-            return "â€”"
+            return "?"
         return dt.strftime("%Y/%m/%d %H:%M:%S")
     except Exception:
-        return "â€”"
+        return "?"
 
 
 def _weekday_jp(d):
-    return "æœˆç«æ°´æœ¨é‡‘åœŸæ—¥"[d.weekday()]
+    return "Œ‰Î…–Ø‹à“y“ú"[d.weekday()]
 
 
-# ã‚¬ãƒ³ãƒˆã®ä½œæ¥­ãƒãƒ¼ï¼šã„ãšã‚Œã‚‚æ˜ã‚‹ã„åœ°è‰²ï¼‹é»’æ–‡å­—ãŒèª­ã‚ã‚‹ãƒˆãƒ¼ãƒ³ï¼ˆãƒ¢ãƒã‚¯ãƒ­å°åˆ·ã§ã‚‚æ¿ƒæ·¡ã§è­˜åˆ¥ã—ã‚„ã™ã„ï¼‰
+# ƒKƒ“ƒg‚Ìì‹Æƒo[F‚¢‚¸‚ê‚à–¾‚é‚¢’nF{••¶š‚ª“Ç‚ß‚éƒg[ƒ“iƒ‚ƒmƒNƒˆóü‚Å‚à”Z’W‚Å¯•Ê‚µ‚â‚·‚¢j
 _GANTT_BAR_FILLS_PRINT_SAFE = (
     "E8E8E8",
     "D8E4EF",
@@ -1212,7 +1212,7 @@ _GANTT_BAR_FILLS_PRINT_SAFE = (
     "E5DCE5",
 )
 
-# å®Ÿç¸¾ãƒãƒ¼ç”¨ï¼ˆè¨ˆç”»ã¨ä¸¦ã¹ã¦ã‚‚ãƒ¢ãƒã‚¯ãƒ­ã§åŒºåˆ¥ã—ã‚„ã™ã„ãƒˆãƒ¼ãƒ³ï¼‰
+# ÀÑƒo[—piŒv‰æ‚Æ•À‚×‚Ä‚àƒ‚ƒmƒNƒ‚Å‹æ•Ê‚µ‚â‚·‚¢ƒg[ƒ“j
 _GANTT_BAR_FILLS_ACTUAL = (
     "D4E4D4",
     "C9DDE8",
@@ -1224,12 +1224,12 @@ _GANTT_BAR_FILLS_ACTUAL = (
     "DCD2DC",
 )
 
-# è¨­å‚™ã‚¬ãƒ³ãƒˆ: æ—¥æ¬¡å§‹æ¥­æº–å‚™ï¼ˆmachine_daily_startupï¼‰ã®å¸¯è‰²ï¼ˆé»„è‰²ç³»ï¼‰
+# İ”õƒKƒ“ƒg: “úŸn‹Æ€”õimachine_daily_startupj‚Ì‘ÑFi‰©FŒnj
 _GANTT_DAILY_STARTUP_FILL = "FFEB9C"
 
 
 def _gantt_bar_fill_for_task_id(task_id):
-    """ä¾é ¼NOã”ã¨ã«ä¸Šè¨˜ãƒ‘ãƒ¬ãƒƒãƒˆã‹ã‚‰1è‰²ï¼ˆRRGGBBï¼‰ã€‚æ¿ƒè‰²ï¼‹ç™½æ–‡å­—ã®çµ„ã¿åˆã‚ã›ã¯ä½¿ã‚ãªã„ã€‚"""
+    """ˆË—ŠNO‚²‚Æ‚Éã‹LƒpƒŒƒbƒg‚©‚ç1FiRRGGBBjB”ZF{”’•¶š‚Ì‘g‚İ‡‚í‚¹‚Íg‚í‚È‚¢B"""
     h = hashlib.md5(str(task_id).encode("utf-8")).hexdigest()
     i = int(h[:8], 16) % len(_GANTT_BAR_FILLS_PRINT_SAFE)
     return _GANTT_BAR_FILLS_PRINT_SAFE[i]
@@ -1241,7 +1241,7 @@ def _gantt_bar_fill_actual_for_task_id(task_id):
     return _GANTT_BAR_FILLS_ACTUAL[i]
 
 
-# ã‚¬ãƒ³ãƒˆæ™‚åˆ»ã‚»ãƒ«ï¼ˆçµåˆå¸¯ã®å…ˆé ­ã‚»ãƒ«ï¼‰: æ¯ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ new ã—ãªã„
+# ƒKƒ“ƒgƒZƒ‹iŒ‹‡‘Ñ‚Ìæ“ªƒZƒ‹j: –ˆƒZƒOƒƒ“ƒg new ‚µ‚È‚¢
 _GANTT_TIMELINE_CELL_ALIGNMENT = Alignment(
     horizontal="left",
     vertical="center",
@@ -1249,7 +1249,7 @@ _GANTT_TIMELINE_CELL_ALIGNMENT = Alignment(
     shrink_to_fit=False,
     indent=1,
 )
-# ã‚¿ã‚¹ã‚¯å¸¯ã®è‰²ã¯ãƒ‘ãƒ¬ãƒƒãƒˆæœ‰é™ãªã®ã§ PatternFill ã‚’ hex å˜ä½ã§å…±æœ‰ï¼ˆopenpyxl ã®ã‚¹ã‚¿ã‚¤ãƒ«å±•é–‹ã‚³ã‚¹ãƒˆå‰Šæ¸›ï¼‰
+# ƒ^ƒXƒN‘Ñ‚ÌF‚ÍƒpƒŒƒbƒg—LŒÀ‚È‚Ì‚Å PatternFill ‚ğ hex ’PˆÊ‚Å‹¤—Liopenpyxl ‚ÌƒXƒ^ƒCƒ‹“WŠJƒRƒXƒgíŒ¸j
 _GANTT_TASK_PATTERN_FILL_BY_HEX: dict[str, PatternFill] = {}
 
 
@@ -1262,7 +1262,7 @@ def _gantt_cached_pattern_fill(hex_rrggbb: str) -> PatternFill:
 
 
 def _gantt_slot_state_tuple(evlist, slot_mid, task_fill_fn=None):
-    """ã‚¹ãƒ­ãƒƒãƒˆä¸­å¤®æ™‚åˆ»ã«ãŠã‘ã‚‹1ãƒã‚¹åˆ†ã®çŠ¶æ…‹ã€‚('idle',) | ('break',) | ('daily_startup', fill_hex) | ('task', tid, fill_hex, pct)"""
+    """ƒXƒƒbƒg’†‰›‚É‚¨‚¯‚é1ƒ}ƒX•ª‚Ìó‘ÔB('idle',) | ('break',) | ('daily_startup', fill_hex) | ('task', tid, fill_hex, pct)"""
     fill_fn = task_fill_fn or _gantt_bar_fill_for_task_id
     active = None
     for e in evlist:
@@ -1279,12 +1279,12 @@ def _gantt_slot_state_tuple(evlist, slot_mid, task_fill_fn=None):
     gh = fill_fn(active["task_id"])
     pct = None
     try:
-        # ã€Œãƒã‚¯ãƒ­å®Ÿè¡Œæ™‚ç‚¹ã€ã®å®Œäº†ç‡ã‚’å„ªå…ˆï¼ˆpct_macro ã‚’ timeline_event ã«æŒãŸã›ã‚‹ï¼‰
+        # uƒ}ƒNƒÀs“_v‚ÌŠ®—¹—¦‚ğ—Dæipct_macro ‚ğ timeline_event ‚É‚½‚¹‚éj
         if active.get("pct_macro") is not None:
             pct = int(round(parse_float_safe(active.get("pct_macro"), 0.0)))
             pct = max(0, min(100, pct))
         else:
-            # ãƒ•ã‚§ã‚¤ãƒ«ã‚»ãƒ¼ãƒ•ï¼ˆå¾“æ¥ã®æ“¬ä¼¼é€²æ—è¨ˆç®—ï¼‰
+            # ƒtƒFƒCƒ‹ƒZ[ƒti]—ˆ‚Ì‹[—i’»ŒvZj
             tot = parse_float_safe(active.get("total_units"), 0.0)
             done = parse_float_safe(active.get("already_done_units"), 0.0) + parse_float_safe(
                 active.get("units_done"), 0.0
@@ -1297,7 +1297,7 @@ def _gantt_slot_state_tuple(evlist, slot_mid, task_fill_fn=None):
 
 
 def _gantt_timeline_same_segment(st_a, st_b) -> bool:
-    """çµåˆã‚»ã‚°ãƒ¡ãƒ³ãƒˆå¢ƒç•Œåˆ¤å®šï¼ˆæ¯ã‚¹ãƒ­ãƒƒãƒˆ tuple ã‚’å‰²ã‚Šå½“ã¦ãªã„ï¼‰ã€‚"""
+    """Œ‹‡ƒZƒOƒƒ“ƒg‹«ŠE”»’èi–ˆƒXƒƒbƒg tuple ‚ğŠ„‚è“–‚Ä‚È‚¢jB"""
     if st_a[0] != st_b[0]:
         return False
     if st_a[0] == "idle" or st_a[0] == "break":
@@ -1321,8 +1321,8 @@ def _paint_gantt_timeline_row_merged(
     label_font=None,
 ):
     """
-    æ™‚é–“è»¸ã‚’å¡—ã‚Šåˆ†ã‘ãŸã†ãˆã§ã€åŒä¸€çŠ¶æ…‹ãŒé€£ç¶šã™ã‚‹ã‚»ãƒ«ã‚’æ¨ªçµåˆã—å¸¯çŠ¶ã®ãƒãƒ¼ã«ã™ã‚‹ã€‚
-    ï¼ˆç´°ãƒã‚¹å˜ä½“ã®å¡—ã‚Šã§ã¯ãªã15åˆ†åˆ»ã¿ï¼‹åŒä¸€çŠ¶æ…‹ã®ã‚»ãƒ«çµåˆã§ã€å¸¯çŠ¶ã®ãƒãƒ¼ã¨ã—ã¦è¡¨ç¾ã™ã‚‹ï¼‰
+    ŠÔ²‚ğ“h‚è•ª‚¯‚½‚¤‚¦‚ÅA“¯ˆêó‘Ô‚ª˜A‘±‚·‚éƒZƒ‹‚ğ‰¡Œ‹‡‚µ‘Ñó‚Ìƒo[‚É‚·‚éB
+    i×ƒ}ƒX’P‘Ì‚Ì“h‚è‚Å‚Í‚È‚­15•ª‚İ{“¯ˆêó‘Ô‚ÌƒZƒ‹Œ‹‡‚ÅA‘Ñó‚Ìƒo[‚Æ‚µ‚Ä•\Œ»‚·‚éj
     """
     bar_label_font = label_font or gantt_label_font
     n_slots = len(slots)
@@ -1353,7 +1353,7 @@ def _paint_gantt_timeline_row_merged(
                 _, gh_ds = st0
                 c.fill = _gantt_cached_pattern_fill(gh_ds)
                 if col == col_s:
-                    c.value = "(æ—¥æ¬¡å§‹æ¥­æº–å‚™)"
+                    c.value = "(“úŸn‹Æ€”õ)"
                     c.font = bar_label_font
                 else:
                     c.value = None
@@ -1371,7 +1371,7 @@ def _paint_gantt_timeline_row_merged(
 def _time_intervals_overlap_half_open(
     a_start: time, a_end: time, b_start: time, b_end: time
 ) -> bool:
-    """åŠé–‹åŒºé–“ [a_start, a_end) ã¨ [b_start, b_end) ãŒé‡ãªã‚‹ã‹ï¼ˆåŒä¸€æ—¥å†…ï¼‰ã€‚"""
+    """”¼ŠJ‹æŠÔ [a_start, a_end) ‚Æ [b_start, b_end) ‚ªd‚È‚é‚©i“¯ˆê“ú“àjB"""
 
     def _sec(t: time) -> int:
         return t.hour * 3600 + t.minute * 60 + t.second
@@ -1380,17 +1380,17 @@ def _time_intervals_overlap_half_open(
 
 
 def _parse_equipment_schedule_time_band_cell(val) -> tuple[time | None, time | None]:
-    """çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã€Œæ—¥æ™‚å¸¯ã€ã‚»ãƒ«ï¼ˆä¾‹ 08:45-09:00ï¼‰ã‚’è§£é‡ˆã€‚"""
+    """Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„u“ú‘ÑvƒZƒ‹i—á 08:45-09:00j‚ğ‰ğßB"""
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return None, None
     s = str(val).strip()
-    if not s or "â– " in s:
+    if not s or "¡" in s:
         return None, None
-    for sep in ("-", "ï¼", "~", "ã€œ"):
+    for sep in ("-", "|", "~", "?"):
         if sep in s:
             left, right = s.split(sep, 1)
-            left = left.strip().replace("ï¼š", ":")
-            right = right.strip().replace("ï¼š", ":")
+            left = left.strip().replace("F", ":")
+            right = right.strip().replace("F", ":")
             t0 = parse_time_str(left, None)
             t1 = parse_time_str(right, None)
             if t0 is not None and t1 is not None and t0 < t1:
@@ -1402,7 +1402,7 @@ def _parse_equipment_schedule_time_band_cell(val) -> tuple[time | None, time | N
 def _apply_equipment_schedule_outside_regular_fill(
     ws, reg_start: time, reg_end: time
 ) -> None:
-    """ã€Œæ—¥æ™‚å¸¯ã€åˆ—ã§å®šå¸¸ [reg_start, reg_end) ã¨é‡ãªã‚‰ãªã„è¡Œã®ã‚»ãƒ«ã«ç€è‰²ã€‚"""
+    """u“ú‘Ñv—ñ‚Å’èí [reg_start, reg_end) ‚Æd‚È‚ç‚È‚¢s‚ÌƒZƒ‹‚É’…FB"""
     fill = PatternFill(
         fill_type="solid",
         start_color=RESULT_OUTSIDE_REGULAR_TIME_FILL,
@@ -1410,7 +1410,7 @@ def _apply_equipment_schedule_outside_regular_fill(
     )
     col_idx = None
     for i, c in enumerate(ws[1], start=1):
-        if c.value is not None and str(c.value).strip() == "æ—¥æ™‚å¸¯":
+        if c.value is not None and str(c.value).strip() == "“ú‘Ñ":
             col_idx = i
             break
     if col_idx is None:
@@ -1427,25 +1427,25 @@ def _apply_equipment_schedule_outside_regular_fill(
 
 def _apply_equipment_schedule_prep_cleanup_fill(ws) -> None:
     """
-    è¨­å‚™åˆ—ï¼ˆé€²åº¦åˆ—ã‚’é™¤ãï¼‰ã§ã€è¡¨ç¤ºã«ã€Œæ—¥æ¬¡å§‹æ¥­æº–å‚™ã€ã€ŒåŠ å·¥å‰æº–å‚™ã€ã€Œä¾é ¼åˆ‡æ›¿å¾Œå§‹æœ«ã€ãŒå«ã¾ã‚Œã‚‹ã‚»ãƒ«ã‚’è–„ç·‘ã«ã™ã‚‹ã€‚
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰² / TEMP_è¨­å‚™æ¯ã®æ™‚é–“å‰² ã® equip ã‚»ãƒ«ç”¨ï¼ˆæ—¥æ™‚å¸¯åˆ—ã¯å¤‰æ›´ã—ãªã„ï¼‰ã€‚
+    İ”õ—ñii“x—ñ‚ğœ‚­j‚ÅA•\¦‚Éu“úŸn‹Æ€”õvu‰ÁH‘O€”õvuˆË—ŠØ‘ÖŒãn––v‚ªŠÜ‚Ü‚ê‚éƒZƒ‹‚ğ”–—Î‚É‚·‚éB
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„ / TEMP_İ”õ–ˆ‚ÌŠÔŠ„ ‚Ì equip ƒZƒ‹—pi“ú‘Ñ—ñ‚Í•ÏX‚µ‚È‚¢jB
     """
     fill = PatternFill(
         fill_type="solid",
         start_color=RESULT_DISPATCHED_REQUEST_FILL,
         end_color=RESULT_DISPATCHED_REQUEST_FILL,
     )
-    markers = ("(æ—¥æ¬¡å§‹æ¥­æº–å‚™)", "(åŠ å·¥å‰æº–å‚™)", "(ä¾é ¼åˆ‡æ›¿å¾Œå§‹æœ«)")
+    markers = ("(“úŸn‹Æ€”õ)", "(‰ÁH‘O€”õ)", "(ˆË—ŠØ‘ÖŒãn––)")
     col_tb = None
     equip_cols: list[int] = []
     for i, c in enumerate(ws[1], start=1):
         if c.value is None:
             continue
         h = str(c.value).strip()
-        if h == "æ—¥æ™‚å¸¯":
+        if h == "“ú‘Ñ":
             col_tb = i
             continue
-        if h.endswith("é€²åº¦"):
+        if h.endswith("i“x"):
             continue
         equip_cols.append(i)
     if col_tb is None or not equip_cols:
@@ -1463,7 +1463,7 @@ def _apply_equipment_schedule_prep_cleanup_fill(ws) -> None:
 
 
 def _parse_equipment_schedule_day_header_date(val) -> date | None:
-    """æ—¥ä»˜è¦‹å‡ºã—è¡Œã€Œâ–  YYYY/MM/DD â€¦ â– ã€ã‹ã‚‰æ—¥ä»˜ã‚’å–ã‚‹ã€‚"""
+    """“ú•tŒ©o‚µsu¡ YYYY/MM/DD c ¡v‚©‚ç“ú•t‚ğæ‚éB"""
     if val is None:
         return None
     s = str(val).strip()
@@ -1481,7 +1481,7 @@ def _machine_calendar_intervals_for_equipment_line(
     eq_line: str,
     day_d: date,
 ) -> list[tuple[datetime, datetime]]:
-    """å½“æ—¥ãƒ»å½“è©²è¨­å‚™åˆ—ã‚­ãƒ¼ã«å¯¾å¿œã™ã‚‹æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰åŒºé–“ï¼ˆå·¥å ´ç¨¼åƒæ ã§ã‚¯ãƒªãƒƒãƒ—æ¸ˆã¿ï¼‰ã€‚"""
+    """“–“úE“–ŠYİ”õ—ñƒL[‚É‘Î‰‚·‚é‹@ŠBƒJƒŒƒ“ƒ_[è—L‹æŠÔiHê‰Ò“­˜g‚ÅƒNƒŠƒbƒvÏ‚İjB"""
     if not day_blocks:
         return []
     ek = str(eq_line or "").strip()
@@ -1515,8 +1515,8 @@ def _apply_equipment_schedule_machine_calendar_fill(
     calendar_blocks_by_date: dict[date, dict[str, list[tuple[datetime, datetime]]]],
 ) -> None:
     """
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²: æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ã¨é‡ãªã‚‹è¨­å‚™ã‚»ãƒ«ï¼ˆé€²åº¦åˆ—ä»¥å¤–ï¼‰ã‚’ç´«è‰²ã§å¡—ã‚‹ã€‚
-    10 åˆ†æ ã®åŠé–‹åŒºé–“ [slot_start, slot_end) ã¨å æœ‰ [bs, be) ãŒé‡ãªã‚Œã°å¯¾è±¡ã€‚
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„: ‹@ŠBƒJƒŒƒ“ƒ_[è—L‚Æd‚È‚éİ”õƒZƒ‹ii“x—ñˆÈŠOj‚ğ‡F‚Å“h‚éB
+    10 •ª˜g‚Ì”¼ŠJ‹æŠÔ [slot_start, slot_end) ‚Æè—L [bs, be) ‚ªd‚È‚ê‚Î‘ÎÛB
     """
     if not calendar_blocks_by_date or not equipment_list:
         return
@@ -1527,7 +1527,7 @@ def _apply_equipment_schedule_machine_calendar_fill(
     )
     col_tb = None
     for i, c in enumerate(ws[1], start=1):
-        if c.value is not None and str(c.value).strip() == "æ—¥æ™‚å¸¯":
+        if c.value is not None and str(c.value).strip() == "“ú‘Ñ":
             col_tb = i
             break
     if col_tb is None:
@@ -1568,8 +1568,8 @@ def _apply_equipment_schedule_machine_calendar_fill(
 
 def _apply_equipment_by_machine_dispatched_request_fill(ws) -> None:
     """
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²_æ©Ÿæ¢°åæ¯ã®æ©Ÿæ¢°ååˆ—ã§ã€ä¾é ¼NOãŒå…¥ã£ã¦ã„ã‚‹ã‚»ãƒ«ã«è–„ç·‘ã‚’ä»˜ä¸ã™ã‚‹ã€‚
-    ã€Œï¼ˆä¼‘æ†©ï¼‰ã€ã®ã¿ã®ã‚»ãƒ«ã¯å¯¾è±¡å¤–ã€‚è¦‹å‡ºã—è¡Œãƒ»æ—¥æ™‚å¸¯åˆ—ã¯å¤‰æ›´ã—ãªã„ã€‚
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„_‹@ŠB–¼–ˆ‚Ì‹@ŠB–¼—ñ‚ÅAˆË—ŠNO‚ª“ü‚Á‚Ä‚¢‚éƒZƒ‹‚É”–—Î‚ğ•t—^‚·‚éB
+    ui‹xŒejv‚Ì‚İ‚ÌƒZƒ‹‚Í‘ÎÛŠOBŒ©o‚µsE“ú‘Ñ—ñ‚Í•ÏX‚µ‚È‚¢B
     """
     fill = PatternFill(
         fill_type="solid",
@@ -1578,7 +1578,7 @@ def _apply_equipment_by_machine_dispatched_request_fill(ws) -> None:
     )
     col_tb = None
     for i, c in enumerate(ws[1], start=1):
-        if c.value is not None and str(c.value).strip() == "æ—¥æ™‚å¸¯":
+        if c.value is not None and str(c.value).strip() == "“ú‘Ñ":
             col_tb = i
             break
     if col_tb is None:
@@ -1592,21 +1592,21 @@ def _apply_equipment_by_machine_dispatched_request_fill(ws) -> None:
             if val is None or (isinstance(val, float) and pd.isna(val)):
                 continue
             s = str(val).strip().replace("\r", "").replace("\n", "")
-            if not s or s == "ï¼ˆä¼‘æ†©ï¼‰":
+            if not s or s == "i‹xŒej":
                 continue
             cell.fill = fill
 
 
 def _equipment_gantt_fills_by_machine_name(equipment_list) -> dict[str, PatternFill]:
     """
-    çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆã®å›ºå®šåˆ—ï¼ˆBã€œEã€A ã¯æ—¥ä»˜ç¸¦çµåˆï¼‰ç”¨ã€‚equipment_list å†…ã®æ©Ÿæ¢°åï¼ˆ+ ç„¡ã—æ™‚ã¯è¡Œå…¨ä½“ã‚’æ©Ÿæ¢°åï¼‰ã®å‡ºç¾é †ã§
-    æ·¡è‰²ã‚’å‰²ã‚Šå½“ã¦ã€åŒä¸€æ©Ÿæ¢°åã¯å¸¸ã«åŒã˜ PatternFill ã‚’å…±æœ‰ã™ã‚‹ã€‚
+    Œ‹‰Ê_İ”õƒKƒ“ƒg‚ÌŒÅ’è—ñiB?EAA ‚Í“ú•tcŒ‹‡j—pBequipment_list “à‚Ì‹@ŠB–¼i+ –³‚µ‚Ís‘S‘Ì‚ğ‹@ŠB–¼j‚ÌoŒ»‡‚Å
+    ’WF‚ğŠ„‚è“–‚ÄA“¯ˆê‹@ŠB–¼‚Íí‚É“¯‚¶ PatternFill ‚ğ‹¤—L‚·‚éB
     """
     order: list[str] = []
     seen: set[str] = set()
     for eq in equipment_list or []:
         _, mn = _split_equipment_line_process_machine(eq)
-        key = (mn or "").strip() or "â€”"
+        key = (mn or "").strip() or "?"
         if key not in seen:
             seen.add(key)
             order.append(key)
@@ -1634,17 +1634,17 @@ def _write_results_equipment_gantt_sheet(
     regular_shift_times: tuple[time | None, time | None] | None = None,
 ):
     """
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã¨åŒä¸€ãƒ‡ãƒ¼ã‚¿æºï¼ˆtimeline_eventsï¼‰ã«åŸºã¥ãã€
-    è¨­å‚™Ã—æ¨ªè»¸æ™‚é–“ã®ã‚¬ãƒ³ãƒãƒ£ãƒ¼ãƒˆé¢¨ã‚·ãƒ¼ãƒˆã‚’è¿½åŠ ã™ã‚‹ã€‚
-    æ¨ªè»¸ã¯15åˆ†åˆ»ã¿ã€‚é€£ç¶šã™ã‚‹åŒä¸€ã‚¿ã‚¹ã‚¯ï¼ä¼‘æ†©ï¼ç©ºãã¯ã‚»ãƒ«çµåˆã—ã¦å¸¯çŠ¶ã«è¡¨ç¤ºã™ã‚‹ã€‚
-    actual_timeline_events ãŒã‚ã‚Œã°è¨­å‚™ã”ã¨ã«ã€Œå®Ÿç¸¾ã€è¡Œã‚’è¨ˆç”»è¡Œã®ä¸‹ã¸è¿½åŠ ã™ã‚‹ã€‚
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Æ“¯ˆêƒf[ƒ^Œ¹itimeline_eventsj‚ÉŠî‚Ã‚«A
+    İ”õ~‰¡²ŠÔ‚ÌƒKƒ“ƒ`ƒƒ[ƒg•—ƒV[ƒg‚ğ’Ç‰Á‚·‚éB
+    ‰¡²‚Í15•ª‚İB˜A‘±‚·‚é“¯ˆêƒ^ƒXƒN^‹xŒe^‹ó‚«‚ÍƒZƒ‹Œ‹‡‚µ‚Ä‘Ñó‚É•\¦‚·‚éB
+    actual_timeline_events ‚ª‚ ‚ê‚Îİ”õ‚²‚Æ‚ÉuÀÑvs‚ğŒv‰æs‚Ì‰º‚Ö’Ç‰Á‚·‚éB
     """
     wb = writer.book
     try:
-        insert_at = wb.sheetnames.index("çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²") + 1
+        insert_at = wb.sheetnames.index("Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„") + 1
     except ValueError:
         insert_at = len(wb.sheetnames)
-    ws = wb.create_sheet("çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆ", insert_at)
+    ws = wb.create_sheet("Œ‹‰Ê_İ”õƒKƒ“ƒg", insert_at)
     try:
         ws.sheet_properties.tabColor = "7F7F7F"
     except Exception:
@@ -1697,7 +1697,7 @@ def _write_results_equipment_gantt_sheet(
     )
     rs, re_ = (regular_shift_times or (None, None))
 
-    # æ¨ªè»¸(10åˆ†åˆ»ã¿)ã¯æ—¥ä»˜ã§å…±é€šã®ãŸã‚ã€slot_times ã‚’å…ˆã«ç¢ºå®š
+    # ‰¡²(10•ª‚İ)‚Í“ú•t‚Å‹¤’Ê‚Ì‚½‚ßAslot_times ‚ğæ‚ÉŠm’è
     base_dt = base_now_dt if isinstance(base_now_dt, datetime) else datetime.now()
     dummy_d = sorted_dates[0] if sorted_dates else base_dt.date()
     d_start0 = datetime.combine(dummy_d, DEFAULT_START_TIME)
@@ -1709,13 +1709,13 @@ def _write_results_equipment_gantt_sheet(
         t0 += timedelta(minutes=slot_mins)
 
     n_slots = len(slot_times)
-    n_fixed = 5  # A=æ—¥ä»˜ï¼ˆæ—¥ãƒ–ãƒ­ãƒƒã‚¯å†…ã§ç¸¦çµåˆï¼‰/ Bã€œE=æ©Ÿæ¢°åãƒ»å·¥ç¨‹åãƒ»æ‹…å½“è€…ãƒ»ã‚¿ã‚¹ã‚¯æ¦‚è¦
+    n_fixed = 5  # A=“ú•ti“úƒuƒƒbƒN“à‚ÅcŒ‹‡j/ B?E=‹@ŠB–¼EH’ö–¼E’S“–ÒEƒ^ƒXƒNŠT—v
     last_col = n_fixed + n_slots
     fills_by_mach = _equipment_gantt_fills_by_machine_name(equipment_list)
     fb_gantt = "F5F5F5"
     fill_gantt_fallback = PatternFill(fill_type="solid", start_color=fb_gantt, end_color=fb_gantt)
 
-    # ã‚¿ã‚¤ãƒˆãƒ«ï¼†æ—¥æ™‚ï¼ˆãƒšãƒ¼ã‚¸ä¸Šéƒ¨ï¼‰
+    # ƒ^ƒCƒgƒ‹•“úiƒy[ƒWã•”j
     create_ts = base_dt.strftime("%Y/%m/%d %H:%M:%S")
     master_path = os.path.join(os.getcwd(), MASTER_FILE) if MASTER_FILE else ""
 
@@ -1725,16 +1725,16 @@ def _write_results_equipment_gantt_sheet(
                 return datetime.fromtimestamp(os.path.getmtime(p)).strftime("%Y/%m/%d %H:%M:%S")
         except Exception:
             pass
-        return "â€”"
+        return "?"
 
     master_mtime = _fmt_mtime(master_path)
 
     row = 1
     ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=last_col)
-    tcell = ws.cell(row=row, column=1, value="æ¹–å—å·¥å ´ åŠ å·¥è¨ˆç”»")
+    tcell = ws.cell(row=row, column=1, value="ŒÎ“ìHê ‰ÁHŒv‰æ")
     tcell.font = title_font
     tcell.fill = title_fill
-    # çµåˆã‚»ãƒ«ã§ã‚‚å·¦ç«¯ã‹ã‚‰è¡¨ç¤ºï¼ˆç¸®å°ãƒ»æŠ˜ã‚Šè¿”ã—ãªã—ï¼‰
+    # Œ‹‡ƒZƒ‹‚Å‚à¶’[‚©‚ç•\¦ik¬EÜ‚è•Ô‚µ‚È‚µj
     tcell.alignment = Alignment(
         horizontal="left",
         vertical="center",
@@ -1748,9 +1748,9 @@ def _write_results_equipment_gantt_sheet(
 
     ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=last_col)
     meta_line = (
-        f"ä½œæˆã€€{create_ts}"
-        f"ã€€ãƒ»ã€€ãƒ‡ãƒ¼ã‚¿å¸å‡ºã—ã€€{data_extract_dt_str or 'â€”'}"
-        f"ã€€ãƒ»ã€€ãƒã‚¹ã‚¿ï¼ˆmaster.xlsmï¼‰ã€€{master_mtime}"
+        f"ì¬@{create_ts}"
+        f"@E@ƒf[ƒ^‹zo‚µ@{data_extract_dt_str or '?'}"
+        f"@E@ƒ}ƒXƒ^imaster.xlsmj@{master_mtime}"
     )
     mtop = ws.cell(row=row, column=1, value=meta_line)
     mtop.font = meta_font
@@ -1778,7 +1778,7 @@ def _write_results_equipment_gantt_sheet(
         dates_to_show.append(d0)
 
     hdr_row = row
-    fixed_hdr = ["æ—¥ä»˜", "æ©Ÿæ¢°å", "å·¥ç¨‹å", "æ‹…å½“è€…", "ã‚¿ã‚¹ã‚¯æ¦‚è¦"]
+    fixed_hdr = ["“ú•t", "‹@ŠB–¼", "H’ö–¼", "’S“–Ò", "ƒ^ƒXƒNŠT—v"]
     for ci, h in enumerate(fixed_hdr, 1):
         c = ws.cell(row=hdr_row, column=ci, value=h)
         c.font = hdr_font
@@ -1796,7 +1796,7 @@ def _write_results_equipment_gantt_sheet(
         c.fill = hdr_use
         c.alignment = Alignment(horizontal="center", vertical="bottom", textRotation=90)
     ws.row_dimensions[hdr_row].height = 44
-    # å…ˆé ­ãƒ‡ãƒ¼ã‚¿è¡Œã®å·¦ä¸Šï¼æ™‚åˆ»åˆ—å…ˆé ­ï¼ˆF4ï¼‰ã§çª“æ å›ºå®šï¼ˆè¡Œ1ã€œ3ãƒ»åˆ—Aã€œEã‚’å›ºå®šï¼‰
+    # æ“ªƒf[ƒ^s‚Ì¶ã—ñæ“ªiF4j‚Å‘‹˜gŒÅ’èis1?3E—ñA?E‚ğŒÅ’èj
     ws.freeze_panes = f"{get_column_letter(n_fixed + 1)}{hdr_row + 1}"
     row = hdr_row + 1
 
@@ -1812,7 +1812,7 @@ def _write_results_equipment_gantt_sheet(
         day_start = row
         for eq in equipment_list:
             proc_nm, mach_nm = _split_equipment_line_process_machine(eq)
-            mk_key = (mach_nm or "").strip() or "â€”"
+            mk_key = (mach_nm or "").strip() or "?"
             lab_fill = fills_by_mach.get(mk_key) or fill_gantt_fallback
             evlist = by_dm[d].get(eq, [])
             if evlist:
@@ -1823,14 +1823,14 @@ def _write_results_equipment_gantt_sheet(
                     if tid and tid not in seen_tid:
                         seen_tid.add(tid)
                         tids.append(tid)
-                task_sum = " ".join(tids) if tids else "â€”"
+                task_sum = " ".join(tids) if tids else "?"
                 member_disp = _gantt_row_member_names(evlist)
             else:
-                task_sum = "â€”"
-                member_disp = "â€”"
+                task_sum = "?"
+                member_disp = "?"
 
-            c1 = ws.cell(row=row, column=2, value=mach_nm if mach_nm else "â€”")
-            c2 = ws.cell(row=row, column=3, value=proc_nm if proc_nm else "â€”")
+            c1 = ws.cell(row=row, column=2, value=mach_nm if mach_nm else "?")
+            c2 = ws.cell(row=row, column=3, value=proc_nm if proc_nm else "?")
             c3 = ws.cell(row=row, column=4, value=member_disp)
             c4 = ws.cell(row=row, column=5, value=task_sum)
             for c in (c1, c2, c3, c4):
@@ -1869,22 +1869,22 @@ def _write_results_equipment_gantt_sheet(
                         if tid and tid not in seen_aid:
                             seen_aid.add(tid)
                             tids_a.append(tid)
-                    task_sum_a = " ".join(tids_a) if tids_a else "â€”"
+                    task_sum_a = " ".join(tids_a) if tids_a else "?"
                     member_disp_a = _gantt_row_member_names(evlist_a)
                 else:
-                    task_sum_a = "â€”"
-                    member_disp_a = "â€”"
+                    task_sum_a = "?"
+                    member_disp_a = "?"
 
                 lab_fill_a = fills_by_mach.get(mk_key) or fill_gantt_fallback
 
                 if mach_nm:
-                    act_mach = f"{mach_nm}ï¼ˆå®Ÿç¸¾ï¼‰"
+                    act_mach = f"{mach_nm}iÀÑj"
                 elif proc_nm:
-                    act_mach = "ï¼ˆå®Ÿç¸¾ï¼‰"
+                    act_mach = "iÀÑj"
                 else:
-                    act_mach = "â€”"
+                    act_mach = "?"
                 ca1 = ws.cell(row=row, column=2, value=act_mach)
-                ca2 = ws.cell(row=row, column=3, value=proc_nm if proc_nm else "â€”")
+                ca2 = ws.cell(row=row, column=3, value=proc_nm if proc_nm else "?")
                 ca3 = ws.cell(row=row, column=4, value=member_disp_a)
                 ca4 = ws.cell(row=row, column=5, value=task_sum_a)
                 for c in (ca1, ca2, ca3, ca4):
@@ -1921,7 +1921,7 @@ def _write_results_equipment_gantt_sheet(
             ban = ws.cell(
                 row=day_start,
                 column=1,
-                value=f"ã€{d.strftime('%Y/%m/%d')}ã€‘",
+                value=f"y{d.strftime('%Y/%m/%d')}z",
             )
             ban.font = day_banner_font
             ban.fill = day_banner_fill
@@ -1942,21 +1942,21 @@ def _write_results_equipment_gantt_sheet(
             ws.row_dimensions[row].height = 5
             row += 1
 
-    # å‡¡ä¾‹ã¯é«˜ã•ç¢ºä¿ã®ãŸã‚çœç•¥ï¼ˆãƒ¢ãƒã‚¯ãƒ­å°åˆ·ã¯è‰²ã®æ¿ƒæ·¡/ã‚»ãƒ«ã®æ ã§è­˜åˆ¥ï¼‰
-    # åˆ—å¹…ãƒ»æŠ˜ã‚Šè¿”ã—ã¯ VBA å–ã‚Šè¾¼ã¿æ™‚ï¼ˆçµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆ_åˆ—å¹…ã‚’è¨­å®šï¼‰ã§è¨­å®š
+    # –}—á‚Í‚‚³Šm•Û‚Ì‚½‚ßÈ—ªiƒ‚ƒmƒNƒˆóü‚ÍF‚Ì”Z’W/ƒZƒ‹‚Ì˜g‚Å¯•Êj
+    # —ñ•EÜ‚è•Ô‚µ‚Í VBA æ‚è‚İiŒ‹‰Ê_İ”õƒKƒ“ƒg_—ñ•‚ğİ’èj‚Åİ’è
 
     try:
         ws.page_setup.orientation = "landscape"
         ws.page_setup.fitToHeight = False
         ws.page_setup.fitToWidth = 1
-        # A3ï¼ˆopenpyxl ä¸Šã§ paperSize=8 ãŒ A3 ç›¸å½“ï¼‰
+        # A3iopenpyxl ã‚Å paperSize=8 ‚ª A3 ‘Š“–j
         ws.page_setup.paperSize = 8
-        # ä½™ç™½ã‚’ç‹­ã‚ã¦æ¨ª1ãƒšãƒ¼ã‚¸ã«åã¾ã‚Šã‚„ã™ãã™ã‚‹ï¼ˆå˜ä½: ã‚¤ãƒ³ãƒï¼‰
+        # —]”’‚ğ‹·‚ß‚Ä‰¡1ƒy[ƒW‚Éû‚Ü‚è‚â‚·‚­‚·‚éi’PˆÊ: ƒCƒ“ƒ`j
         ws.page_margins.left = 0.2
         ws.page_margins.right = 0.2
         ws.page_margins.top = 0.2
         ws.page_margins.bottom = 0.2
-        # ã‚¿ã‚¤ãƒˆãƒ«ãƒ»è¡¨ã‚’ãƒšãƒ¼ã‚¸å·¦åŸºæº–ã«ï¼ˆãƒ¬ãƒãƒ¼ãƒˆé¢¨ï¼‰
+        # ƒ^ƒCƒgƒ‹E•\‚ğƒy[ƒW¶Šî€‚ÉiƒŒƒ|[ƒg•—j
         ws.print_options.horizontalCentered = False
         ws.print_options.verticalCentered = False
         ws.print_options.gridLines = False
@@ -1965,21 +1965,21 @@ def _write_results_equipment_gantt_sheet(
 
 
 def row_has_completion_keyword(row):
-    """åŠ å·¥å®Œäº†åŒºåˆ†ã«ã€Œå®Œäº†ã€ã®æ–‡å­—ãŒå«ã¾ã‚Œã‚‹å ´åˆã¯ã‚¿ã‚¹ã‚¯å®Œäº†ã¨ã¿ãªã™ã€‚"""
+    """‰ÁHŠ®—¹‹æ•ª‚ÉuŠ®—¹v‚Ì•¶š‚ªŠÜ‚Ü‚ê‚éê‡‚Íƒ^ƒXƒNŠ®—¹‚Æ‚İ‚È‚·B"""
     v = row.get(TASK_COL_COMPLETION_FLAG)
     if v is None or pd.isna(v):
         return False
-    return "å®Œäº†" in str(v)
+    return "Š®—¹" in str(v)
 
 
 def _plan_row_exclude_from_assignment(row) -> bool:
     """
-    ã€Œé…å°ä¸è¦ã€åˆ—ãŒã‚ªãƒ³ãªã‚‰ã€ãã®è¡Œã¯é…å°ã‚­ãƒ¥ãƒ¼ã¸å…¥ã‚Œãšã€ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã® AI è§£æè¡Œã‹ã‚‰ã‚‚é™¤ãã€‚
+    u”z‘ä•s—vv—ñ‚ªƒIƒ“‚È‚çA‚»‚Ìs‚Í”z‘äƒLƒ…[‚Ö“ü‚ê‚¸A“Á•Êw’è_”õl‚Ì AI ‰ğÍs‚©‚ç‚àœ‚­B
 
-    é…å°ã‹ã‚‰å¤–ã™ï¼ˆçœŸï¼‰: è«–ç†å€¤ Trueã€æ•°å€¤ 1ã€æ–‡å­—åˆ—ï¼ˆNFKC å¾Œãƒ»å°æ–‡å­—ï¼‰
-      true / 1 / yes / on / y / t / ã¯ã„ / â—‹ / ã€‡ / â—
-    é…å°å¯¾è±¡ï¼ˆå½ï¼‰: ç©ºã€Noneã€Falseã€0ã€no / off / false / ã„ã„ãˆ / å¦ ç­‰
-    ä¸Šè¨˜ä»¥å¤–ã®æ–‡å­—åˆ—ã¯å½ï¼ˆé…å°ã™ã‚‹ï¼‰ã€‚ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹é€£å‹•ã‚»ãƒ«ã¯é€šå¸¸ TRUE/FALSE ã¾ãŸã¯ 1/0ã€‚
+    ”z‘ä‚©‚çŠO‚·i^j: ˜_—’l TrueA”’l 1A•¶š—ñiNFKC ŒãE¬•¶šj
+      true / 1 / yes / on / y / t / ‚Í‚¢ / › / Z / œ
+    ”z‘ä‘ÎÛi‹Uj: ‹óANoneAFalseA0Ano / off / false / ‚¢‚¢‚¦ / ”Û “™
+    ã‹LˆÈŠO‚Ì•¶š—ñ‚Í‹Ui”z‘ä‚·‚éjBƒ`ƒFƒbƒNƒ{ƒbƒNƒX˜A“®ƒZƒ‹‚Í’Êí TRUE/FALSE ‚Ü‚½‚Í 1/0B
     """
     v = row.get(PLAN_COL_EXCLUDE_FROM_ASSIGNMENT)
     if v is True:
@@ -1998,17 +1998,17 @@ def _plan_row_exclude_from_assignment(row) -> bool:
         except (TypeError, ValueError):
             pass
     s = unicodedata.normalize("NFKC", str(v).strip()).lower()
-    if not s or s in ("nan", "none", "false", "0", "no", "off", "ã„ã„ãˆ", "å¦"):
+    if not s or s in ("nan", "none", "false", "0", "no", "off", "‚¢‚¢‚¦", "”Û"):
         return False
-    if s in ("true", "1", "yes", "on", "ã¯ã„", "y", "t", "â—‹", "ã€‡", "â—"):
+    if s in ("true", "1", "yes", "on", "‚Í‚¢", "y", "t", "›", "Z", "œ"):
         return True
     return False
 
 
 def _coerce_plan_exclude_column_value_for_storage(v):
     """
-    ã€Œé…å°ä¸è¦ã€åˆ—ã¸æ›¸ãè¾¼ã‚€å€¤ã‚’ã€StringDtype åˆ—ã§ã‚‚ä»£å…¥ã‚¨ãƒ©ãƒ¼ã«ãªã‚‰ãªã„å½¢ã«ãã‚ãˆã‚‹ã€‚
-    Excel å–ã‚Šè¾¼ã¿ã® True / 1 / False / 0 ã¨æ–‡å­—åˆ—ã‚’ä¿æŒã—ã€_plan_row_exclude_from_assignment ã¨æ•´åˆã™ã‚‹ã€‚
+    u”z‘ä•s—vv—ñ‚Ö‘‚«‚Ş’l‚ğAStringDtype —ñ‚Å‚à‘ã“üƒGƒ‰[‚É‚È‚ç‚È‚¢Œ`‚É‚»‚ë‚¦‚éB
+    Excel æ‚è‚İ‚Ì True / 1 / False / 0 ‚Æ•¶š—ñ‚ğ•Û‚µA_plan_row_exclude_from_assignment ‚Æ®‡‚·‚éB
     """
     if v is None:
         return ""
@@ -2041,13 +2041,13 @@ def parse_float_safe(val, default=0.0):
 
 def calc_done_qty_equivalent_from_row(row):
     """
-    åŠ å·¥æ¸ˆæ•°é‡ï¼ˆå·¥ç¨‹æŠ•å…¥é‡æ›ç®—ï¼‰ã‚’è¿”ã™ã€‚
+    ‰ÁHÏ”—ÊiH’ö“Š“ü—ÊŠ·Zj‚ğ•Ô‚·B
 
-    åŸºæœ¬å¼:
-      å®Ÿå‡ºæ¥é«˜ Ã· (å—æ³¨æ•° Ã· æ›ç®—æ•°é‡)
-    = å®Ÿå‡ºæ¥é«˜ * æ›ç®—æ•°é‡ / å—æ³¨æ•°
+    Šî–{®:
+      Ào—ˆ‚ € (ó’” € Š·Z”—Ê)
+    = Ào—ˆ‚ * Š·Z”—Ê / ó’”
 
-    å—æ³¨æ•°ãŒç„¡ã„/ä¸æ­£ãªå ´åˆã¯ã€æ—§åˆ—ã€Œå®ŸåŠ å·¥æ•°ã€ã‚’äº’æ›ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã¨ã—ã¦ä½¿ã†ã€‚
+    ó’”‚ª–³‚¢/•s³‚Èê‡‚ÍA‹Œ—ñuÀ‰ÁH”v‚ğŒİŠ·ƒtƒH[ƒ‹ƒoƒbƒN‚Æ‚µ‚Äg‚¤B
     """
     qty_total = parse_float_safe(row.get(TASK_COL_QTY), 0.0)
     order_qty = parse_float_safe(row.get(TASK_COL_ORDER_QTY), 0.0)
@@ -2090,8 +2090,8 @@ def parse_optional_date(val):
 
 def _planning_df_cell_scalar(row, col_name):
     """
-    iterrows() 1è¡Œåˆ†ã‹ã‚‰åˆ—å€¤ã‚’å–ã‚‹ã€‚åŒä¸€è¦‹å‡ºã—ã®é‡è¤‡åˆ—ãŒã‚ã‚‹ã¨ row.get ã¯ Series ã«ãªã‚Šã€
-    strâ†’to_datetime ã§èª¤ã£ãŸæ—¥ä»˜ã«ãªã‚‹ã“ã¨ãŒã‚ã‚‹ãŸã‚ã€å…ˆé ­ã®éæ¬ æã‚¹ã‚«ãƒ©ãƒ¼ã‚’è¿”ã™ã€‚
+    iterrows() 1s•ª‚©‚ç—ñ’l‚ğæ‚éB“¯ˆêŒ©o‚µ‚Ìd•¡—ñ‚ª‚ ‚é‚Æ row.get ‚Í Series ‚É‚È‚èA
+    str¨to_datetime ‚ÅŒë‚Á‚½“ú•t‚É‚È‚é‚±‚Æ‚ª‚ ‚é‚½‚ßAæ“ª‚Ì”ñŒ‡‘¹ƒXƒJƒ‰[‚ğ•Ô‚·B
     """
     v = row.get(col_name) if hasattr(row, "get") else None
     if isinstance(v, pd.Series):
@@ -2109,26 +2109,26 @@ def load_ai_cache():
             with open(ai_cache_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 if isinstance(data, dict):
-                    # æœŸé™åˆ‡ã‚Œã‚¨ãƒ³ãƒˆãƒªã‚’é™¤å»ï¼ˆ6æ™‚é–“ï¼‰
+                    # ŠúŒÀØ‚êƒGƒ“ƒgƒŠ‚ğœ‹i6ŠÔj
                     now_ts = time_module.time()
                     cleaned = {}
                     expired_count = 0
                     for k, v in data.items():
-                        # æ–°å½¢å¼: {"ts": epoch_seconds, "data": {...}}
+                        # VŒ`®: {"ts": epoch_seconds, "data": {...}}
                         if isinstance(v, dict) and "ts" in v and "data" in v:
                             ts = parse_float_safe(v.get("ts"), 0.0)
                             if ts > 0 and (now_ts - ts) <= AI_CACHE_TTL_SECONDS:
                                 cleaned[k] = v
                             else:
                                 expired_count += 1
-                        # æ—§å½¢å¼: å€¤ãŒç›´æ¥AIçµæœdictï¼ˆäº’æ›ã§èª­ã¿å–ã‚Šã€å³æ™‚ã«æ–°å½¢å¼ã¸å†ä¿å­˜ã•ã‚Œã‚‹ï¼‰
+                        # ‹ŒŒ`®: ’l‚ª’¼ÚAIŒ‹‰ÊdictiŒİŠ·‚Å“Ç‚İæ‚èA‘¦‚ÉVŒ`®‚ÖÄ•Û‘¶‚³‚ê‚éj
                         else:
                             cleaned[k] = {"ts": now_ts, "data": v}
                     if expired_count > 0:
-                        logging.info(f"AIã‚­ãƒ£ãƒƒã‚·ãƒ¥æœŸé™åˆ‡ã‚Œã‚’å‰Šé™¤: {expired_count}ä»¶")
+                        logging.info(f"AIƒLƒƒƒbƒVƒ…ŠúŒÀØ‚ê‚ğíœ: {expired_count}Œ")
                     return cleaned
     except Exception as e:
-        logging.warning(f"AIã‚­ãƒ£ãƒƒã‚·ãƒ¥èª­ã¿è¾¼ã¿å¤±æ•—: {e}")
+        logging.warning(f"AIƒLƒƒƒbƒVƒ…“Ç‚İ‚İ¸”s: {e}")
     return {}
 
 def save_ai_cache(cache_obj):
@@ -2136,12 +2136,12 @@ def save_ai_cache(cache_obj):
         with open(ai_cache_path, "w", encoding="utf-8") as f:
             json.dump(cache_obj, f, ensure_ascii=False)
     except Exception as e:
-        logging.warning(f"AIã‚­ãƒ£ãƒƒã‚·ãƒ¥ä¿å­˜å¤±æ•—: {e}")
+        logging.warning(f"AIƒLƒƒƒbƒVƒ…•Û‘¶¸”s: {e}")
 
 def get_cached_ai_result(cache_obj, cache_key, content_key=None):
     """
-    content_key: ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã€‚ä¿å­˜æ™‚ã¨åŒä¸€ã®æ–‡å­—åˆ—ã§ãªã„ãƒ’ãƒƒãƒˆã¯ç„¡åŠ¹åŒ–ã™ã‚‹ï¼ˆç‰¹åˆ¥æŒ‡å®šãƒ»ç…§åˆç”¨ã®äºŒæ¬¡ãƒã‚§ãƒƒã‚¯ï¼‰ã€‚
-    æ—§ã‚¨ãƒ³ãƒˆãƒªã« content_key ãŒç„¡ã„å ´åˆã¯ SHA256 ã‚­ãƒ¼ä¸€è‡´ã®ã¿ã§å¾“æ¥ã©ãŠã‚Šãƒ’ãƒƒãƒˆã¨ã¿ãªã™ã€‚
+    content_key: ƒIƒvƒVƒ‡ƒ“B•Û‘¶‚Æ“¯ˆê‚Ì•¶š—ñ‚Å‚È‚¢ƒqƒbƒg‚Í–³Œø‰»‚·‚éi“Á•Êw’èEÆ‡—p‚Ì“ñŸƒ`ƒFƒbƒNjB
+    ‹ŒƒGƒ“ƒgƒŠ‚É content_key ‚ª–³‚¢ê‡‚Í SHA256 ƒL[ˆê’v‚Ì‚İ‚Å]—ˆ‚Ç‚¨‚èƒqƒbƒg‚Æ‚İ‚È‚·B
     """
     entry = cache_obj.get(cache_key)
     if not isinstance(entry, dict):
@@ -2155,7 +2155,7 @@ def get_cached_ai_result(cache_obj, cache_key, content_key=None):
         stored_ck = entry.get("content_key")
         if stored_ck is not None and stored_ck != content_key:
             logging.info(
-                "AIã‚­ãƒ£ãƒƒã‚·ãƒ¥: ã‚­ãƒ¼ã¯ä¸€è‡´ã—ã¾ã™ãŒ content_key ãŒç¾è¡Œå…¥åŠ›ã¨ç•°ãªã‚‹ãŸã‚ç„¡åŠ¹åŒ–ã—ã¾ã™ã€‚"
+                "AIƒLƒƒƒbƒVƒ…: ƒL[‚Íˆê’v‚µ‚Ü‚·‚ª content_key ‚ªŒ»s“ü—Í‚ÆˆÙ‚È‚é‚½‚ß–³Œø‰»‚µ‚Ü‚·B"
             )
             return None
     data = entry.get("data")
@@ -2170,14 +2170,14 @@ def put_cached_ai_result(cache_obj, cache_key, parsed_obj, content_key=None):
     cache_obj[cache_key] = payload
 
 def extract_retry_seconds(err_text):
-    # ä¾‹: "Please retry in 57.089735313s."
+    # —á: "Please retry in 57.089735313s."
     m = re.search(r"retry in ([0-9]+(?:\.[0-9]+)?)s", err_text, re.IGNORECASE)
     if m:
         try:
             return float(m.group(1))
         except ValueError:
             pass
-    # ä¾‹: "'retryDelay': '57s'"
+    # —á: "'retryDelay': '57s'"
     m = re.search(r"retryDelay'\s*:\s*'([0-9]+)s'", err_text)
     if m:
         try:
@@ -2189,14 +2189,14 @@ def extract_retry_seconds(err_text):
 
 def infer_unit_m_from_product_name(product_name, fallback_unit):
     """
-    è£½å“åæ–‡å­—åˆ—ã‹ã‚‰åŠ å·¥å˜ä½(m)ã‚’æ¨å®šã™ã‚‹æš«å®šãƒ«ãƒ¼ãƒ«ã€‚
-    ä¾‹: 15020-JX5R- 770X300F-A   R -> 300
-    â€» ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³ãŒå¤šã„å‰æã®ãŸã‚ã€ã“ã“ã‚’éƒ½åº¦èª¿æ•´ã§ãã‚‹ã‚ˆã†é–¢æ•°åŒ–ã—ã¦ã„ã‚‹ã€‚
+    »•i–¼•¶š—ñ‚©‚ç‰ÁH’PˆÊ(m)‚ğ„’è‚·‚éb’èƒ‹[ƒ‹B
+    —á: 15020-JX5R- 770X300F-A   R -> 300
+    ¦ ƒoƒŠƒG[ƒVƒ‡ƒ“‚ª‘½‚¢‘O’ñ‚Ì‚½‚ßA‚±‚±‚ğ“s“x’²®‚Å‚«‚é‚æ‚¤ŠÖ”‰»‚µ‚Ä‚¢‚éB
     """
     if product_name is None or pd.isna(product_name):
         return fallback_unit
     s = str(product_name)
-    # "770X300..." ã®ã‚ˆã†ãªãƒ‘ã‚¿ãƒ¼ãƒ³ã‹ã‚‰ X ã®å¾Œã®æ•°å€¤ã‚’æ‹¾ã†ï¼ˆæœ€å¾Œã«è¦‹ã¤ã‹ã£ãŸXã‚’å„ªå…ˆï¼‰
+    # "770X300..." ‚Ì‚æ‚¤‚Èƒpƒ^[ƒ“‚©‚ç X ‚ÌŒã‚Ì”’l‚ğE‚¤iÅŒã‚ÉŒ©‚Â‚©‚Á‚½X‚ğ—Dæj
     matches = re.findall(r"[xX]\s*(\d{2,6})", s)
     if matches:
         try:
@@ -2209,29 +2209,29 @@ def infer_unit_m_from_product_name(product_name, fallback_unit):
 
 def load_tasks_df():
     """
-    ã‚¿ã‚¹ã‚¯å…¥åŠ›ã‚’å–å¾—ã™ã‚‹ï¼ˆtasks.xlsx ã¯ä½¿ç”¨ã—ãªã„ï¼‰ã€‚
-    å¿…é ˆ: ç’°å¢ƒå¤‰æ•° TASK_INPUT_WORKBOOK ã«ãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã®ãƒ•ãƒ«ãƒ‘ã‚¹ï¼ˆVBA ãŒè¨­å®šï¼‰
-         ã‚·ãƒ¼ãƒˆã€ŒåŠ å·¥è¨ˆç”»DATAã€ã‚’èª­ã¿è¾¼ã‚€ï¼ˆæŠ•å…¥ç›®å®‰ã¯ã€Œå›ç­”ç´æœŸã€ã€æœªå…¥åŠ›æ™‚ã¯ã€ŒæŒ‡å®šç´æœŸã€ï¼‰ã€‚
+    ƒ^ƒXƒN“ü—Í‚ğæ“¾‚·‚éitasks.xlsx ‚Íg—p‚µ‚È‚¢jB
+    •K{: ŠÂ‹«•Ï” TASK_INPUT_WORKBOOK ‚Éƒ}ƒNƒÀsƒuƒbƒN‚Ìƒtƒ‹ƒpƒXiVBA ‚ªİ’èj
+         ƒV[ƒgu‰ÁHŒv‰æDATAv‚ğ“Ç‚İ‚Şi“Š“ü–ÚˆÀ‚Íu‰ñ“š”[ŠúvA–¢“ü—Í‚Íuw’è”[ŠúvjB
     """
     if not TASKS_INPUT_WORKBOOK:
         raise FileNotFoundError(
-            "TASK_INPUT_WORKBOOK ãŒæœªè¨­å®šã§ã™ã€‚VBA ã® RunPython ã§ãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã®ãƒ‘ã‚¹ã‚’æ¸¡ã—ã¦ãã ã•ã„ã€‚"
+            "TASK_INPUT_WORKBOOK ‚ª–¢İ’è‚Å‚·BVBA ‚Ì RunPython ‚Åƒ}ƒNƒÀsƒuƒbƒN‚ÌƒpƒX‚ğ“n‚µ‚Ä‚­‚¾‚³‚¢B"
         )
     if not os.path.exists(TASKS_INPUT_WORKBOOK):
-        raise FileNotFoundError(f"TASK_INPUT_WORKBOOK ãŒå­˜åœ¨ã—ã¾ã›ã‚“: {TASKS_INPUT_WORKBOOK}")
+        raise FileNotFoundError(f"TASK_INPUT_WORKBOOK ‚ª‘¶İ‚µ‚Ü‚¹‚ñ: {TASKS_INPUT_WORKBOOK}")
     df = pd.read_excel(TASKS_INPUT_WORKBOOK, sheet_name=TASKS_SHEET_NAME)
     df.columns = df.columns.str.strip()
-    logging.info(f"ã‚¿ã‚¹ã‚¯å…¥åŠ›: '{TASKS_INPUT_WORKBOOK}' ã® '{TASKS_SHEET_NAME}' ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚")
+    logging.info(f"ƒ^ƒXƒN“ü—Í: '{TASKS_INPUT_WORKBOOK}' ‚Ì '{TASKS_SHEET_NAME}' ‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B")
     return df
 
 
 def _nfkc_column_aliases(canonical_name):
-    """è¦‹å‡ºã—ã®è¡¨è¨˜ã‚†ã‚Œï¼ˆå…¨è§’è¨˜å·ãƒ»äº’æ›æ–‡å­—ï¼‰ã‚’å¸åã™ã‚‹ãŸã‚ã®æ¯”è¼ƒã‚­ãƒ¼ã€‚"""
+    """Œ©o‚µ‚Ì•\‹L‚ä‚êi‘SŠp‹L†EŒİŠ·•¶šj‚ğ‹zû‚·‚é‚½‚ß‚Ì”äŠrƒL[B"""
     return unicodedata.normalize("NFKC", str(canonical_name).strip())
 
 
 def _align_dataframe_headers_to_canonical(df, canonical_names):
-    """åˆ—åã‚’ NFKC ä¸€è‡´ã§ canonical ã«å¯„ã›ã‚‹ï¼ˆExcel å´ãŒå…¨è§’ '_' ç­‰ã§ã‚‚èª­ã‚ã‚‹ã‚ˆã†ã«ï¼‰ã€‚"""
+    """—ñ–¼‚ğ NFKC ˆê’v‚Å canonical ‚ÉŠñ‚¹‚éiExcel ‘¤‚ª‘SŠp '_' “™‚Å‚à“Ç‚ß‚é‚æ‚¤‚ÉjB"""
     key_to_canonical = {_nfkc_column_aliases(c): c for c in canonical_names}
     rename_map = {}
     for col in df.columns:
@@ -2247,8 +2247,8 @@ def _align_dataframe_headers_to_canonical(df, canonical_names):
 
 def _normalize_equipment_match_key(val):
     """
-    å·¥ç¨‹åï¼ˆè¨­å‚™åï¼‰ã®ç…§åˆç”¨ã‚­ãƒ¼ã€‚
-    NFKCãƒ»å‰å¾Œç©ºç™½ãƒ»é€£ç¶šç©ºç™½ãƒ»NBSP/å…¨è§’ã‚¹ãƒšãƒ¼ã‚¹ãƒ»ã‚¼ãƒ­å¹…æ–‡å­—ã‚’æ­£è¦åŒ–ã™ã‚‹ã€‚
+    H’ö–¼iİ”õ–¼j‚ÌÆ‡—pƒL[B
+    NFKCE‘OŒã‹ó”’E˜A‘±‹ó”’ENBSP/‘SŠpƒXƒy[ƒXEƒ[ƒ••¶š‚ğ³‹K‰»‚·‚éB
     """
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return ""
@@ -2260,7 +2260,7 @@ def _normalize_equipment_match_key(val):
 
 
 def _equipment_line_key_to_physical_occupancy_key(eq_line: str) -> str:
-    """è¨­å‚™åˆ—ã‚­ãƒ¼ï¼ˆå·¥ç¨‹+æ©Ÿæ¢° ç­‰ï¼‰ã‹ã‚‰ã€ç‰©ç†æ©Ÿæ¢°ã®å æœ‰ã«ç”¨ã„ã‚‹ã‚­ãƒ¼ï¼ˆæ©Ÿæ¢°åå´ãƒ»æ­£è¦åŒ–ï¼‰ã‚’å¾—ã‚‹ã€‚"""
+    """İ”õ—ñƒL[iH’ö+‹@ŠB “™j‚©‚çA•¨—‹@ŠB‚Ìè—L‚É—p‚¢‚éƒL[i‹@ŠB–¼‘¤E³‹K‰»j‚ğ“¾‚éB"""
     s = str(eq_line or "").strip()
     if not s:
         return ""
@@ -2272,13 +2272,13 @@ def _equipment_line_key_to_physical_occupancy_key(eq_line: str) -> str:
 
 def _physical_machine_occupancy_key_for_task(task: dict) -> str:
     """
-    è¨­å‚™ã®å£æ™‚è¨ˆå æœ‰ï¼ˆmachine_avail_dtãƒ»é–“éš”ãƒŸãƒ©ãƒ¼ï¼‰ã«ç”¨ã„ã‚‹ã‚­ãƒ¼ã€‚
-    æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼åˆ—ã¯ equipment_line_key ã®ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã¨ä¸€è‡´ã™ã‚‹ãŸã‚ã€
-    æ­£è¦åŒ–å¾Œã«ã€Œ+ã€ã‚’å«ã‚€ã¨ãã¯ **machine_name ã‚ˆã‚Šå…ˆã«** ãã“ã‹ã‚‰ç‰©ç†æ©Ÿæ¢°åã‚’æ¡ç”¨ã™ã‚‹ã€‚
-    ï¼ˆmachine_name ã«å·¥ç¨‹åã®ã¿ãªã©ãŒå…¥ã‚Šã€åºŠã‚­ãƒ¼ã€Œç†±èç€æ©Ÿ æ¹–å—ã€ã¨ãšã‚Œã¦å€™è£œå¤–ã—æ¼ã‚Œã™ã‚‹ã®ã‚’é˜²ãï¼‰
-    å˜ä¸€åã®ã¨ãã¯å¾“æ¥ã©ãŠã‚Š machine_name ã‚’å„ªå…ˆã—ã€ç„¡ã‘ã‚Œã° equipment_line_key / machine ã‹ã‚‰æ¨å®šã™ã‚‹ã€‚
-    machine_name ã«ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã¨å…¥ã£ã¦ã„ã‚‹å ´åˆã§ã‚‚ã€å æœ‰ã¯ç‰©ç†æ©Ÿæ¢°åï¼ˆ+ ã®å³å´ï¼‰ã«å¯„ã›ã‚‹ã€‚
-    å…¨è§’ã€Œï¼‹ã€ã®ã¿ã®åˆ—ã¯ NFKC å¾Œã«åŠè§’ã€Œ+ã€ã«ãªã‚‹ãŸã‚ã€åˆ†å‰²åˆ¤å®šã¯æ­£è¦åŒ–å¾Œã«è¡Œã†ã€‚
+    İ”õ‚Ì•ÇŒvè—Limachine_avail_dtEŠÔŠuƒ~ƒ‰[j‚É—p‚¢‚éƒL[B
+    ‹@ŠBƒJƒŒƒ“ƒ_[—ñ‚Í equipment_line_key ‚ÌuH’ö+‹@ŠBv‚Æˆê’v‚·‚é‚½‚ßA
+    ³‹K‰»Œã‚Éu+v‚ğŠÜ‚Ş‚Æ‚«‚Í **machine_name ‚æ‚èæ‚É** ‚»‚±‚©‚ç•¨—‹@ŠB–¼‚ğÌ—p‚·‚éB
+    imachine_name ‚ÉH’ö–¼‚Ì‚İ‚È‚Ç‚ª“ü‚èA°ƒL[u”M—Z’…‹@ ŒÎ“ìv‚Æ‚¸‚ê‚ÄŒó•âŠO‚µ˜R‚ê‚·‚é‚Ì‚ğ–h‚®j
+    ’Pˆê–¼‚Ì‚Æ‚«‚Í]—ˆ‚Ç‚¨‚è machine_name ‚ğ—Dæ‚µA–³‚¯‚ê‚Î equipment_line_key / machine ‚©‚ç„’è‚·‚éB
+    machine_name ‚ÉuH’ö+‹@ŠBv‚Æ“ü‚Á‚Ä‚¢‚éê‡‚Å‚àAè—L‚Í•¨—‹@ŠB–¼i+ ‚Ì‰E‘¤j‚ÉŠñ‚¹‚éB
+    ‘SŠpu{v‚Ì‚İ‚Ì—ñ‚Í NFKC Œã‚É”¼Špu+v‚É‚È‚é‚½‚ßA•ªŠ„”»’è‚Í³‹K‰»Œã‚És‚¤B
     """
     ek = str(task.get("equipment_line_key") or "").strip()
     nek = _normalize_equipment_match_key(ek)
@@ -2299,9 +2299,9 @@ def _physical_machine_occupancy_key_for_task(task: dict) -> str:
 
 def _machine_occupancy_key_resolve(task: dict, eq_line: str) -> str:
     """
-    machine_avail_dtãƒ»æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼åºŠã¨æ•´åˆã™ã‚‹å æœ‰ã‚­ãƒ¼ï¼ˆåŸå‰‡: ç‰©ç†æ©Ÿæ¢°åï¼‰ã€‚
-    task ã‹ã‚‰å–ã‚Œãªã„ã¨ãã¯ eq_lineï¼ˆå·¥ç¨‹+æ©Ÿæ¢°ï¼‰ã‹ã‚‰æ©Ÿæ¢°åå´ã‚’æ¨å®šã—ã€æœ€å¾Œã®æ‰‹æ®µã§ eq_lineã€‚
-    ã€Œâ€¦ or eq_lineã€ã«ã‚ˆã‚‹å·¥ç¨‹+æ©Ÿæ¢°ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã¯æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ç‰©ç†ã‚­ãƒ¼ã¨ä¸ä¸€è‡´ã«ãªã‚Šå¾—ã‚‹ãŸã‚ç¦æ­¢ã€‚
+    machine_avail_dtE‹@ŠBƒJƒŒƒ“ƒ_[°‚Æ®‡‚·‚éè—LƒL[iŒ´‘¥: •¨—‹@ŠB–¼jB
+    task ‚©‚çæ‚ê‚È‚¢‚Æ‚«‚Í eq_lineiH’ö+‹@ŠBj‚©‚ç‹@ŠB–¼‘¤‚ğ„’è‚µAÅŒã‚Ìè’i‚Å eq_lineB
+    uc or eq_linev‚É‚æ‚éH’ö+‹@ŠBƒtƒH[ƒ‹ƒoƒbƒN‚Í‹@ŠBƒJƒŒƒ“ƒ_[•¨—ƒL[‚Æ•sˆê’v‚É‚È‚è“¾‚é‚½‚ß‹Ö~B
     """
     occ = (_physical_machine_occupancy_key_for_task(task) or "").strip()
     if occ:
@@ -2314,13 +2314,13 @@ def _machine_occupancy_key_resolve(task: dict, eq_line: str) -> str:
 
 
 def _equipment_lookup_normalized_to_canonical(equipment_list):
-    """æ­£è¦åŒ–ã‚­ãƒ¼ â†’ master ã‚¹ã‚­ãƒ«ã‚·ãƒ¼ãƒˆä¸Šã®åˆ—åï¼ˆcanonical è¡¨è¨˜ï¼‰ã€‚"""
+    """³‹K‰»ƒL[ ¨ master ƒXƒLƒ‹ƒV[ƒgã‚Ì—ñ–¼icanonical •\‹LjB"""
     lookup = {}
     for eq in equipment_list:
         k = _normalize_equipment_match_key(eq)
         if k and k not in lookup:
             lookup[k] = eq
-    # å·¥ç¨‹åã®ã¿ã®ç…§åˆï¼ˆåŠ å·¥å®Ÿç¸¾DATAç­‰ï¼‰: åŒä¸€å·¥ç¨‹ã®å…ˆé ­åˆ—ï¼ˆå·¥ç¨‹+æ©Ÿæ¢°ï¼‰ã¸å¯„ã›ã‚‹
+    # H’ö–¼‚Ì‚İ‚ÌÆ‡i‰ÁHÀÑDATA“™j: “¯ˆêH’ö‚Ìæ“ª—ñiH’ö+‹@ŠBj‚ÖŠñ‚¹‚é
     for eq in equipment_list:
         s = str(eq).strip()
         if "+" not in s:
@@ -2334,8 +2334,8 @@ def _equipment_lookup_normalized_to_canonical(equipment_list):
 
 def _equipment_schedule_header_labels(equipment_list: list) -> list:
     """
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ãƒ»çµæœ_è¨­å‚™ã‚¬ãƒ³ãƒˆã®è¡Œï¼åˆ—è¦‹å‡ºã—ç”¨ã€‚
-    å†…éƒ¨ã‚­ãƒ¼ãŒã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã®ã¨ãã¯æ©Ÿæ¢°åã‚’è¡¨ç¤ºã—ã€æ©Ÿæ¢°åã®é‡è¤‡æ™‚ã®ã¿å·¥ç¨‹ã‚’æ‹¬å¼§ã§è£œã†ã€‚
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„EŒ‹‰Ê_İ”õƒKƒ“ƒg‚Ìs^—ñŒ©o‚µ—pB
+    “à•”ƒL[‚ªuH’ö+‹@ŠBv‚Ì‚Æ‚«‚Í‹@ŠB–¼‚ğ•\¦‚µA‹@ŠB–¼‚Ìd•¡‚Ì‚İH’ö‚ğŠ‡ŒÊ‚Å•â‚¤B
     """
     raw = []
     for eq in equipment_list:
@@ -2354,7 +2354,7 @@ def _equipment_schedule_header_labels(equipment_list: list) -> list:
             s = str(eq).strip()
             if "+" in s:
                 p = s.split("+", 1)[0].strip()
-                out.append(f"{r}ï¼ˆ{p}ï¼‰" if p else r)
+                out.append(f"{r}i{p}j" if p else r)
             else:
                 out.append(r)
         else:
@@ -2364,8 +2364,8 @@ def _equipment_schedule_header_labels(equipment_list: list) -> list:
 
 def _split_equipment_line_process_machine(eq_line: str) -> tuple[str, str]:
     """
-    è¨­å‚™ãƒã‚¹ã‚¿ã®åˆ—ã‚­ãƒ¼ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã‚’ (å·¥ç¨‹å, æ©Ÿæ¢°å) ã«åˆ†å‰²ã™ã‚‹ã€‚
-    '+' ãŒç„¡ã„ã¨ãã¯æ©Ÿæ¢°åã®ã¿ã¨ã¿ãªã—ã€å·¥ç¨‹åã¯ç©ºæ–‡å­—ã€‚
+    İ”õƒ}ƒXƒ^‚Ì—ñƒL[uH’ö+‹@ŠBv‚ğ (H’ö–¼, ‹@ŠB–¼) ‚É•ªŠ„‚·‚éB
+    '+' ‚ª–³‚¢‚Æ‚«‚Í‹@ŠB–¼‚Ì‚İ‚Æ‚İ‚È‚µAH’ö–¼‚Í‹ó•¶šB
     """
     s = str(eq_line).strip()
     if not s:
@@ -2378,8 +2378,8 @@ def _split_equipment_line_process_machine(eq_line: str) -> tuple[str, str]:
 
 def _gantt_member_label_surname_only(raw: str) -> str:
     """
-    è¨­å‚™ã‚¬ãƒ³ãƒˆã®æ‹…å½“è€…ã‚»ãƒ«ç”¨ã€‚åŠè§’ï¼å…¨è§’ç©ºç™½ãŒã‚ã‚Œã°æ‰‹å‰ã‚’å§“ã¨ã¿ãªã—ã€ç„¡ã„ã¨ãã¯å…¨ä½“ã‚’è¡¨ç¤º
-    ï¼ˆæ°åãŒ1ãƒˆãƒ¼ã‚¯ãƒ³ã®ã¿ã®ã¨ãã¯å§“ã®åˆ‡ã‚Šå‡ºã—ä¸å¯ã®ãŸã‚ãã®ã¾ã¾ï¼‰ã€‚NFKCãƒ»å¯Œç”°/å†¨ç”°å¯„ã›ã¯å§“ç”¨ã¨åŒã˜ã€‚
+    İ”õƒKƒ“ƒg‚Ì’S“–ÒƒZƒ‹—pB”¼Šp^‘SŠp‹ó”’‚ª‚ ‚ê‚Îè‘O‚ğ©‚Æ‚İ‚È‚µA–³‚¢‚Æ‚«‚Í‘S‘Ì‚ğ•\¦
+    i–¼‚ª1ƒg[ƒNƒ“‚Ì‚İ‚Ì‚Æ‚«‚Í©‚ÌØ‚èo‚µ•s‰Â‚Ì‚½‚ß‚»‚Ì‚Ü‚ÜjBNFKCE•x“c/•y“cŠñ‚¹‚Í©—p‚Æ“¯‚¶B
     """
     sei, mei = _split_person_sei_mei(raw)
     if not sei:
@@ -2389,7 +2389,7 @@ def _gantt_member_label_surname_only(raw: str) -> str:
 
 
 def _gantt_row_member_names(evlist) -> str:
-    """è¨­å‚™ã‚¬ãƒ³ãƒˆè¡Œç”¨: ä¸»æ‹…å½“(op)ã¨ã‚µãƒ–(sub)ã‚’å‡ºç¾é †ã§é‡è¤‡é™¤å»ã—ã€å§“ã®ã¿ã‚’ã‚«ãƒ³ãƒ+åŠè§’ã‚¹ãƒšãƒ¼ã‚¹åŒºåˆ‡ã‚Šã€‚"""
+    """İ”õƒKƒ“ƒgs—p: å’S“–(op)‚ÆƒTƒu(sub)‚ğoŒ»‡‚Åd•¡œ‹‚µA©‚Ì‚İ‚ğƒJƒ“ƒ}+”¼ŠpƒXƒy[ƒX‹æØ‚èB"""
     raw_names: list[str] = []
     seen_raw: set[str] = set()
     for e in evlist or []:
@@ -2400,7 +2400,7 @@ def _gantt_row_member_names(evlist) -> str:
         sub_raw = str(e.get("sub") or "").strip()
         if not sub_raw:
             continue
-        for seg in re.split(r"[,ã€]", sub_raw):
+        for seg in re.split(r"[,A]", sub_raw):
             t = seg.strip()
             if t and t not in seen_raw:
                 seen_raw.add(t)
@@ -2412,13 +2412,13 @@ def _gantt_row_member_names(evlist) -> str:
         if lab and lab not in seen_label:
             seen_label.add(lab)
             labels.append(lab)
-    return ", ".join(labels) if labels else "â€”"
+    return ", ".join(labels) if labels else "?"
 
 
 def _resolve_equipment_line_key_for_task(task: dict, equipment_list: list | None) -> str:
     """
-    è¨­å‚™æ™‚é–“å‰²ãƒ»è¨­å‚™å°‚æœ‰ç©ºãã®åˆ—ã‚­ãƒ¼ï¼ˆskills / need ã¨åŒã˜ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã‚’åŸºæœ¬ã¨ã™ã‚‹ï¼‰ã€‚
-    æ©Ÿæ¢°åãŒç©ºã§ãƒã‚¹ã‚¿ã«å½“è©²å·¥ç¨‹ã®åˆ—ãŒ1ã¤ã ã‘ãªã‚‰ãã®è¤‡åˆã‚­ãƒ¼ã¸å¯„ã›ã‚‹ã€‚
+    İ”õŠÔŠ„Eİ”õê—L‹ó‚«‚Ì—ñƒL[iskills / need ‚Æ“¯‚¶uH’ö+‹@ŠBv‚ğŠî–{‚Æ‚·‚éjB
+    ‹@ŠB–¼‚ª‹ó‚Åƒ}ƒXƒ^‚É“–ŠYH’ö‚Ì—ñ‚ª1‚Â‚¾‚¯‚È‚ç‚»‚Ì•¡‡ƒL[‚ÖŠñ‚¹‚éB
     """
     p = str(task.get("machine") or "").strip()
     mn = str(task.get("machine_name") or "").strip()
@@ -2444,8 +2444,8 @@ def _apply_planning_sheet_post_load_mutations(
     df: "pd.DataFrame", wb_path: str, log_prefix: str
 ) -> None:
     """
-    é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã‚’ DataFrame åŒ–ã—ãŸç›´å¾Œã®å…±é€šå‡¦ç†ã€‚
-    æ®µéš2ã® ``load_planning_tasks_df`` ã¨åŒã˜ï¼ˆè¨­å®šã‚·ãƒ¼ãƒˆãƒ»åˆ†å‰²è¡Œãƒ»é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«ï¼‰ã€‚
+    ”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚ğ DataFrame ‰»‚µ‚½’¼Œã‚Ì‹¤’Êˆ—B
+    ’iŠK2‚Ì ``load_planning_tasks_df`` ‚Æ“¯‚¶iİ’èƒV[ƒgE•ªŠ„sE”z‘ä•s—vƒ‹[ƒ‹jB
     """
     try:
         _pairs_lr = []
@@ -2465,12 +2465,12 @@ def _apply_planning_sheet_post_load_mutations(
             _pairs_lr.append((_p, _m))
         run_exclude_rules_sheet_maintenance(wb_path, _pairs_lr, log_prefix)
     except Exception:
-        logging.exception("%s: è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã®ä¿å®ˆã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰", log_prefix)
+        logging.exception("%s: İ’è_”z‘ä•s—vH’ö‚Ì•Ûç‚Å—áŠOi‘±sj", log_prefix)
     try:
         _apply_auto_exclude_bunkatsu_duplicate_machine(df, log_prefix=log_prefix)
     except Exception as ex:
         logging.warning(
-            "%s: åˆ†å‰²è¡Œã®é…å°ä¸è¦è‡ªå‹•è¨­å®šã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s",
+            "%s: •ªŠ„s‚Ì”z‘ä•s—v©“®İ’è‚Å—áŠOi‘±sj: %s",
             log_prefix,
             ex,
         )
@@ -2478,27 +2478,27 @@ def _apply_planning_sheet_post_load_mutations(
         apply_exclude_rules_config_to_plan_df(df, wb_path, log_prefix)
     except Exception as ex:
         logging.warning(
-            "%s: è¨­å®šã‚·ãƒ¼ãƒˆã«ã‚ˆã‚‹é…å°ä¸è¦é©ç”¨ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s",
+            "%s: İ’èƒV[ƒg‚É‚æ‚é”z‘ä•s—v“K—p‚Å—áŠOi‘±sj: %s",
             log_prefix,
             ex,
         )
 
 def load_planning_tasks_df():
     """
-    2æ®µéšç›®ç”¨: ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ä¸Šã®ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã‚·ãƒ¼ãƒˆã‚’èª­ã¿è¾¼ã‚€ã€‚
+    2’iŠK–Ú—p: ƒ}ƒNƒƒuƒbƒNã‚Ìu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—ÍvƒV[ƒg‚ğ“Ç‚İ‚ŞB
 
-    ã€Œæ‹…å½“OP_æŒ‡å®šã€åˆ—ã¾ãŸã¯ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒã® AI å‡ºåŠ› preferred_operator ã§ä¸»æ‹…å½“ OP ã‚’æŒ‡åã§ãã‚‹ï¼ˆskills ã®ãƒ¡ãƒ³ãƒãƒ¼åã¨ã‚ã„ã¾ã„ä¸€è‡´ï¼‰ã€‚
-    ãƒ¡ã‚¤ãƒ³ã€Œå†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰ã€ã® task_preferred_operators ã¯ generate_plan å´ã§æœ€å„ªå…ˆãƒãƒ¼ã‚¸ã•ã‚Œã‚‹ã€‚
-    ã€Œé…å°ä¸è¦ã€ãŒã‚ªãƒ³ï¼ˆTRUE/1/ã¯ã„ ç­‰ï¼‰ã®è¡Œã¯é…å°å¯¾è±¡å¤–ã€‚
-    èª­ã¿è¾¼ã¿å¾Œã€åŒä¸€ä¾é ¼NOãƒ»é‡è¤‡æ©Ÿæ¢°åãŒã‚ã‚‹ã‚°ãƒ«ãƒ¼ãƒ—ã®å·¥ç¨‹ã€Œåˆ†å‰²ã€è¡Œã¸ç©ºãªã‚‰ã€Œé…å°ä¸è¦ã€=yesï¼ˆæ®µéš1ã¨åŒã˜ï¼‰ã€‚
-    ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ã§å·¥ç¨‹+æ©Ÿæ¢°ã®çµ„ã‚’åŒæœŸã—ã€C/D/E ã«åŸºã¥ãé…å°ä¸è¦ã‚’åæ˜ ã™ã‚‹ï¼ˆã‚·ãƒ¼ãƒˆä½œæˆã¯ VBAï¼‰ã€‚
+    u’S“–OP_w’èv—ñ‚Ü‚½‚Í“Á•Êw’è”õl‚Ì AI o—Í preferred_operator ‚Åå’S“– OP ‚ğw–¼‚Å‚«‚éiskills ‚Ìƒƒ“ƒo[–¼‚Æ‚ ‚¢‚Ü‚¢ˆê’vjB
+    ƒƒCƒ“uÄ—Dæ“Á•Ê‹LÚv‚Ì task_preferred_operators ‚Í generate_plan ‘¤‚ÅÅ—Dæƒ}[ƒW‚³‚ê‚éB
+    u”z‘ä•s—vv‚ªƒIƒ“iTRUE/1/‚Í‚¢ “™j‚Ìs‚Í”z‘ä‘ÎÛŠOB
+    “Ç‚İ‚İŒãA“¯ˆêˆË—ŠNOEd•¡‹@ŠB–¼‚ª‚ ‚éƒOƒ‹[ƒv‚ÌH’öu•ªŠ„vs‚Ö‹ó‚È‚çu”z‘ä•s—vv=yesi’iŠK1‚Æ“¯‚¶jB
+    uİ’è_”z‘ä•s—vH’öv‚ÅH’ö+‹@ŠB‚Ì‘g‚ğ“¯Šú‚µAC/D/E ‚ÉŠî‚Ã‚«”z‘ä•s—v‚ğ”½‰f‚·‚éiƒV[ƒgì¬‚Í VBAjB
     """
     if not TASKS_INPUT_WORKBOOK:
         raise FileNotFoundError(
-            "TASK_INPUT_WORKBOOK ãŒæœªè¨­å®šã§ã™ã€‚VBA ã® RunPython ã§ãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã®ãƒ‘ã‚¹ã‚’æ¸¡ã—ã¦ãã ã•ã„ã€‚"
+            "TASK_INPUT_WORKBOOK ‚ª–¢İ’è‚Å‚·BVBA ‚Ì RunPython ‚Åƒ}ƒNƒÀsƒuƒbƒN‚ÌƒpƒX‚ğ“n‚µ‚Ä‚­‚¾‚³‚¢B"
         )
     if not os.path.exists(TASKS_INPUT_WORKBOOK):
-        raise FileNotFoundError(f"TASK_INPUT_WORKBOOK ãŒå­˜åœ¨ã—ã¾ã›ã‚“: {TASKS_INPUT_WORKBOOK}")
+        raise FileNotFoundError(f"TASK_INPUT_WORKBOOK ‚ª‘¶İ‚µ‚Ü‚¹‚ñ: {TASKS_INPUT_WORKBOOK}")
     df = pd.read_excel(TASKS_INPUT_WORKBOOK, sheet_name=PLAN_INPUT_SHEET_NAME)
     df.columns = df.columns.str.strip()
     df = _align_dataframe_headers_to_canonical(
@@ -2507,58 +2507,58 @@ def load_planning_tasks_df():
     for c in plan_input_sheet_column_order():
         if c not in df.columns:
             df[c] = ""
-    _apply_planning_sheet_post_load_mutations(df, TASKS_INPUT_WORKBOOK, "é…å°ã‚·ãƒ¼ãƒˆèª­è¾¼")
+    _apply_planning_sheet_post_load_mutations(df, TASKS_INPUT_WORKBOOK, "”z‘äƒV[ƒg“Ç")
     logging.info(
-        f"è¨ˆç”»ã‚¿ã‚¹ã‚¯å…¥åŠ›: '{TASKS_INPUT_WORKBOOK}' ã® '{PLAN_INPUT_SHEET_NAME}' ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚"
+        f"Œv‰æƒ^ƒXƒN“ü—Í: '{TASKS_INPUT_WORKBOOK}' ‚Ì '{PLAN_INPUT_SHEET_NAME}' ‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B"
     )
     return df
 
 
 def _main_sheet_cell_is_global_comment_label(val) -> bool:
-    """ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆä¸Šã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€è¦‹å‡ºã—ã‚»ãƒ«ã‹ï¼ˆè¡¨è¨˜ã‚†ã‚Œè¨±å®¹ï¼‰ã€‚"""
+    """ƒƒCƒ“ƒV[ƒgãuƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgvŒ©o‚µƒZƒ‹‚©i•\‹L‚ä‚ê‹–—ejB"""
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return False
     s = unicodedata.normalize("NFKC", str(val).strip())
     if not s:
         return False
-    if _nfkc_column_aliases(s) == _nfkc_column_aliases("ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆ"):
+    if _nfkc_column_aliases(s) == _nfkc_column_aliases("ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg"):
         return True
-    if "ã‚°ãƒ­ãƒ¼ãƒãƒ«" in s and "ã‚³ãƒ¡ãƒ³ãƒˆ" in s:
+    if "ƒOƒ[ƒoƒ‹" in s and "ƒRƒƒ“ƒg" in s:
         return True
     return False
 
 
 def load_main_sheet_global_priority_override_text() -> str:
     """
-    TASK_INPUT_WORKBOOK ã®ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã§ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ã¨æ›¸ã‹ã‚ŒãŸã‚»ãƒ«ã® **ç›´ä¸‹** ã‚’èª­ã‚€ã€‚
-    ã‚·ãƒ¼ãƒˆå: ã€Œãƒ¡ã‚¤ãƒ³ã€ã€Œãƒ¡ã‚¤ãƒ³_ã€ã€ŒMainã€ã®ã„ãšã‚Œã‹ã€ã¾ãŸã¯åå‰ã«ã€Œãƒ¡ã‚¤ãƒ³ã€ã‚’å«ã‚€ï¼ˆVBA GetMainWorksheet ã¨åŒè¶£æ—¨ï¼‰ã€‚
+    TASK_INPUT_WORKBOOK ‚ÌƒƒCƒ“ƒV[ƒg‚ÅuƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv‚Æ‘‚©‚ê‚½ƒZƒ‹‚Ì **’¼‰º** ‚ğ“Ç‚ŞB
+    ƒV[ƒg–¼: uƒƒCƒ“vuƒƒCƒ“_vuMainv‚Ì‚¢‚¸‚ê‚©A‚Ü‚½‚Í–¼‘O‚ÉuƒƒCƒ“v‚ğŠÜ‚ŞiVBA GetMainWorksheet ‚Æ“¯ï|jB
 
-    å†…å®¹ã¯ **Gemini ã§ä¸€æ‹¬è§£é‡ˆ**ï¼ˆ`analyze_global_priority_override_comment`ï¼‰ã€‚å·¥å ´ä¼‘æ¥­æ—¥ãƒ»å†å„ªå…ˆãƒ•ãƒ©ã‚°ãƒ»æœªå®Ÿè£…æŒ‡ç¤ºã®ãƒ¡ãƒ¢ã‚’ JSON åŒ–ã™ã‚‹ã€‚
-    API ã‚­ãƒ¼ãŒç„¡ã„å ´åˆã®ã¿ã€å·¥å ´ä¼‘æ¥­æ—¥ã¯ãƒ«ãƒ¼ãƒ«ãƒ™ãƒ¼ã‚¹ã® `parse_factory_closure_dates_from_global_comment` ã§è£œå®Œã™ã‚‹ã€‚
+    “à—e‚Í **Gemini ‚ÅˆêŠ‡‰ğß**i`analyze_global_priority_override_comment`jBHê‹x‹Æ“úEÄ—Dæƒtƒ‰ƒOE–¢À‘•w¦‚Ìƒƒ‚‚ğ JSON ‰»‚·‚éB
+    API ƒL[‚ª–³‚¢ê‡‚Ì‚İAHê‹x‹Æ“ú‚Íƒ‹[ƒ‹ƒx[ƒX‚Ì `parse_factory_closure_dates_from_global_comment` ‚Å•âŠ®‚·‚éB
     """
     wb_path = TASKS_INPUT_WORKBOOK.strip() if TASKS_INPUT_WORKBOOK else ""
     if not wb_path or not os.path.exists(wb_path):
         return ""
     if _workbook_should_skip_openpyxl_io(wb_path):
         logging.info(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã‚’èª­ã¿ã¾ã›ã‚“ã€‚",
+            "ƒƒCƒ“Ä—Dæ“Á‹L: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚ÅƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‚ğ“Ç‚İ‚Ü‚¹‚ñB",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
         return ""
     try:
         wb = load_workbook(wb_path, data_only=True, read_only=False)
     except Exception as e:
-        logging.warning("ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ: %s", e)
+        logging.warning("ƒƒCƒ“Ä—Dæ“Á‹L: ƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½: %s", e)
         return ""
     try:
         ws = None
-        for name in ("ãƒ¡ã‚¤ãƒ³", "ãƒ¡ã‚¤ãƒ³_", "Main"):
+        for name in ("ƒƒCƒ“", "ƒƒCƒ“_", "Main"):
             if name in wb.sheetnames:
                 ws = wb[name]
                 break
         if ws is None:
             for sn in wb.sheetnames:
-                if "ãƒ¡ã‚¤ãƒ³" in sn:
+                if "ƒƒCƒ“" in sn:
                     ws = wb[sn]
                     break
         if ws is None:
@@ -2583,25 +2583,25 @@ def load_main_sheet_global_priority_override_text() -> str:
 
 def _global_comment_chunk_implies_factory_closure(chunk: str) -> bool:
     """
-    ãƒ¡ã‚¤ãƒ³ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ã®æ–­ç‰‡ãŒã€å·¥å ´å˜ä½ã®ä¼‘æ¥­ãƒ»éç¨¼åƒã‚’æ„å‘³ã™ã‚‹ã‹ï¼ˆå€‹äººä¼‘ã¿ã ã‘ã‚’èª¤æ¤œå‡ºã—ãªã„ï¼‰ã€‚
+    ƒƒCƒ“uƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv‚Ì’f•Ğ‚ªAHê’PˆÊ‚Ì‹x‹ÆE”ñ‰Ò“­‚ğˆÓ–¡‚·‚é‚©iŒÂl‹x‚İ‚¾‚¯‚ğŒëŒŸo‚µ‚È‚¢jB
     """
     c = unicodedata.normalize("NFKC", str(chunk or ""))
     if not c.strip():
         return False
-    if re.search(r"è‡¨æ™‚\s*ä¼‘æ¥­", c):
+    if re.search(r"—Õ\s*‹x‹Æ", c):
         return True
-    if "ä¼‘å ´" in c:
+    if "‹xê" in c:
         return True
-    if re.search(r"å·¥å ´", c) and re.search(r"ä¼‘|ä¼‘æ¥­|ä¼‘ã¿|åœæ­¢|ãŠä¼‘ã¿", c):
+    if re.search(r"Hê", c) and re.search(r"‹x|‹x‹Æ|‹x‚İ|’â~|‚¨‹x‚İ", c):
         return True
-    if re.search(r"(?:å…¨ç¤¾|å…¨é¤¨|å…¨å·¥å ´).{0,15}(?:ä¼‘|ä¼‘æ¥­|åœæ­¢)", c):
+    if re.search(r"(?:‘SĞ|‘SŠÙ|‘SHê).{0,15}(?:‹x|‹x‹Æ|’â~)", c):
         return True
-    if re.search(r"(?:ç¨¼åƒ|ç”Ÿç”£|ãƒ©ã‚¤ãƒ³).{0,12}(?:åœæ­¢|ãªã—|ç„¡ã—)", c):
+    if re.search(r"(?:‰Ò“­|¶Y|ƒ‰ƒCƒ“).{0,12}(?:’â~|‚È‚µ|–³‚µ)", c):
         return True
-    if re.search(r"åŠ å·¥.{0,15}(?:ã—ãªã„|ç„¡ã—|ãªã—|ãŠä¼‘ã¿)", c):
+    if re.search(r"‰ÁH.{0,15}(?:‚µ‚È‚¢|–³‚µ|‚È‚µ|‚¨‹x‚İ)", c):
         return True
-    if "ä¼‘æ¥­" in c and re.search(
-        r"(?:å·¥å ´|å…¨ç¤¾|æœ¬ç¤¾|å½“æ—¥|å¼Šç¤¾|å½“ç¤¾|å…¨å“¡|ç¤¾å…¨ä½“)", c
+    if "‹x‹Æ" in c and re.search(
+        r"(?:Hê|‘SĞ|–{Ğ|“–“ú|•¾Ğ|“–Ğ|‘Sˆõ|Ğ‘S‘Ì)", c
     ):
         return True
     return False
@@ -2609,40 +2609,40 @@ def _global_comment_chunk_implies_factory_closure(chunk: str) -> bool:
 
 def _md_slash_is_likely_fraction_not_date(t: str, start: int, end: int, mo: int, day: int) -> bool:
     """
-    ã€ŒåŠ å·¥é€Ÿåº¦ã¯1/3ã¨ã—ã¾ã™ã€ã® 1/3 ã‚’ 1æœˆ3æ—¥ ã¨èª¤èªã—ãªã„ã€‚
-    ã€Œ4/1ã¯å·¥å ´ã‚’ä¼‘ã¿ã€ã® 4/1 ã¯æ—¥ä»˜ã®ã¾ã¾ï¼ˆç›´å¾ŒãŒã€Œã¯ã€ãªã‚‰åˆ†æ•°æ‰±ã„ã«ã—ãªã„ï¼‰ã€‚
+    u‰ÁH‘¬“x‚Í1/3‚Æ‚µ‚Ü‚·v‚Ì 1/3 ‚ğ 1Œ3“ú ‚ÆŒë”F‚µ‚È‚¢B
+    u4/1‚ÍHê‚ğ‹x‚İv‚Ì 4/1 ‚Í“ú•t‚Ì‚Ü‚Üi’¼Œã‚ªu‚Ív‚È‚ç•ª”ˆµ‚¢‚É‚µ‚È‚¢jB
     """
     if mo <= 0 or day <= 0:
         return True
     before = t[max(0, start - 32) : start]
     after = t[end : min(len(t), end + 14)]
     after_st = after.lstrip()
-    if after_st.startswith("ã¯"):
+    if after_st.startswith("‚Í"):
         return False
     if re.search(
-        r"(?:åŠ å·¥é€Ÿåº¦|åŠ å·¥\s*ã‚¹ãƒ”ãƒ¼ãƒ‰|é€Ÿåº¦|å€ç‡|ã‚¹ãƒ”ãƒ¼ãƒ‰|åŠ¹ç‡|å‰²åˆ)(?:\s*ã¯)?\s*$",
+        r"(?:‰ÁH‘¬“x|‰ÁH\s*ƒXƒs[ƒh|‘¬“x|”{—¦|ƒXƒs[ƒh|Œø—¦|Š„‡)(?:\s*‚Í)?\s*$",
         before,
     ):
         return True
-    # 1/2ãƒ»1/3ãƒ»2/3 ç­‰ + ã€Œã¨ã—ã¾ã™ã€ã€Œå€ã€â€¦ ã¯åˆ†æ•°ãƒ»æ¯”ç‡å¯„ã‚Šï¼ˆã€Œ3/1ã§ã™ã€ç­‰ã®æ—¥ä»˜ã‚’èª¤ã‚¹ã‚­ãƒƒãƒ—ã—ãªã„ã‚ˆã† ã§ã™/ã§ã‚ã‚‹ ã¯å«ã‚ãªã„ï¼‰
+    # 1/2E1/3E2/3 “™ + u‚Æ‚µ‚Ü‚·vu”{vc ‚Í•ª”E”ä—¦Šñ‚èiu3/1‚Å‚·v“™‚Ì“ú•t‚ğŒëƒXƒLƒbƒv‚µ‚È‚¢‚æ‚¤ ‚Å‚·/‚Å‚ ‚é ‚ÍŠÜ‚ß‚È‚¢j
     frac_pat = re.compile(
-        r"^(?:ã¨ã—ã¾ã™?|ã¨ã™ã‚‹|å€|å‰²åˆ|ã«ã™ã‚‹|ã«è¨­å®š|ãã‚‰ã„|ç¨‹åº¦|ã«å›ºå®š|ã«å¤‰æ›´)"
+        r"^(?:‚Æ‚µ‚Ü‚·?|‚Æ‚·‚é|”{|Š„‡|‚É‚·‚é|‚Éİ’è|‚­‚ç‚¢|’ö“x|‚ÉŒÅ’è|‚É•ÏX)"
     )
     if mo <= 12 and day <= 12 and frac_pat.match(after_st):
         if mo <= 2 or (mo == 3 and day <= 3):
             return True
-    # ã€Œ1/2ã§ã™ã€ã€Œ1/10ã§ã™ã€ã®ã‚ˆã†ãªåˆ†æ¯è¡¨ç¾ï¼ˆå…ˆé ­ãŒ 1/ ã®ã¿ï¼‰
+    # u1/2‚Å‚·vu1/10‚Å‚·v‚Ì‚æ‚¤‚È•ª•ê•\Œ»iæ“ª‚ª 1/ ‚Ì‚İj
     if (
         mo == 1
         and 2 <= day <= 12
-        and re.match(r"^ã§ã™|ã§ã‚ã‚‹\b", after_st)
+        and re.match(r"^‚Å‚·|‚Å‚ ‚é\b", after_st)
     ):
         return True
     return False
 
 
 def _extract_calendar_dates_from_text(s: str, default_year: int) -> list[date]:
-    """ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆå†…ã®æ—¥ä»˜è¡¨è¨˜ã‚’ date ã«å¤‰æ›ï¼ˆåŸºæº–å¹´ã¯è¨ˆç”»ã®åŸºæº–å¹´ï¼‰ã€‚"""
+    """ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg“à‚Ì“ú•t•\‹L‚ğ date ‚É•ÏŠ·iŠî€”N‚ÍŒv‰æ‚ÌŠî€”NjB"""
     t = unicodedata.normalize("NFKC", str(s or ""))
     found: list[date] = []
     seen: set[date] = set()
@@ -2657,19 +2657,19 @@ def _extract_calendar_dates_from_text(s: str, default_year: int) -> list[date]:
             found.append(dd)
 
     for m in re.finditer(
-        r"(\d{4})\s*å¹´\s*(\d{1,2})\s*æœˆ\s*(\d{1,2})\s*æ—¥?",
+        r"(\d{4})\s*”N\s*(\d{1,2})\s*Œ\s*(\d{1,2})\s*“ú?",
         t,
     ):
         add(int(m.group(1)), int(m.group(2)), int(m.group(3)))
     for m in re.finditer(
-        r"(\d{4})\s*[/\-\.ï¼]\s*(\d{1,2})\s*[/\-\.ï¼]\s*(\d{1,2})",
+        r"(\d{4})\s*[/\-\.^]\s*(\d{1,2})\s*[/\-\.^]\s*(\d{1,2})",
         t,
     ):
         add(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-    for m in re.finditer(r"(\d{1,2})\s*æœˆ\s*(\d{1,2})\s*æ—¥", t):
+    for m in re.finditer(r"(\d{1,2})\s*Œ\s*(\d{1,2})\s*“ú", t):
         add(int(default_year), int(m.group(1)), int(m.group(2)))
     for m in re.finditer(
-        r"(?<!\d)(\d{1,2})\s*[/ï¼]\s*(\d{1,2})(?!\d)",
+        r"(?<!\d)(\d{1,2})\s*[/^]\s*(\d{1,2})(?!\d)",
         t,
     ):
         mo_i, d_i = int(m.group(1)), int(m.group(2))
@@ -2681,8 +2681,8 @@ def _extract_calendar_dates_from_text(s: str, default_year: int) -> list[date]:
 
 def _split_global_comment_into_chunks(blob: str) -> list[str]:
     """
-    ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã‚’ã€Œç‹¬ç«‹ã—ãŸæŒ‡ç¤ºã€ã®å¡Šã«åˆ†ã‘ã‚‹ã€‚
-    æ”¹è¡Œï¼ˆExcel ã® Alt+Enterãƒ»Unicode æ”¹è¡Œå«ã‚€ï¼‰ã§å¿…ãšåˆ†å‰²ã—ã€åŒä¸€è¡Œå†…ã¯ ã€‚;ï¼› ã§ç¶šã‘ã¦åˆ†å‰²ã€‚
+    ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‚ğu“Æ—§‚µ‚½w¦v‚Ì‰ò‚É•ª‚¯‚éB
+    ‰üsiExcel ‚Ì Alt+EnterEUnicode ‰üsŠÜ‚Şj‚Å•K‚¸•ªŠ„‚µA“¯ˆês“à‚Í B;G ‚Å‘±‚¯‚Ä•ªŠ„B
     """
     t = unicodedata.normalize("NFKC", str(blob or "").strip())
     if not t:
@@ -2692,7 +2692,7 @@ def _split_global_comment_into_chunks(blob: str) -> list[str]:
         return []
     chunks: list[str] = []
     for line in lines:
-        subs = [c.strip() for c in re.split(r"[ã€‚;ï¼›]+", line) if c.strip()]
+        subs = [c.strip() for c in re.split(r"[B;G]+", line) if c.strip()]
         if subs:
             chunks.extend(subs)
         else:
@@ -2704,8 +2704,8 @@ def parse_factory_closure_dates_from_global_comment(
     text: str, default_year: int
 ) -> set[date]:
     """
-    ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ã«ã€å·¥å ´è‡¨æ™‚ä¼‘æ¥­ãªã©ã¨æ—¥ä»˜ãŒæ›¸ã‹ã‚Œã¦ã„ã‚‹å ´åˆã«
-    ãã®æ—¥ã‚’å·¥å ´ä¼‘ã¿ï¼ˆå…¨å“¡éç¨¼åƒãƒ»é…å°ã§åŠ å·¥ã—ãªã„ï¼‰ã¨ã—ã¦æ‰±ã†æ—¥ä»˜é›†åˆã‚’è¿”ã™ã€‚
+    ƒƒCƒ“ƒV[ƒguƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv‚ÉAHê—Õ‹x‹Æ‚È‚Ç‚Æ“ú•t‚ª‘‚©‚ê‚Ä‚¢‚éê‡‚É
+    ‚»‚Ì“ú‚ğHê‹x‚İi‘Sˆõ”ñ‰Ò“­E”z‘ä‚Å‰ÁH‚µ‚È‚¢j‚Æ‚µ‚Äˆµ‚¤“ú•tW‡‚ğ•Ô‚·B
     """
     blob = unicodedata.normalize("NFKC", str(text or "").strip())
     if not blob:
@@ -2729,15 +2729,15 @@ def parse_factory_closure_dates_from_global_comment(
 def apply_factory_closure_dates_to_attendance(
     attendance_data: dict, members: list, closure_dates: set[date]
 ) -> None:
-    """å·¥å ´ä¼‘æ¥­æ—¥: å‹¤æ€ ä¸Šã¯å…¨å“¡ is_working=False ã¨ã—ã€ãã®æ—¥ã¯è¨­å‚™å‰²ä»˜ã‚’è¡Œã‚ãªã„ã€‚"""
+    """Hê‹x‹Æ“ú: ‹Î‘Óã‚Í‘Sˆõ is_working=False ‚Æ‚µA‚»‚Ì“ú‚Íİ”õŠ„•t‚ğs‚í‚È‚¢B"""
     if not closure_dates or not attendance_data:
         return
-    tag = "å·¥å ´ä¼‘æ¥­ï¼ˆãƒ¡ã‚¤ãƒ³ãƒ»ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆï¼‰"
+    tag = "Hê‹x‹ÆiƒƒCƒ“EƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgj"
     for d in sorted(closure_dates):
         if d not in attendance_data:
             logging.warning(
-                "ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã®å·¥å ´ä¼‘æ¥­æ—¥ %s ã¯ãƒã‚¹ã‚¿å‹¤æ€ ã«è¡ŒãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
-                " ãã®æ—¥ã¯è¨ˆç”»ãƒ«ãƒ¼ãƒ—ã«å«ã¾ã‚Œãªã„å ´åˆã€é…å°ä¸Šã®åŠ¹æœãŒé™å®šçš„ã§ã™ã€‚",
+                "ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‚ÌHê‹x‹Æ“ú %s ‚Íƒ}ƒXƒ^‹Î‘Ó‚És‚ª‚ ‚è‚Ü‚¹‚ñB"
+                " ‚»‚Ì“ú‚ÍŒv‰æƒ‹[ƒv‚ÉŠÜ‚Ü‚ê‚È‚¢ê‡A”z‘äã‚ÌŒø‰Ê‚ªŒÀ’è“I‚Å‚·B",
                 d,
             )
             continue
@@ -2754,20 +2754,20 @@ def apply_factory_closure_dates_to_attendance(
 
 def _apply_global_priority_abolish_heuristic(blob: str, coerced: dict) -> dict:
     """
-    ã€Œåˆ¶é™æ’¤å»ƒã€ã€Œã‚ã‚‰ã‚†ã‚‹æ¡ä»¶ã€ç­‰: è¨­å‚™å°‚æœ‰ãƒ»æ™‚åˆ»ã‚¬ãƒ¼ãƒ‰ã¾ã§å«ã‚é…å°åˆ¶ç´„ã‚’ç·©ã‚ã‚‹ï¼ˆabolish_all_scheduling_limitsï¼‰ã€‚
+    u§ŒÀ“P”pvu‚ ‚ç‚ä‚éğŒv“™: İ”õê—LEƒK[ƒh‚Ü‚ÅŠÜ‚ß”z‘ä§–ñ‚ğŠÉ‚ß‚éiabolish_all_scheduling_limitsjB
     """
     b = unicodedata.normalize("NFKC", str(blob or ""))
     strong = (
-        "åˆ¶é™æ’¤å»ƒ",
-        "åˆ¶é™ã‚’æ’¤å»ƒ",
-        "ã™ã¹ã¦ã®åˆ¶é™",
-        "å…¨ã¦ã®åˆ¶é™",
-        "ã‚ã‚‰ã‚†ã‚‹åˆ¶é™",
-        "ã‚ã‚‰ã‚†ã‚‹æ¡ä»¶",
-        "ã™ã¹ã¦ã®æ¡ä»¶",
-        "å…¨ã¦ã®æ¡ä»¶",
-        "æ’¤å»ƒã—ã¦",
-        "æ’¤å»ƒã—",
+        "§ŒÀ“P”p",
+        "§ŒÀ‚ğ“P”p",
+        "‚·‚×‚Ä‚Ì§ŒÀ",
+        "‘S‚Ä‚Ì§ŒÀ",
+        "‚ ‚ç‚ä‚é§ŒÀ",
+        "‚ ‚ç‚ä‚éğŒ",
+        "‚·‚×‚Ä‚ÌğŒ",
+        "‘S‚Ä‚ÌğŒ",
+        "“P”p‚µ‚Ä",
+        "“P”p‚µ",
     )
     if any(k in b for k in strong):
         out = dict(coerced)
@@ -2775,7 +2775,7 @@ def _apply_global_priority_abolish_heuristic(blob: str, coerced: dict) -> dict:
         out["ignore_skill_requirements"] = True
         out["ignore_need_minimum"] = True
         logging.warning(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: åˆ¶é™æ’¤å»ƒã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’æ¤œå‡ºã€‚è¨­å‚™å°‚æœ‰ãƒ»æ™‚åˆ»ã‚¬ãƒ¼ãƒ‰ã‚’å«ã‚é…å°ä¸Šã®åˆ¶ç´„ã‚’ç·©ã‚ã¾ã™ã€‚"
+            "ƒƒCƒ“Ä—Dæ“Á‹L: §ŒÀ“P”pƒL[ƒ[ƒh‚ğŒŸoBİ”õê—LEƒK[ƒh‚ğŠÜ‚ß”z‘äã‚Ì§–ñ‚ğŠÉ‚ß‚Ü‚·B"
         )
         return out
     return coerced
@@ -2783,8 +2783,8 @@ def _apply_global_priority_abolish_heuristic(blob: str, coerced: dict) -> dict:
 
 def _maybe_fill_global_speed_rules_from_scheduler_notes(coerced: dict) -> dict:
     """
-    AI ãŒ global_speed_rules ã‚’ç©ºã«ã—ãŸãŒ scheduler_notes ã«å…·ä½“ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒã‚ã‚‹å ´åˆã®è£œå®Œã€‚
-    åºƒãæ¨æ¸¬ã—ãªã„ï¼ˆç†±èç€ï¼‹æ¤œæŸ»ï¼‹1/3 ç³»ã®ã¿ï¼‰ã€‚
+    AI ‚ª global_speed_rules ‚ğ‹ó‚É‚µ‚½‚ª scheduler_notes ‚É‹ï‘Ìƒpƒ^[ƒ“‚ª‚ ‚éê‡‚Ì•âŠ®B
+    L‚­„‘ª‚µ‚È‚¢i”M—Z’…{ŒŸ¸{1/3 Œn‚Ì‚İjB
     """
     if not isinstance(coerced, dict):
         return coerced
@@ -2792,26 +2792,26 @@ def _maybe_fill_global_speed_rules_from_scheduler_notes(coerced: dict) -> dict:
         return coerced
     sn = str(coerced.get("scheduler_notes_ja") or "")
     t = unicodedata.normalize("NFKC", sn)
-    if "ç†±èç€" not in t or "æ¤œæŸ»" not in t:
+    if "”M—Z’…" not in t or "ŒŸ¸" not in t:
         return coerced
-    if not re.search(r"(?:1\s*/\s*3|ï¼‘\s*/\s*3|ä¸‰åˆ†ã®ä¸€|3\s*åˆ†ã®\s*1)", t):
+    if not re.search(r"(?:1\s*/\s*3|‚P\s*/\s*3|O•ª‚Ìˆê|3\s*•ª‚Ì\s*1)", t):
         return coerced
     out = dict(coerced)
     out["global_speed_rules"] = [
         {
-            "process_contains": "ç†±èç€",
-            "machine_contains": "æ¤œæŸ»",
+            "process_contains": "”M—Z’…",
+            "machine_contains": "ŒŸ¸",
             "speed_multiplier": 1.0 / 3.0,
         }
     ]
     logging.info(
-        "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: scheduler_notes_ja ã‹ã‚‰ global_speed_rules ã‚’è£œå®Œï¼ˆç†±èç€ãƒ»æ¤œæŸ»ãƒ»1/3ï¼‰"
+        "ƒƒCƒ“Ä—Dæ“Á‹L: scheduler_notes_ja ‚©‚ç global_speed_rules ‚ğ•âŠ®i”M—Z’…EŒŸ¸E1/3j"
     )
     return out
 
 
 def _finalize_global_priority_override(blob: str, coerced: dict) -> dict:
-    """ã‚½ãƒ­è£œæ­£ã®å¾Œã€abolish ãŒ true ãªã‚‰ã‚¹ã‚­ãƒ«ãƒ»äººæ•°ã‚‚å¼·åˆ¶ã‚ªãƒ³ã€‚"""
+    """ƒ\ƒ•â³‚ÌŒãAabolish ‚ª true ‚È‚çƒXƒLƒ‹El”‚à‹­§ƒIƒ“B"""
     coerced = _maybe_fill_global_speed_rules_from_scheduler_notes(dict(coerced))
     coerced = _apply_global_priority_solo_heuristic(blob, coerced)
     coerced = _apply_global_priority_abolish_heuristic(blob, coerced)
@@ -2825,25 +2825,25 @@ def _finalize_global_priority_override(blob: str, coerced: dict) -> dict:
 
 def _apply_global_priority_solo_heuristic(blob: str, coerced: dict) -> dict:
     """
-    ã€Œä¸€äººã§æ‹…å½“ã€ã€Œå˜ç‹¬ã€ç­‰ã§äººæ•°ã ã‘ç·©ã‚ã¦ã‚‚ã€æŒ‡åãƒ¡ãƒ³ãƒãƒ¼ãŒã‚¹ã‚­ãƒ«éè©²å½“ã ã¨é…å°ã•ã‚Œãªã„ã€‚
-    ãã®å ´åˆã¯ã‚¹ã‚­ãƒ«ç„¡è¦–ã‚’åŒæ™‚ã«ç«‹ã¦ã‚‹ã€‚
+    uˆêl‚Å’S“–vu’P“Æv“™‚Ål”‚¾‚¯ŠÉ‚ß‚Ä‚àAw–¼ƒƒ“ƒo[‚ªƒXƒLƒ‹”ñŠY“–‚¾‚Æ”z‘ä‚³‚ê‚È‚¢B
+    ‚»‚Ìê‡‚ÍƒXƒLƒ‹–³‹‚ğ“¯‚É—§‚Ä‚éB
     """
     if not coerced.get("ignore_need_minimum") or coerced.get("ignore_skill_requirements"):
         return coerced
     b = unicodedata.normalize("NFKC", str(blob or ""))
-    solo_kw = ("ä¸€äºº", "ã²ã¨ã‚Š", "å˜ç‹¬", "ï¼‘äºº", "1äºº", "ç‹¬è‡ª", "å˜èº«")
+    solo_kw = ("ˆêl", "‚Ğ‚Æ‚è", "’P“Æ", "‚Pl", "1l", "“Æ©", "’Pg")
     if any(k in b for k in solo_kw):
         out = dict(coerced)
         out["ignore_skill_requirements"] = True
         logging.info(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: å˜ç‹¬ç³»ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã®ãŸã‚ ignore_skill_requirements ã‚’è£œåŠ©çš„ã« true ã«ã—ã¾ã—ãŸã€‚"
+            "ƒƒCƒ“Ä—Dæ“Á‹L: ’P“ÆŒnƒL[ƒ[ƒh‚Ì‚½‚ß ignore_skill_requirements ‚ğ•â•“I‚É true ‚É‚µ‚Ü‚µ‚½B"
         )
         return out
     return coerced
 
 
 def _coerce_task_preferred_operators_dict(raw_val) -> dict:
-    """AI ã® task_preferred_operators ã‚’ {ä¾é ¼NO: æ°å} ã«æ­£è¦åŒ–ã€‚"""
+    """AI ‚Ì task_preferred_operators ‚ğ {ˆË—ŠNO: –¼} ‚É³‹K‰»B"""
     out = {}
     if not isinstance(raw_val, dict):
         return out
@@ -2861,8 +2861,8 @@ def _coerce_task_preferred_operators_dict(raw_val) -> dict:
 
 def _normalize_factory_closure_dates_iso_list(val, default_year: int) -> list[str]:
     """
-    AI ã¾ãŸã¯ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã®æ—¥ä»˜ãƒªã‚¹ãƒˆã‚’ YYYY-MM-DD æ–‡å­—åˆ—ã®æ˜‡é †ãƒ¦ãƒ‹ãƒ¼ã‚¯ã«æ­£è¦åŒ–ã€‚
-    è¦ç´ ã¯ ISO æ–‡å­—åˆ—ãƒ»Excel æ—¥ä»˜ãƒ»ã€Œ4/1ã€ç¨‹åº¦ã®çŸ­æ–‡ã§ã‚‚å¯ã€‚
+    AI ‚Ü‚½‚ÍƒtƒH[ƒ‹ƒoƒbƒN‚Ì“ú•tƒŠƒXƒg‚ğ YYYY-MM-DD •¶š—ñ‚Ì¸‡ƒ†ƒj[ƒN‚É³‹K‰»B
+    —v‘f‚Í ISO •¶š—ñEExcel “ú•tEu4/1v’ö“x‚Ì’Z•¶‚Å‚à‰ÂB
     """
     y0 = int(default_year)
     seen: set[str] = set()
@@ -2892,8 +2892,8 @@ def _normalize_factory_closure_dates_iso_list(val, default_year: int) -> list[st
 
 def _coerce_global_speed_rules(raw_val) -> list[dict]:
     """
-    Gemini ã® global_speed_rules ã‚’æ­£è¦åŒ–ã€‚
-    å„è¦ç´ : process_contains / machine_containsï¼ˆã„ãšã‚Œã‹å¿…é ˆãƒ»éƒ¨åˆ†ä¸€è‡´ç”¨ï¼‰, speed_multiplierï¼ˆæ—¢å­˜é€Ÿåº¦ã«ä¹—ç®—ã€0è¶…ã€œ10ä»¥ä¸‹ï¼‰ã€‚
+    Gemini ‚Ì global_speed_rules ‚ğ³‹K‰»B
+    Še—v‘f: process_contains / machine_containsi‚¢‚¸‚ê‚©•K{E•”•ªˆê’v—pj, speed_multiplieriŠù‘¶‘¬“x‚ÉæZA0’´?10ˆÈ‰ºjB
     """
     out: list[dict] = []
     if not isinstance(raw_val, list):
@@ -2925,7 +2925,7 @@ def _coerce_global_speed_rules(raw_val) -> list[dict]:
 
 
 def _global_speed_rule_substring_matches_row(pnorm: str, mnorm: str, sub_nfkc: str) -> bool:
-    """sub ãŒç©ºã§ãªã‘ã‚Œã°ã€å·¥ç¨‹åã¾ãŸã¯æ©Ÿæ¢°åã®ã„ãšã‚Œã‹ã«éƒ¨åˆ†ä¸€è‡´ã™ã‚Œã° Trueã€‚"""
+    """sub ‚ª‹ó‚Å‚È‚¯‚ê‚ÎAH’ö–¼‚Ü‚½‚Í‹@ŠB–¼‚Ì‚¢‚¸‚ê‚©‚É•”•ªˆê’v‚·‚ê‚Î TrueB"""
     if not sub_nfkc:
         return True
     return sub_nfkc in pnorm or sub_nfkc in mnorm
@@ -2933,11 +2933,11 @@ def _global_speed_rule_substring_matches_row(pnorm: str, mnorm: str, sub_nfkc: s
 
 def _global_speed_multiplier_for_row(process_name: str, machine_name: str, rules: list) -> float:
     """
-    å·¥ç¨‹åãƒ»æ©Ÿæ¢°åã«ä¸€è‡´ã™ã‚‹ãƒ«ãƒ¼ãƒ«ã® speed_multiplier ã‚’æ›ã‘åˆã‚ã›ã‚‹ï¼ˆä¸€è‡´ãªã—ã¯ 1.0ï¼‰ã€‚
+    H’ö–¼E‹@ŠB–¼‚Éˆê’v‚·‚éƒ‹[ƒ‹‚Ì speed_multiplier ‚ğŠ|‚¯‡‚í‚¹‚éiˆê’v‚È‚µ‚Í 1.0jB
 
-    process_contains / machine_contains ã¯ãã‚Œãã‚Œ **å·¥ç¨‹åã¾ãŸã¯æ©Ÿæ¢°åã®ã©ã¡ã‚‰ã‹** ã«å«ã¾ã‚Œã‚Œã°ã‚ˆã„ã€‚
-    ä¸¡æ–¹æŒ‡å®šæ™‚ã¯ ANDï¼ˆä¾‹: ã€Œç†±èç€ã€ã¨ã€Œæ¤œæŸ»ã€ãŒã€åˆ—ã®çµ„ã¿åˆã‚ã›ã§ä¸¡æ–¹ç¾ã‚Œã‚‹è¡Œã«ãƒãƒƒãƒã€‚
-    ãƒã‚¹ã‚¿ä¸Šã§å·¥ç¨‹=æ¤œæŸ»ãƒ»æ©Ÿæ¢°=ç†±èç€æ©Ÿ ã®ã‚ˆã†ã«ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ãŒé€†å´ã®åˆ—ã«ã‚ã£ã¦ã‚‚åŒã˜ãƒ«ãƒ¼ãƒ«ã§åŠ¹ãã€‚
+    process_contains / machine_contains ‚Í‚»‚ê‚¼‚ê **H’ö–¼‚Ü‚½‚Í‹@ŠB–¼‚Ì‚Ç‚¿‚ç‚©** ‚ÉŠÜ‚Ü‚ê‚ê‚Î‚æ‚¢B
+    —¼•ûw’è‚Í ANDi—á: u”M—Z’…v‚ÆuŒŸ¸v‚ªA—ñ‚Ì‘g‚İ‡‚í‚¹‚Å—¼•ûŒ»‚ê‚és‚Éƒ}ƒbƒ`B
+    ƒ}ƒXƒ^ã‚ÅH’ö=ŒŸ¸E‹@ŠB=”M—Z’…‹@ ‚Ì‚æ‚¤‚ÉƒL[ƒ[ƒh‚ª‹t‘¤‚Ì—ñ‚É‚ ‚Á‚Ä‚à“¯‚¶ƒ‹[ƒ‹‚ÅŒø‚­B
     """
     if not rules:
         return 1.0
@@ -2973,9 +2973,9 @@ def _global_speed_multiplier_for_row(process_name: str, machine_name: str, rules
 
 def _infer_global_day_process_rules_from_free_text(text: str, ref_y: int) -> list[dict]:
     """
-    Gemini ãŒ task_preferred_operators ã«èª¤ã£ã¦é•·æ–‡ã‚’å…¥ã‚ŒãŸå ´åˆãªã©ã€
-    è‡ªç„¶è¨€èªæ–­ç‰‡ã‹ã‚‰ global_day_process_operator_rules ç›¸å½“ã‚’æ¨å®šã™ã‚‹ï¼ˆä¿å®ˆçš„ï¼‰ã€‚
-    ä¾‹: ã€Œ2026/4/4 å·¥ç¨‹å:EC æ£®ä¸‹ã¨å®®å³¶ã‚’é…å°ã€
+    Gemini ‚ª task_preferred_operators ‚ÉŒë‚Á‚Ä’·•¶‚ğ“ü‚ê‚½ê‡‚È‚ÇA
+    ©‘RŒ¾Œê’f•Ğ‚©‚ç global_day_process_operator_rules ‘Š“–‚ğ„’è‚·‚éi•Ûç“IjB
+    —á: u2026/4/4 H’ö–¼:EC X‰º‚Æ‹{“‡‚ğ”z‘äv
     """
     t = unicodedata.normalize("NFKC", str(text or "")).strip()
     if len(t) < 6:
@@ -2985,18 +2985,18 @@ def _infer_global_day_process_rules_from_free_text(text: str, ref_y: int) -> lis
         return []
     d0 = dates[0]
     proc_m = re.search(
-        r"å·¥ç¨‹å?\s*[:ï¼š]?\s*([A-Za-z0-9ä¸€-é¾¯ãƒ¼ãƒ»ã€†ã€…]+)",
+        r"H’ö–¼?\s*[:F]?\s*([A-Za-z0-9ˆê-?[EYX]+)",
         t,
     )
     pc = proc_m.group(1).strip() if proc_m else ""
     if not pc:
-        m2 = re.search(r"([\dA-Za-zä¸€-é¾¯ãƒ¼ãƒ»ã€†ã€…]{1,12})\s*å·¥ç¨‹", t)
+        m2 = re.search(r"([\dA-Za-zˆê-?[EYX]{1,12})\s*H’ö", t)
         pc = m2.group(1).strip() if m2 else ""
     if not pc:
         return []
     names: list[str] = []
     for m in re.finditer(
-        r"([\u3040-\u9FFFã€…ãƒ¼ãƒ»A-Za-zãƒ»ã€†ã€…]{1,16}?)\s*ã¨\s*([\u3040-\u9FFFã€…ãƒ¼ãƒ»A-Za-zãƒ»ã€†ã€…]{1,16}?)\s*ã‚’?\s*(?:é…å°|é…å±|çµ„ã¾ã›|åŒä¸€ãƒãƒ¼ãƒ )",
+        r"([\u3040-\u9FFFX[EA-Za-zEYX]{1,16}?)\s*‚Æ\s*([\u3040-\u9FFFX[EA-Za-zEYX]{1,16}?)\s*‚ğ?\s*(?:”z‘ä|”z‘®|‘g‚Ü‚¹|“¯ˆêƒ`[ƒ€)",
         t,
     ):
         a, b = m.group(1).strip(), m.group(2).strip()
@@ -3017,8 +3017,8 @@ def _infer_global_day_process_rules_from_free_text(text: str, ref_y: int) -> lis
 
 def _salvage_malformed_global_priority_gemini_dict(raw: dict, ref_y: int) -> dict:
     """
-    Gemini ãŒ task_preferred_operators ã« **é…åˆ—**ã‚„èª¤ã‚¹ã‚­ãƒ¼ãƒï¼ˆworkstation_id ç­‰ï¼‰ã‚’è¿”ã—ãŸã¨ãã€
-    æ¨ã¦ãšã« global_day_process_operator_rules / scheduler_notes_ja ã¸æ•‘æ¸ˆã™ã‚‹ã€‚
+    Gemini ‚ª task_preferred_operators ‚É **”z—ñ**‚âŒëƒXƒL[ƒ}iworkstation_id “™j‚ğ•Ô‚µ‚½‚Æ‚«A
+    Ì‚Ä‚¸‚É global_day_process_operator_rules / scheduler_notes_ja ‚Ö‹~Ï‚·‚éB
     """
     out = dict(raw)
     tpo = out.get("task_preferred_operators")
@@ -3047,7 +3047,7 @@ def _salvage_malformed_global_priority_gemini_dict(raw: dict, ref_y: int) -> dic
                 "process_contains",
             ):
                 continue
-            if isinstance(v, str) and len(v) > 35 and ("é…" in v or "å·¥ç¨‹" in v):
+            if isinstance(v, str) and len(v) > 35 and ("”z" in v or "H’ö" in v):
                 narratives.append(v[:800])
     out["task_preferred_operators"] = {}
     gdp_existing = out.get("global_day_process_operator_rules")
@@ -3068,7 +3068,7 @@ def _salvage_malformed_global_priority_gemini_dict(raw: dict, ref_y: int) -> dic
 
 
 def _coerce_global_priority_override_dict(raw, reference_year: int | None = None) -> dict:
-    """Gemini æˆ»ã‚Šã‚’é…å°ç”¨ãƒ•ãƒ©ã‚°ãƒ»å·¥å ´ä¼‘æ¥­æ—¥ãƒªã‚¹ãƒˆã«æ­£è¦åŒ–ã€‚"""
+    """Gemini –ß‚è‚ğ”z‘ä—pƒtƒ‰ƒOEHê‹x‹Æ“úƒŠƒXƒg‚É³‹K‰»B"""
     y0 = int(reference_year) if reference_year is not None else date.today().year
 
     def as_bool(v):
@@ -3079,7 +3079,7 @@ def _coerce_global_priority_override_dict(raw, reference_year: int | None = None
         if v is None or (isinstance(v, float) and pd.isna(v)):
             return False
         s = unicodedata.normalize("NFKC", str(v).strip()).lower()
-        return s in ("true", "1", "yes", "ã¯ã„", "on")
+        return s in ("true", "1", "yes", "‚Í‚¢", "on")
 
     base = {
         "ignore_skill_requirements": False,
@@ -3120,7 +3120,7 @@ def _coerce_global_priority_override_dict(raw, reference_year: int | None = None
 
 
 def _parse_global_priority_override_gemini_response(res):
-    """Gemini å¿œç­”ã‹ã‚‰ JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1ã¤ã‚’å–ã‚Šå‡ºã™ï¼ˆ```json ãƒ•ã‚§ãƒ³ã‚¹ä»˜ãã§ã‚‚å¯ï¼‰ã€‚"""
+    """Gemini ‰“š‚©‚ç JSON ƒIƒuƒWƒFƒNƒg1‚Â‚ğæ‚èo‚·i```json ƒtƒFƒ“ƒX•t‚«‚Å‚à‰ÂjB"""
     raw = (_gemini_result_text(res) or "").strip()
     if not raw:
         return None
@@ -3147,7 +3147,7 @@ def _parse_global_priority_override_gemini_response(res):
 
 
 def _apply_regex_factory_closure_fallback(coerced: dict, blob: str, ref_y: int) -> dict:
-    """Gemini æœªä½¿ç”¨ãƒ»å¿œç­”è§£é‡ˆå¤±æ•—æ™‚: ãƒ«ãƒ¼ãƒ«ãƒ™ãƒ¼ã‚¹ã§å·¥å ´ä¼‘æ¥­æ—¥ã ã‘è£œå®Œï¼ˆå¾“æ¥äº’æ›ï¼‰ã€‚"""
+    """Gemini –¢g—pE‰“š‰ğß¸”s: ƒ‹[ƒ‹ƒx[ƒX‚ÅHê‹x‹Æ“ú‚¾‚¯•âŠ®i]—ˆŒİŠ·jB"""
     out = dict(coerced)
     rx = parse_factory_closure_dates_from_global_comment(blob, ref_y)
     out["factory_closure_dates"] = sorted({d.isoformat() for d in rx})
@@ -3158,22 +3158,22 @@ def analyze_global_priority_override_comment(
     text: str, members: list, reference_year: int, ai_sheet_sink: dict | None = None
 ) -> dict:
     """
-    ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ï¼ˆUI ä¸Šã®è‡ªç”±è¨˜è¿°ï¼‰ã‚’ **Gemini ã§ä¸€æ‹¬è§£é‡ˆ**ã—ã€é…å°ã«åŠ¹ã JSON ã«è½ã¨ã™ã€‚
-    è‡ªç„¶è¨€èªã®æ–‡è„ˆåˆ‡ã‚Šåˆ†ã‘ãƒ»æ”¹è¡Œã®åˆ¥æŒ‡ç¤ºè§£é‡ˆã¯ AI ã«ä»»ã›ã€æˆ»ã‚Šå€¤ã®ã‚­ãƒ¼ã ã‘ã‚·ã‚¹ãƒ†ãƒ ãŒæ©Ÿæ¢°é©ç”¨ã™ã‚‹ã€‚
+    ƒƒCƒ“ƒV[ƒguƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgviUI ã‚Ì©—R‹Lqj‚ğ **Gemini ‚ÅˆêŠ‡‰ğß**‚µA”z‘ä‚ÉŒø‚­ JSON ‚É—‚Æ‚·B
+    ©‘RŒ¾Œê‚Ì•¶–¬Ø‚è•ª‚¯E‰üs‚Ì•Êw¦‰ğß‚Í AI ‚É”C‚¹A–ß‚è’l‚ÌƒL[‚¾‚¯ƒVƒXƒeƒ€‚ª‹@ŠB“K—p‚·‚éB
 
-    - factory_closure_dates: **å·¥å ´å…¨ä½“**ã§ç¨¼åƒã—ãªã„æ—¥ï¼ˆå…¨å“¡éç¨¼åƒæ‰±ã„ï¼‰ã® YYYY-MM-DD æ–‡å­—åˆ—ã®é…åˆ—ã€‚è©²å½“ãªã—ã¯ []ã€‚
-    - ignore_skill_requirements / ignore_need_minimum / abolish_all_scheduling_limits / task_preferred_operators: å¾“æ¥ã©ãŠã‚Šã€‚
-    - global_speed_rules: **å·¥ç¨‹åãƒ»æ©Ÿæ¢°å**ã¸ã®éƒ¨åˆ†ä¸€è‡´ï¼ˆå„ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã¯ **ã©ã¡ã‚‰ã®åˆ—ã«ã‚ã£ã¦ã‚‚å¯**ï¼‰ã§ã€æ—¢å­˜ã®åŠ å·¥é€Ÿåº¦ï¼ˆã‚·ãƒ¼ãƒˆï¼ä¸Šæ›¸ãå¾Œï¼‰ã« **ä¹—ç®—**ã™ã‚‹ãƒ«ãƒ¼ãƒ«ã®é…åˆ—ã€‚è©²å½“ãªã—ã¯ []ã€‚
-    - global_day_process_operator_rules: **æ—¥ä»˜ï¼‹å·¥ç¨‹åã®éƒ¨åˆ†ä¸€è‡´ï¼‹è¤‡æ•°ãƒ¡ãƒ³ãƒãƒ¼**ã‚’ã€å½“æ—¥ãã®å·¥ç¨‹ã®ã‚¿ã‚¹ã‚¯ã®**ãƒãƒ¼ãƒ å…¨å“¡ã«å¿…ãšå«ã‚ã‚‹**ãƒ«ãƒ¼ãƒ«ã®é…åˆ—ã€‚è©²å½“ãªã—ã¯ []ã€‚
-    - scheduler_notes_ja: ä¸Šè¨˜ã«è½ã¨ã—ãã‚Œãªã„è£œè¶³ã‚„é‹ç”¨ãƒ¡ãƒ¢ï¼ˆé€Ÿåº¦ã¯å¯èƒ½ãªã‚‰ global_speed_rules ã‚‚ä½µè¨˜ï¼‰ã€‚
+    - factory_closure_dates: **Hê‘S‘Ì**‚Å‰Ò“­‚µ‚È‚¢“úi‘Sˆõ”ñ‰Ò“­ˆµ‚¢j‚Ì YYYY-MM-DD •¶š—ñ‚Ì”z—ñBŠY“–‚È‚µ‚Í []B
+    - ignore_skill_requirements / ignore_need_minimum / abolish_all_scheduling_limits / task_preferred_operators: ]—ˆ‚Ç‚¨‚èB
+    - global_speed_rules: **H’ö–¼E‹@ŠB–¼**‚Ö‚Ì•”•ªˆê’viŠeƒL[ƒ[ƒh‚Í **‚Ç‚¿‚ç‚Ì—ñ‚É‚ ‚Á‚Ä‚à‰Â**j‚ÅAŠù‘¶‚Ì‰ÁH‘¬“xiƒV[ƒg^ã‘‚«Œãj‚É **æZ**‚·‚éƒ‹[ƒ‹‚Ì”z—ñBŠY“–‚È‚µ‚Í []B
+    - global_day_process_operator_rules: **“ú•t{H’ö–¼‚Ì•”•ªˆê’v{•¡”ƒƒ“ƒo[**‚ğA“–“ú‚»‚ÌH’ö‚Ìƒ^ƒXƒN‚Ì**ƒ`[ƒ€‘Sˆõ‚É•K‚¸ŠÜ‚ß‚é**ƒ‹[ƒ‹‚Ì”z—ñBŠY“–‚È‚µ‚Í []B
+    - scheduler_notes_ja: ã‹L‚É—‚Æ‚µ‚«‚ê‚È‚¢•â‘«‚â‰^—pƒƒ‚i‘¬“x‚Í‰Â”\‚È‚ç global_speed_rules ‚à•¹‹LjB
 
-    API ã‚­ãƒ¼ç„¡ã—ãƒ»JSON è§£é‡ˆå¤±æ•—æ™‚: ä¸Šè¨˜ãƒ–ãƒ¼ãƒ«ãƒ»æŒ‡åã¯æ—¢å®šå€¤ã€å·¥å ´ä¼‘æ¥­æ—¥ã®ã¿å¾“æ¥ã®ãƒ«ãƒ¼ãƒ«ãƒ™ãƒ¼ã‚¹è§£æã§è£œå®Œã€‚
+    API ƒL[–³‚µEJSON ‰ğß¸”s: ã‹Lƒu[ƒ‹Ew–¼‚ÍŠù’è’lAHê‹x‹Æ“ú‚Ì‚İ]—ˆ‚Ìƒ‹[ƒ‹ƒx[ƒX‰ğÍ‚Å•âŠ®B
     """
     ref_y = int(reference_year) if reference_year is not None else date.today().year
     empty = _coerce_global_priority_override_dict({}, ref_y)
     if not text or not str(text).strip():
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = "ã‚¹ã‚­ãƒƒãƒ—ï¼ˆãƒ¡ã‚¤ãƒ³åŸæ–‡ãªã—ï¼‰"
+            ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = "ƒXƒLƒbƒviƒƒCƒ“Œ´•¶‚È‚µj"
         return empty
     blob = str(text).strip()
     mem_sig = ",".join(sorted(str(m).strip() for m in (members or []) if m))
@@ -3182,17 +3182,17 @@ def analyze_global_priority_override_comment(
     ai_cache = load_ai_cache()
     cached = get_cached_ai_result(ai_cache, cache_key, content_key=cache_fingerprint)
     if cached is not None:
-        logging.info("ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆï¼ˆGemini ã¯å‘¼ã³ã¾ã›ã‚“ï¼‰ã€‚")
+        logging.info("ƒƒCƒ“Ä—Dæ“Á‹L: ƒLƒƒƒbƒVƒ…ƒqƒbƒgiGemini ‚ÍŒÄ‚Ñ‚Ü‚¹‚ñjB")
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = "ãªã—ï¼ˆã‚­ãƒ£ãƒƒã‚·ãƒ¥ä½¿ç”¨ï¼‰"
+            ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = "‚È‚µiƒLƒƒƒbƒVƒ…g—pj"
         return _finalize_global_priority_override(
             blob, _coerce_global_priority_override_dict(cached, ref_y)
         )
 
     if not API_KEY:
-        logging.info("GEMINI_API_KEY æœªè¨­å®šã®ãŸã‚ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜ã® AI è§£æã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚")
+        logging.info("GEMINI_API_KEY –¢İ’è‚Ì‚½‚ßƒƒCƒ“Ä—Dæ“Á‹L‚Ì AI ‰ğÍ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B")
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = "ãªã—ï¼ˆAPIã‚­ãƒ¼æœªè¨­å®šãƒ»å·¥å ´ä¼‘æ¥­ã®ã¿ãƒ«ãƒ¼ãƒ«è£œå®Œï¼‰"
+            ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = "‚È‚µiAPIƒL[–¢İ’èEHê‹x‹Æ‚Ì‚İƒ‹[ƒ‹•âŠ®j"
         coerced = _apply_regex_factory_closure_fallback(
             _coerce_global_priority_override_dict({}, ref_y), blob, ref_y
         )
@@ -3200,90 +3200,90 @@ def analyze_global_priority_override_comment(
 
     member_sample = ", ".join(str(m) for m in (members or [])[:80])
     if len(members or []) > 80:
-        member_sample += " â€¦"
+        member_sample += " c"
 
-    prompt = f"""ã‚ãªãŸã¯å·¥å ´ã®é…å°è¨ˆç”»ã‚·ã‚¹ãƒ†ãƒ ç”¨ã‚¢ã‚·ã‚¹ã‚¿ãƒ³ãƒˆã§ã™ã€‚
-Excel ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã® **ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€**ï¼ˆè‡ªç”±è¨˜è¿°ãƒ»è‡ªç„¶è¨€èªï¼‰ã® **å…¨æ–‡** ã‚’èª­ã¿ã€æ¬¡ã®ã‚­ãƒ¼ã ã‘ã‚’æŒã¤ JSON ã‚’1ã¤è¿”ã—ã¦ãã ã•ã„ã€‚
+    prompt = f"""‚ ‚È‚½‚ÍHê‚Ì”z‘äŒv‰æƒVƒXƒeƒ€—pƒAƒVƒXƒ^ƒ“ƒg‚Å‚·B
+Excel ƒƒCƒ“ƒV[ƒg‚Ì **uƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv**i©—R‹LqE©‘RŒ¾Œêj‚Ì **‘S•¶** ‚ğ“Ç‚İAŸ‚ÌƒL[‚¾‚¯‚ğ‚Â JSON ‚ğ1‚Â•Ô‚µ‚Ä‚­‚¾‚³‚¢B
 
-ã€å½¹å‰²ã€‘
-ãƒ¦ãƒ¼ã‚¶ãƒ¼ã¯æ”¹è¡Œã‚„å¥ç‚¹ã§è¤‡æ•°ã®æŒ‡ç¤ºã‚’æ›¸ãã“ã¨ãŒã‚ã‚Šã¾ã™ã€‚**æ–‡è„ˆã‚’èª­ã¿åˆ†ã‘**ã€é…å°ã‚·ã‚¹ãƒ†ãƒ ãŒ **æ©Ÿæ¢°çš„ã«é©ç”¨ã§ãã‚‹å€¤** ã«è½ã¨ã—è¾¼ã‚“ã§ãã ã•ã„ã€‚
-æ¨æ¸¬ã§ãƒ–ãƒ¼ãƒ«ã‚’ true ã«ã—ãªã„ã“ã¨ã€‚æ ¹æ‹ ãŒæ˜ç¢ºãªã¨ãã ã‘ trueã€‚
+y–ğŠ„z
+ƒ†[ƒU[‚Í‰üs‚â‹å“_‚Å•¡”‚Ìw¦‚ğ‘‚­‚±‚Æ‚ª‚ ‚è‚Ü‚·B**•¶–¬‚ğ“Ç‚İ•ª‚¯**A”z‘äƒVƒXƒeƒ€‚ª **‹@ŠB“I‚É“K—p‚Å‚«‚é’l** ‚É—‚Æ‚µ‚ñ‚Å‚­‚¾‚³‚¢B
+„‘ª‚Åƒu[ƒ‹‚ğ true ‚É‚µ‚È‚¢‚±‚ÆBª‹’‚ª–¾Šm‚È‚Æ‚«‚¾‚¯ trueB
 
-ã€æœ€å„ªå…ˆã€‘
-ã“ã®æ¬„ã®å†…å®¹ã¯ãƒã‚¹ã‚¿ãƒ»ã‚¹ã‚­ãƒ«ãƒ»needãƒ»ã‚¿ã‚¹ã‚¯è¡Œãƒ»ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã® AI æŒ‡åã‚ˆã‚Šå„ªå…ˆã•ã‚Œã‚‹ä¾‹å¤–æŒ‡ç¤ºã¨ã—ã¦æ‰±ã‚ã‚Œã¾ã™ã€‚
+yÅ—Dæz
+‚±‚Ì—“‚Ì“à—e‚Íƒ}ƒXƒ^EƒXƒLƒ‹EneedEƒ^ƒXƒNsE“Á•Êw’è_”õl‚Ì AI w–¼‚æ‚è—Dæ‚³‚ê‚é—áŠOw¦‚Æ‚µ‚Äˆµ‚í‚ê‚Ü‚·B
 
-ã€æ”¹è¡Œãƒ»è¤‡æ•°è¡Œã€‘
-å„è¡Œãƒ»å„æ–‡ã¯ **åŸå‰‡ã¨ã—ã¦ç‹¬ç«‹ã—ãŸæŒ‡ç¤º** ã§ã™ã€‚è¡Œã‚’ã¾ãŸã„ã§1ã¤ã«ã¾ã¨ã‚ãŸã‚Šã€**å‰²åˆè¡¨ç¾ï¼ˆä¾‹ 1/3ï¼‰ã‚’æ—¥ä»˜ã¨çµã³ä»˜ã‘ãŸã‚Šã—ãªã„**ã“ã¨ã€‚
+y‰üsE•¡”sz
+ŠesEŠe•¶‚Í **Œ´‘¥‚Æ‚µ‚Ä“Æ—§‚µ‚½w¦** ‚Å‚·Bs‚ğ‚Ü‚½‚¢‚Å1‚Â‚É‚Ü‚Æ‚ß‚½‚èA**Š„‡•\Œ»i—á 1/3j‚ğ“ú•t‚ÆŒ‹‚Ñ•t‚¯‚½‚è‚µ‚È‚¢**‚±‚ÆB
 
-ã€ã‚­ãƒ¼åˆ¥ãƒ«ãƒ¼ãƒ«ã€‘
+yƒL[•Êƒ‹[ƒ‹z
 
-A) **factory_closure_dates** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
-   - **å·¥å ´å…¨ä½“**ãŒç¨¼åƒã—ãªã„æ—¥ï¼ˆè‡¨æ™‚ä¼‘æ¥­ãƒ»å…¨å·¥å ´ä¼‘ã¿ãƒ»ãã®æ—¥ã¯åŠ å·¥ã—ãªã„ç­‰ï¼‰ã®æ—¥ä»˜ã‚’ **YYYY-MM-DD** ã®æ–‡å­—åˆ—ã§åˆ—æŒ™ã€‚
-   - **å€‹äººã®ä¼‘ã¿ãƒ»ç‰¹å®šãƒ©ã‚¤ãƒ³ã ã‘**ã®åœæ­¢ã¯ã“ã“ã« **å«ã‚ãªã„**ï¼ˆ[]ï¼‰ã€‚
-   - è©²å½“ãŒãªã‘ã‚Œã° **ç©ºé…åˆ— []**ï¼ˆã‚­ãƒ¼çœç•¥ä¸å¯ï¼‰ã€‚
-   - å¹´ãŒçœç•¥ã•ã‚Œã¦ã„ã‚Œã°è¥¿æš¦ {ref_y} å¹´ã¨ã—ã¦è§£é‡ˆã€‚
+A) **factory_closure_dates** i”z—ñE•K{j
+   - **Hê‘S‘Ì**‚ª‰Ò“­‚µ‚È‚¢“úi—Õ‹x‹ÆE‘SHê‹x‚İE‚»‚Ì“ú‚Í‰ÁH‚µ‚È‚¢“™j‚Ì“ú•t‚ğ **YYYY-MM-DD** ‚Ì•¶š—ñ‚Å—ñ‹“B
+   - **ŒÂl‚Ì‹x‚İE“Á’èƒ‰ƒCƒ“‚¾‚¯**‚Ì’â~‚Í‚±‚±‚É **ŠÜ‚ß‚È‚¢**i[]jB
+   - ŠY“–‚ª‚È‚¯‚ê‚Î **‹ó”z—ñ []**iƒL[È—ª•s‰ÂjB
+   - ”N‚ªÈ—ª‚³‚ê‚Ä‚¢‚ê‚Î¼—ï {ref_y} ”N‚Æ‚µ‚Ä‰ğßB
 
 B) **ignore_skill_requirements** / **ignore_need_minimum** / **abolish_all_scheduling_limits** / **task_preferred_operators**
-   - å¾“æ¥ã©ãŠã‚Šï¼ˆé…å°ã®ã‚¹ã‚­ãƒ«ç„¡è¦–ãƒ»äººæ•°1å›ºå®šãƒ»åˆ¶é™æ’¤å»ƒãƒ»ä¾é ¼NOâ†’ä¸»æ‹…å½“OPæŒ‡åï¼‰ã€‚è©²å½“ãªã‘ã‚Œã° false ã¾ãŸã¯ {{}}ã€‚
+   - ]—ˆ‚Ç‚¨‚èi”z‘ä‚ÌƒXƒLƒ‹–³‹El”1ŒÅ’èE§ŒÀ“P”pEˆË—ŠNO¨å’S“–OPw–¼jBŠY“–‚È‚¯‚ê‚Î false ‚Ü‚½‚Í {{}}B
 
-C) **global_speed_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
-   - ç‰¹å®šã® **å·¥ç¨‹å**ï¼ˆExcelã€Œå·¥ç¨‹åã€åˆ—ï¼‰ã‚„ **æ©Ÿæ¢°å**ï¼ˆã€Œæ©Ÿæ¢°åã€åˆ—ï¼‰ã«å¯¾ã—ã€**æ—¢å­˜ã®åŠ å·¥é€Ÿåº¦ã«æ›ã‘ã‚‹å€ç‡** ã‚’æŒ‡å®šã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã€‚
-   - å„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚­ãƒ¼:
-     - "process_contains": æ–‡å­—åˆ—ï¼ˆçœç•¥å¯ï¼‰ã€‚**å·¥ç¨‹åã¾ãŸã¯æ©Ÿæ¢°åã®ã„ãšã‚Œã‹**ã« **éƒ¨åˆ†ä¸€è‡´**ï¼ˆNFKC æƒ³å®šï¼‰ã€‚
-     - "machine_contains": æ–‡å­—åˆ—ï¼ˆçœç•¥å¯ï¼‰ã€‚**å·¥ç¨‹åã¾ãŸã¯æ©Ÿæ¢°åã®ã„ãšã‚Œã‹**ã« **éƒ¨åˆ†ä¸€è‡´**ã€‚
-     - "speed_multiplier": æ­£ã®æ•°ã€‚**1/3 ã®é€Ÿåº¦**ãªã‚‰ç´„ **0.333333**ï¼ˆæ—¢å­˜é€Ÿåº¦ Ã— ã“ã®å€¤ï¼‰ã€‚**2å€é€Ÿ**ãªã‚‰ 2.0ã€‚
-   - **ä¸¡æ–¹æŒ‡å®šæ™‚ã¯ AND**ï¼ˆ2ã¤ã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ãŒã€**ä¸¡æ–¹ã¨ã‚‚**ã€Œå·¥ç¨‹åãƒ»æ©Ÿæ¢°åã®ã©ã¡ã‚‰ã‹ã€ã«ç¾ã‚Œã‚‹è¡Œï¼‰ã€‚ä¾‹: å·¥ç¨‹=æ¤œæŸ»ãƒ»æ©Ÿæ¢°=ç†±èç€æ©Ÿ ã§ã‚‚ã€å·¥ç¨‹=ç†±èç€ãƒ»æ©Ÿæ¢°=æ¤œæŸ»ç”¨è¨­å‚™ ã§ã‚‚ãƒãƒƒãƒã—ã†ã‚‹ã€‚
-   - ã©ã¡ã‚‰ã‹ä¸€æ–¹ã ã‘æŒ‡å®šã™ã‚Œã°ã€ãã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ãŒå·¥ç¨‹åã¾ãŸã¯æ©Ÿæ¢°åã®ã©ã¡ã‚‰ã‹ã«ã‚ã‚Œã°ãƒãƒƒãƒã€‚
-   - è©²å½“æŒ‡ç¤ºãŒãªã‘ã‚Œã° **ç©ºé…åˆ— []**ã€‚
-   - ä¾‹: ã€Œç†±èç€ã‚’ä½¿ã†æ¤œæŸ»ã®åŠ å·¥é€Ÿåº¦ã¯1/3ã€â†’
-     [{{"process_contains":"ç†±èç€","machine_contains":"æ¤œæŸ»","speed_multiplier":0.333333}}]
-     ï¼ˆã€Œç†±èç€ã€ã¨ã€Œæ¤œæŸ»ã€ãŒå·¥ç¨‹åãƒ»æ©Ÿæ¢°åã®çµ„ã¿åˆã‚ã›ã§æƒã†ã‚¿ã‚¹ã‚¯ã®é€Ÿåº¦ãŒç´„1/3ã«ãªã‚‹ï¼‰
+C) **global_speed_rules** i”z—ñE•K{j
+   - “Á’è‚Ì **H’ö–¼**iExceluH’ö–¼v—ñj‚â **‹@ŠB–¼**iu‹@ŠB–¼v—ñj‚É‘Î‚µA**Šù‘¶‚Ì‰ÁH‘¬“x‚ÉŠ|‚¯‚é”{—¦** ‚ğw’è‚·‚éƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒgB
+   - ŠeƒIƒuƒWƒFƒNƒg‚ÌƒL[:
+     - "process_contains": •¶š—ñiÈ—ª‰ÂjB**H’ö–¼‚Ü‚½‚Í‹@ŠB–¼‚Ì‚¢‚¸‚ê‚©**‚É **•”•ªˆê’v**iNFKC ‘z’èjB
+     - "machine_contains": •¶š—ñiÈ—ª‰ÂjB**H’ö–¼‚Ü‚½‚Í‹@ŠB–¼‚Ì‚¢‚¸‚ê‚©**‚É **•”•ªˆê’v**B
+     - "speed_multiplier": ³‚Ì”B**1/3 ‚Ì‘¬“x**‚È‚ç–ñ **0.333333**iŠù‘¶‘¬“x ~ ‚±‚Ì’ljB**2”{‘¬**‚È‚ç 2.0B
+   - **—¼•ûw’è‚Í AND**i2‚Â‚ÌƒL[ƒ[ƒh‚ªA**—¼•û‚Æ‚à**uH’ö–¼E‹@ŠB–¼‚Ì‚Ç‚¿‚ç‚©v‚ÉŒ»‚ê‚ésjB—á: H’ö=ŒŸ¸E‹@ŠB=”M—Z’…‹@ ‚Å‚àAH’ö=”M—Z’…E‹@ŠB=ŒŸ¸—pİ”õ ‚Å‚àƒ}ƒbƒ`‚µ‚¤‚éB
+   - ‚Ç‚¿‚ç‚©ˆê•û‚¾‚¯w’è‚·‚ê‚ÎA‚»‚ÌƒL[ƒ[ƒh‚ªH’ö–¼‚Ü‚½‚Í‹@ŠB–¼‚Ì‚Ç‚¿‚ç‚©‚É‚ ‚ê‚Îƒ}ƒbƒ`B
+   - ŠY“–w¦‚ª‚È‚¯‚ê‚Î **‹ó”z—ñ []**B
+   - —á: u”M—Z’…‚ğg‚¤ŒŸ¸‚Ì‰ÁH‘¬“x‚Í1/3v¨
+     [{{"process_contains":"”M—Z’…","machine_contains":"ŒŸ¸","speed_multiplier":0.333333}}]
+     iu”M—Z’…v‚ÆuŒŸ¸v‚ªH’ö–¼E‹@ŠB–¼‚Ì‘g‚İ‡‚í‚¹‚Å‘µ‚¤ƒ^ƒXƒN‚Ì‘¬“x‚ª–ñ1/3‚É‚È‚éj
 
-D) **scheduler_notes_ja** ï¼ˆæ–‡å­—åˆ—ãƒ»å¿…é ˆï¼‰
-   - ä¸Šè¨˜ã‚­ãƒ¼ã«è½ã¨ã—ãã‚Œãªã„è£œè¶³ã€‚é€Ÿåº¦ã¯ **global_speed_rules ã§æ§‹é€ åŒ–ã§ãã‚‹ã¨ãã¯å¿…ãšãã¡ã‚‰ã«ã‚‚å‡ºã™**ï¼ˆã“ã“ã¯äººé–“å‘ã‘è¦ç´„ã§ã‚‚ã‚ˆã„ï¼‰ã€‚ç„¡ã‘ã‚Œã° ""ã€‚
+D) **scheduler_notes_ja** i•¶š—ñE•K{j
+   - ã‹LƒL[‚É—‚Æ‚µ‚«‚ê‚È‚¢•â‘«B‘¬“x‚Í **global_speed_rules ‚Å\‘¢‰»‚Å‚«‚é‚Æ‚«‚Í•K‚¸‚»‚¿‚ç‚É‚ào‚·**i‚±‚±‚ÍlŠÔŒü‚¯—v–ñ‚Å‚à‚æ‚¢jB–³‚¯‚ê‚Î ""B
 
-E) **interpretation_ja** ï¼ˆæ–‡å­—åˆ—ãƒ»å¿…é ˆï¼‰
-   - åŸæ–‡ã®è¦ç´„ã‚’1æ–‡ï¼ˆ200æ–‡å­—ä»¥å†…ï¼‰ã€‚
+E) **interpretation_ja** i•¶š—ñE•K{j
+   - Œ´•¶‚Ì—v–ñ‚ğ1•¶i200•¶šˆÈ“àjB
 
-F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
-   - **ç‰¹å®šã®ç¨¼åƒæ—¥**ã‹ã¤ **å·¥ç¨‹åï¼ˆExcelã€Œå·¥ç¨‹åã€åˆ—ï¼‰ã®éƒ¨åˆ†ä¸€è‡´** ã«å½“ã¦ã¯ã¾ã‚‹ã‚¿ã‚¹ã‚¯ã«ã¤ã„ã¦ã€
-     åˆ—æŒ™ã—ãŸ **å…¨ãƒ¡ãƒ³ãƒãƒ¼ã‚’åŒä¸€ãƒãƒ¼ãƒ ã«å¿…ãšå«ã‚ã‚‹** ãƒ«ãƒ¼ãƒ«ï¼ˆ**OP/AS ã©ã¡ã‚‰ã®ã‚¹ã‚­ãƒ«ã§ã‚‚å¯**ã€‚æ°åè§£æ±ºã¯ **æ‹…å½“OPæŒ‡åã¨åŒã˜**ï¼‰ã€‚
-   - **ä¾é ¼NOãŒåˆ†ã‹ã‚‹ä¸»æ‹…å½“ã®1åæŒ‡å**ã¯ **task_preferred_operators** ã‚’ä½¿ã†ã“ã¨ã€‚åŸæ–‡ãŒ **ã€Œâ—¯æœˆâ—¯æ—¥ã®â–³å·¥ç¨‹ã«ï¼¡ã¨ï¼¢ã‚’é…å°ã€** ã®ã‚ˆã†ã« **æ—¥ä»˜ãƒ»å·¥ç¨‹ãƒ»è¤‡æ•°å**ã®ã¨ãã¯ **æœ¬é…åˆ—**ã¸è½ã¨ã™ã€‚
-   - å„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚­ãƒ¼:
-     - "date": **YYYY-MM-DD**ï¼ˆãã®æ—¥ã«å‰²ã‚Šå½“ã¦ã‚‹ãƒ­ãƒ¼ãƒ«ã«é©ç”¨ï¼‰
-     - "process_contains": å·¥ç¨‹åã« **éƒ¨åˆ†ä¸€è‡´**ï¼ˆNFKC æƒ³å®šï¼‰ã€‚ä¾‹: "EC"
-     - "operator_names": æ°åã®é…åˆ—ï¼ˆä¾‹: ["æ£®ä¸‹", "å®®å³¶ã€€èŠ±å­"]ï¼‰
-   - è©²å½“æŒ‡ç¤ºãŒãªã‘ã‚Œã° **ç©ºé…åˆ— []**ã€‚
+F) **global_day_process_operator_rules** i”z—ñE•K{j
+   - **“Á’è‚Ì‰Ò“­“ú**‚©‚Â **H’ö–¼iExceluH’ö–¼v—ñj‚Ì•”•ªˆê’v** ‚É“–‚Ä‚Í‚Ü‚éƒ^ƒXƒN‚É‚Â‚¢‚ÄA
+     —ñ‹“‚µ‚½ **‘Sƒƒ“ƒo[‚ğ“¯ˆêƒ`[ƒ€‚É•K‚¸ŠÜ‚ß‚é** ƒ‹[ƒ‹i**OP/AS ‚Ç‚¿‚ç‚ÌƒXƒLƒ‹‚Å‚à‰Â**B–¼‰ğŒˆ‚Í **’S“–OPw–¼‚Æ“¯‚¶**jB
+   - **ˆË—ŠNO‚ª•ª‚©‚éå’S“–‚Ì1–¼w–¼**‚Í **task_preferred_operators** ‚ğg‚¤‚±‚ÆBŒ´•¶‚ª **uüŒü“ú‚Ì¢H’ö‚É‚`‚Æ‚a‚ğ”z‘äv** ‚Ì‚æ‚¤‚É **“ú•tEH’öE•¡”–¼**‚Ì‚Æ‚«‚Í **–{”z—ñ**‚Ö—‚Æ‚·B
+   - ŠeƒIƒuƒWƒFƒNƒg‚ÌƒL[:
+     - "date": **YYYY-MM-DD**i‚»‚Ì“ú‚ÉŠ„‚è“–‚Ä‚éƒ[ƒ‹‚É“K—pj
+     - "process_contains": H’ö–¼‚É **•”•ªˆê’v**iNFKC ‘z’èjB—á: "EC"
+     - "operator_names": –¼‚Ì”z—ñi—á: ["X‰º", "‹{“‡@‰Ôq"]j
+   - ŠY“–w¦‚ª‚È‚¯‚ê‚Î **‹ó”z—ñ []**B
 
-ã€è¿”ç­”å½¢å¼ã€‘
-å…ˆé ­ãŒ {{ ã§çµ‚ã‚ã‚ŠãŒ }} ã® **JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1ã¤ã®ã¿**ï¼ˆèª¬æ˜æ–‡ãƒ»ãƒãƒ¼ã‚¯ãƒ€ã‚¦ãƒ³ç¦æ­¢ï¼‰ã€‚
+y•Ô“šŒ`®z
+æ“ª‚ª {{ ‚ÅI‚í‚è‚ª }} ‚Ì **JSON ƒIƒuƒWƒFƒNƒg1‚Â‚Ì‚İ**ià–¾•¶Eƒ}[ƒNƒ_ƒEƒ“‹Ö~jB
 
-å¿…é ˆã‚­ãƒ¼ä¸€è¦§:
-- "factory_closure_dates": string ã®é…åˆ—ï¼ˆYYYY-MM-DDï¼‰
-- "ignore_skill_requirements": true ã¾ãŸã¯ false
-- "ignore_need_minimum": true ã¾ãŸã¯ false
-- "abolish_all_scheduling_limits": true ã¾ãŸã¯ false
-- "task_preferred_operators": **JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã¿**ï¼ˆã‚­ãƒ¼=ä¾é ¼NOãƒ»å€¤=ä¸»æ‹…å½“æ°åï¼‰ã€‚**é…åˆ—ã«ã—ã¦ã¯ãªã‚‰ãªã„**ã€‚è©²å½“ãªã—ã¯ {{}}
-- "global_speed_rules": ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—ï¼ˆè©²å½“ãªã—ã¯ []ï¼‰
-- "global_day_process_operator_rules": ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—ï¼ˆè©²å½“ãªã—ã¯ []ï¼‰
-- "scheduler_notes_ja": æ–‡å­—åˆ—
-- "interpretation_ja": æ–‡å­—åˆ—
+•K{ƒL[ˆê——:
+- "factory_closure_dates": string ‚Ì”z—ñiYYYY-MM-DDj
+- "ignore_skill_requirements": true ‚Ü‚½‚Í false
+- "ignore_need_minimum": true ‚Ü‚½‚Í false
+- "abolish_all_scheduling_limits": true ‚Ü‚½‚Í false
+- "task_preferred_operators": **JSON ƒIƒuƒWƒFƒNƒg‚Ì‚İ**iƒL[=ˆË—ŠNOE’l=å’S“––¼jB**”z—ñ‚É‚µ‚Ä‚Í‚È‚ç‚È‚¢**BŠY“–‚È‚µ‚Í {{}}
+- "global_speed_rules": ƒIƒuƒWƒFƒNƒg‚Ì”z—ñiŠY“–‚È‚µ‚Í []j
+- "global_day_process_operator_rules": ƒIƒuƒWƒFƒNƒg‚Ì”z—ñiŠY“–‚È‚µ‚Í []j
+- "scheduler_notes_ja": •¶š—ñ
+- "interpretation_ja": •¶š—ñ
 
-ã€åŸºæº–å¹´ã€‘ æ—¥ä»˜è¨€åŠãŒã‚ã‚Œã°è¥¿æš¦ {ref_y} å¹´ã¨ã—ã¦è§£é‡ˆã—ã¦ã‚ˆã„ã€‚
+yŠî€”Nz “ú•tŒ¾‹y‚ª‚ ‚ê‚Î¼—ï {ref_y} ”N‚Æ‚µ‚Ä‰ğß‚µ‚Ä‚æ‚¢B
 
-ã€ç™»éŒ²ãƒ¡ãƒ³ãƒãƒ¼åã®å‚è€ƒã€‘ï¼ˆç…§åˆç”¨ã€‚JSON ã‚­ãƒ¼ã«ã¯å«ã‚ãªã„ï¼‰
+y“o˜^ƒƒ“ƒo[–¼‚ÌQlziÆ‡—pBJSON ƒL[‚É‚ÍŠÜ‚ß‚È‚¢j
 {member_sample}
 
-ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆãƒ»åŸæ–‡ã€‘
+yƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgEŒ´•¶z
 {blob}
 """
     try:
         ppath = os.path.join(log_dir, "ai_global_priority_override_last_prompt.txt")
         with open(ppath, "w", encoding="utf-8", newline="\n") as pf:
             pf.write(prompt)
-        logging.info("ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆå…¨æ–‡ â†’ %s", ppath)
+        logging.info("ƒƒCƒ“Ä—Dæ“Á‹L: ƒvƒƒ“ƒvƒg‘S•¶ ¨ %s", ppath)
     except OSError as ex:
-        logging.warning("ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆä¿å­˜å¤±æ•—: %s", ex)
+        logging.warning("ƒƒCƒ“Ä—Dæ“Á‹L: ƒvƒƒ“ƒvƒg•Û‘¶¸”s: %s", ex)
 
     client = genai.Client(api_key=API_KEY)
     try:
@@ -3292,7 +3292,7 @@ F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
         parsed = _parse_global_priority_override_gemini_response(res)
         if parsed is None:
             logging.warning(
-                "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: AI å¿œç­”ã‹ã‚‰ JSON ã‚’è§£é‡ˆã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã›ãšã€æ¬¡å›å†è©¦è¡Œã•ã‚Œã¾ã™ã€‚"
+                "ƒƒCƒ“Ä—Dæ“Á‹L: AI ‰“š‚©‚ç JSON ‚ğ‰ğß‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½BƒLƒƒƒbƒVƒ…‚¹‚¸AŸ‰ñÄs‚³‚ê‚Ü‚·B"
             )
             try:
                 rpath = os.path.join(log_dir, "ai_global_priority_override_last_response.txt")
@@ -3301,7 +3301,7 @@ F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
             except OSError:
                 pass
             if ai_sheet_sink is not None:
-                ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = "ã‚ã‚Šï¼ˆJSONè§£é‡ˆå¤±æ•—ãƒ»å·¥å ´ä¼‘æ¥­ã¯ãƒ«ãƒ¼ãƒ«è£œå®Œï¼‰"
+                ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = "‚ ‚èiJSON‰ğß¸”sEHê‹x‹Æ‚Íƒ‹[ƒ‹•âŠ®j"
             coerced = _apply_regex_factory_closure_fallback(
                 _coerce_global_priority_override_dict({}, ref_y), blob, ref_y
             )
@@ -3321,7 +3321,7 @@ F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
         _gsr = coerced.get("global_speed_rules") or []
         _gdp = coerced.get("global_day_process_operator_rules") or []
         logging.info(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: AI è§£é‡ˆ factoryä¼‘æ¥­=%sæ—¥ é€Ÿåº¦ãƒ«ãƒ¼ãƒ«=%sä»¶ æ—¥Ã—å·¥ç¨‹ãƒãƒ¼ãƒ =%sä»¶ skill=%s need1=%s abolish=%s task_pref=%sä»¶ â€” %s",
+            "ƒƒCƒ“Ä—Dæ“Á‹L: AI ‰ğß factory‹x‹Æ=%s“ú ‘¬“xƒ‹[ƒ‹=%sŒ “ú~H’öƒ`[ƒ€=%sŒ skill=%s need1=%s abolish=%s task_pref=%sŒ ? %s",
             len(_fcd),
             len(_gsr),
             len(_gdp),
@@ -3332,12 +3332,12 @@ F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
             coerced.get("interpretation_ja", "")[:100],
         )
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = "ã‚ã‚Š"
+            ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = "‚ ‚è"
         return coerced
     except Exception as e:
-        logging.warning("ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: Gemini å‘¼ã³å‡ºã—å¤±æ•—: %s", e)
+        logging.warning("ƒƒCƒ“Ä—Dæ“Á‹L: Gemini ŒÄ‚Ño‚µ¸”s: %s", e)
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜_AI_API"] = f"å¤±æ•—: {e}"[:500]
+            ai_sheet_sink["ƒƒCƒ“Ä—Dæ“Á‹L_AI_API"] = f"¸”s: {e}"[:500]
         coerced = _apply_regex_factory_closure_fallback(
             _coerce_global_priority_override_dict({}, ref_y), blob, ref_y
         )
@@ -3345,39 +3345,39 @@ F) **global_day_process_operator_rules** ï¼ˆé…åˆ—ãƒ»å¿…é ˆï¼‰
 
 
 def default_result_task_sheet_column_order(max_history_len: int) -> list:
-    """çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®æ—¢å®šåˆ—é †ï¼ˆå±¥æ­´åˆ—æ•°ã¯å®Ÿè¡Œæ™‚ã«æ±ºã¾ã‚‹ï¼‰ã€‚"""
-    hist = [f"å±¥æ­´{i+1}" for i in range(max_history_len)]
+    """Œ‹‰Ê_ƒ^ƒXƒNˆê——‚ÌŠù’è—ñ‡i—š—ğ—ñ”‚ÍÀs‚ÉŒˆ‚Ü‚éjB"""
+    hist = [f"—š—ğ{i+1}" for i in range(max_history_len)]
     return [
-        "ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹",
-        "ã‚¿ã‚¹ã‚¯ID",
-        "å·¥ç¨‹å",
-        "æ©Ÿæ¢°å",
-        "å„ªå…ˆåº¦",
+        "ƒXƒe[ƒ^ƒX",
+        "ƒ^ƒXƒNID",
+        "H’ö–¼",
+        "‹@ŠB–¼",
+        "—Dæ“x",
         RESULT_TASK_COL_DISPATCH_TRIAL_ORDER,
         *hist,
-        "å¿…è¦OP(ä¸Šæ›¸)",
-        "ã‚¿ã‚¹ã‚¯åŠ¹ç‡",
-        "åŠ å·¥é€”ä¸­",
-        "ç‰¹åˆ¥æŒ‡å®šã‚ã‚Š",
-        "æ‹…å½“OPæŒ‡å",
-        "å›ç­”ç´æœŸ",
-        "æŒ‡å®šç´æœŸ",
-        "è¨ˆç”»åŸºæº–ç´æœŸ",
+        "•K—vOP(ã‘)",
+        "ƒ^ƒXƒNŒø—¦",
+        "‰ÁH“r’†",
+        "“Á•Êw’è‚ ‚è",
+        "’S“–OPw–¼",
+        "‰ñ“š”[Šú",
+        "w’è”[Šú",
+        "Œv‰æŠî€”[Šú",
         TASK_COL_RAW_INPUT_DATE,
-        "ç´æœŸç·Šæ€¥",
-        "åŠ å·¥é–‹å§‹æ—¥",
-        "é…å®Œ_åŠ å·¥é–‹å§‹",
-        "é…å®Œ_åŠ å·¥çµ‚äº†",
+        "”[Šú‹Ù‹}",
+        "‰ÁHŠJn“ú",
+        "”zŠ®_‰ÁHŠJn",
+        "”zŠ®_‰ÁHI—¹",
         RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16,
-        "ç·åŠ å·¥é‡",
-        "æ®‹åŠ å·¥é‡",
-        "å®Œäº†ç‡(å®Ÿè¡Œæ™‚ç‚¹)",
-        "ç‰¹åˆ¥æŒ‡å®š_AI",
+        "‘‰ÁH—Ê",
+        "c‰ÁH—Ê",
+        "Š®—¹—¦(Às“_)",
+        "“Á•Êw’è_AI",
     ]
 
 
 def _task_date_key_for_result_sheet_sort(val):
-    """çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®ä¸¦ã¹æ›¿ãˆç”¨ã€‚æ¬ æãƒ»è§£é‡ˆä¸èƒ½ã¯æœ€å¾Œï¼ˆdate.maxï¼‰ã€‚"""
+    """Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì•À‚×‘Ö‚¦—pBŒ‡‘¹E‰ğß•s”\‚ÍÅŒãidate.maxjB"""
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return date.max
     if isinstance(val, datetime):
@@ -3394,7 +3394,7 @@ def _task_date_key_for_result_sheet_sort(val):
 
 
 def _coerce_planning_date_for_deadline(d) -> date | None:
-    """å›ç­”ç´æœŸãƒ»æŒ‡å®šç´æœŸãªã©ã‚’ date ã«æ­£è¦åŒ–ï¼ˆæ¬ æã¯ Noneï¼‰ã€‚"""
+    """‰ñ“š”[ŠúEw’è”[Šú‚È‚Ç‚ğ date ‚É³‹K‰»iŒ‡‘¹‚Í NonejB"""
     if d is None:
         return None
     if isinstance(d, datetime):
@@ -3408,34 +3408,34 @@ def _result_task_plan_end_within_answer_or_spec_16_label(
     plan_window: list | None, answer_due, specified_due
 ) -> str:
     """
-    çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ç”¨: ã€Œé…å®Œ_åŠ å·¥çµ‚äº†ã€ç›¸å½“ã®æœ€çµ‚çµ‚äº†ãŒã€
-    å›ç­”ç´æœŸã®æ—¥ä»˜ + PLAN_DUE_DAY_COMPLETION_TIMEï¼ˆæ—¢å®š 16:00ï¼‰ä»¥ä¸‹ã‹ã‚’åˆ¤å®šã€‚
-    å›ç­”ç´æœŸãŒç„¡ã„è¡Œã¯æŒ‡å®šç´æœŸã®æ—¥ä»˜ + 16:00 ã§åˆ¤å®šã€‚
-    ä¸¡æ–¹ç„¡ã„å ´åˆã¯ã€Œç´æœŸãªã—ã€ã€‚
+    Œ‹‰Ê_ƒ^ƒXƒNˆê———p: u”zŠ®_‰ÁHI—¹v‘Š“–‚ÌÅII—¹‚ªA
+    ‰ñ“š”[Šú‚Ì“ú•t + PLAN_DUE_DAY_COMPLETION_TIMEiŠù’è 16:00jˆÈ‰º‚©‚ğ”»’èB
+    ‰ñ“š”[Šú‚ª–³‚¢s‚Íw’è”[Šú‚Ì“ú•t + 16:00 ‚Å”»’èB
+    —¼•û–³‚¢ê‡‚Íu”[Šú‚È‚µvB
     """
     if not plan_window or len(plan_window) < 2:
-        return "æœªå‰²å½“"
+        return "–¢Š„“–"
     _pe = plan_window[1]
     if _pe is None:
-        return "æœªå‰²å½“"
+        return "–¢Š„“–"
     dd = _coerce_planning_date_for_deadline(answer_due)
     if dd is None:
         dd = _coerce_planning_date_for_deadline(specified_due)
     if dd is None:
-        return "ç´æœŸãªã—"
+        return "”[Šú‚È‚µ"
     try:
         deadline_dt = datetime.combine(dd, PLAN_DUE_DAY_COMPLETION_TIME)
         if _pe <= deadline_dt:
-            return "ã¯ã„"
-        return "ã„ã„ãˆ"
+            return "‚Í‚¢"
+        return "‚¢‚¢‚¦"
     except Exception:
-        return "åˆ¤å®šä¸èƒ½"
+        return "”»’è•s”\"
 
 
 def _result_task_sheet_sort_key(t: dict):
     """
-    çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®è¡¨ç¤ºé †ã€‚â‘ é…å°è©¦è¡Œé †ç•ªï¼ˆgenerate_plan å†’é ­ã§ã‚­ãƒ¥ãƒ¼é †ã«ä»˜ä¸ã—ãŸ 1..nï¼‰æ˜‡é †ã€‚
-    æ¬ æãƒ»éæ•°ã¯æœ€å¾Œã€‚åŒä¸€è©¦è¡Œé †å†…ã¯ä¾é ¼NOãƒ»æ©Ÿæ¢°åã€ç¶šã‘ã¦åŠ å·¥é–‹å§‹æ—¥ãƒ»ç´æœŸã§å®‰å®šåŒ–ã€‚
+    Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì•\¦‡B‡@”z‘äs‡”Ôigenerate_plan –`“ª‚ÅƒLƒ…[‡‚É•t—^‚µ‚½ 1..nj¸‡B
+    Œ‡‘¹E”ñ”‚ÍÅŒãB“¯ˆês‡“à‚ÍˆË—ŠNOE‹@ŠB–¼A‘±‚¯‚Ä‰ÁHŠJn“úE”[Šú‚ÅˆÀ’è‰»B
     """
     _dto = t.get("dispatch_trial_order")
     try:
@@ -3453,15 +3453,15 @@ def _result_task_sheet_sort_key(t: dict):
 
 
 def _is_result_task_history_expand_token(cell_val) -> bool:
-    """åˆ—è¨­å®šã‚·ãƒ¼ãƒˆã§ã€Œå±¥æ­´ã€1è¡Œã‚’ç½®ãã¨å±¥æ­´1ï½n ã‚’ãã®ä½ç½®ã«å±•é–‹ã™ã‚‹ã€‚"""
+    """—ñİ’èƒV[ƒg‚Åu—š—ğv1s‚ğ’u‚­‚Æ—š—ğ1`n ‚ğ‚»‚ÌˆÊ’u‚É“WŠJ‚·‚éB"""
     if cell_val is None or (isinstance(cell_val, float) and pd.isna(cell_val)):
         return False
     s = unicodedata.normalize("NFKC", str(cell_val).strip())
-    return s in ("å±¥æ­´", "å±¥æ­´*")
+    return s in ("—š—ğ", "—š—ğ*")
 
 
 def _result_task_column_alias_map(df_columns) -> dict:
-    """è¦‹å‡ºã—ã® NFKC æ­£è¦åŒ–ã‚­ãƒ¼ â†’ DataFrame ä¸Šã®å®Ÿåˆ—åã€‚"""
+    """Œ©o‚µ‚Ì NFKC ³‹K‰»ƒL[ ¨ DataFrame ã‚ÌÀ—ñ–¼B"""
     m = {}
     for c in df_columns:
         m[_nfkc_column_aliases(str(c).strip())] = c
@@ -3478,8 +3478,8 @@ def _resolve_result_task_column_label(label, col_by_norm: dict):
     resolved = col_by_norm.get(nk)
     if resolved is not None:
         return resolved
-    # æ—§åˆ—åï¼ˆè¨ˆç”»åŸºæº–ç´æœŸãƒ™ãƒ¼ã‚¹ï¼‰â†’ é…å®Œ_å›ç­”æŒ‡å®š16æ™‚ã¾ã§
-    if nk == _nfkc_column_aliases("é…å®Œ_åŸºæº–16æ™‚ã¾ã§"):
+    # ‹Œ—ñ–¼iŒv‰æŠî€”[Šúƒx[ƒXj¨ ”zŠ®_‰ñ“šw’è16‚Ü‚Å
+    if nk == _nfkc_column_aliases("”zŠ®_Šî€16‚Ü‚Å"):
         return col_by_norm.get(
             _nfkc_column_aliases(RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16)
         )
@@ -3487,7 +3487,7 @@ def _resolve_result_task_column_label(label, col_by_norm: dict):
 
 
 def _parse_column_visible_cell(val) -> bool:
-    """è¡¨ç¤ºåˆ—: ç©ºãƒ»æœªè¨˜å…¥ã¯ Trueï¼ˆè¡¨ç¤ºï¼‰ã€‚FALSE/0/ã„ã„ãˆ ç­‰ã§éè¡¨ç¤ºã€‚"""
+    """•\¦—ñ: ‹óE–¢‹L“ü‚Í Truei•\¦jBFALSE/0/‚¢‚¢‚¦ “™‚Å”ñ•\¦B"""
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return True
     if isinstance(val, bool):
@@ -3498,9 +3498,9 @@ def _parse_column_visible_cell(val) -> bool:
         if val == 1:
             return True
     s = unicodedata.normalize("NFKC", str(val).strip()).lower()
-    if s in ("", "true", "1", "ã¯ã„", "yes", "on", "è¡¨ç¤º", "â—‹"):
+    if s in ("", "true", "1", "‚Í‚¢", "yes", "on", "•\¦", "›"):
         return True
-    if s in ("false", "flase", "0", "ã„ã„ãˆ", "no", "off", "éè¡¨ç¤º", "éš ã™", "Ã—"):
+    if s in ("false", "flase", "0", "‚¢‚¢‚¦", "no", "off", "”ñ•\¦", "‰B‚·", "~"):
         return False
     return True
 
@@ -3509,10 +3509,10 @@ def parse_result_task_column_config_dataframe(
     df_cfg: pd.DataFrame | None, max_history_len: int
 ) -> list | None:
     """
-    ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ç›¸å½“ã® DataFrame ã‹ã‚‰ (åˆ—ãƒ©ãƒ™ãƒ«, è¡¨ç¤º) ã‚’ä¸Šã‹ã‚‰èª­ã‚€ã€‚
-    è¦‹å‡ºã—ã€Œåˆ—åã€ã¨ã€Œè¡¨ç¤ºã€ï¼ˆç„¡ã„å ´åˆã¯è¡¨ç¤ºã¯ã™ã¹ã¦ Trueï¼‰ã€‚
-    ã€Œå±¥æ­´ã€ã€Œå±¥æ­´*ã€ã®1è¡Œã¯å±¥æ­´1ï½å±¥æ­´n ã«å±•é–‹ã—ã€åŒä¸€è¡Œã®è¡¨ç¤ºãƒ•ãƒ©ã‚°ã‚’å…±æœ‰ã™ã‚‹ã€‚
-    åŒä¸€åˆ—åï¼ˆNFKCãƒ»åˆ¥åæ­£è¦åŒ–å¾Œï¼‰ãŒè¤‡æ•°è¡Œã‚ã‚‹å ´åˆã¯å…ˆé ­è¡Œã®ã¿æ¡ç”¨ã—ã€ä»¥é™ã¯ãƒ­ã‚°ã«å‡ºã—ã¦æ¨ã¦ã‚‹ã€‚
+    u—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——v‘Š“–‚Ì DataFrame ‚©‚ç (—ñƒ‰ƒxƒ‹, •\¦) ‚ğã‚©‚ç“Ç‚ŞB
+    Œ©o‚µu—ñ–¼v‚Æu•\¦vi–³‚¢ê‡‚Í•\¦‚Í‚·‚×‚Ä TruejB
+    u—š—ğvu—š—ğ*v‚Ì1s‚Í—š—ğ1`—š—ğn ‚É“WŠJ‚µA“¯ˆês‚Ì•\¦ƒtƒ‰ƒO‚ğ‹¤—L‚·‚éB
+    “¯ˆê—ñ–¼iNFKCE•Ê–¼³‹K‰»Œãj‚ª•¡”s‚ ‚éê‡‚Íæ“ªs‚Ì‚İÌ—p‚µAˆÈ~‚ÍƒƒO‚Éo‚µ‚ÄÌ‚Ä‚éB
     """
     if df_cfg is None or df_cfg.empty:
         return None
@@ -3544,7 +3544,7 @@ def parse_result_task_column_config_dataframe(
         nk = _nfkc_column_aliases(unicodedata.normalize("NFKC", lab))
         if nk in seen_norm:
             logging.warning(
-                "åˆ—è¨­å®šã€Œ%sã€: é‡è¤‡åˆ—åã€Œ%sã€ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸï¼ˆä¸Šã®è¡Œã‚’å„ªå…ˆï¼‰ã€‚",
+                "—ñİ’èu%sv: d•¡—ñ–¼u%sv‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½iã‚Ìs‚ğ—DæjB",
                 COLUMN_CONFIG_SHEET_NAME,
                 lab,
             )
@@ -3557,7 +3557,7 @@ def parse_result_task_column_config_dataframe(
         vis = _parse_column_visible_cell(df_cfg[vis_col].iloc[i] if vis_col is not None else None)
         if _is_result_task_history_expand_token(raw):
             for j in range(max_history_len):
-                _try_add(f"å±¥æ­´{j+1}", vis)
+                _try_add(f"—š—ğ{j+1}", vis)
             continue
         if raw is None or (isinstance(raw, float) and pd.isna(raw)):
             continue
@@ -3569,7 +3569,7 @@ def parse_result_task_column_config_dataframe(
 
 
 def _xlwings_write_column_config_sheet_ab(xw_sheet, rows: list[tuple[str, bool]]) -> None:
-    """åˆ—è¨­å®šã‚·ãƒ¼ãƒˆã® A:B ã‚’ åˆ—åãƒ»è¡¨ç¤º ã®ã¿ã§ä¸Šæ›¸ãï¼ˆ1è¡Œç›®è¦‹å‡ºã—ï¼‹ãƒ‡ãƒ¼ã‚¿ï¼‰ã€‚"""
+    """—ñİ’èƒV[ƒg‚Ì A:B ‚ğ —ñ–¼E•\¦ ‚Ì‚İ‚Åã‘‚«i1s–ÚŒ©o‚µ{ƒf[ƒ^jB"""
     mat = [[COLUMN_CONFIG_HEADER_COL, COLUMN_CONFIG_VISIBLE_COL]]
     for lab, vis in rows:
         mat.append([lab, bool(vis)])
@@ -3588,14 +3588,14 @@ def _xlwings_write_column_config_sheet_ab(xw_sheet, rows: list[tuple[str, bool]]
 
 def load_result_task_column_rows_from_input_workbook(max_history_len: int) -> list | None:
     """
-    TASK_INPUT_WORKBOOK ã®ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ã‚·ãƒ¼ãƒˆã‹ã‚‰ (åˆ—ãƒ©ãƒ™ãƒ«, è¡¨ç¤º) ã‚’ä¸Šã‹ã‚‰èª­ã‚€ã€‚
+    TASK_INPUT_WORKBOOK ‚Ìu—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——vƒV[ƒg‚©‚ç (—ñƒ‰ƒxƒ‹, •\¦) ‚ğã‚©‚ç“Ç‚ŞB
     """
     wb = TASKS_INPUT_WORKBOOK
     if not wb or not os.path.exists(wb):
         return None
     if _workbook_should_skip_openpyxl_io(wb):
         logging.info(
-            "åˆ—è¨­å®š: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ pandas(openpyxl) ã§ã®ã€Œ%sã€èª­è¾¼ã‚’ã‚¹ã‚­ãƒƒãƒ—ï¼ˆæ—¢å®šåˆ—é †ã‚’ä½¿ã„ã¾ã™ï¼‰ã€‚",
+            "—ñİ’è: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß pandas(openpyxl) ‚Å‚Ìu%sv“Ç‚ğƒXƒLƒbƒviŠù’è—ñ‡‚ğg‚¢‚Ü‚·jB",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
             COLUMN_CONFIG_SHEET_NAME,
         )
@@ -3606,7 +3606,7 @@ def load_result_task_column_rows_from_input_workbook(max_history_len: int) -> li
         return None
     except Exception as e:
         logging.warning(
-            "ã‚·ãƒ¼ãƒˆã€Œ%sã€: èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ãŸãŸã‚æ—¢å®šã®åˆ—é †ã‚’ä½¿ã„ã¾ã™ (%s)",
+            "ƒV[ƒgu%sv: “Ç‚İ‚İ‚É¸”s‚µ‚½‚½‚ßŠù’è‚Ì—ñ‡‚ğg‚¢‚Ü‚· (%s)",
             COLUMN_CONFIG_SHEET_NAME,
             e,
         )
@@ -3621,9 +3621,9 @@ def apply_result_task_sheet_column_order(
     config_dataframe: pd.DataFrame | None = None,
 ):
     """
-    åˆ—è¨­å®šã‚·ãƒ¼ãƒˆãŒã‚ã‚Œã°ãã®é †ãƒ»è¡¨ç¤ºã‚’å„ªå…ˆã—ã€ç„¡ã„åˆ—ã¯æ—¢å®šé †ã§å¾Œã‚ã«è¿½è¨˜ï¼ˆè¡¨ç¤ºã¯ Trueï¼‰ã€‚
-    config_dataframe ã‚’æ¸¡ã—ãŸå ´åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¾ãšãã®å†…å®¹ã‚’åˆ—è¨­å®šã¨ã¿ãªã™ï¼ˆxlwings å®Ÿè¡Œæ™‚ç”¨ï¼‰ã€‚
-    æˆ»ã‚Šå€¤: (ä¸¦ã¹æ›¿ãˆå¾Œ DataFrame, å®Ÿéš›ã®åˆ—åãƒªã‚¹ãƒˆ, è¨­å®šã‚½ãƒ¼ã‚¹èª¬æ˜æ–‡å­—åˆ—, åˆ—åâ†’è¡¨ç¤ºbool)
+    —ñİ’èƒV[ƒg‚ª‚ ‚ê‚Î‚»‚Ì‡E•\¦‚ğ—Dæ‚µA–³‚¢—ñ‚ÍŠù’è‡‚ÅŒã‚ë‚É’Ç‹Li•\¦‚Í TruejB
+    config_dataframe ‚ğ“n‚µ‚½ê‡‚Íƒtƒ@ƒCƒ‹‚ğ“Ç‚Ü‚¸‚»‚Ì“à—e‚ğ—ñİ’è‚Æ‚İ‚È‚·ixlwings Às—pjB
+    –ß‚è’l: (•À‚×‘Ö‚¦Œã DataFrame, ÀÛ‚Ì—ñ–¼ƒŠƒXƒg, İ’èƒ\[ƒXà–¾•¶š—ñ, —ñ–¼¨•\¦bool)
     """
     default_order = default_result_task_sheet_column_order(max_history_len)
     if config_dataframe is not None:
@@ -3633,13 +3633,13 @@ def apply_result_task_sheet_column_order(
     if user_rows:
         primary = user_rows
         source = (
-            f"ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œ{COLUMN_CONFIG_SHEET_NAME}ã€"
+            f"ƒ}ƒNƒƒuƒbƒNu{COLUMN_CONFIG_SHEET_NAME}v"
             if config_dataframe is None
-            else f"ã‚·ãƒ¼ãƒˆã€Œ{COLUMN_CONFIG_SHEET_NAME}ã€ï¼ˆå®Ÿè¡Œä¸­ãƒ–ãƒƒã‚¯ï¼‰"
+            else f"ƒV[ƒgu{COLUMN_CONFIG_SHEET_NAME}viÀs’†ƒuƒbƒNj"
         )
     else:
         primary = [(n, True) for n in default_order]
-        source = "æ—¢å®š"
+        source = "Šù’è"
 
     actual = list(df.columns)
     actual_set = set(actual)
@@ -3673,15 +3673,15 @@ def apply_result_task_sheet_column_order(
 
     if unknown:
         logging.warning(
-            "åˆ—è¨­å®š: çµæœã«ç„¡ã„åˆ—åã‚’ç„¡è¦–ã—ã¾ã—ãŸï¼ˆæœ€å¤§20ä»¶ï¼‰: %s",
-            ", ".join(unknown[:20]) + (" â€¦" if len(unknown) > 20 else ""),
+            "—ñİ’è: Œ‹‰Ê‚É–³‚¢—ñ–¼‚ğ–³‹‚µ‚Ü‚µ‚½iÅ‘å20Œj: %s",
+            ", ".join(unknown[:20]) + (" c" if len(unknown) > 20 else ""),
         )
-    logging.info("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®åˆ—é †ã‚½ãƒ¼ã‚¹: %sï¼ˆ%s åˆ—ï¼‰", source, len(ordered))
+    logging.info("Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì—ñ‡ƒ\[ƒX: %si%s —ñj", source, len(ordered))
     if not user_rows and config_dataframe is None:
         logging.info(
-            "åˆ—é †ãƒ»è¡¨ç¤ºã®ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚º: ãƒã‚¯ãƒ­å®Ÿè¡Œãƒ–ãƒƒã‚¯ã«ã‚·ãƒ¼ãƒˆã€Œ%sã€ã‚’è¿½åŠ ã€‚"
-            " è¦‹å‡ºã—ã€Œ%sã€ã€Œ%sã€â€¦ è¡¨ç¤ºãŒ FALSE ã®åˆ—ã¯çµæœã‚·ãƒ¼ãƒˆã§éè¡¨ç¤ºã€‚"
-            " 1è¡Œã€Œå±¥æ­´ã€ã§å±¥æ­´1ï½n ã‚’æŒ¿å…¥ã€‚VBA ã®ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§_ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã‚’é…ç½®ã€ã§ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤ºåˆ—ã«é€£å‹•å¯èƒ½ã€‚",
+            "—ñ‡E•\¦‚ÌƒJƒXƒ^ƒ}ƒCƒY: ƒ}ƒNƒÀsƒuƒbƒN‚ÉƒV[ƒgu%sv‚ğ’Ç‰ÁB"
+            " Œ©o‚µu%svu%svc •\¦‚ª FALSE ‚Ì—ñ‚ÍŒ‹‰ÊƒV[ƒg‚Å”ñ•\¦B"
+            " 1su—š—ğv‚Å—š—ğ1`n ‚ğ‘}“üBVBA ‚Ìu—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——_ƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ğ”z’uv‚Åƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ğ•\¦—ñ‚É˜A“®‰Â”\B",
             COLUMN_CONFIG_SHEET_NAME,
             COLUMN_CONFIG_HEADER_COL,
             COLUMN_CONFIG_VISIBLE_COL,
@@ -3690,7 +3690,7 @@ def apply_result_task_sheet_column_order(
 
 
 def _xlwings_sheet_to_matrix(sheet) -> list:
-    """xlwings Sheet ã® UsedRange ã‚’çŸ©å½¢ã® list[list] ã«ã™ã‚‹ï¼ˆ1è¡Œã®ã¿ã§ã‚‚2æ¬¡å…ƒï¼‰ã€‚"""
+    """xlwings Sheet ‚Ì UsedRange ‚ğ‹éŒ`‚Ì list[list] ‚É‚·‚éi1s‚Ì‚İ‚Å‚à2ŸŒ³jB"""
     ur = sheet.used_range
     if ur is None:
         return []
@@ -3707,7 +3707,7 @@ def _xlwings_sheet_to_matrix(sheet) -> list:
 
 
 def _matrix_to_dataframe_header_first(matrix: list) -> pd.DataFrame | None:
-    """1è¡Œç›®ã‚’åˆ—åã¨ã¿ãªã— DataFrame ã‚’è¿”ã™ã€‚ç©ºãªã‚‰ Noneã€‚"""
+    """1s–Ú‚ğ—ñ–¼‚Æ‚İ‚È‚µ DataFrame ‚ğ•Ô‚·B‹ó‚È‚ç NoneB"""
     if not matrix or not matrix[0]:
         return None
     header = []
@@ -3723,10 +3723,10 @@ def _matrix_to_dataframe_header_first(matrix: list) -> pd.DataFrame | None:
 
 
 def _max_history_len_from_result_task_df_columns(columns) -> int:
-    """çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®ã€Œå±¥æ­´nã€åˆ—ã‹ã‚‰ n ã®æœ€å¤§ã‚’è¿”ã™ï¼ˆç„¡ã‘ã‚Œã° 1ï¼‰ã€‚"""
+    """Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ìu—š—ğnv—ñ‚©‚ç n ‚ÌÅ‘å‚ğ•Ô‚·i–³‚¯‚ê‚Î 1jB"""
     imax = 0
     for c in columns:
-        m = re.match(r"^å±¥æ­´(\d+)$", str(c).strip())
+        m = re.match(r"^—š—ğ(\d+)$", str(c).strip())
         if m:
             imax = max(imax, int(m.group(1)))
     return max(imax, 1)
@@ -3734,31 +3734,31 @@ def _max_history_len_from_result_task_df_columns(columns) -> int:
 
 def apply_result_task_column_layout_via_xlwings(workbook_path: str | None = None) -> bool:
     """
-    Excel ã§é–‹ã„ã¦ã„ã‚‹ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã«ã¤ã„ã¦ã€
-    ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ã®å†…å®¹ã«åˆã‚ã›ã¦ã€Œçµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ã®åˆ—é †ã¨åˆ—éè¡¨ç¤ºã‚’æ›´æ–°ã™ã‚‹ã€‚
-    ãƒ–ãƒƒã‚¯ã¯äº‹å‰ã«ä¿å­˜ã—ã€æœ¬å‡¦ç†ä¸­ã‚‚ Excel ä¸Šã§é–‹ã„ãŸã¾ã¾ã«ã™ã‚‹ã“ã¨ï¼ˆxlwings ãŒæ¥ç¶šã™ã‚‹ï¼‰ã€‚
+    Excel ‚ÅŠJ‚¢‚Ä‚¢‚éƒ}ƒNƒƒuƒbƒN‚É‚Â‚¢‚ÄA
+    u—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——v‚Ì“à—e‚É‡‚í‚¹‚ÄuŒ‹‰Ê_ƒ^ƒXƒNˆê——v‚Ì—ñ‡‚Æ—ñ”ñ•\¦‚ğXV‚·‚éB
+    ƒuƒbƒN‚Í–‘O‚É•Û‘¶‚µA–{ˆ—’†‚à Excel ã‚ÅŠJ‚¢‚½‚Ü‚Ü‚É‚·‚é‚±‚Æixlwings ‚ªÚ‘±‚·‚éjB
     """
     path = (workbook_path or "").strip() or TASKS_INPUT_WORKBOOK.strip()
     if not path:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ãƒ–ãƒƒã‚¯ãƒ‘ã‚¹ãŒç©ºã§ã™ï¼ˆTASK_INPUT_WORKBOOK ã‚’è¨­å®šã—ã¦ãã ã•ã„ï¼‰ã€‚")
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: ƒuƒbƒNƒpƒX‚ª‹ó‚Å‚·iTASK_INPUT_WORKBOOK ‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢jB")
         return False
     try:
         import xlwings as xw
     except ImportError:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: xlwings ãŒ import ã§ãã¾ã›ã‚“ã€‚pip install xlwings ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚")
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: xlwings ‚ª import ‚Å‚«‚Ü‚¹‚ñBpip install xlwings ‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B")
         return False
 
     try:
         wb = xw.Book(path)
     except Exception as e:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ãƒ–ãƒƒã‚¯ã«æ¥ç¶šã§ãã¾ã›ã‚“: %s", e)
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: ƒuƒbƒN‚ÉÚ‘±‚Å‚«‚Ü‚¹‚ñ: %s", e)
         return False
 
     try:
         ws_res = wb.sheets[RESULT_TASK_SHEET_NAME]
         ws_cfg = wb.sheets[COLUMN_CONFIG_SHEET_NAME]
     except Exception as e:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: å¿…è¦ã‚·ãƒ¼ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“: %s", e)
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: •K—vƒV[ƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ: %s", e)
         return False
 
     mat_res = _xlwings_sheet_to_matrix(ws_res)
@@ -3766,17 +3766,17 @@ def apply_result_task_column_layout_via_xlwings(workbook_path: str | None = None
     df_res = _matrix_to_dataframe_header_first(mat_res)
     df_cfg = _matrix_to_dataframe_header_first(mat_cfg)
     if df_res is None or df_res.empty:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ã€Œ%sã€ã«ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Šã¾ã›ã‚“ã€‚", RESULT_TASK_SHEET_NAME)
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: u%sv‚Éƒf[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñB", RESULT_TASK_SHEET_NAME)
         return False
     if df_cfg is None:
-        logging.error("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ã€Œ%sã€ã®è¦‹å‡ºã—ã‚’èª­ã‚ã¾ã›ã‚“ã€‚", COLUMN_CONFIG_SHEET_NAME)
+        logging.error("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: u%sv‚ÌŒ©o‚µ‚ğ“Ç‚ß‚Ü‚¹‚ñB", COLUMN_CONFIG_SHEET_NAME)
         return False
 
     max_h = _max_history_len_from_result_task_df_columns(df_res.columns)
     rows_cfg = parse_result_task_column_config_dataframe(df_cfg, max_h)
     if not rows_cfg:
         logging.error(
-            "çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ã€Œ%sã€ã«æœ‰åŠ¹ãªåˆ—åè¡ŒãŒã‚ã‚Šã¾ã›ã‚“ã€‚",
+            "Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: u%sv‚É—LŒø‚È—ñ–¼s‚ª‚ ‚è‚Ü‚¹‚ñB",
             COLUMN_CONFIG_SHEET_NAME,
         )
         return False
@@ -3822,15 +3822,15 @@ def apply_result_task_column_layout_via_xlwings(workbook_path: str | None = None
             try:
                 ws_res.range((1, ci)).api.EntireColumn.Hidden = True
             except Exception as e:
-                logging.warning("åˆ—éè¡¨ç¤ºã«å¤±æ•—ï¼ˆåˆ—%s %sï¼‰: %s", ci, col_name, e)
+                logging.warning("—ñ”ñ•\¦‚É¸”si—ñ%s %sj: %s", ci, col_name, e)
 
     try:
         wb.save()
     except Exception as e:
-        logging.warning("çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨: ä¿å­˜ã§è­¦å‘Šï¼ˆãƒ‡ãƒ¼ã‚¿ã¯ã‚·ãƒ¼ãƒˆä¸Šã¯æ›´æ–°æ¸ˆã¿ã®å¯èƒ½æ€§ï¼‰: %s", e)
+        logging.warning("Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—p: •Û‘¶‚ÅŒxiƒf[ƒ^‚ÍƒV[ƒgã‚ÍXVÏ‚İ‚Ì‰Â”\«j: %s", e)
 
     logging.info(
-        "çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ åˆ—é©ç”¨å®Œäº†: %sï¼ˆ%s åˆ—ã€éè¡¨ç¤º=%sï¼‰",
+        "Œ‹‰Ê_ƒ^ƒXƒNˆê—— —ñ“K—pŠ®—¹: %si%s —ñA”ñ•\¦=%sj",
         source,
         len(ordered),
         sum(1 for c in ordered if not vis_map.get(c, True)),
@@ -3839,7 +3839,7 @@ def apply_result_task_column_layout_via_xlwings(workbook_path: str | None = None
 
 
 def apply_result_task_column_layout_only() -> bool:
-    """ç’°å¢ƒå¤‰æ•° TASK_INPUT_WORKBOOK ã®ãƒ–ãƒƒã‚¯ã«å¯¾ã—åˆ—è¨­å®šã‚’é©ç”¨ã™ã‚‹ï¼ˆVBA ãƒœã‚¿ãƒ³ç”¨ï¼‰ã€‚"""
+    """ŠÂ‹«•Ï” TASK_INPUT_WORKBOOK ‚ÌƒuƒbƒN‚É‘Î‚µ—ñİ’è‚ğ“K—p‚·‚éiVBA ƒ{ƒ^ƒ“—pjB"""
     p = os.environ.get("TASK_INPUT_WORKBOOK", "").strip() or TASKS_INPUT_WORKBOOK
     return apply_result_task_column_layout_via_xlwings(p)
 
@@ -3850,33 +3850,38 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
     workbook_path: str | None = None,
 ) -> bool:
     """
-    Excel ã§é–‹ã„ãŸãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯å†…ã®ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã«ã¤ã„ã¦ã€
-    æ®µéš2 ã¨åŒã˜ ``fill_plan_dispatch_trial_order_column_stage1`` ã§ã€Œé…å°è©¦è¡Œé †ç•ªã€ã‚’
-    å†ä»˜ä¸ã—ã€æ®µéš1 å‡ºåŠ›ç›´å‰ã¨åŒã˜æ‰‹é †ã§è¡Œã‚’ä¸¦ã¹æ›¿ãˆã‚‹ã€‚
-    ï¼ˆæœªä¿å­˜ã®ç·¨é›†åˆ†ã‚‚ xlwings ã§åæ˜ ã•ã›ã‚‹ãŸã‚ read_excel ã¯ä½¿ã‚ãªã„ï¼‰
+    Excel ‚ÅŠJ‚¢‚½ƒ}ƒNƒƒuƒbƒN“à‚Ìu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív‚É‚Â‚¢‚ÄA
+    ’iŠK2 ‚Æ“¯‚¶ ``fill_plan_dispatch_trial_order_column_stage1`` ‚Åu”z‘äs‡”Ôv‚ğ
+    Ä•t—^‚µA’iŠK1 o—Í’¼‘O‚Æ“¯‚¶è‡‚Ås‚ğ•À‚×‘Ö‚¦‚éB
+    i–¢•Û‘¶‚Ì•ÒW•ª‚à xlwings ‚Å”½‰f‚³‚¹‚é‚½‚ß read_excel ‚Íg‚í‚È‚¢j
+
+    ’iŠK2 ‚Ì ``load_planning_tasks_df`` –`“ª‚Æ“¯—lAƒV[ƒg¨DataFrame ’¼Œã‚É
+    ``_apply_planning_sheet_post_load_mutations`` ‚ğÀs‚·‚éiİ’è_”z‘ä•s—vH’ö‚Ì•ÛçA
+    •ªŠ„s‚Ì©“®”z‘ä•s—vAİ’èƒV[ƒg—R—ˆ‚Ì”z‘ä•s—v”½‰fjB‚»‚Ì‚½‚ßu”z‘ä•s—vv‚ğè“®‚Å
+    ƒNƒŠƒA‚µ‚½s‚Å‚àAİ’èƒ‹[ƒ‹‚ªƒIƒ“‚È‚çÄ“x yes ‚É‚È‚è“¾‚é“_‚Í’iŠK2 ‚Æ“¯‚¶‹““®B
     """
     path = (workbook_path or "").strip() or os.environ.get(
         "TASK_INPUT_WORKBOOK", ""
     ).strip() or TASKS_INPUT_WORKBOOK.strip()
     if not path:
-        logging.error("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: ãƒ–ãƒƒã‚¯ãƒ‘ã‚¹ãŒç©ºã§ã™ã€‚")
+        logging.error("”z‘äs‡”ÔXV: ƒuƒbƒNƒpƒX‚ª‹ó‚Å‚·B")
         return False
     try:
         import xlwings as xw
     except ImportError:
-        logging.error("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: xlwings ãŒã‚ã‚Šã¾ã›ã‚“ã€‚")
+        logging.error("”z‘äs‡”ÔXV: xlwings ‚ª‚ ‚è‚Ü‚¹‚ñB")
         return False
     try:
         wb = xw.Book(path)
         ws = wb.sheets[PLAN_INPUT_SHEET_NAME]
     except Exception as e:
-        logging.error("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: ã‚·ãƒ¼ãƒˆæ¥ç¶šã«å¤±æ•—: %s", e)
+        logging.error("”z‘äs‡”ÔXV: ƒV[ƒgÚ‘±‚É¸”s: %s", e)
         return False
 
     mat = _xlwings_sheet_to_matrix(ws)
     df = _matrix_to_dataframe_header_first(mat)
     if df is None or df.empty:
-        logging.warning("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: ãƒ‡ãƒ¼ã‚¿è¡ŒãŒã‚ã‚Šã¾ã›ã‚“ã€‚")
+        logging.warning("”z‘äs‡”ÔXV: ƒf[ƒ^s‚ª‚ ‚è‚Ü‚¹‚ñB")
         return False
 
     df = df.copy()
@@ -3888,16 +3893,16 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
 
     df.insert(0, _PLAN_INPUT_XLWINGS_ORIG_ROW, range(len(df)))
 
-    _apply_planning_sheet_post_load_mutations(df, path, "é…å°è©¦è¡Œé †ç•ªæ›´æ–°")
+    _apply_planning_sheet_post_load_mutations(df, path, "”z‘äs‡”ÔXV")
 
     dto_col = RESULT_TASK_COL_DISPATCH_TRIAL_ORDER
     if dto_col not in df.columns:
-        logging.error("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: åˆ—ã€Œ%sã€ãŒã‚ã‚Šã¾ã›ã‚“ã€‚", dto_col)
+        logging.error("”z‘äs‡”ÔXV: —ñu%sv‚ª‚ ‚è‚Ü‚¹‚ñB", dto_col)
         return False
 
     dto_idx = df.columns.get_loc(dto_col)
     if isinstance(dto_idx, slice):
-        logging.error("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: åˆ—ã€Œ%sã€ãŒè¤‡æ•°ã‚ã‚Šã¾ã™ã€‚", dto_col)
+        logging.error("”z‘äs‡”ÔXV: —ñu%sv‚ª•¡”‚ ‚è‚Ü‚·B", dto_col)
         return False
     for ri in range(len(df)):
         df.iat[ri, dto_idx] = ""
@@ -3917,7 +3922,7 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
             need_combo_col_index,
         ) = load_skills_and_needs()
     except Exception as e:
-        logging.exception("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: master èª­è¾¼ã«å¤±æ•—: %s", e)
+        logging.exception("”z‘äs‡”ÔXV: master “Ç‚É¸”s: %s", e)
         return False
 
     try:
@@ -3930,7 +3935,7 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
             equipment_list,
         )
     except Exception as e:
-        logging.exception("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: è©¦è¡Œé †è¨ˆç®—ã«å¤±æ•—: %s", e)
+        logging.exception("”z‘äs‡”ÔXV: s‡ŒvZ‚É¸”s: %s", e)
         return False
 
     df_sorted = _sort_stage1_plan_df_by_dispatch_trial_order_asc(df)
@@ -3974,16 +3979,16 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
         n_r = len(new_mat)
         ws.range((1, 1)).resize(n_r, n_hdr).value = new_mat
     except Exception as e:
-        logging.exception("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: ã‚·ãƒ¼ãƒˆæ›¸è¾¼ã«å¤±æ•—: %s", e)
+        logging.exception("”z‘äs‡”ÔXV: ƒV[ƒg‘‚É¸”s: %s", e)
         return False
 
     try:
         wb.save()
     except Exception as e:
-        logging.warning("é…å°è©¦è¡Œé †ç•ªæ›´æ–°: Save è­¦å‘Š: %s", e)
+        logging.warning("”z‘äs‡”ÔXV: Save Œx: %s", e)
 
     logging.info(
-        "é…å°è©¦è¡Œé †ç•ªæ›´æ–°: ã€Œ%sã€ã‚’ %s è¡Œã§æ›´æ–°ã—ã¾ã—ãŸã€‚",
+        "”z‘äs‡”ÔXV: u%sv‚ğ %s s‚ÅXV‚µ‚Ü‚µ‚½B",
         PLAN_INPUT_SHEET_NAME,
         len(df_sorted),
     )
@@ -3991,15 +3996,15 @@ def refresh_plan_input_dispatch_trial_order_via_xlwings(
 
 
 def refresh_plan_input_dispatch_trial_order_only() -> bool:
-    """TASK_INPUT_WORKBOOK ã«å¯¾ã™ã‚‹é…å°è©¦è¡Œé †ç•ªå†è¨ˆç®—ï¼ˆVBA / cmd çµŒç”±ã®ã‚¨ãƒ³ãƒˆãƒªï¼‰ã€‚"""
+    """TASK_INPUT_WORKBOOK ‚É‘Î‚·‚é”z‘äs‡”ÔÄŒvZiVBA / cmd Œo—R‚ÌƒGƒ“ƒgƒŠjB"""
     p = os.environ.get("TASK_INPUT_WORKBOOK", "").strip() or TASKS_INPUT_WORKBOOK
     return refresh_plan_input_dispatch_trial_order_via_xlwings(p)
 
 
 def apply_plan_input_column_layout_only() -> bool:
     """
-    é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã®åˆ—é †ãƒ»è¡¨ç¤ºã®ã¿ã‚’é©ç”¨ã™ã‚‹äºˆå®šï¼ˆVBA ç”¨ï¼‰ã€‚
-    æœªå®Ÿè£…ã€‚åˆ—ã®ä¸¦ã³ã¯æ®µéš1å‡ºåŠ›ã¾ãŸã¯æ‰‹å‹•æ•´ç†ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚
+    ”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚Ì—ñ‡E•\¦‚Ì‚İ‚ğ“K—p‚·‚é—\’èiVBA —pjB
+    –¢À‘•B—ñ‚Ì•À‚Ñ‚Í’iŠK1o—Í‚Ü‚½‚Íè“®®—‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B
     """
     logging.warning("apply_plan_input_column_layout_only: not implemented")
     return False
@@ -4008,23 +4013,23 @@ def apply_plan_input_column_layout_only() -> bool:
 
 def dedupe_result_task_column_config_sheet_via_xlwings(workbook_path: str | None = None) -> bool:
     """
-    ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ã® A:B ã ã‘ã‚’ã€é‡è¤‡åˆ—åã‚’é™¤ã„ãŸä¸€è¦§ã§æ›¸ãç›´ã™ï¼ˆå…ˆã®è¡Œã‚’å„ªå…ˆï¼‰ã€‚
-    ã€Œçµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ãŒã‚ã‚Œã°å±¥æ­´åˆ—æ•°ã®è§£é‡ˆã«ä½¿ã†ã€‚çµæœã‚·ãƒ¼ãƒˆã¯å¤‰æ›´ã—ãªã„ã€‚
+    u—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——v‚Ì A:B ‚¾‚¯‚ğAd•¡—ñ–¼‚ğœ‚¢‚½ˆê——‚Å‘‚«’¼‚·iæ‚Ìs‚ğ—DæjB
+    uŒ‹‰Ê_ƒ^ƒXƒNˆê——v‚ª‚ ‚ê‚Î—š—ğ—ñ”‚Ì‰ğß‚Ég‚¤BŒ‹‰ÊƒV[ƒg‚Í•ÏX‚µ‚È‚¢B
     """
     path = (workbook_path or "").strip() or TASKS_INPUT_WORKBOOK.strip()
     if not path:
-        logging.error("åˆ—è¨­å®š é‡è¤‡æ•´ç†: ãƒ–ãƒƒã‚¯ãƒ‘ã‚¹ãŒç©ºã§ã™ã€‚")
+        logging.error("—ñİ’è d•¡®—: ƒuƒbƒNƒpƒX‚ª‹ó‚Å‚·B")
         return False
     try:
         import xlwings as xw
     except ImportError:
-        logging.error("åˆ—è¨­å®š é‡è¤‡æ•´ç†: xlwings ãŒ import ã§ãã¾ã›ã‚“ã€‚")
+        logging.error("—ñİ’è d•¡®—: xlwings ‚ª import ‚Å‚«‚Ü‚¹‚ñB")
         return False
     try:
         wb = xw.Book(path)
         ws_cfg = wb.sheets[COLUMN_CONFIG_SHEET_NAME]
     except Exception as e:
-        logging.error("åˆ—è¨­å®š é‡è¤‡æ•´ç†: æ¥ç¶šã¾ãŸã¯ã‚·ãƒ¼ãƒˆå–å¾—ã«å¤±æ•—: %s", e)
+        logging.error("—ñİ’è d•¡®—: Ú‘±‚Ü‚½‚ÍƒV[ƒgæ“¾‚É¸”s: %s", e)
         return False
 
     max_h = 1
@@ -4038,19 +4043,19 @@ def dedupe_result_task_column_config_sheet_via_xlwings(workbook_path: str | None
 
     df_cfg = _matrix_to_dataframe_header_first(_xlwings_sheet_to_matrix(ws_cfg))
     if df_cfg is None:
-        logging.error("åˆ—è¨­å®š é‡è¤‡æ•´ç†: ã€Œ%sã€ã®è¦‹å‡ºã—ã‚’èª­ã‚ã¾ã›ã‚“ã€‚", COLUMN_CONFIG_SHEET_NAME)
+        logging.error("—ñİ’è d•¡®—: u%sv‚ÌŒ©o‚µ‚ğ“Ç‚ß‚Ü‚¹‚ñB", COLUMN_CONFIG_SHEET_NAME)
         return False
     rows = parse_result_task_column_config_dataframe(df_cfg, max_h)
     if not rows:
-        logging.warning("åˆ—è¨­å®š é‡è¤‡æ•´ç†: æœ‰åŠ¹ãªãƒ‡ãƒ¼ã‚¿è¡ŒãŒã‚ã‚Šã¾ã›ã‚“ã€‚")
+        logging.warning("—ñİ’è d•¡®—: —LŒø‚Èƒf[ƒ^s‚ª‚ ‚è‚Ü‚¹‚ñB")
         return False
     _xlwings_write_column_config_sheet_ab(ws_cfg, rows)
     try:
         wb.save()
     except Exception as e:
-        logging.warning("åˆ—è¨­å®š é‡è¤‡æ•´ç†: ä¿å­˜è­¦å‘Š: %s", e)
+        logging.warning("—ñİ’è d•¡®—: •Û‘¶Œx: %s", e)
     logging.info(
-        "åˆ—è¨­å®šã€Œ%sã€ã‚’é‡è¤‡é™¤å»æ¸ˆã¿ã§ %s è¡Œã«æ•´ç†ã—ã¾ã—ãŸï¼ˆå±¥æ­´å±•é–‹å¾Œã®è¡Œæ•°ï¼‰ã€‚",
+        "—ñİ’èu%sv‚ğd•¡œ‹Ï‚İ‚Å %s s‚É®—‚µ‚Ü‚µ‚½i—š—ğ“WŠJŒã‚Ìs”jB",
         COLUMN_CONFIG_SHEET_NAME,
         len(rows),
     )
@@ -4058,28 +4063,28 @@ def dedupe_result_task_column_config_sheet_via_xlwings(workbook_path: str | None
 
 
 def dedupe_result_task_column_config_sheet_only() -> bool:
-    """ç’°å¢ƒå¤‰æ•° TASK_INPUT_WORKBOOK ã®ãƒ–ãƒƒã‚¯ã®åˆ—è¨­å®šã‚·ãƒ¼ãƒˆã ã‘é‡è¤‡æ•´ç†ï¼ˆVBA ç”¨ï¼‰ã€‚"""
+    """ŠÂ‹«•Ï” TASK_INPUT_WORKBOOK ‚ÌƒuƒbƒN‚Ì—ñİ’èƒV[ƒg‚¾‚¯d•¡®—iVBA —pjB"""
     p = os.environ.get("TASK_INPUT_WORKBOOK", "").strip() or TASKS_INPUT_WORKBOOK
     return dedupe_result_task_column_config_sheet_via_xlwings(p)
 
 
 def _apply_result_task_sheet_column_visibility(worksheet, column_names: list, vis_map: dict):
-    """çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã§ã€vis_map ãŒ False ã®åˆ—ã‚’éè¡¨ç¤ºã«ã™ã‚‹ã€‚"""
+    """Œ‹‰Ê_ƒ^ƒXƒNˆê——‚ÅAvis_map ‚ª False ‚Ì—ñ‚ğ”ñ•\¦‚É‚·‚éB"""
     for idx, col_name in enumerate(column_names, 1):
         if not vis_map.get(col_name, True):
             worksheet.column_dimensions[get_column_letter(idx)].hidden = True
 
 
 def _norm_history_member_label(name: str) -> str:
-    """å±¥æ­´ã®æ‹…å½“åæ¯”è¼ƒç”¨ï¼ˆå…¨è§’ç©ºç™½ã‚’åŠè§’1å€‹åŒ–ãƒ»å‰å¾Œtrimãƒ»é€£ç¶šç©ºç™½ã®åœ§ç¸®ï¼‰ã€‚"""
+    """—š—ğ‚Ì’S“––¼”äŠr—pi‘SŠp‹ó”’‚ğ”¼Šp1ŒÂ‰»E‘OŒãtrimE˜A‘±‹ó”’‚Ìˆ³kjB"""
     t = str(name or "").replace("\u3000", " ").strip()
     return " ".join(t.split())
 
 
 def _history_team_text_main_assignment_only(h: dict) -> str:
     """
-    çµæœã‚·ãƒ¼ãƒˆã€Œæ‹…å½“ã€æ¬„ç”¨: ãƒ¡ã‚¤ãƒ³å‰²ä»˜ç¢ºå®šæ™‚ç‚¹ã®åå‰ï¼ˆä½™åŠ›è¿½è¨˜ã‚µãƒ–ã¯å«ã‚ãªã„ï¼‰ã€‚
-    append_surplus å¾Œã® h['team'] ã‹ã‚‰ post_dispatch_surplus_names ã‚’é™¤å¤–ã™ã‚‹ã€‚
+    Œ‹‰ÊƒV[ƒgu’S“–v—“—p: ƒƒCƒ“Š„•tŠm’è“_‚Ì–¼‘Oi—]—Í’Ç‹LƒTƒu‚ÍŠÜ‚ß‚È‚¢jB
+    append_surplus Œã‚Ì h['team'] ‚©‚ç post_dispatch_surplus_names ‚ğœŠO‚·‚éB
     """
     raw = (h.get("team") or "").strip()
     if not raw:
@@ -4098,37 +4103,37 @@ def _history_team_text_main_assignment_only(h: dict) -> str:
 
 
 def _format_result_task_history_cell(task: dict, h: dict) -> str:
-    """çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®å±¥æ­´ã‚»ãƒ«æ–‡å­—åˆ—ï¼ˆçµ„åˆã›è¡¨ã®æ¡ç”¨è¡ŒIDãƒ»ãƒ¡ã‚¤ãƒ³è¿½åŠ äººæ•°ãƒ»ä½™åŠ›è¿½è¨˜ã®æ˜ç¤ºã‚’å«ã‚€ï¼‰ã€‚"""
+    """Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì—š—ğƒZƒ‹•¶š—ñi‘g‡‚¹•\‚ÌÌ—psIDEƒƒCƒ“’Ç‰Ál”E—]—Í’Ç‹L‚Ì–¾¦‚ğŠÜ‚ŞjB"""
     um = task.get("unit_m") or 0
     try:
         done_r = int(h["done_m"] / um) if um else 0
     except (TypeError, ValueError, ZeroDivisionError):
         done_r = 0
     dm = h.get("done_m", 0)
-    parts_out: list[str] = [f"ãƒ»ã€{h.get('date', '')}ã€‘ï¼š{done_r}R ({dm}m)"]
+    parts_out: list[str] = [f"Ey{h.get('date', '')}zF{done_r}R ({dm}m)"]
     cid = h.get("combo_sheet_row_id")
     if cid is not None:
         try:
-            parts_out.append(f"çµ„åˆã›è¡¨#{int(cid)}")
+            parts_out.append(f"‘g‡‚¹•\#{int(cid)}")
         except (TypeError, ValueError):
-            parts_out.append(f"çµ„åˆã›è¡¨#{cid}")
-    parts_out.append(f"æ‹…å½“[{_history_team_text_main_assignment_only(h)}]")
+            parts_out.append(f"‘g‡‚¹•\#{cid}")
+    parts_out.append(f"’S“–[{_history_team_text_main_assignment_only(h)}]")
     sm = h.get("surplus_member_names") or []
     if sm:
-        parts_out.append(f"è¿½åŠ [{','.join(str(x) for x in sm)}]")
+        parts_out.append(f"’Ç‰Á[{','.join(str(x) for x in sm)}]")
     ps = h.get("post_dispatch_surplus_names") or []
     if ps:
-        parts_out.append(f"ä½™åŠ›è¿½è¨˜[{','.join(str(x) for x in ps)}]")
+        parts_out.append(f"—]—Í’Ç‹L[{','.join(str(x) for x in ps)}]")
     return " ".join(parts_out)
 
 
-_RESULT_TASK_HISTORY_RICH_HEAD_RE = re.compile(r"^ãƒ»(ã€[^ã€‘]*ã€‘)(.*)$", re.DOTALL)
+_RESULT_TASK_HISTORY_RICH_HEAD_RE = re.compile(r"^E(y[^z]*z)(.*)$", re.DOTALL)
 
 
 def _apply_result_task_history_rich_text(worksheet, column_names: list):
     """
-    å±¥æ­´åˆ—: ã€Œãƒ»ã€æ—¥ä»˜ã€‘ï¼šâ€¦ã€ã®æ—¥ä»˜æ‹¬å¼§éƒ¨åˆ†ã‚’é’è‰²ãƒªãƒƒãƒãƒ†ã‚­ã‚¹ãƒˆã«ã™ã‚‹ã€‚
-    openpyxl 3.1 æœªæº€ã§ã¯ã‚¹ã‚­ãƒƒãƒ—ï¼ˆæ–‡å­—åˆ—ã®ã€ã€‘ã®ã¿ï¼‰ã€‚
+    —š—ğ—ñ: uEy“ú•tzFcv‚Ì“ú•tŠ‡ŒÊ•”•ª‚ğÂFƒŠƒbƒ`ƒeƒLƒXƒg‚É‚·‚éB
+    openpyxl 3.1 –¢–‚Å‚ÍƒXƒLƒbƒvi•¶š—ñ‚Ìyz‚Ì‚İjB
     """
     try:
         from openpyxl.cell.rich_text import CellRichText, TextBlock
@@ -4138,7 +4143,7 @@ def _apply_result_task_history_rich_text(worksheet, column_names: list):
         return
 
     hist_cols = [
-        i + 1 for i, c in enumerate(column_names) if str(c).startswith("å±¥æ­´")
+        i + 1 for i, c in enumerate(column_names) if str(c).startswith("—š—ğ")
     ]
     if not hist_cols:
         return
@@ -4153,14 +4158,14 @@ def _apply_result_task_history_rich_text(worksheet, column_names: list):
         for ci in hist_cols:
             cell = worksheet.cell(row=r, column=ci)
             v = cell.value
-            if not isinstance(v, str) or not v.startswith("ãƒ»ã€"):
+            if not isinstance(v, str) or not v.startswith("Ey"):
                 continue
             m = _RESULT_TASK_HISTORY_RICH_HEAD_RE.match(v)
             if not m:
                 continue
             bracketed, rest = m.group(1), m.group(2)
             cell.value = CellRichText(
-                TextBlock(plain_if, "ãƒ»"),
+                TextBlock(plain_if, "E"),
                 TextBlock(blue_if, bracketed),
                 TextBlock(plain_if, rest),
             )
@@ -4169,8 +4174,8 @@ def _apply_result_task_history_rich_text(worksheet, column_names: list):
 
 def _apply_result_task_date_columns_blue_font(worksheet, column_names: list):
     """
-    çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§: å›ç­”ç´æœŸãƒ»æŒ‡å®šç´æœŸãƒ»è¨ˆç”»åŸºæº–ç´æœŸãƒ»åŸåæŠ•å…¥æ—¥ãƒ»åŠ å·¥é–‹å§‹æ—¥ã®ã‚»ãƒ«ã‚’é’è‰²ã«ã™ã‚‹ã€‚
-    ï¼ˆå±¥æ­´åˆ—ã®ã€æ—¥ä»˜ã€‘ã¯ _apply_result_task_history_rich_text å´ã€‚è‰²ã¯ 0070C0 ã§çµ±ä¸€ï¼‰
+    Œ‹‰Ê_ƒ^ƒXƒNˆê——: ‰ñ“š”[ŠúEw’è”[ŠúEŒv‰æŠî€”[ŠúEŒ´”½“Š“ü“úE‰ÁHŠJn“ú‚ÌƒZƒ‹‚ğÂF‚É‚·‚éB
+    i—š—ğ—ñ‚Ìy“ú•tz‚Í _apply_result_task_history_rich_text ‘¤BF‚Í 0070C0 ‚Å“ˆêj
     """
     blue = _result_font(color="0070C0")
     top = Alignment(wrap_text=False, vertical="top")
@@ -4192,12 +4197,12 @@ def _apply_result_task_history_need_surplus_highlight(
     worksheet, column_names: list, sorted_tasks: list
 ):
     """
-    needã€Œé…å°æ™‚è¿½åŠ äººæ•°ã€ç›¸å½“ã§åŸºæœ¬å¿…è¦äººæ•°ã‚’è¶…ãˆã¦æ¡ç”¨ã—ãŸãƒ–ãƒ­ãƒƒã‚¯ã€ã¾ãŸã¯
-    ãƒ¡ã‚¤ãƒ³å®Œäº†å¾Œã®ä½™åŠ›è¿½è¨˜ã§ã‚µãƒ–ãŒå¢—ãˆãŸãƒ–ãƒ­ãƒƒã‚¯ã«å¯¾å¿œã™ã‚‹ã€Œå±¥æ­´nã€ã‚»ãƒ«ã‚’è–„é»„ã«å¡—ã‚‹ã€‚
+    needu”z‘ä’Ç‰Ál”v‘Š“–‚ÅŠî–{•K—vl”‚ğ’´‚¦‚ÄÌ—p‚µ‚½ƒuƒƒbƒNA‚Ü‚½‚Í
+    ƒƒCƒ“Š®—¹Œã‚Ì—]—Í’Ç‹L‚ÅƒTƒu‚ª‘‚¦‚½ƒuƒƒbƒN‚É‘Î‰‚·‚éu—š—ğnvƒZƒ‹‚ğ”–‰©‚É“h‚éB
     """
     hist_cols: list[tuple[int, int]] = []
     for col_idx, col_name in enumerate(column_names, 1):
-        m = re.match(r"^å±¥æ­´(\d+)$", str(col_name).strip())
+        m = re.match(r"^—š—ğ(\d+)$", str(col_name).strip())
         if m:
             hist_cols.append((int(m.group(1)), col_idx))
     hist_cols.sort(key=lambda x: x[0])
@@ -4225,11 +4230,11 @@ def _apply_result_task_task_id_content_mismatch_highlight(
     worksheet, column_names: list, sorted_tasks: list
 ):
     """
-    åŠ å·¥å†…å®¹ã«å·¥ç¨‹åãŒå«ã¾ã‚Œãªã„è¡Œã®ã€Œã‚¿ã‚¹ã‚¯IDã€ã‚»ãƒ«ã‚’èµ¤èƒŒæ™¯ãƒ»ç™½æ–‡å­—ã«ã™ã‚‹ï¼ˆå…ƒãƒ‡ãƒ¼ã‚¿ä¸æ•´åˆã®è¦–èªç”¨ï¼‰ã€‚
+    ‰ÁH“à—e‚ÉH’ö–¼‚ªŠÜ‚Ü‚ê‚È‚¢s‚Ìuƒ^ƒXƒNIDvƒZƒ‹‚ğÔ”wŒiE”’•¶š‚É‚·‚éiŒ³ƒf[ƒ^•s®‡‚Ì‹”F—pjB
     """
     task_id_col_idx = None
     for col_idx, col_name in enumerate(column_names, 1):
-        if str(col_name) == "ã‚¿ã‚¹ã‚¯ID":
+        if str(col_name) == "ƒ^ƒXƒNID":
             task_id_col_idx = col_idx
             break
     if task_id_col_idx is None or worksheet.max_row < 2:
@@ -4251,13 +4256,13 @@ def _apply_result_task_plan_end_answer_spec_16_no_highlight(
     worksheet, column_names: list
 ):
     """
-    åˆ—ã€Œé…å®Œ_å›ç­”æŒ‡å®š16æ™‚ã¾ã§ã€ãŒã€Œã„ã„ãˆã€ã®ã‚»ãƒ«ã‚’èµ¤èƒŒæ™¯ãƒ»ç™½æ–‡å­—ãƒ»å¤ªå­—ã«ã™ã‚‹ã€‚
-    åˆ—è¨­å®šã§æ—§åã€Œé…å®Œ_åŸºæº–16æ™‚ã¾ã§ã€ã®ã¾ã¾ã®è¦‹å‡ºã—ã«ã‚‚å¯¾å¿œã€‚
+    —ñu”zŠ®_‰ñ“šw’è16‚Ü‚Åv‚ªu‚¢‚¢‚¦v‚ÌƒZƒ‹‚ğÔ”wŒiE”’•¶šE‘¾š‚É‚·‚éB
+    —ñİ’è‚Å‹Œ–¼u”zŠ®_Šî€16‚Ü‚Åv‚Ì‚Ü‚Ü‚ÌŒ©o‚µ‚É‚à‘Î‰B
     """
     target_names = frozenset(
         {
             RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16,
-            "é…å®Œ_åŸºæº–16æ™‚ã¾ã§",
+            "”zŠ®_Šî€16‚Ü‚Å",
         }
     )
     col_idx = None
@@ -4276,7 +4281,7 @@ def _apply_result_task_plan_end_answer_spec_16_no_highlight(
         if v is None:
             continue
         s = str(v).strip()
-        if s != "ã„ã„ãˆ":
+        if s != "‚¢‚¢‚¦":
             continue
         cell.fill = fill_red
         cell.font = font_white_bold
@@ -4291,14 +4296,14 @@ def _apply_result_task_id_hyperlinks_to_equipment_schedule(
     schedule_sheet_name: str,
 ) -> None:
     """
-    çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®ã€Œã‚¿ã‚¹ã‚¯IDã€ã‚»ãƒ«ã«ã€çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã§å½“è©²ã‚¿ã‚¹ã‚¯ãŒæœ€åˆã«ç¾ã‚Œã‚‹ã‚»ãƒ«ã¸ã®å†…éƒ¨ãƒã‚¤ãƒ‘ãƒ¼ãƒªãƒ³ã‚¯ã‚’ä»˜ä¸ã™ã‚‹ã€‚
-    æ™‚é–“å‰²ã«ç¾ã‚Œãªã„ã‚¿ã‚¹ã‚¯ï¼ˆæœªå‰²å½“ã®ã¿ç­‰ï¼‰ã¯ãƒªãƒ³ã‚¯ãªã—ã€‚
+    Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ìuƒ^ƒXƒNIDvƒZƒ‹‚ÉAŒ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Å“–ŠYƒ^ƒXƒN‚ªÅ‰‚ÉŒ»‚ê‚éƒZƒ‹‚Ö‚Ì“à•”ƒnƒCƒp[ƒŠƒ“ƒN‚ğ•t—^‚·‚éB
+    ŠÔŠ„‚ÉŒ»‚ê‚È‚¢ƒ^ƒXƒNi–¢Š„“–‚Ì‚İ“™j‚ÍƒŠƒ“ƒN‚È‚µB
     """
     if not task_id_to_schedule_cell or worksheet_tasks.max_row < 2:
         return
     task_id_col_idx = None
     for col_idx, col_name in enumerate(column_names, 1):
-        if str(col_name) == "ã‚¿ã‚¹ã‚¯ID":
+        if str(col_name) == "ƒ^ƒXƒNID":
             task_id_col_idx = col_idx
             break
     if task_id_col_idx is None:
@@ -4331,7 +4336,7 @@ def _apply_result_task_id_hyperlinks_to_equipment_schedule(
 
 
 def _add_column_config_sheet_helpers(ws_cfg, num_data_rows: int):
-    """è¡¨ç¤ºåˆ—ã« TRUE/FALSE ãƒªã‚¹ãƒˆï¼ˆãƒã‚§ãƒƒã‚¯ã®ä»£ã‚ã‚Šã«ãƒ—ãƒ«ãƒ€ã‚¦ãƒ³ï¼‰ã‚’ä»˜ä¸ã€‚"""
+    """•\¦—ñ‚É TRUE/FALSE ƒŠƒXƒgiƒ`ƒFƒbƒN‚Ì‘ã‚í‚è‚Éƒvƒ‹ƒ_ƒEƒ“j‚ğ•t—^B"""
     last_r = max(num_data_rows + 1, 2)
     cap = max(last_r + 50, 500)
     dv = DataValidation(type="list", formula1='"TRUE,FALSE"', allow_blank=True)
@@ -4344,11 +4349,11 @@ def _stage2_try_copy_column_config_shapes_from_input(
     input_path: str | None,
 ) -> None:
     """
-    pandas/openpyxl ã§æ–°è¦ä½œæˆã—ãŸçµæœãƒ–ãƒƒã‚¯ã«ã¯å›³å½¢ãŒå«ã¾ã‚Œãªã„ã€‚
-    æ—¢å®šã§æœ‰åŠ¹ï¼ˆç’°å¢ƒå¤‰æ•°ã§ 0/false/no/off ã®ã¨ãç„¡åŠ¹ï¼‰ã€‚å…¥åŠ›ãƒ–ãƒƒã‚¯ã®
-    ã€Œåˆ—è¨­å®š_çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã€ä¸Šã® Shapes ã‚’çµæœãƒ–ãƒƒã‚¯ã®åŒåã‚·ãƒ¼ãƒˆã¸ã‚³ãƒ”ãƒ¼ã—ã€
-    å„å›³å½¢ã® Left/Top/Width/Heightï¼ˆãŠã‚ˆã³å–ã‚Œã‚‹ã¨ã Placementï¼‰ã‚’å…¥åŠ›å´ã¨åŒã˜ã«æˆ»ã™ã€‚
-    openpyxl ã«ã‚ˆã‚‹å½“è©²ãƒ–ãƒƒã‚¯ã¸ã®ä¿å­˜ãŒã™ã¹ã¦çµ‚ã‚ã£ãŸå¾Œã«å‘¼ã¶ã“ã¨ã€‚
+    pandas/openpyxl ‚ÅV‹Kì¬‚µ‚½Œ‹‰ÊƒuƒbƒN‚É‚Í}Œ`‚ªŠÜ‚Ü‚ê‚È‚¢B
+    Šù’è‚Å—LŒøiŠÂ‹«•Ï”‚Å 0/false/no/off ‚Ì‚Æ‚«–³ŒøjB“ü—ÍƒuƒbƒN‚Ì
+    u—ñİ’è_Œ‹‰Ê_ƒ^ƒXƒNˆê——vã‚Ì Shapes ‚ğŒ‹‰ÊƒuƒbƒN‚Ì“¯–¼ƒV[ƒg‚ÖƒRƒs[‚µA
+    Še}Œ`‚Ì Left/Top/Width/Heighti‚¨‚æ‚Ñæ‚ê‚é‚Æ‚« Placementj‚ğ“ü—Í‘¤‚Æ“¯‚¶‚É–ß‚·B
+    openpyxl ‚É‚æ‚é“–ŠYƒuƒbƒN‚Ö‚Ì•Û‘¶‚ª‚·‚×‚ÄI‚í‚Á‚½Œã‚ÉŒÄ‚Ô‚±‚ÆB
     """
     if not STAGE2_COPY_COLUMN_CONFIG_SHAPES_FROM_INPUT:
         return
@@ -4356,19 +4361,19 @@ def _stage2_try_copy_column_config_shapes_from_input(
     ip = (input_path or "").strip()
     if not rp or not os.path.isfile(rp):
         logging.warning(
-            "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: çµæœãƒ‘ã‚¹ãŒç„¡åŠ¹ã®ãŸã‚ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚"
+            "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: Œ‹‰ÊƒpƒX‚ª–³Œø‚Ì‚½‚ßƒXƒLƒbƒv‚µ‚Ü‚µ‚½B"
         )
         return
     if not ip or not os.path.isfile(ip):
         logging.warning(
-            "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: TASK_INPUT_WORKBOOK ãŒç„¡åŠ¹ã®ãŸã‚ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚"
+            "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: TASK_INPUT_WORKBOOK ‚ª–³Œø‚Ì‚½‚ßƒXƒLƒbƒv‚µ‚Ü‚µ‚½B"
         )
         return
     try:
         import xlwings as xw
     except ImportError:
         logging.warning(
-            "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: xlwings ãŒ import ã§ãã¾ã›ã‚“ã€‚"
+            "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: xlwings ‚ª import ‚Å‚«‚Ü‚¹‚ñB"
         )
         return
     app = None
@@ -4383,7 +4388,7 @@ def _stage2_try_copy_column_config_shapes_from_input(
             ws_out = wb_out.sheets[COLUMN_CONFIG_SHEET_NAME]
         except Exception:
             logging.warning(
-                "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: çµæœãƒ–ãƒƒã‚¯ã«ã‚·ãƒ¼ãƒˆã€Œ%sã€ãŒã‚ã‚Šã¾ã›ã‚“ã€‚",
+                "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: Œ‹‰ÊƒuƒbƒN‚ÉƒV[ƒgu%sv‚ª‚ ‚è‚Ü‚¹‚ñB",
                 COLUMN_CONFIG_SHEET_NAME,
             )
             return
@@ -4391,14 +4396,14 @@ def _stage2_try_copy_column_config_shapes_from_input(
             ws_in = wb_in.sheets[COLUMN_CONFIG_SHEET_NAME]
         except Exception:
             logging.warning(
-                "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: å…¥åŠ›ãƒ–ãƒƒã‚¯ã«ã‚·ãƒ¼ãƒˆã€Œ%sã€ãŒã‚ã‚Šã¾ã›ã‚“ã€‚",
+                "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: “ü—ÍƒuƒbƒN‚ÉƒV[ƒgu%sv‚ª‚ ‚è‚Ü‚¹‚ñB",
                 COLUMN_CONFIG_SHEET_NAME,
             )
             return
         n_shapes = int(ws_in.api.Shapes.Count)
         if n_shapes <= 0:
             logging.info(
-                "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: å…¥åŠ›å´ã«å›³å½¢ãŒã‚ã‚Šã¾ã›ã‚“ï¼ˆã‚¹ã‚­ãƒƒãƒ—ï¼‰ã€‚"
+                "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: “ü—Í‘¤‚É}Œ`‚ª‚ ‚è‚Ü‚¹‚ñiƒXƒLƒbƒvjB"
             )
             return
         ws_out.activate()
@@ -4433,12 +4438,12 @@ def _stage2_try_copy_column_config_shapes_from_input(
             dst.Height = height
         wb_out.save()
         logging.info(
-            "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: å…¥åŠ›ã‹ã‚‰ %s å€‹ã®å›³å½¢ã‚’çµæœãƒ–ãƒƒã‚¯ã¸è¤‡è£½ã—ã¾ã—ãŸã€‚",
+            "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: “ü—Í‚©‚ç %s ŒÂ‚Ì}Œ`‚ğŒ‹‰ÊƒuƒbƒN‚Ö•¡»‚µ‚Ü‚µ‚½B",
             n_shapes,
         )
     except Exception as e:
         logging.warning(
-            "åˆ—è¨­å®šã‚·ãƒ¼ãƒˆå›³å½¢ã‚³ãƒ”ãƒ¼: å¤±æ•—ã—ã¾ã—ãŸï¼ˆ%sï¼‰ã€‚Excel å æœ‰ãƒ»COM ã‚¨ãƒ©ãƒ¼ç­‰ã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚",
+            "—ñİ’èƒV[ƒg}Œ`ƒRƒs[: ¸”s‚µ‚Ü‚µ‚½i%sjBExcel è—LECOM ƒGƒ‰[“™‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·B",
             e,
         )
     finally:
@@ -4474,7 +4479,7 @@ def _coerce_actual_sheet_datetime(val):
 
 
 def _actual_row_time_bounds(row):
-    """åŠ å·¥å®Ÿç¸¾DATA ã®1è¡Œã‹ã‚‰ (é–‹å§‹, çµ‚äº†) ã‚’å¾—ã‚‹ã€‚è§£ã‘ãªã‘ã‚Œã° (None, None)ã€‚"""
+    """‰ÁHÀÑDATA ‚Ì1s‚©‚ç (ŠJn, I—¹) ‚ğ“¾‚éB‰ğ‚¯‚È‚¯‚ê‚Î (None, None)B"""
     s_dt = _coerce_actual_sheet_datetime(row.get(ACT_COL_START_DT))
     e_dt = _coerce_actual_sheet_datetime(row.get(ACT_COL_END_DT))
     if s_dt and e_dt and s_dt < e_dt:
@@ -4520,8 +4525,8 @@ def _actual_row_time_bounds(row):
 
 def load_machining_actuals_df():
     """
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã®ã€ŒåŠ å·¥å®Ÿç¸¾DATAã€ã‚’èª­ã‚€ï¼ˆç„¡ã‘ã‚Œã°ç©º DataFrameï¼‰ã€‚
-    Power Query ç­‰ã§ç”¨æ„ã—ãŸã‚·ãƒ¼ãƒˆã‚’æƒ³å®šã€‚
+    ƒ}ƒNƒƒuƒbƒN‚Ìu‰ÁHÀÑDATAv‚ğ“Ç‚Şi–³‚¯‚ê‚Î‹ó DataFramejB
+    Power Query “™‚Å—pˆÓ‚µ‚½ƒV[ƒg‚ğ‘z’èB
     """
     if not TASKS_INPUT_WORKBOOK or not os.path.exists(TASKS_INPUT_WORKBOOK):
         return pd.DataFrame()
@@ -4529,23 +4534,23 @@ def load_machining_actuals_df():
         df = pd.read_excel(TASKS_INPUT_WORKBOOK, sheet_name=ACTUALS_SHEET_NAME)
     except ValueError:
         logging.info(
-            f"ã‚·ãƒ¼ãƒˆã€Œ{ACTUALS_SHEET_NAME}ã€ãŒç„¡ã„ãŸã‚ã€ã‚¬ãƒ³ãƒˆã®å®Ÿç¸¾è¡Œã¯å‡ºåŠ›ã—ã¾ã›ã‚“ã€‚"
+            f"ƒV[ƒgu{ACTUALS_SHEET_NAME}v‚ª–³‚¢‚½‚ßAƒKƒ“ƒg‚ÌÀÑs‚Ío—Í‚µ‚Ü‚¹‚ñB"
         )
         return pd.DataFrame()
     df.columns = df.columns.str.strip()
     df = _align_dataframe_headers_to_canonical(df, ACTUAL_HEADER_CANONICAL)
     logging.info(
-        f"åŠ å·¥å®Ÿç¸¾: '{TASKS_INPUT_WORKBOOK}' ã® '{ACTUALS_SHEET_NAME}' ã‚’ {len(df)} è¡Œèª­ã¿è¾¼ã¿ã€‚"
+        f"‰ÁHÀÑ: '{TASKS_INPUT_WORKBOOK}' ‚Ì '{ACTUALS_SHEET_NAME}' ‚ğ {len(df)} s“Ç‚İ‚İB"
     )
     return df
 
 
 def build_actual_timeline_events(df, equipment_list, sorted_dates):
     """
-    å®Ÿç¸¾ã‚·ãƒ¼ãƒˆã®å„è¡Œã‚’ã‚¬ãƒ³ãƒˆç”¨ã‚¤ãƒ™ãƒ³ãƒˆã¸å¤‰æ›ã€‚
-    è¨ˆç”»è¡¨ç¤ºæ—¥ï¼ˆsorted_datesï¼‰ã‹ã¤è¨­å‚™ãƒã‚¹ã‚¿ã«ä¸€è‡´ã™ã‚‹ã€Œå·¥ç¨‹åã€ã ã‘å¯¾è±¡ã€‚
-    å·¥ç¨‹åã¯ NFKCãƒ»ç©ºç™½æ­£è¦åŒ–å¾Œã«ãƒã‚¹ã‚¿åˆ—åã¸ãƒãƒƒãƒ”ãƒ³ã‚°ã™ã‚‹ã€‚
-    æ™‚åˆ»ã¯ DEFAULT_START_TIME / DEFAULT_END_TIME ã®æ å†…ã«ã‚¯ãƒªãƒƒãƒ—ã€‚
+    ÀÑƒV[ƒg‚ÌŠes‚ğƒKƒ“ƒg—pƒCƒxƒ“ƒg‚Ö•ÏŠ·B
+    Œv‰æ•\¦“úisorted_datesj‚©‚Âİ”õƒ}ƒXƒ^‚Éˆê’v‚·‚éuH’ö–¼v‚¾‚¯‘ÎÛB
+    H’ö–¼‚Í NFKCE‹ó”’³‹K‰»Œã‚Éƒ}ƒXƒ^—ñ–¼‚Öƒ}ƒbƒsƒ“ƒO‚·‚éB
+    ‚Í DEFAULT_START_TIME / DEFAULT_END_TIME ‚Ì˜g“à‚ÉƒNƒŠƒbƒvB
     """
     if df is None or len(df) == 0:
         return []
@@ -4618,41 +4623,41 @@ def build_actual_timeline_events(df, equipment_list, sorted_dates):
 
     if bad_eq:
         logging.warning(
-            f"åŠ å·¥å®Ÿç¸¾DATA: å·¥ç¨‹åãŒãƒã‚¹ã‚¿è¨­å‚™ã¨ä¸€è‡´ã—ãªã„è¡Œã‚’ {bad_eq} ä»¶ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸï¼ˆç©ºç™½ç­‰ã¯æ­£è¦åŒ–æ¸ˆã¿ï¼‰ã€‚"
+            f"‰ÁHÀÑDATA: H’ö–¼‚ªƒ}ƒXƒ^İ”õ‚Æˆê’v‚µ‚È‚¢s‚ğ {bad_eq} ŒƒXƒLƒbƒv‚µ‚Ü‚µ‚½i‹ó”’“™‚Í³‹K‰»Ï‚İjB"
         )
         if mismatch_norm_samples:
             logging.info(
-                "  ä¸ä¸€è‡´ã¨ãªã£ãŸå·¥ç¨‹åã®æ­£è¦åŒ–å¾Œã‚µãƒ³ãƒ—ãƒ«: "
+                "  •sˆê’v‚Æ‚È‚Á‚½H’ö–¼‚Ì³‹K‰»ŒãƒTƒ“ƒvƒ‹: "
                 + " | ".join(mismatch_norm_samples[:12])
             )
     if bad_time:
         logging.info(
-            f"åŠ å·¥å®Ÿç¸¾DATA: é–‹å§‹/çµ‚äº†æ—¥æ™‚ãŒè§£é‡ˆã§ããªã„è¡Œã‚’ {bad_time} ä»¶ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚"
+            f"‰ÁHÀÑDATA: ŠJn/I—¹“ú‚ª‰ğß‚Å‚«‚È‚¢s‚ğ {bad_time} ŒƒXƒLƒbƒv‚µ‚Ü‚µ‚½B"
         )
     if no_plan_overlap and sorted_dates:
         logging.info(
-            f"åŠ å·¥å®Ÿç¸¾DATA: è¨­å‚™ãƒ»æ—¥æ™‚ã¯æœ‰åŠ¹ã ãŒã€è¨ˆç”»å¯¾è±¡æ—¥ï¼ˆå½“æ—¥ä»¥é™ã®å‹¤æ€ æ—¥Ã—{DEFAULT_START_TIME}ï½{DEFAULT_END_TIME}ï¼‰ã¨é‡ãªã‚‰ãªã„è¡ŒãŒ {no_plan_overlap} ä»¶ã‚ã‚Šã¾ã—ãŸã€‚"
+            f"‰ÁHÀÑDATA: İ”õE“ú‚Í—LŒø‚¾‚ªAŒv‰æ‘ÎÛ“úi“–“úˆÈ~‚Ì‹Î‘Ó“ú~{DEFAULT_START_TIME}`{DEFAULT_END_TIME}j‚Æd‚È‚ç‚È‚¢s‚ª {no_plan_overlap} Œ‚ ‚è‚Ü‚µ‚½B"
         )
     if not events and len(df) > 0:
         logging.info(
-            "åŠ å·¥å®Ÿç¸¾DATA: ã‚¬ãƒ³ãƒˆç”¨ã‚»ã‚°ãƒ¡ãƒ³ãƒˆãŒ0ä»¶ã§ã™ã€‚éå»æ—¥ã®å®Ÿç¸¾ã®ã¿ã®å ´åˆã€è¨ˆç”»ã®è¡¨ç¤ºæ—¥ï¼ˆsorted_datesï¼‰ã«å«ã¾ã‚Œãªã„ãŸã‚æç”»ã•ã‚Œã¾ã›ã‚“ã€‚"
+            "‰ÁHÀÑDATA: ƒKƒ“ƒg—pƒZƒOƒƒ“ƒg‚ª0Œ‚Å‚·B‰ß‹“ú‚ÌÀÑ‚Ì‚İ‚Ìê‡AŒv‰æ‚Ì•\¦“úisorted_datesj‚ÉŠÜ‚Ü‚ê‚È‚¢‚½‚ß•`‰æ‚³‚ê‚Ü‚¹‚ñB"
         )
-    logging.info(f"åŠ å·¥å®Ÿç¸¾DATA ã‹ã‚‰ã‚¬ãƒ³ãƒˆç”¨ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ {len(events)} ä»¶ã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚")
+    logging.info(f"‰ÁHÀÑDATA ‚©‚çƒKƒ“ƒg—pƒZƒOƒƒ“ƒg {len(events)} Œ‚ğ¶¬‚µ‚Ü‚µ‚½B")
     return events
 
 
 TASK_SPECIAL_AI_LAST_RESPONSE_FILE = "ai_task_special_remark_last.txt"
-# å‹¤æ€ å‚™è€ƒã‚­ãƒ£ãƒƒã‚·ãƒ¥ã¨ã‚­ãƒ¼ç©ºé–“ã‚’åˆ†é›¢ï¼ˆåŒä¸€SHAè¡çªã‚’é¿ã‘ã‚‹ï¼‰ã€‚æŒ‡ç´‹ã«åŸºæº–å¹´ã‚’å«ã‚æ—¥ä»˜è§£é‡ˆã®ã‚ºãƒ¬ã‚’é˜²ãã€‚
+# ‹Î‘Ó”õlƒLƒƒƒbƒVƒ…‚ÆƒL[‹óŠÔ‚ğ•ª—£i“¯ˆêSHAÕ“Ë‚ğ”ğ‚¯‚éjBw–ä‚ÉŠî€”N‚ğŠÜ‚ß“ú•t‰ğß‚ÌƒYƒŒ‚ğ–h‚®B
 TASK_SPECIAL_CACHE_KEY_PREFIX = "TASK_SPECIAL_v3|"
-# ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ä¸‹ã®è‡ªç”±è¨˜è¿° â†’ Gemini è§£é‡ˆï¼ˆé…å°ã®æœ€å„ªå…ˆã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ï¼‰
+# ƒƒCƒ“ƒV[ƒguƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv‰º‚Ì©—R‹Lq ¨ Gemini ‰ğßi”z‘ä‚ÌÅ—DæƒI[ƒo[ƒ‰ƒCƒhj
 GLOBAL_PRIORITY_OVERRIDE_CACHE_PREFIX = "GLOBAL_PRIO_v8|"
 
 
 def _normalize_special_task_id_for_ai(val):
     """
-    ä¾é ¼NOã‚’ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚­ãƒ¼ãƒ»ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆè¡Œã§ä¸€è²«ã•ã›ã‚‹ã€‚
-    Excel ã®æ•°å€¤ã‚»ãƒ«ã¯ float ã«ãªã‚ŠãŒã¡ãªã®ã§ 12345.0 â†’ \"12345\" ã«æƒãˆã‚‹ã€‚
-    æ–‡å­—åˆ—ã¯ NFKCï¼ˆå…¨è§’è‹±æ•°å­—ãªã©ï¼‰ã§è¡¨è¨˜ã‚†ã‚Œã‚’å¸åï¼ˆåŒä¸€å®Ÿä½“ã®å†APIå‘¼ã³å‡ºã—ã‚’æ¸›ã‚‰ã™ï¼‰ã€‚
+    ˆË—ŠNO‚ğƒLƒƒƒbƒVƒ…ƒL[Eƒvƒƒ“ƒvƒgs‚ÅˆêŠÑ‚³‚¹‚éB
+    Excel ‚Ì”’lƒZƒ‹‚Í float ‚É‚È‚è‚ª‚¿‚È‚Ì‚Å 12345.0 ¨ \"12345\" ‚É‘µ‚¦‚éB
+    •¶š—ñ‚Í NFKCi‘SŠp‰p”š‚È‚Çj‚Å•\‹L‚ä‚ê‚ğ‹zûi“¯ˆêÀ‘Ì‚ÌÄAPIŒÄ‚Ño‚µ‚ğŒ¸‚ç‚·jB
     """
     if val is None:
         return None
@@ -4680,7 +4685,7 @@ def _normalize_special_task_id_for_ai(val):
     s = unicodedata.normalize("NFKC", s).strip()
     if not s or s.lower() in ("nan", "none", "null"):
         return None
-    # æ–‡å­—åˆ—ã¨ã—ã¦ã® "20010.0" ç­‰ï¼ˆExcelãƒ»CSVï¼‰ã‚’æ•´æ•°è¡¨è¨˜ã®ä¾é ¼NOã«å¯„ã›ã‚‹
+    # •¶š—ñ‚Æ‚µ‚Ä‚Ì "20010.0" “™iExcelECSVj‚ğ®”•\‹L‚ÌˆË—ŠNO‚ÉŠñ‚¹‚é
     if re.fullmatch(r"-?\d+\.0+", s):
         try:
             return str(int(float(s)))
@@ -4690,19 +4695,19 @@ def _normalize_special_task_id_for_ai(val):
 
 
 def planning_task_id_str_from_scalar(val) -> str:
-    """é…å°ãƒ»æ®µéš1ãƒãƒ¼ã‚¸ãƒ»ã‚­ãƒ¥ãƒ¼æ§‹ç¯‰ã§ç”¨ã„ã‚‹ä¾é ¼NOã®å®‰å®šæ–‡å­—åˆ—ï¼ˆç©ºãªã‚‰ \"\"ï¼‰ã€‚"""
+    """”z‘äE’iŠK1ƒ}[ƒWEƒLƒ…[\’z‚Å—p‚¢‚éˆË—ŠNO‚ÌˆÀ’è•¶š—ñi‹ó‚È‚ç \"\"jB"""
     return _normalize_special_task_id_for_ai(val) or ""
 
 
 def planning_task_id_str_from_plan_row(row) -> str:
-    """é‡è¤‡è¦‹å‡ºã—åˆ—ã§ã‚‚å…ˆé ­ã‚¹ã‚«ãƒ©ãƒ¼ã‚’æ‹¾ã„ã€ä¾é ¼NOã‚’ planning_task_id_str_from_scalar ã«æ¸¡ã™ã€‚"""
+    """d•¡Œ©o‚µ—ñ‚Å‚àæ“ªƒXƒJƒ‰[‚ğE‚¢AˆË—ŠNO‚ğ planning_task_id_str_from_scalar ‚É“n‚·B"""
     return planning_task_id_str_from_scalar(_planning_df_cell_scalar(row, TASK_COL_TASK_ID))
 
 
 def _cell_text_task_special_remark(val):
     """
-    ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã‚’ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆç”¨ã«å–ã‚Šå‡ºã™ã€‚ä»•æ§˜ã©ãŠã‚Š **strip ã®ã¿**
-    ï¼ˆå…ˆé ­æœ«å°¾ã®ç©ºç™½ãƒ»Excel ã®å½ç©ºç™½ã‚’é™¤ãã€æ–‡ä¸­ã®æ”¹è¡Œãƒ»ã‚¹ãƒšãƒ¼ã‚¹ã¯ä¿æŒã€‚æ•°å€¤ã‚»ãƒ«ã¯è¡¨è¨˜ã‚’å›ºå®šï¼‰ã€‚
+    “Á•Êw’è_”õl‚ğƒvƒƒ“ƒvƒg—p‚Éæ‚èo‚·Bd—l‚Ç‚¨‚è **strip ‚Ì‚İ**
+    iæ“ª––”ö‚Ì‹ó”’EExcel ‚Ì‹U‹ó”’‚ğœ‚«A•¶’†‚Ì‰üsEƒXƒy[ƒX‚Í•ÛB”’lƒZƒ‹‚Í•\‹L‚ğŒÅ’èjB
     """
     if val is None:
         return ""
@@ -4716,7 +4721,7 @@ def _cell_text_task_special_remark(val):
     elif isinstance(val, float):
         if math.isnan(val):
             return ""
-        # å‚™è€ƒåˆ—ã«æ•°å€¤ã ã‘å…¥ã£ã¦ã„ã‚‹å ´åˆã®è¡¨è¨˜ã‚†ã‚Œã‚’æ¸›ã‚‰ã™
+        # ”õl—ñ‚É”’l‚¾‚¯“ü‚Á‚Ä‚¢‚éê‡‚Ì•\‹L‚ä‚ê‚ğŒ¸‚ç‚·
         if val.is_integer():
             s = str(int(val))
         else:
@@ -4732,7 +4737,7 @@ def _cell_text_task_special_remark(val):
 
 
 def _task_special_prompt_lines(tasks_df):
-    """ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã«è¼‰ã›ã‚‹è¡Œãƒªã‚¹ãƒˆï¼ˆã‚½ãƒ¼ãƒˆå‰ï¼‰ã€‚æ­£è¦åŒ–ã¯ä¸Šè¨˜ãƒ˜ãƒ«ãƒ‘ãƒ¼ã«çµ±ä¸€ã€‚"""
+    """ƒvƒƒ“ƒvƒg‚ÉÚ‚¹‚ésƒŠƒXƒgiƒ\[ƒg‘OjB³‹K‰»‚Íã‹Lƒwƒ‹ƒp[‚É“ˆêB"""
     lines = []
     for _, row in tasks_df.iterrows():
         if _plan_row_exclude_from_assignment(row):
@@ -4743,18 +4748,18 @@ def _task_special_prompt_lines(tasks_df):
             continue
         proc = str(row.get(TASK_COL_MACHINE, "") or "").strip()
         macn = str(row.get(TASK_COL_MACHINE_NAME, "") or "").strip()
-        proc_disp = proc if proc else "ï¼ˆç©ºï¼‰"
-        macn_disp = macn if macn else "ï¼ˆç©ºï¼‰"
+        proc_disp = proc if proc else "i‹ój"
+        macn_disp = macn if macn else "i‹ój"
         lines.append(
-            f"- ä¾é ¼NOã€{tid}ã€‘| å·¥ç¨‹åã€Œ{proc_disp}ã€ | æ©Ÿæ¢°åã€Œ{macn_disp}ã€ | å‚™è€ƒæœ¬æ–‡: {rem}"
+            f"- ˆË—ŠNOy{tid}z| H’ö–¼u{proc_disp}v | ‹@ŠB–¼u{macn_disp}v | ”õl–{•¶: {rem}"
         )
     return lines
 
 
 def _repair_task_special_ai_wrong_top_level_keys(parsed: dict, tasks_df) -> dict:
     """
-    å‚™è€ƒãŒå“ç•ªãƒ»åŸåã‚³ãƒ¼ãƒ‰ï¼ˆä¾‹: 20010 ã§å§‹ã¾ã‚‹æ•°å­—åˆ—ï¼‰ã§å§‹ã¾ã‚‹ã¨ã€ãƒ¢ãƒ‡ãƒ«ãŒãã®åˆ—ã‚’ JSON ãƒˆãƒƒãƒ—ã‚­ãƒ¼ã«
-    èª¤ç”¨ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ã€‚ä¾é ¼NOã€â€¦ã€‘ã¨ä¸€è‡´ã—ãªã„æ•°å­—ã®ã¿ã®ã‚­ãƒ¼ã‚’ã€å½“è©²å‚™è€ƒã‚’æŒã¤è¡Œã®ä¾é ¼NOã¸ä»˜ã‘æ›¿ãˆã‚‹ã€‚
+    ”õl‚ª•i”ÔEŒ´”½ƒR[ƒhi—á: 20010 ‚Ån‚Ü‚é”š—ñj‚Ån‚Ü‚é‚ÆAƒ‚ƒfƒ‹‚ª‚»‚Ì—ñ‚ğ JSON ƒgƒbƒvƒL[‚É
+    Œë—p‚·‚é‚±‚Æ‚ª‚ ‚éBˆË—ŠNOycz‚Æˆê’v‚µ‚È‚¢”š‚Ì‚İ‚ÌƒL[‚ğA“–ŠY”õl‚ğ‚Âs‚ÌˆË—ŠNO‚Ö•t‚¯‘Ö‚¦‚éB
     """
     if not isinstance(parsed, dict) or not parsed or tasks_df is None or getattr(tasks_df, "empty", True):
         return parsed
@@ -4784,7 +4789,7 @@ def _repair_task_special_ai_wrong_top_level_keys(parsed: dict, tasks_df) -> dict
                 or r.startswith(sk + " ")
                 or r.startswith(sk + "\u3000")
                 or r.startswith(sk + "-")
-                or r.startswith(sk + "ãƒ¼")
+                or r.startswith(sk + "[")
                 for r in rems
             )
         ]
@@ -4797,7 +4802,7 @@ def _repair_task_special_ai_wrong_top_level_keys(parsed: dict, tasks_df) -> dict
         if target not in parsed:
             parsed[target] = val
             logging.info(
-                "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: JSON ãƒˆãƒƒãƒ—ã‚­ãƒ¼èª¤ã‚Šã‚’ä¿®å¾©ï¼ˆ%r ã¯ä¾é ¼NOã§ã¯ãªã„ â†’ %rï¼‰",
+                "ƒ^ƒXƒN“Á•Êw’è: JSON ƒgƒbƒvƒL[Œë‚è‚ğC•œi%r ‚ÍˆË—ŠNO‚Å‚Í‚È‚¢ ¨ %rj",
                 bad_key,
                 target,
             )
@@ -4814,8 +4819,8 @@ def _normalize_task_special_scope_str(s) -> str:
 
 def _task_special_scope_matches_row_field(row_val, restrict_val) -> bool:
     """
-    restrict ãŒç„¡ã„ãƒ»ç©ºãªã‚‰åˆ¶é™ãªã—ï¼ˆTrueï¼‰ã€‚
-    éç©ºãªã‚‰ Excel å´ã®å€¤ã¨ã‚ã„ã¾ã„ä¸€è‡´ï¼ˆéƒ¨åˆ†ä¸€è‡´å¯ï¼‰ã€‚
+    restrict ‚ª–³‚¢E‹ó‚È‚ç§ŒÀ‚È‚µiTruejB
+    ”ñ‹ó‚È‚ç Excel ‘¤‚Ì’l‚Æ‚ ‚¢‚Ü‚¢ˆê’vi•”•ªˆê’v‰ÂjB
     """
     if restrict_val is None:
         return True
@@ -4833,7 +4838,7 @@ def _task_special_scope_matches_row_field(row_val, restrict_val) -> bool:
 
 
 def _ai_remark_entry_applies_to_row(entry: dict, row) -> bool:
-    """restrict_to_* ãŒç„¡ã„ã¨ãã¯åŒä¸€ä¾é ¼NOã®å…¨è¡Œã«é©ç”¨ã€‚"""
+    """restrict_to_* ‚ª–³‚¢‚Æ‚«‚Í“¯ˆêˆË—ŠNO‚Ì‘Ss‚É“K—pB"""
     if not isinstance(entry, dict):
         return False
     rp = row.get(TASK_COL_MACHINE, "")
@@ -4847,8 +4852,8 @@ def _ai_remark_entry_applies_to_row(entry: dict, row) -> bool:
 
 def _row_matches_remark_source_row(entry: dict, row) -> bool:
     """
-    JSON ã® process_name / machine_name ãŒã€å½“è©² Excel è¡Œã®å·¥ç¨‹åãƒ»æ©Ÿæ¢°åã¨ä¸€è‡´ã™ã‚‹ã‹ã€‚
-    ï¼ˆãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã§æ¸¡ã—ãŸã€Œå‚™è€ƒãŒã‚ã£ãŸè¡Œã€ã¨å¯¾å¿œã¥ã‘ã‚‹ã€‚ç‰‡æ–¹ã ã‘ä¸€è‡´ã§ã‚‚å¯ï¼‰
+    JSON ‚Ì process_name / machine_name ‚ªA“–ŠY Excel s‚ÌH’ö–¼E‹@ŠB–¼‚Æˆê’v‚·‚é‚©B
+    iƒvƒƒ“ƒvƒg‚Å“n‚µ‚½u”õl‚ª‚ ‚Á‚½sv‚Æ‘Î‰‚Ã‚¯‚éB•Ğ•û‚¾‚¯ˆê’v‚Å‚à‰Âj
     """
     if not isinstance(entry, dict):
         return False
@@ -4862,7 +4867,7 @@ def _row_matches_remark_source_row(entry: dict, row) -> bool:
 
 
 def _entry_is_global_task_special_scope(entry: dict) -> bool:
-    """restrict_to_* ãŒç„¡ã„ãƒ»ç©ºï¼åŒä¸€ä¾é ¼NOã®å…¨å·¥ç¨‹è¡Œã«åŠ¹ã‹ã›ã‚‹æŒ‡å®šã€‚"""
+    """restrict_to_* ‚ª–³‚¢E‹ó“¯ˆêˆË—ŠNO‚Ì‘SH’ös‚ÉŒø‚©‚¹‚éw’èB"""
     if not isinstance(entry, dict):
         return False
     a = _normalize_task_special_scope_str(entry.get("restrict_to_process_name"))
@@ -4871,7 +4876,7 @@ def _entry_is_global_task_special_scope(entry: dict) -> bool:
 
 
 def _select_ai_task_special_entry_for_tid_value(val, row):
-    """1ä¾é ¼NOã«å¯¾ã™ã‚‹å€¤ãŒ dict ã¾ãŸã¯ dict ã®é…åˆ—ã®ã©ã¡ã‚‰ã§ã‚‚è¡Œã«åˆã†è¦ç´ ã‚’è¿”ã™ã€‚"""
+    """1ˆË—ŠNO‚É‘Î‚·‚é’l‚ª dict ‚Ü‚½‚Í dict ‚Ì”z—ñ‚Ì‚Ç‚¿‚ç‚Å‚às‚É‡‚¤—v‘f‚ğ•Ô‚·B"""
     if val is None:
         return None
     if isinstance(val, list):
@@ -4902,10 +4907,10 @@ def _select_ai_task_special_entry_for_tid_value(val, row):
 
 def _ai_task_special_entry_for_row(ai_by_tid, row):
     """
-    analyze_task_special_remarks ã®æˆ»ã‚Šã‹ã‚‰å½“è©²è¡Œã®ã‚¨ãƒ³ãƒˆãƒªã‚’å–ã‚‹ã€‚
-    ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã‚­ãƒ¼ã¯æ­£è¦åŒ–æ¸ˆã¿ä¾é ¼NOãªã®ã§ã€Excel ãŒ 12345.0 ã§ã‚‚ãƒ’ãƒƒãƒˆã™ã‚‹ã€‚
-    restrict_to_process_name / restrict_to_machine_name ãŒç„¡ã„ãƒ»ç©ºã®ã¨ãã¯
-    åŒä¸€ä¾é ¼NOã®å·¥ç¨‹ãƒ»æ©Ÿæ¢°ãŒç•°ãªã‚‹å…¨è¡Œã«åŒã˜æŒ‡ç¤ºã‚’é©ç”¨ã™ã‚‹ã€‚
+    analyze_task_special_remarks ‚Ì–ß‚è‚©‚ç“–ŠYs‚ÌƒGƒ“ƒgƒŠ‚ğæ‚éB
+    ƒvƒƒ“ƒvƒgƒL[‚Í³‹K‰»Ï‚İˆË—ŠNO‚È‚Ì‚ÅAExcel ‚ª 12345.0 ‚Å‚àƒqƒbƒg‚·‚éB
+    restrict_to_process_name / restrict_to_machine_name ‚ª–³‚¢E‹ó‚Ì‚Æ‚«‚Í
+    “¯ˆêˆË—ŠNO‚ÌH’öE‹@ŠB‚ªˆÙ‚È‚é‘Ss‚É“¯‚¶w¦‚ğ“K—p‚·‚éB
     """
     if not isinstance(ai_by_tid, dict) or not ai_by_tid:
         return None
@@ -4947,7 +4952,7 @@ def _gemini_result_text(res):
         return ""
 
 
-# 1 å›ã® Python å®Ÿè¡Œï¼ˆæ®µéš1 ã¾ãŸã¯ æ®µéš2ï¼‰å˜ä½ã§ãƒªã‚»ãƒƒãƒˆã™ã‚‹
+# 1 ‰ñ‚Ì Python Àsi’iŠK1 ‚Ü‚½‚Í ’iŠK2j’PˆÊ‚ÅƒŠƒZƒbƒg‚·‚é
 _gemini_usage_session: dict[str, dict[str, int]] = {}
 
 
@@ -4968,7 +4973,7 @@ def _gemini_cumulative_json_path() -> str:
 
 
 def _load_gemini_cumulative_payload() -> dict:
-    """API_Payment å†…ã®ç´¯è¨ˆ JSON ã‚’èª­ã‚€ã€‚ç„¡ã„ãƒ»å£Šã‚Œã¦ã„ã‚Œã°åˆæœŸå½¢ã‚’è¿”ã™ã€‚"""
+    """API_Payment “à‚Ì—İŒv JSON ‚ğ“Ç‚ŞB–³‚¢E‰ó‚ê‚Ä‚¢‚ê‚Î‰ŠúŒ`‚ğ•Ô‚·B"""
     path = _gemini_cumulative_json_path()
     default: dict = {
         "version": 1,
@@ -5016,11 +5021,11 @@ def _save_gemini_cumulative_payload(data: dict) -> None:
             json.dump(data, f, ensure_ascii=False, indent=2)
         os.replace(tmp, path)
     except OSError as ex:
-        logging.debug("Gemini ç´¯è¨ˆ JSON ã®ä¿å­˜ã«å¤±æ•—: %s", ex)
+        logging.debug("Gemini —İŒv JSON ‚Ì•Û‘¶‚É¸”s: %s", ex)
 
 
 def _gemini_buckets_ensure_structure(data: dict) -> None:
-    """ç´¯è¨ˆ JSON ã«æœŸé–“åˆ¥ãƒã‚±ãƒƒãƒˆç”¨ã®è¾æ›¸ã‚’ç”¨æ„ã™ã‚‹ï¼ˆæ—¢å­˜ v1 ãƒ•ã‚¡ã‚¤ãƒ«ã‚‚ãƒãƒ¼ã‚¸ï¼‰ã€‚"""
+    """—İŒv JSON ‚ÉŠúŠÔ•ÊƒoƒPƒbƒg—p‚Ì«‘‚ğ—pˆÓ‚·‚éiŠù‘¶ v1 ƒtƒ@ƒCƒ‹‚àƒ}[ƒWjB"""
     b = data.setdefault("buckets", {})
     if not isinstance(b, dict):
         b = {}
@@ -5031,12 +5036,12 @@ def _gemini_buckets_ensure_structure(data: dict) -> None:
             b[sub] = {}
     b.setdefault(
         "timezone_note",
-        "period_key ã¯ PC ãƒ­ãƒ¼ã‚«ãƒ«æ™‚åˆ»ï¼ˆdatetime.nowï¼‰ã§ä»˜ä¸ã€‚ä»– PC ã¨ã®é›†è¨ˆã¯æ··ãœãªã„ã§ãã ã•ã„ã€‚",
+        "period_key ‚Í PC ƒ[ƒJƒ‹idatetime.nowj‚Å•t—^B‘¼ PC ‚Æ‚ÌWŒv‚Í¬‚º‚È‚¢‚Å‚­‚¾‚³‚¢B",
     )
 
 
 def _gemini_time_bucket_keys(dt: datetime) -> tuple[str, str, str, str, str]:
-    """å¹´ãƒ»æœˆãƒ»ISOé€±ãƒ»æ—¥ãƒ»æ™‚ ã®ã‚­ãƒ¼ï¼ˆæ–‡å­—åˆ—ã‚½ãƒ¼ãƒˆã§æ™‚ç³»åˆ—æ¯”è¼ƒã—ã‚„ã™ã„å½¢ï¼‰ã€‚"""
+    """”NEŒEISOTE“úE ‚ÌƒL[i•¶š—ñƒ\[ƒg‚ÅŒn—ñ”äŠr‚µ‚â‚·‚¢Œ`jB"""
     iy, iw, _ = dt.isocalendar()
     y = dt.strftime("%Y")
     ym = dt.strftime("%Y-%m")
@@ -5056,7 +5061,7 @@ def _gemini_bucket_add_one_call(
     *,
     when: datetime | None = None,
 ) -> None:
-    """1 å›ã® API å‘¼å‡ºã—ã‚’å¹´ãƒ»æœˆãƒ»é€±ãƒ»æ—¥ãƒ»æ™‚ã®å„ãƒã‚±ãƒƒãƒˆã«åŠ ç®—ã™ã‚‹ã€‚"""
+    """1 ‰ñ‚Ì API ŒÄo‚µ‚ğ”NEŒETE“úE‚ÌŠeƒoƒPƒbƒg‚É‰ÁZ‚·‚éB"""
     dt = when or datetime.now()
     y, ym, wk, d, h = _gemini_time_bucket_keys(dt)
     pairs = (
@@ -5093,7 +5098,7 @@ def _gemini_bucket_add_one_call(
 def _append_gemini_cumulative_one_call(
     model_id: str, pt: int, ct: int, th: int, tt: int
 ) -> None:
-    """1 å›ã® API å¿œç­”åˆ†ã‚’ç´¯è¨ˆ JSON ã«åŠ ç®—ã™ã‚‹ï¼ˆãƒ­ã‚°ã«å˜ç™ºæ–™é‡‘ã¯å‡ºã•ãªã„ï¼‰ã€‚"""
+    """1 ‰ñ‚Ì API ‰“š•ª‚ğ—İŒv JSON ‚É‰ÁZ‚·‚éiƒƒO‚É’P”­—¿‹à‚Ío‚³‚È‚¢jB"""
     mid = str(model_id).strip()
     data = _load_gemini_cumulative_payload()
     data["calls_total"] = int(data["calls_total"]) + 1
@@ -5132,7 +5137,7 @@ def _append_gemini_cumulative_one_call(
 
 
 def record_gemini_response_usage(res, model_id: str) -> None:
-    """generate_content ã®å¿œç­”ã‹ã‚‰ usage_metadata ã‚’é›†è¨ˆã™ã‚‹ï¼ˆã‚»ãƒƒã‚·ãƒ§ãƒ³ï¼‹ç´¯è¨ˆ JSONï¼‰ã€‚"""
+    """generate_content ‚Ì‰“š‚©‚ç usage_metadata ‚ğWŒv‚·‚éiƒZƒbƒVƒ‡ƒ“{—İŒv JSONjB"""
     global _gemini_usage_session
     if res is None or not str(model_id or "").strip():
         return
@@ -5166,7 +5171,7 @@ def record_gemini_response_usage(res, model_id: str) -> None:
     try:
         _append_gemini_cumulative_one_call(mid, pt, ct, th, tt)
     except Exception as ex:
-        logging.debug("Gemini ç´¯è¨ˆã®æ›´æ–°ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s", ex)
+        logging.debug("Gemini —İŒv‚ÌXV‚Å—áŠOi‘±sj: %s", ex)
 
 
 def _gemini_estimate_cost_usd(
@@ -5177,7 +5182,7 @@ def _gemini_estimate_cost_usd(
     if "flash" in m:
         rin, rout = _GEMINI_FLASH_IN_PER_M, _GEMINI_FLASH_OUT_PER_M
     elif "pro" in m:
-        # ç›®å®‰ï¼ˆæœªä½¿ç”¨ãƒ¢ãƒ‡ãƒ«å‘ã‘ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ï¼‰
+        # –ÚˆÀi–¢g—pƒ‚ƒfƒ‹Œü‚¯ƒtƒH[ƒ‹ƒoƒbƒNj
         rin, rout = 1.25, 5.0
     if rin is None:
         return None
@@ -5188,7 +5193,7 @@ def _gemini_estimate_cost_usd(
 def _gemini_daily_trend_series(
     cum: dict, *, max_days: int | None = None
 ) -> tuple[list[str], list[float], str] | None:
-    """ç´¯è¨ˆ JSON ã® by_day ã‹ã‚‰ã€æ—¥ä»˜ã‚­ãƒ¼ï¼ˆå¤â†’æ–°ï¼‰ãƒ»å€¤ãƒ»ç³»åˆ—åã€‚ç„¡ã‘ã‚Œã° Noneã€‚"""
+    """—İŒv JSON ‚Ì by_day ‚©‚çA“ú•tƒL[iŒÃ¨VjE’lEŒn—ñ–¼B–³‚¯‚ê‚Î NoneB"""
     lim = GEMINI_USAGE_CHART_MAX_DAYS if max_days is None else max_days
     b = cum.get("buckets")
     if not isinstance(b, dict):
@@ -5210,12 +5215,12 @@ def _gemini_daily_trend_series(
             calls.append(0)
     use_calls = sum(usds) <= 0.0 and sum(calls) > 0
     series = [float(c) for c in calls] if use_calls else usds
-    label = "å‘¼å‡ºã—å›æ•°" if use_calls else "æ¨å®šUSD"
+    label = "ŒÄo‚µ‰ñ”" if use_calls else "„’èUSD"
     return (keys, series, label)
 
 
 def _gemini_daily_total_tokens_for_days(cum: dict, day_keys: list[str]) -> list[int]:
-    """by_day ã®å„ã‚­ãƒ¼ã«ã¤ã„ã¦ã€total_tokensï¼ˆç„¡ã‘ã‚Œã° prompt+candidates+thoughtsï¼‰ã‚’è¿”ã™ã€‚"""
+    """by_day ‚ÌŠeƒL[‚É‚Â‚¢‚ÄAtotal_tokensi–³‚¯‚ê‚Î prompt+candidates+thoughtsj‚ğ•Ô‚·B"""
     b = cum.get("buckets")
     if not isinstance(b, dict):
         return [0] * len(day_keys)
@@ -5240,28 +5245,28 @@ def _gemini_daily_total_tokens_for_days(cum: dict, day_keys: list[str]) -> list[
 
 
 def _gemini_usage_trend_caption_lines(cum: dict) -> list[str]:
-    """ãƒ†ã‚­ã‚¹ãƒˆå´ã¯ã‚°ãƒ©ãƒ•å‚ç…§ã¨ CSV æ¡ˆå†…ã®ã¿ï¼ˆASCII ã‚¹ãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¤ãƒ³ã¯å‡ºã•ãªã„ï¼‰ã€‚"""
+    """ƒeƒLƒXƒg‘¤‚ÍƒOƒ‰ƒtQÆ‚Æ CSV ˆÄ“à‚Ì‚İiASCII ƒXƒp[ƒNƒ‰ƒCƒ“‚Ío‚³‚È‚¢jB"""
     ser = _gemini_daily_trend_series(cum)
     if ser is None:
         return []
     keys, _, label = ser
     b = cum.get("buckets")
     lines = [
-        "ã€æ¨ç§»ã‚°ãƒ©ãƒ•ã€‘æ–™é‡‘ãƒ»å‘¼å‡ºã—: Qã€œR åˆ—ï¼ãƒˆãƒ¼ã‚¯ãƒ³é‡: Sã€œT åˆ—ï¼ˆå„ã‚°ãƒ©ãƒ•ãƒ»è‡ªå‹•æ›´æ–°ï¼‰ã‚’å‚ç…§",
-        f"  ç³»åˆ—1: æ—¥æ¬¡ {label}ï¼ˆ{keys[0]} ï½ {keys[-1]}ï¼‰",
-        "  ç³»åˆ—2: æ—¥æ¬¡ åˆè¨ˆãƒˆãƒ¼ã‚¯ãƒ³ï¼ˆAPI å ±å‘Š total ã¾ãŸã¯å†…è¨³åˆè¨ˆï¼‰",
-        f"  å¹´ãƒ»æœˆãƒ»é€±ãƒ»æ™‚ãªã©ã®å†…è¨³: log\\{GEMINI_USAGE_BUCKETS_CSV_FILE}ï¼ˆExcel ã§ã‚°ãƒ©ãƒ•å¯ï¼‰",
+        "y„ˆÚƒOƒ‰ƒtz—¿‹àEŒÄo‚µ: Q?R —ñ^ƒg[ƒNƒ“—Ê: S?T —ñiŠeƒOƒ‰ƒtE©“®XVj‚ğQÆ",
+        f"  Œn—ñ1: “úŸ {label}i{keys[0]} ` {keys[-1]}j",
+        "  Œn—ñ2: “úŸ ‡Œvƒg[ƒNƒ“iAPI •ñ total ‚Ü‚½‚Í“à–ó‡Œvj",
+        f"  ”NEŒETE‚È‚Ç‚Ì“à–ó: log\\{GEMINI_USAGE_BUCKETS_CSV_FILE}iExcel ‚ÅƒOƒ‰ƒt‰Âj",
     ]
     if isinstance(b, dict):
         note = b.get("timezone_note")
         if note:
-            lines.append(f"  ï¼ˆ{note}ï¼‰")
+            lines.append(f"  i{note}j")
     return lines
 
 
 def _gemini_resolve_main_sheet_xlwings(book) -> object | None:
-    """xlwings Book ã‹ã‚‰ãƒ¡ã‚¤ãƒ³ç›¸å½“ã‚·ãƒ¼ãƒˆã‚’è¿”ã™ã€‚ç„¡ã‘ã‚Œã° Noneã€‚"""
-    for name in ("ãƒ¡ã‚¤ãƒ³", "ãƒ¡ã‚¤ãƒ³_", "Main"):
+    """xlwings Book ‚©‚çƒƒCƒ“‘Š“–ƒV[ƒg‚ğ•Ô‚·B–³‚¯‚ê‚Î NoneB"""
+    for name in ("ƒƒCƒ“", "ƒƒCƒ“_", "Main"):
         try:
             return book.sheets[name]
         except Exception:
@@ -5269,7 +5274,7 @@ def _gemini_resolve_main_sheet_xlwings(book) -> object | None:
     try:
         for sht in book.sheets:
             try:
-                if "ãƒ¡ã‚¤ãƒ³" in str(sht.name):
+                if "ƒƒCƒ“" in str(sht.name):
                     return sht
             except Exception:
                 continue
@@ -5279,14 +5284,14 @@ def _gemini_resolve_main_sheet_xlwings(book) -> object | None:
 
 
 def _strip_gemini_usage_charts_xlwings(ws) -> None:
-    """å½“æ©Ÿèƒ½ãŒç®¡ç†ã™ã‚‹æŠ˜ã‚Œç·šï¼ˆåå‰ã¾ãŸã¯ã‚°ãƒ©ãƒ•ã‚¿ã‚¤ãƒˆãƒ«ï¼‰ã‚’å‰Šé™¤ã™ã‚‹ã€‚"""
+    """“–‹@”\‚ªŠÇ—‚·‚éÜ‚êüi–¼‘O‚Ü‚½‚ÍƒOƒ‰ƒtƒ^ƒCƒgƒ‹j‚ğíœ‚·‚éB"""
     managed_names = (
         GEMINI_USAGE_XLW_CHART_NAME,
         GEMINI_USAGE_XLW_CHART_TOKENS_NAME,
     )
     title_markers = (
-        "Gemini API æ—¥æ¬¡æ¨ç§»",
-        "Gemini API æ—¥æ¬¡ãƒˆãƒ¼ã‚¯ãƒ³",
+        "Gemini API “úŸ„ˆÚ",
+        "Gemini API “úŸƒg[ƒNƒ“",
     )
     try:
         charts_iter = list(ws.charts)
@@ -5314,7 +5319,7 @@ def _strip_gemini_usage_charts_xlwings(ws) -> None:
 
 
 def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
-    """é–‹ã„ãŸãƒ–ãƒƒã‚¯ä¸Šã§ Qã€œRãƒ»Sã€œT ã‚’åŸ‹ã‚ã€æŠ˜ã‚Œç·šã‚°ãƒ©ãƒ•ã‚’ 2 æœ¬ã¾ã§ç½®ãï¼ˆxlwingsï¼‰ã€‚"""
+    """ŠJ‚¢‚½ƒuƒbƒNã‚Å Q?RES?T ‚ğ–„‚ßAÜ‚êüƒOƒ‰ƒt‚ğ 2 –{‚Ü‚Å’u‚­ixlwingsjB"""
     hr = GEMINI_USAGE_CHART_HEADER_ROW
     cdt = GEMINI_USAGE_CHART_COL_DATE
     cvl = GEMINI_USAGE_CHART_COL_VALUE
@@ -5342,7 +5347,7 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
     if n <= 0:
         return
 
-    ws.range((hr, cdt)).value = "æ—¥ä»˜"
+    ws.range((hr, cdt)).value = "“ú•t"
     ws.range((hr, cvl)).value = val_label
     for i, (dk, val) in enumerate(zip(day_keys, values)):
         r = hr + 1 + i
@@ -5350,7 +5355,7 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
         ws.range((r, cvl)).value = val
     try:
         vrng = ws.range((hr + 1, cvl), (hr + n, cvl))
-        vrng.number_format = "0.000000" if val_label == "æ¨å®šUSD" else "0"
+        vrng.number_format = "0.000000" if val_label == "„’èUSD" else "0"
     except Exception:
         pass
 
@@ -5377,7 +5382,7 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
     try:
         ca = chart.api
         ca.HasTitle = True
-        ca.ChartTitle.Text = "Gemini API æ—¥æ¬¡æ¨ç§»"
+        ca.ChartTitle.Text = "Gemini API “úŸ„ˆÚ"
         ca.HasLegend = False
     except Exception:
         pass
@@ -5386,8 +5391,8 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
     if not tok_vals or max(tok_vals) <= 0:
         return
 
-    tok_label = "åˆè¨ˆãƒˆãƒ¼ã‚¯ãƒ³"
-    ws.range((hr, cts)).value = "æ—¥ä»˜"
+    tok_label = "‡Œvƒg[ƒNƒ“"
+    ws.range((hr, cts)).value = "“ú•t"
     ws.range((hr, ctv)).value = tok_label
     for i, dk in enumerate(day_keys):
         r = hr + 1 + i
@@ -5421,7 +5426,7 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
     try:
         ca2 = chart2.api
         ca2.HasTitle = True
-        ca2.ChartTitle.Text = "Gemini API æ—¥æ¬¡ãƒˆãƒ¼ã‚¯ãƒ³"
+        ca2.ChartTitle.Text = "Gemini API “úŸƒg[ƒNƒ“"
         ca2.HasLegend = False
     except Exception:
         pass
@@ -5430,11 +5435,11 @@ def _apply_main_sheet_gemini_usage_chart_xlwings(ws, cum: dict) -> None:
 def _write_main_sheet_gemini_usage_via_xlwings(
     macro_wb_path: str, text: str, log_prefix: str
 ) -> bool:
-    """Excel ã§ãƒ–ãƒƒã‚¯ãŒé–‹ã„ã¦ã„ã‚‹ã¨ãã€ãƒ¡ã‚¤ãƒ³ P åˆ—ãƒ»Qã€œTãƒ»æ¨ç§»ã‚°ãƒ©ãƒ•ï¼ˆæœ€å¤§2æœ¬ï¼‰ã‚’ xlwings ã§æ›´æ–°ã—ã¦ Saveã€‚"""
+    """Excel ‚ÅƒuƒbƒN‚ªŠJ‚¢‚Ä‚¢‚é‚Æ‚«AƒƒCƒ“ P —ñEQ?TE„ˆÚƒOƒ‰ƒtiÅ‘å2–{j‚ğ xlwings ‚ÅXV‚µ‚Ä SaveB"""
     attached = _xlwings_attach_open_macro_workbook(macro_wb_path, log_prefix)
     if attached is None:
         logging.info(
-            "%s: xlwings ã§ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã«æ¥ç¶šã§ããšã€ãƒ¡ã‚¤ãƒ³ AI ã‚µãƒãƒªã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+            "%s: xlwings ‚Åƒ}ƒNƒƒuƒbƒN‚ÉÚ‘±‚Å‚«‚¸AƒƒCƒ“ AI ƒTƒ}ƒŠ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
             log_prefix,
         )
         return False
@@ -5448,7 +5453,7 @@ def _write_main_sheet_gemini_usage_via_xlwings(
         ws_main = _gemini_resolve_main_sheet_xlwings(xw_book)
         if ws_main is None:
             logging.info(
-                "%s: ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆãŒç„¡ã„ãŸã‚ xlwings ã§ã® AI ã‚µãƒãƒªã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+                "%s: ƒƒCƒ“ƒV[ƒg‚ª–³‚¢‚½‚ß xlwings ‚Å‚Ì AI ƒTƒ}ƒŠ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
                 log_prefix,
             )
             return False
@@ -5474,7 +5479,7 @@ def _write_main_sheet_gemini_usage_via_xlwings(
             xw_book.save()
             ok = True
             logging.info(
-                "%s: ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆ P%d ä»¥é™ãƒ»Gemini æ¨ç§»ã‚°ãƒ©ãƒ•ï¼ˆæ–™é‡‘/å‘¼å‡ºã—ãƒ»ãƒˆãƒ¼ã‚¯ãƒ³ï¼‰ã‚’ xlwings ã§ä¿å­˜ã—ã¾ã—ãŸã€‚",
+                "%s: ƒƒCƒ“ƒV[ƒg P%d ˆÈ~EGemini „ˆÚƒOƒ‰ƒti—¿‹à/ŒÄo‚µEƒg[ƒNƒ“j‚ğ xlwings ‚Å•Û‘¶‚µ‚Ü‚µ‚½B",
                 log_prefix,
                 start_r,
             )
@@ -5482,7 +5487,7 @@ def _write_main_sheet_gemini_usage_via_xlwings(
             _xlwings_app_save_perf_state_pop(xw_book.app, _perf_snap)
     except Exception as ex:
         logging.warning(
-            "%s: ãƒ¡ã‚¤ãƒ³ AI ã‚µãƒãƒªã® xlwings ä¿å­˜ã«å¤±æ•—: %s", log_prefix, ex
+            "%s: ƒƒCƒ“ AI ƒTƒ}ƒŠ‚Ì xlwings •Û‘¶‚É¸”s: %s", log_prefix, ex
         )
         ok = False
     finally:
@@ -5491,12 +5496,12 @@ def _write_main_sheet_gemini_usage_via_xlwings(
 
 
 def _gemini_kv_table_lines(title: str, rows: list[tuple[str, str]]) -> list[str]:
-    """ç´¯è¨ˆãƒ»å½“å®Ÿè¡Œå‘ã‘ã® 2 åˆ—ãƒ†ã‚­ã‚¹ãƒˆè¡¨ï¼ˆå±¥æ­´è¡Œã¯å«ã‚ãªã„ï¼‰ã€‚"""
+    """—İŒvE“–ÀsŒü‚¯‚Ì 2 —ñƒeƒLƒXƒg•\i—š—ğs‚ÍŠÜ‚ß‚È‚¢jB"""
     out = [title]
     if not rows:
         return out
     lw = min(22, max(len(a) for a, _ in rows))
-    sep = "  " + ("â”€" * (lw + 2 + 28))
+    sep = "  " + ("„Ÿ" * (lw + 2 + 28))
     out.append(sep)
     for a, b in rows:
         out.append(f"  {a:<{lw}}  {b}")
@@ -5504,7 +5509,7 @@ def _gemini_kv_table_lines(title: str, rows: list[tuple[str, str]]) -> list[str]
 
 
 def _export_gemini_buckets_csv_for_charts(cum: dict) -> None:
-    """Excel æŠ˜ã‚Œç·šãƒ»æ£’ã‚°ãƒ©ãƒ•å‘ã‘ã«é•·å½¢å¼ CSV ã‚’ log ã«æ›¸ãå‡ºã™ã€‚"""
+    """Excel Ü‚êüE–_ƒOƒ‰ƒtŒü‚¯‚É’·Œ`® CSV ‚ğ log ‚É‘‚«o‚·B"""
     b = cum.get("buckets")
     if not isinstance(b, dict):
         return
@@ -5564,11 +5569,11 @@ def _export_gemini_buckets_csv_for_charts(cum: dict) -> None:
             w.writeheader()
             w.writerows(rows_out)
     except OSError as ex:
-        logging.debug("Gemini ãƒã‚±ãƒƒãƒˆ CSV ã®ä¿å­˜ã«å¤±æ•—: %s", ex)
+        logging.debug("Gemini ƒoƒPƒbƒg CSV ‚Ì•Û‘¶‚É¸”s: %s", ex)
 
 
 def build_gemini_usage_summary_text() -> str:
-    """ãƒ¡ã‚¤ãƒ³è¡¨ç¤ºãƒ»çµæœãƒ­ã‚°ç”¨ã®è¤‡æ•°è¡Œãƒ†ã‚­ã‚¹ãƒˆï¼ˆã“ã®å®Ÿè¡Œåˆ†ï¼‹ç´¯è¨ˆ JSONï¼‰ã€‚"""
+    """ƒƒCƒ“•\¦EŒ‹‰ÊƒƒO—p‚Ì•¡”sƒeƒLƒXƒgi‚±‚ÌÀs•ª{—İŒv JSONjB"""
     cum = _load_gemini_cumulative_payload()
     ct_tot = int(cum.get("calls_total") or 0)
     if not _gemini_usage_session and ct_tot <= 0:
@@ -5577,33 +5582,33 @@ def build_gemini_usage_summary_text() -> str:
     lines: list[str] = []
     ts = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     if _gemini_usage_session:
-        lines.append(f"é›†è¨ˆæ™‚åˆ»: {ts}ï¼ˆã“ã®å®Ÿè¡Œã§ã® Gemini APIï¼‰")
+        lines.append(f"WŒv: {ts}i‚±‚ÌÀs‚Å‚Ì Gemini APIj")
         tot_calls = sum(b["calls"] for b in _gemini_usage_session.values())
         tot_p = sum(b["prompt"] for b in _gemini_usage_session.values())
         tot_c = sum(b["candidates"] for b in _gemini_usage_session.values())
         tot_th = sum(b["thoughts"] for b in _gemini_usage_session.values())
         tot_t = sum(b["total"] for b in _gemini_usage_session.values())
         sess_rows: list[tuple[str, str]] = [
-            ("å‘¼å‡ºã—", f"{tot_calls:,} å›"),
-            ("å…¥åŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{tot_p:,}"),
-            ("å‡ºåŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{tot_c:,}"),
+            ("ŒÄo‚µ", f"{tot_calls:,} ‰ñ"),
+            ("“ü—Íƒg[ƒNƒ“", f"{tot_p:,}"),
+            ("o—Íƒg[ƒNƒ“", f"{tot_c:,}"),
         ]
         if tot_th:
-            sess_rows.append(("æ€è€ƒãƒˆãƒ¼ã‚¯ãƒ³", f"{tot_th:,}"))
-        sess_rows.append(("total å ±å‘Š", f"{tot_t:,}"))
-        lines.extend(_gemini_kv_table_lines("ã€ã“ã®å®Ÿè¡Œã€‘", sess_rows))
+            sess_rows.append(("vlƒg[ƒNƒ“", f"{tot_th:,}"))
+        sess_rows.append(("total •ñ", f"{tot_t:,}"))
+        lines.extend(_gemini_kv_table_lines("y‚±‚ÌÀsz", sess_rows))
         grand_usd = 0.0
         any_price = False
         for mid in sorted(_gemini_usage_session.keys()):
             b = _gemini_usage_session[mid]
             mrows: list[tuple[str, str]] = [
-                ("ãƒ¢ãƒ‡ãƒ«", mid),
-                ("å‘¼å‡ºã—", f"{b['calls']:,} å›"),
-                ("å…¥åŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{b['prompt']:,}"),
-                ("å‡ºåŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{b['candidates']:,}"),
+                ("ƒ‚ƒfƒ‹", mid),
+                ("ŒÄo‚µ", f"{b['calls']:,} ‰ñ"),
+                ("“ü—Íƒg[ƒNƒ“", f"{b['prompt']:,}"),
+                ("o—Íƒg[ƒNƒ“", f"{b['candidates']:,}"),
             ]
             if b.get("thoughts", 0):
-                mrows.append(("æ€è€ƒãƒˆãƒ¼ã‚¯ãƒ³", f"{b['thoughts']:,}"))
+                mrows.append(("vlƒg[ƒNƒ“", f"{b['thoughts']:,}"))
             mrows.append(("total_token_count", f"{b['total']:,}"))
             est = _gemini_estimate_cost_usd(
                 mid, b["prompt"], b["candidates"], b.get("thoughts", 0)
@@ -5611,68 +5616,68 @@ def build_gemini_usage_summary_text() -> str:
             if est is not None:
                 any_price = True
                 grand_usd += est
-                mrows.append(("æ¨å®šUSD", f"${est:.6f}"))
+                mrows.append(("„’èUSD", f"${est:.6f}"))
                 mrows.append(
                     (
-                        "æ¨å®šJPY",
-                        f"Â¥{est * GEMINI_JPY_PER_USD:.2f}ï¼ˆ{GEMINI_JPY_PER_USD:.0f}å††/USDï¼‰",
+                        "„’èJPY",
+                        f"\{est * GEMINI_JPY_PER_USD:.2f}i{GEMINI_JPY_PER_USD:.0f}‰~/USDj",
                     )
                 )
             else:
-                mrows.append(("æ¨å®šæ–™é‡‘", "ï¼ˆå˜ä¾¡æœªç™»éŒ²ãƒ¢ãƒ‡ãƒ«ï¼‰"))
+                mrows.append(("„’è—¿‹à", "i’P‰¿–¢“o˜^ƒ‚ƒfƒ‹j"))
             lines.append("")
-            lines.extend(_gemini_kv_table_lines(f"ã€ã“ã®å®Ÿè¡Œãƒ»ãƒ¢ãƒ‡ãƒ«åˆ¥ã€‘", mrows))
+            lines.extend(_gemini_kv_table_lines(f"y‚±‚ÌÀsEƒ‚ƒfƒ‹•Êz", mrows))
         if any_price:
             lines.append("")
             lines.extend(
                 _gemini_kv_table_lines(
-                    "ã€ã“ã®å®Ÿè¡Œãƒ»æ¨å®šæ–™é‡‘åˆè¨ˆã€‘",
+                    "y‚±‚ÌÀsE„’è—¿‹à‡Œvz",
                     [
                         ("USD", f"${grand_usd:.6f}"),
                         (
                             "JPY",
-                            f"Â¥{grand_usd * GEMINI_JPY_PER_USD:.2f}ï¼ˆ{GEMINI_JPY_PER_USD:.0f}å††/USDï¼‰",
+                            f"\{grand_usd * GEMINI_JPY_PER_USD:.2f}i{GEMINI_JPY_PER_USD:.0f}‰~/USDj",
                         ),
                     ],
                 )
             )
     else:
-        lines.append(f"é›†è¨ˆæ™‚åˆ»: {ts}")
-        lines.append("ï¼ˆã“ã®å®Ÿè¡Œã§ã® Gemini API å‘¼å‡ºã—ã¯ã‚ã‚Šã¾ã›ã‚“ï¼‰")
-    lines.append("â€» ãƒˆãƒ¼ã‚¯ãƒ³ã¯ API ã® usage_metadata ã«åŸºã¥ãã¾ã™ã€‚")
+        lines.append(f"WŒv: {ts}")
+        lines.append("i‚±‚ÌÀs‚Å‚Ì Gemini API ŒÄo‚µ‚Í‚ ‚è‚Ü‚¹‚ñj")
+    lines.append("¦ ƒg[ƒNƒ“‚Í API ‚Ì usage_metadata ‚ÉŠî‚Ã‚«‚Ü‚·B")
     lines.append(
-        "â€» USD å˜ä¾¡ã¯ã‚³ãƒ¼ãƒ‰ï¼ç’°å¢ƒå¤‰æ•°ã®ç›®å®‰ã§ã™ã€‚å®Ÿèª²é‡‘ã¯ Google ã®è«‹æ±‚ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚"
+        "¦ USD ’P‰¿‚ÍƒR[ƒh^ŠÂ‹«•Ï”‚Ì–ÚˆÀ‚Å‚·BÀ‰Û‹à‚Í Google ‚Ì¿‹‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B"
     )
     lines.append(
-        "â€» å„ API å‘¼å‡ºã—ã”ã¨ã®æ¨å®šæ–™é‡‘ã¯ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«å‡ºã•ãšã€ä¸‹è¨˜ç´¯è¨ˆ JSON ã«ã®ã¿ç©ã¿ä¸Šã’ã¾ã™ã€‚"
+        "¦ Še API ŒÄo‚µ‚²‚Æ‚Ì„’è—¿‹à‚ÍƒRƒ“ƒ\[ƒ‹‚Éo‚³‚¸A‰º‹L—İŒv JSON ‚É‚Ì‚İÏ‚İã‚°‚Ü‚·B"
     )
 
     if ct_tot > 0:
         lines.append("")
         cum_hdr = (
-            f"ã€ç´¯è¨ˆã€‘{GEMINI_USAGE_CUMULATIVE_JSON_FILE} "
-            "ï¼ˆAPI_Payment ãƒ•ã‚©ãƒ«ãƒ€ãƒ»å…¨å®Ÿè¡Œã®æ¨å®šå€¤ï¼‰"
+            f"y—İŒvz{GEMINI_USAGE_CUMULATIVE_JSON_FILE} "
+            "iAPI_Payment ƒtƒHƒ‹ƒ_E‘SÀs‚Ì„’è’lj"
         )
         pt0 = int(cum.get("prompt_total") or 0)
         cc0 = int(cum.get("candidates_total") or 0)
         th0 = int(cum.get("thoughts_total") or 0)
         tt0 = int(cum.get("total_tokens_reported") or 0)
         cum_rows: list[tuple[str, str]] = [
-            ("æœ€çµ‚æ›´æ–°", str(cum.get("updated_at") or "â€”")),
-            ("å‘¼å‡ºã—", f"{ct_tot:,} å›"),
-            ("å…¥åŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{pt0:,}"),
-            ("å‡ºåŠ›ãƒˆãƒ¼ã‚¯ãƒ³", f"{cc0:,}"),
+            ("ÅIXV", str(cum.get("updated_at") or "?")),
+            ("ŒÄo‚µ", f"{ct_tot:,} ‰ñ"),
+            ("“ü—Íƒg[ƒNƒ“", f"{pt0:,}"),
+            ("o—Íƒg[ƒNƒ“", f"{cc0:,}"),
         ]
         if th0:
-            cum_rows.append(("æ€è€ƒãƒˆãƒ¼ã‚¯ãƒ³", f"{th0:,}"))
-        cum_rows.append(("total å ±å‘Š", f"{tt0:,}"))
+            cum_rows.append(("vlƒg[ƒNƒ“", f"{th0:,}"))
+        cum_rows.append(("total •ñ", f"{tt0:,}"))
         usd_all = float(cum.get("estimated_cost_usd_total") or 0.0)
         if usd_all > 0:
-            cum_rows.append(("æ¨å®šUSD ç´¯è¨ˆ", f"${usd_all:.6f}"))
+            cum_rows.append(("„’èUSD —İŒv", f"${usd_all:.6f}"))
             cum_rows.append(
                 (
-                    "æ¨å®šJPY ç´¯è¨ˆ",
-                    f"Â¥{usd_all * GEMINI_JPY_PER_USD:.2f}ï¼ˆ{GEMINI_JPY_PER_USD:.0f}å††/USDï¼‰",
+                    "„’èJPY —İŒv",
+                    f"\{usd_all * GEMINI_JPY_PER_USD:.2f}i{GEMINI_JPY_PER_USD:.0f}‰~/USDj",
                 )
             )
         lines.extend(_gemini_kv_table_lines(cum_hdr, cum_rows))
@@ -5683,23 +5688,23 @@ def build_gemini_usage_summary_text() -> str:
                 if not isinstance(m, dict):
                     continue
                 mrows2: list[tuple[str, str]] = [
-                    ("ãƒ¢ãƒ‡ãƒ«", mid),
-                    ("å‘¼å‡ºã—", f"{int(m.get('calls') or 0):,} å›"),
+                    ("ƒ‚ƒfƒ‹", mid),
+                    ("ŒÄo‚µ", f"{int(m.get('calls') or 0):,} ‰ñ"),
                     (
-                        "å…¥åŠ› / å‡ºåŠ›",
+                        "“ü—Í / o—Í",
                         f"{int(m.get('prompt') or 0):,} / {int(m.get('candidates') or 0):,}",
                     ),
                 ]
                 if int(m.get("thoughts") or 0):
-                    mrows2.append(("æ€è€ƒãƒˆãƒ¼ã‚¯ãƒ³", f"{int(m.get('thoughts') or 0):,}"))
+                    mrows2.append(("vlƒg[ƒNƒ“", f"{int(m.get('thoughts') or 0):,}"))
                 mud = float(m.get("estimated_cost_usd") or 0.0)
                 if mud > 0:
-                    mrows2.append(("æ¨å®šUSD ç´¯è¨ˆ", f"${mud:.6f}"))
+                    mrows2.append(("„’èUSD —İŒv", f"${mud:.6f}"))
                     mrows2.append(
-                        ("æ¨å®šJPY ç´¯è¨ˆ", f"Â¥{mud * GEMINI_JPY_PER_USD:.2f}")
+                        ("„’èJPY —İŒv", f"\{mud * GEMINI_JPY_PER_USD:.2f}")
                     )
                 lines.append("")
-                lines.extend(_gemini_kv_table_lines("ã€ç´¯è¨ˆãƒ»ãƒ¢ãƒ‡ãƒ«åˆ¥ã€‘", mrows2))
+                lines.extend(_gemini_kv_table_lines("y—İŒvEƒ‚ƒfƒ‹•Êz", mrows2))
         trend = _gemini_usage_trend_caption_lines(cum)
         if trend:
             lines.append("")
@@ -5708,7 +5713,7 @@ def build_gemini_usage_summary_text() -> str:
 
 
 def write_main_sheet_gemini_usage_summary(wb_path: str, log_prefix: str) -> None:
-    """Gemini åˆ©ç”¨ã‚µãƒãƒªã‚’ log ã«æ›¸ãã€xlwings ã§ãƒ¡ã‚¤ãƒ³ P åˆ—ãƒ»æ¨ç§»ã‚°ãƒ©ãƒ•ã¸ä¿å­˜ï¼ˆé–‹ã„ã¦ã„ã‚‹ãƒ–ãƒƒã‚¯å‘ã‘ï¼‰ã€‚"""
+    """Gemini —˜—pƒTƒ}ƒŠ‚ğ log ‚É‘‚«Axlwings ‚ÅƒƒCƒ“ P —ñE„ˆÚƒOƒ‰ƒt‚Ö•Û‘¶iŠJ‚¢‚Ä‚¢‚éƒuƒbƒNŒü‚¯jB"""
     text = build_gemini_usage_summary_text()
     path = os.path.join(log_dir, GEMINI_USAGE_SUMMARY_FOR_MAIN_FILE)
     xw_ok = False
@@ -5719,7 +5724,7 @@ def write_main_sheet_gemini_usage_summary(wb_path: str, log_prefix: str) -> None
             )
         except Exception as ex:
             logging.warning(
-                "%s: AI ã‚µãƒãƒªã® xlwings æ›¸ãè¾¼ã¿ã§ä¾‹å¤–: %s", log_prefix, ex
+                "%s: AI ƒTƒ}ƒŠ‚Ì xlwings ‘‚«‚İ‚Å—áŠO: %s", log_prefix, ex
             )
     try:
         os.makedirs(log_dir, exist_ok=True)
@@ -5732,19 +5737,19 @@ def write_main_sheet_gemini_usage_summary(wb_path: str, log_prefix: str) -> None
         if int(cum2.get("calls_total") or 0) > 0:
             _export_gemini_buckets_csv_for_charts(cum2)
     except Exception as ex:
-        logging.debug("Gemini ãƒã‚±ãƒƒãƒˆ CSV å‡ºåŠ›ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s", ex)
+        logging.debug("Gemini ƒoƒPƒbƒg CSV o—Í‚Å—áŠOi‘±sj: %s", ex)
     if xw_ok:
         return
     if text.strip():
         logging.info(
-            "%s: ãƒ¡ã‚¤ãƒ³ P åˆ—ãƒ»ã‚°ãƒ©ãƒ•ã‚’ xlwings ã§ä¿å­˜ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚"
-            " %s ã«å‡ºåŠ›æ¸ˆã¿ â†’ ãƒã‚¯ãƒ­ã€Œãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆ_Geminiåˆ©ç”¨ã‚µãƒãƒªã‚’Påˆ—ã«åæ˜ ã€ã§ P åˆ—ã®ã¿åæ˜ ã§ãã¾ã™ã€‚",
+            "%s: ƒƒCƒ“ P —ñEƒOƒ‰ƒt‚ğ xlwings ‚Å•Û‘¶‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B"
+            " %s ‚Éo—ÍÏ‚İ ¨ ƒ}ƒNƒuƒƒCƒ“ƒV[ƒg_Gemini—˜—pƒTƒ}ƒŠ‚ğP—ñ‚É”½‰fv‚Å P —ñ‚Ì‚İ”½‰f‚Å‚«‚Ü‚·B",
             log_prefix,
             path,
         )
     else:
         logging.info(
-            "%s: Gemini æœªä½¿ç”¨: ã‚µãƒãƒªã‚’ç©ºã§ %s ã«å‡ºåŠ›ã€‚",
+            "%s: Gemini –¢g—p: ƒTƒ}ƒŠ‚ğ‹ó‚Å %s ‚Éo—ÍB",
             log_prefix,
             path,
         )
@@ -5755,7 +5760,7 @@ def _try_write_main_sheet_gemini_usage_summary(phase: str) -> None:
         write_main_sheet_gemini_usage_summary(TASKS_INPUT_WORKBOOK, phase)
     except Exception as ex:
         logging.warning(
-            "%s: ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã¸ã® AI åˆ©ç”¨ã‚µãƒãƒªæ›¸ãè¾¼ã¿ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s", phase, ex
+            "%s: ƒƒCƒ“ƒV[ƒg‚Ö‚Ì AI —˜—pƒTƒ}ƒŠ‘‚«‚İ‚Å—áŠOi‘±sj: %s", phase, ex
         )
 
 
@@ -5764,7 +5769,7 @@ def _plan_sheet_write_global_parse_block_to_ws(
     global_priority_override: dict,
     when_str: str,
 ) -> None:
-    """æ—¢ã«é–‹ã„ã¦ã„ã‚‹ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ç›¸å½“ã‚·ãƒ¼ãƒˆã¸ AX:AY ã®ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æãƒ–ãƒ­ãƒƒã‚¯ã‚’æ›¸ãã€‚"""
+    """Šù‚ÉŠJ‚¢‚Ä‚¢‚éu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív‘Š“–ƒV[ƒg‚Ö AX:AY ‚ÌƒOƒ[ƒoƒ‹‰ğÍƒuƒƒbƒN‚ğ‘‚­B"""
     gpo = global_priority_override or {}
     lc = PLAN_SHEET_GLOBAL_PARSE_LABEL_COL
     vc = PLAN_SHEET_GLOBAL_PARSE_VALUE_COL
@@ -5774,60 +5779,60 @@ def _plan_sheet_write_global_parse_block_to_ws(
         ws.cell(row=1 + i, column=vc, value=None)
     align_top = Alignment(wrap_text=True, vertical="top")
     pairs: list[tuple[str, str]] = [
-        ("ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã€‘", "å‚ç…§ç”¨ãƒ»æ®µéš2ã§è‡ªå‹•è¨˜éŒ²"),
+        ("yƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍz", "QÆ—pE’iŠK2‚Å©“®‹L˜^"),
         (
-            "â€»äºŒé‡é©ç”¨ã«ã¤ã„ã¦",
-            "é…å°ã¸ã®åæ˜ ã¯ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€ã‹ã‚‰ã®ã¿è¡Œã‚ã‚Œã¾ã™ã€‚"
-            "ã“ã®AXã€œAYåˆ—ã¯èª­ã¿å–ã‚‰ã‚Œã¾ã›ã‚“ã€‚ç·¨é›†ã—ã¦ã‚‚æ¬¡å›å®Ÿè¡Œã¾ã§é…å°ã«åŠ¹ãã¾ã›ã‚“ã€‚"
-            "åŸæ–‡ã¯ãƒ¡ã‚¤ãƒ³æ¬„ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚",
+            "¦“ñd“K—p‚É‚Â‚¢‚Ä",
+            "”z‘ä‚Ö‚Ì”½‰f‚ÍƒƒCƒ“ƒV[ƒguƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgv‚©‚ç‚Ì‚İs‚í‚ê‚Ü‚·B"
+            "‚±‚ÌAX?AY—ñ‚Í“Ç‚İæ‚ç‚ê‚Ü‚¹‚ñB•ÒW‚µ‚Ä‚àŸ‰ñÀs‚Ü‚Å”z‘ä‚ÉŒø‚«‚Ü‚¹‚ñB"
+            "Œ´•¶‚ÍƒƒCƒ“—“‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B",
         ),
-        ("è¨ˆç”»åŸºæº–æ—¥æ™‚", (when_str or "").strip() or "â€•"),
+        ("Œv‰æŠî€“ú", (when_str or "").strip() or "\"),
         (
-            "å·¥å ´ä¼‘æ¥­æ—¥",
+            "Hê‹x‹Æ“ú",
             ", ".join(str(x) for x in (gpo.get("factory_closure_dates") or []))
             if gpo.get("factory_closure_dates")
-            else "ï¼ˆãªã—ï¼‰",
+            else "i‚È‚µj",
         ),
         (
-            "ã‚¹ã‚­ãƒ«è¦ä»¶ã‚’ç„¡è¦–",
-            "ã¯ã„" if gpo.get("ignore_skill_requirements") else "ã„ã„ãˆ",
+            "ƒXƒLƒ‹—vŒ‚ğ–³‹",
+            "‚Í‚¢" if gpo.get("ignore_skill_requirements") else "‚¢‚¢‚¦",
         ),
         (
-            "needäººæ•°1å›ºå®š",
-            "ã¯ã„" if gpo.get("ignore_need_minimum") else "ã„ã„ãˆ",
+            "needl”1ŒÅ’è",
+            "‚Í‚¢" if gpo.get("ignore_need_minimum") else "‚¢‚¢‚¦",
         ),
         (
-            "é…å°åˆ¶é™ã®æ’¤å»ƒ",
-            "ã¯ã„" if gpo.get("abolish_all_scheduling_limits") else "ã„ã„ãˆ",
+            "”z‘ä§ŒÀ‚Ì“P”p",
+            "‚Í‚¢" if gpo.get("abolish_all_scheduling_limits") else "‚¢‚¢‚¦",
         ),
         (
-            "ã‚°ãƒ­ãƒ¼ãƒãƒ«OPæŒ‡å",
+            "ƒOƒ[ƒoƒ‹OPw–¼",
             json.dumps(gpo.get("task_preferred_operators") or {}, ensure_ascii=False)
             if gpo.get("task_preferred_operators")
-            else "ï¼ˆãªã—ï¼‰",
+            else "i‚È‚µj",
         ),
         (
-            "æ—¥ä»˜Ã—å·¥ç¨‹ãƒãƒ¼ãƒ æŒ‡å",
+            "“ú•t~H’öƒ`[ƒ€w–¼",
             json.dumps(
                 gpo.get("global_day_process_operator_rules") or [],
                 ensure_ascii=False,
             )
             if gpo.get("global_day_process_operator_rules")
-            else "ï¼ˆãªã—ï¼‰",
+            else "i‚È‚µj",
         ),
         (
-            "ã‚°ãƒ­ãƒ¼ãƒãƒ«é€Ÿåº¦ãƒ«ãƒ¼ãƒ«",
+            "ƒOƒ[ƒoƒ‹‘¬“xƒ‹[ƒ‹",
             json.dumps(gpo.get("global_speed_rules") or [], ensure_ascii=False)
             if gpo.get("global_speed_rules")
-            else "ï¼ˆãªã—ï¼‰",
+            else "i‚È‚µj",
         ),
         (
-            "æœªé©ç”¨ãƒ¡ãƒ¢(AI)",
-            str(gpo.get("scheduler_notes_ja") or "").strip() or "ï¼ˆãªã—ï¼‰",
+            "–¢“K—pƒƒ‚(AI)",
+            str(gpo.get("scheduler_notes_ja") or "").strip() or "i‚È‚µj",
         ),
         (
-            "AIè¦ç´„",
-            str(gpo.get("interpretation_ja") or "").strip() or "ï¼ˆãªã—ï¼‰",
+            "AI—v–ñ",
+            str(gpo.get("interpretation_ja") or "").strip() or "i‚È‚µj",
         ),
     ]
     for i, (lab, val) in enumerate(pairs):
@@ -5845,12 +5850,12 @@ def write_plan_sheet_global_comment_parse_block(
     global_priority_override: dict,
     *,
     when_str: str,
-    log_prefix: str = "æ®µéš2",
+    log_prefix: str = "’iŠK2",
 ) -> bool:
     """
-    ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã‚·ãƒ¼ãƒˆã®å³ç«¯ä»˜è¿‘ï¼ˆAX:AYï¼‰ã«ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã®è§£æçµæœã‚’æ›¸ãè¾¼ã‚€ã€‚
-    ãƒ¡ã‚¤ãƒ³åŸæ–‡ã¯ã“ã“ã«è»¢è¨˜ã—ãªã„ï¼ˆãƒ¡ã‚¤ãƒ³æ¬„ã¨ã®é‡è¤‡ãƒ»èª¤è§£ã‚’é¿ã‘ã‚‹ï¼‰ã€‚æœ¬åˆ—ã¯å†èª­è¾¼ã•ã‚Œãšå‚ç…§å°‚ç”¨ã€‚
-    Excel ã§ãƒ–ãƒƒã‚¯ã‚’é–‹ã„ãŸã¾ã¾ã ã¨ä¿å­˜ã«å¤±æ•—ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ï¼ˆä»–ã® openpyxl æ›¸è¾¼ã¨åŒæ§˜ï¼‰ã€‚
+    u”z‘äŒv‰æ_ƒ^ƒXƒN“ü—ÍvƒV[ƒg‚Ì‰E’[•t‹ßiAX:AYj‚ÉAƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‚Ì‰ğÍŒ‹‰Ê‚ğ‘‚«‚ŞB
+    ƒƒCƒ“Œ´•¶‚Í‚±‚±‚É“]‹L‚µ‚È‚¢iƒƒCƒ“—“‚Æ‚Ìd•¡EŒë‰ğ‚ğ”ğ‚¯‚éjB–{—ñ‚ÍÄ“Ç‚³‚ê‚¸QÆê—pB
+    Excel ‚ÅƒuƒbƒN‚ğŠJ‚¢‚½‚Ü‚Ü‚¾‚Æ•Û‘¶‚É¸”s‚·‚é‚±‚Æ‚ª‚ ‚éi‘¼‚Ì openpyxl ‘‚Æ“¯—ljB
     """
     if not wb_path or not os.path.isfile(wb_path):
         return False
@@ -5859,7 +5864,7 @@ def write_plan_sheet_global_comment_parse_block(
     wb = None
     if _workbook_should_skip_openpyxl_io(wb_path):
         logging.info(
-            "%s: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã‚’é…å°ã‚·ãƒ¼ãƒˆã¸æ›¸ãè¾¼ã¿ã¾ã›ã‚“ã€‚",
+            "%s: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚ÅƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚ğ”z‘äƒV[ƒg‚Ö‘‚«‚İ‚Ü‚¹‚ñB",
             log_prefix,
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
@@ -5870,7 +5875,7 @@ def write_plan_sheet_global_comment_parse_block(
         )
     except Exception as ex:
         logging.info(
-            "%s: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã®é…å°ã‚·ãƒ¼ãƒˆæ›¸è¾¼ã®ãŸã‚ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“: %s",
+            "%s: ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚Ì”z‘äƒV[ƒg‘‚Ì‚½‚ßƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñ: %s",
             log_prefix,
             ex,
         )
@@ -5878,7 +5883,7 @@ def write_plan_sheet_global_comment_parse_block(
     try:
         if sheet_name not in wb.sheetnames:
             logging.info(
-                "%s: ã‚·ãƒ¼ãƒˆ '%s' ãŒç„¡ã„ãŸã‚ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã®åæ˜ ã‚’ã‚¹ã‚­ãƒƒãƒ—ã€‚",
+                "%s: ƒV[ƒg '%s' ‚ª–³‚¢‚½‚ßƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚Ì”½‰f‚ğƒXƒLƒbƒvB",
                 log_prefix,
                 sheet_name,
             )
@@ -5889,7 +5894,7 @@ def write_plan_sheet_global_comment_parse_block(
         vc = PLAN_SHEET_GLOBAL_PARSE_VALUE_COL
         wb.save(wb_path)
         logging.info(
-            "%s: ã€Œ%sã€%s:%s åˆ—ã«ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã‚’ä¿å­˜ã—ã¾ã—ãŸã€‚",
+            "%s: u%sv%s:%s —ñ‚ÉƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚ğ•Û‘¶‚µ‚Ü‚µ‚½B",
             log_prefix,
             sheet_name,
             get_column_letter(lc),
@@ -5898,14 +5903,14 @@ def write_plan_sheet_global_comment_parse_block(
         return True
     except OSError as ex:
         logging.warning(
-            "%s: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã‚’é…å°ã‚·ãƒ¼ãƒˆã¸ä¿å­˜ã§ãã¾ã›ã‚“ã§ã—ãŸï¼ˆExcel ã§é–‹ã„ãŸã¾ã¾ç­‰ï¼‰: %s",
+            "%s: ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚ğ”z‘äƒV[ƒg‚Ö•Û‘¶‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½iExcel ‚ÅŠJ‚¢‚½‚Ü‚Ü“™j: %s",
             log_prefix,
             ex,
         )
         return False
     except Exception as ex:
         logging.warning(
-            "%s: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æã®é…å°ã‚·ãƒ¼ãƒˆæ›¸è¾¼ã§ä¾‹å¤–: %s", log_prefix, ex
+            "%s: ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‚Ì”z‘äƒV[ƒg‘‚Å—áŠO: %s", log_prefix, ex
         )
         return False
     finally:
@@ -5926,11 +5931,11 @@ def _try_write_plan_sheet_global_comment_parse_block(
             PLAN_INPUT_SHEET_NAME,
             global_priority_override,
             when_str=when_str,
-            log_prefix="æ®µéš2",
+            log_prefix="’iŠK2",
         )
     except Exception as ex:
         logging.warning(
-            "æ®µéš2: é…å°ã‚·ãƒ¼ãƒˆã¸ã®ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£ææ›¸ãè¾¼ã¿ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s",
+            "’iŠK2: ”z‘äƒV[ƒg‚Ö‚ÌƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍ‘‚«‚İ‚Å—áŠOi‘±sj: %s",
             ex,
         )
 
@@ -5949,50 +5954,50 @@ def _try_write_plan_input_global_parse_and_conflicts_one_save(
             when_str=when_str,
             num_data_rows=num_data_rows,
             conflicts_by_row=conflicts_by_row,
-            log_prefix="æ®µéš2",
+            log_prefix="’iŠK2",
         )
     except Exception as ex:
         logging.warning(
-            "æ®µéš2: é…å°ã‚·ãƒ¼ãƒˆã¸ã®ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æï¼‹çŸ›ç›¾ç€è‰²ï¼ˆ1å›ä¿å­˜ï¼‰ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s",
+            "’iŠK2: ”z‘äƒV[ƒg‚Ö‚ÌƒOƒ[ƒoƒ‹‰ğÍ{–µ‚’…Fi1‰ñ•Û‘¶j‚Å—áŠOi‘±sj: %s",
             ex,
         )
 
 
 def _log_task_special_ai_response(raw_text, parsed, extracted_json_str, prompt_text=None):
-    """ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒå‘ã‘ Gemini ã®ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆãƒ»ç”Ÿãƒ†ã‚­ã‚¹ãƒˆãƒ»æŠ½å‡ºJSONãƒ»ãƒ‘ãƒ¼ã‚¹çµæœã‚’1ãƒ•ã‚¡ã‚¤ãƒ«ã«æ®‹ã™ã€‚"""
+    """“Á•Êw’è_”õlŒü‚¯ Gemini ‚Ìƒvƒƒ“ƒvƒgE¶ƒeƒLƒXƒgE’ŠoJSONEƒp[ƒXŒ‹‰Ê‚ğ1ƒtƒ@ƒCƒ‹‚Éc‚·B"""
     path = os.path.join(log_dir, TASK_SPECIAL_AI_LAST_RESPONSE_FILE)
     try:
         with open(path, "w", encoding="utf-8", newline="\n") as f:
             if prompt_text is not None and str(prompt_text).strip():
-                f.write("=== Gemini ã¸é€ä¿¡ã—ãŸãƒ—ãƒ­ãƒ³ãƒ—ãƒˆï¼ˆå…¨æ–‡ï¼‰ ===\n")
+                f.write("=== Gemini ‚Ö‘—M‚µ‚½ƒvƒƒ“ƒvƒgi‘S•¶j ===\n")
                 f.write(str(prompt_text).strip())
                 f.write("\n\n")
-            f.write("=== Gemini è¿”å´ãƒ†ã‚­ã‚¹ãƒˆï¼ˆãƒ¢ãƒ‡ãƒ«å‡ºåŠ›ãã®ã¾ã¾ï¼‰ ===\n")
+            f.write("=== Gemini •Ô‹pƒeƒLƒXƒgiƒ‚ƒfƒ‹o—Í‚»‚Ì‚Ü‚Üj ===\n")
             f.write(raw_text or "")
             f.write(
-                "\n\n=== AI ãŒè¿”ã—ãŸãƒ†ã‚­ã‚¹ãƒˆã‹ã‚‰ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãŒåˆ‡ã‚Šå‡ºã—ãŸ JSON æ–‡å­—åˆ— ===\n"
-                "ï¼ˆâ€»ãƒ¦ãƒ¼ã‚¶ãƒ¼ç‰¹åˆ¥æŒ‡å®šã®è§£æã«æ­£è¦è¡¨ç¾ã¯ä½¿ã£ã¦ã„ã¾ã›ã‚“ã€‚ãƒ¢ãƒ‡ãƒ«å¿œç­”ã®ãƒ‘ãƒ¼ã‚¹ç”¨ã§ã™ï¼‰\n"
+                "\n\n=== AI ‚ª•Ô‚µ‚½ƒeƒLƒXƒg‚©‚çƒNƒ‰ƒCƒAƒ“ƒg‚ªØ‚èo‚µ‚½ JSON •¶š—ñ ===\n"
+                "i¦ƒ†[ƒU[“Á•Êw’è‚Ì‰ğÍ‚É³‹K•\Œ»‚Íg‚Á‚Ä‚¢‚Ü‚¹‚ñBƒ‚ƒfƒ‹‰“š‚Ìƒp[ƒX—p‚Å‚·j\n"
             )
-            f.write(extracted_json_str if extracted_json_str else "(æŠ½å‡ºãªã—)")
-            f.write("\n\n=== json.loads å¾Œï¼ˆä¾é ¼NOã‚­ãƒ¼ï¼‰ ===\n")
+            f.write(extracted_json_str if extracted_json_str else "(’Šo‚È‚µ)")
+            f.write("\n\n=== json.loads ŒãiˆË—ŠNOƒL[j ===\n")
             if isinstance(parsed, dict):
                 f.write(json.dumps(parsed, ensure_ascii=False, indent=2))
             else:
-                f.write("(ãƒ‘ãƒ¼ã‚¹ã§ããš)")
+                f.write("(ƒp[ƒX‚Å‚«‚¸)")
         logging.info(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆï¼‹AIå¿œç­”ã®è©³ç´° â†’ %s",
+            "ƒ^ƒXƒN“Á•Êw’è: ƒvƒƒ“ƒvƒg{AI‰“š‚ÌÚ× ¨ %s",
             path,
         )
     except OSError as ex:
-        logging.warning("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AIå¿œç­”ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ã«å¤±æ•—: %s", ex)
+        logging.warning("ƒ^ƒXƒN“Á•Êw’è: AI‰“šƒtƒ@ƒCƒ‹•Û‘¶‚É¸”s: %s", ex)
     if isinstance(parsed, dict) and parsed:
         logging.info(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: è§£æã•ã‚ŒãŸä¾é ¼NO: %s",
+            "ƒ^ƒXƒN“Á•Êw’è: ‰ğÍ‚³‚ê‚½ˆË—ŠNO: %s",
             ", ".join(sorted(parsed.keys(), key=lambda x: str(x))),
         )
         for tid_k in sorted(parsed.keys(), key=lambda x: str(x)):
             logging.info(
-                "  ä¾é ¼NO [%s] AIè§£æãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰: %s",
+                "  ˆË—ŠNO [%s] AI‰ğÍƒtƒB[ƒ‹ƒh: %s",
                 tid_k,
                 json.dumps(parsed[tid_k], ensure_ascii=False),
             )
@@ -6000,8 +6005,8 @@ def _log_task_special_ai_response(raw_text, parsed, extracted_json_str, prompt_t
 
 def _parse_and_log_task_special_gemini_response(res, prompt_text=None):
     """
-    API ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚’ JSON åŒ–ã—ãƒ­ã‚°ï¼ãƒ•ã‚¡ã‚¤ãƒ«ã¸è¨˜éŒ²ã€‚å¤±æ•—æ™‚ã¯ Noneã€‚
-    ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®ç‰¹åˆ¥æŒ‡å®šæ–‡è¨€ã«ã¯è§¦ã‚Œãšã€ãƒ¢ãƒ‡ãƒ«å‡ºåŠ›ã‹ã‚‰ JSON ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–ã‚Šå‡ºã™å‡¦ç†ã®ã¿ã€‚
+    API ƒŒƒXƒ|ƒ“ƒX‚ğ JSON ‰»‚µƒƒO^ƒtƒ@ƒCƒ‹‚Ö‹L˜^B¸”s‚Í NoneB
+    ƒ†[ƒU[‚Ì“Á•Êw’è•¶Œ¾‚É‚ÍG‚ê‚¸Aƒ‚ƒfƒ‹o—Í‚©‚ç JSON ƒuƒƒbƒN‚ğæ‚èo‚·ˆ—‚Ì‚İB
     """
     raw = _gemini_result_text(res)
     if raw:
@@ -6018,8 +6023,8 @@ def _parse_and_log_task_special_gemini_response(res, prompt_text=None):
     if not match:
         _log_task_special_ai_response(raw, {}, None, prompt_text)
         logging.warning(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AIå¿œç­”ã‹ã‚‰ JSON ã‚’æŠ½å‡ºã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ç”Ÿãƒ†ã‚­ã‚¹ãƒˆå…ˆé ­ 3000 æ–‡å­—:\n%s",
-            (raw[:3000] if raw else "(ç©º)"),
+            "ƒ^ƒXƒN“Á•Êw’è: AI‰“š‚©‚ç JSON ‚ğ’Šo‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B¶ƒeƒLƒXƒgæ“ª 3000 •¶š:\n%s",
+            (raw[:3000] if raw else "(‹ó)"),
         )
         return None
     extracted = match.group(0)
@@ -6027,11 +6032,11 @@ def _parse_and_log_task_special_gemini_response(res, prompt_text=None):
         parsed = json.loads(extracted)
     except json.JSONDecodeError as je:
         _log_task_special_ai_response(raw, None, extracted, prompt_text)
-        logging.warning("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: JSON ãƒ‘ãƒ¼ã‚¹å¤±æ•—: %s", je)
+        logging.warning("ƒ^ƒXƒN“Á•Êw’è: JSON ƒp[ƒX¸”s: %s", je)
         return None
     if not isinstance(parsed, dict):
         _log_task_special_ai_response(raw, None, extracted, prompt_text)
-        logging.warning("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ãƒˆãƒƒãƒ—ãƒ¬ãƒ™ãƒ«ãŒ JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚")
+        logging.warning("ƒ^ƒXƒN“Á•Êw’è: ƒgƒbƒvƒŒƒxƒ‹‚ª JSON ƒIƒuƒWƒFƒNƒg‚Å‚Í‚ ‚è‚Ü‚¹‚ñB")
         return None
     _log_task_special_ai_response(raw, parsed, extracted, prompt_text)
     return parsed
@@ -6039,17 +6044,17 @@ def _parse_and_log_task_special_gemini_response(res, prompt_text=None):
 
 def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: dict | None = None):
     """
-    ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã®ã€Œç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã€ã‚’ AI ã§æ§‹é€ åŒ–ï¼ˆã‚»ãƒ«ã«å€¤ãŒã‚ã‚‹é …ç›®ã¯å¾Œæ®µã§ã‚»ãƒ«ã‚’å„ªå…ˆï¼‰ã€‚
-    ã€Œé…å°ä¸è¦ã€ãŒã‚ªãƒ³ãªè¡Œã¯ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã«è¼‰ã›ãªã„ï¼ˆAPI ç¯€ç´„ãƒ»å½“è©²è¡Œã¯é…å°ã—ãªã„ãŸã‚ï¼‰ã€‚
-    æ‹…å½“OPæŒ‡åã¯ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®è¿”å´å¥‘ç´„ã§ãƒ¢ãƒ‡ãƒ«ã« preferred_operator ã‚’å‡ºåŠ›ã•ã›ã‚‹ï¼ˆå‚™è€ƒã‚’æ­£è¦è¡¨ç¾ã§åˆ‡ã‚Šå‡ºã™å‡¦ç†ã¯è¡Œã‚ãªã„ï¼‰ã€‚
-    json/ai_remarks_cache.json ã« TTL AI_CACHE_TTL_SECONDS ã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥ï¼ˆåŒä¸€å…¥åŠ›ãƒ»åŒä¸€åŸºæº–å¹´ãªã‚‰ API ã‚’å‘¼ã°ãªã„ï¼‰ã€‚
-    ä¾é ¼NOã¯æ•°å€¤è¡¨è¨˜ãƒ»å…¨è§’ãªã©ã‚’æ­£è¦åŒ–ã—ã¦ã‚­ãƒ¼ã‚’å®‰å®šåŒ–ã—ã€åŸºæº–å¹´ã¯æŒ‡ç´‹ã«å«ã‚ã¦æ—¥ä»˜è§£é‡ˆã®å¤‰åŒ–ã¨ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®é£Ÿã„é•ã„ã‚’é˜²ãã€‚
+    u”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív‚Ìu“Á•Êw’è_”õlv‚ğ AI ‚Å\‘¢‰»iƒZƒ‹‚É’l‚ª‚ ‚é€–Ú‚ÍŒã’i‚ÅƒZƒ‹‚ğ—DæjB
+    u”z‘ä•s—vv‚ªƒIƒ“‚Ès‚Íƒvƒƒ“ƒvƒg‚ÉÚ‚¹‚È‚¢iAPI ß–ñE“–ŠYs‚Í”z‘ä‚µ‚È‚¢‚½‚ßjB
+    ’S“–OPw–¼‚Íƒvƒƒ“ƒvƒg‚Ì•Ô‹pŒ_–ñ‚Åƒ‚ƒfƒ‹‚É preferred_operator ‚ğo—Í‚³‚¹‚éi”õl‚ğ³‹K•\Œ»‚ÅØ‚èo‚·ˆ—‚Ís‚í‚È‚¢jB
+    json/ai_remarks_cache.json ‚É TTL AI_CACHE_TTL_SECONDS ‚ÅƒLƒƒƒbƒVƒ…i“¯ˆê“ü—ÍE“¯ˆêŠî€”N‚È‚ç API ‚ğŒÄ‚Î‚È‚¢jB
+    ˆË—ŠNO‚Í”’l•\‹LE‘SŠp‚È‚Ç‚ğ³‹K‰»‚µ‚ÄƒL[‚ğˆÀ’è‰»‚µAŠî€”N‚Íw–ä‚ÉŠÜ‚ß‚Ä“ú•t‰ğß‚Ì•Ï‰»‚ÆƒLƒƒƒbƒVƒ…‚ÌH‚¢ˆá‚¢‚ğ–h‚®B
 
-    æˆ»ã‚Šå€¤ã®ä¾‹: ä¾é ¼NO -> ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€ã¾ãŸã¯åŒä¸€ä¾é ¼NOã«å‚™è€ƒè¡ŒãŒè¤‡æ•°ã‚ã‚‹å ´åˆã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—ã€‚
-      process_name, machine_name â€¦ å½“è©²å‚™è€ƒã‚»ãƒ«ãŒã‚ã‚‹è¡Œã®å·¥ç¨‹åãƒ»æ©Ÿæ¢°åï¼ˆãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®è¡Œã¨ä¸€è‡´ï¼‰
-      restrict_to_process_name, restrict_to_machine_name â€¦ çœç•¥ã¾ãŸã¯ç©ºãªã‚‰åŒä¸€ä¾é ¼NOã®å…¨å·¥ç¨‹ãƒ»å…¨æ©Ÿæ¢°è¡Œã«é©ç”¨ã€‚
-      ãã®ä»– required_op, speed_override, task_efficiency, priority, start_date, start_time,
-      target_completion_date, ship_by_date, preferred_operator ãªã©ã€‚
+    –ß‚è’l‚Ì—á: ˆË—ŠNO -> ƒIƒuƒWƒFƒNƒgA‚Ü‚½‚Í“¯ˆêˆË—ŠNO‚É”õls‚ª•¡”‚ ‚éê‡‚ÍƒIƒuƒWƒFƒNƒg‚Ì”z—ñB
+      process_name, machine_name c “–ŠY”õlƒZƒ‹‚ª‚ ‚és‚ÌH’ö–¼E‹@ŠB–¼iƒvƒƒ“ƒvƒg‚Ìs‚Æˆê’vj
+      restrict_to_process_name, restrict_to_machine_name c È—ª‚Ü‚½‚Í‹ó‚È‚ç“¯ˆêˆË—ŠNO‚Ì‘SH’öE‘S‹@ŠBs‚É“K—pB
+      ‚»‚Ì‘¼ required_op, speed_override, task_efficiency, priority, start_date, start_time,
+      target_completion_date, ship_by_date, preferred_operator ‚È‚ÇB
     """
     lines = _task_special_prompt_lines(tasks_df)
     if not lines:
@@ -6065,18 +6070,18 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
                 n_rem_only += 1
         miss_col = PLAN_COL_SPECIAL_REMARK not in tasks_df.columns
         logging.warning(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AI è§£æå¯¾è±¡ãŒã‚ã‚Šã¾ã›ã‚“ï¼ˆã€Œ%sã€åˆ—ã¯%sï¼‰ã€‚"
-            "æ€»è¡Œæ•°=%sã€ä¾é ¼NOã®ã‚ã‚‹è¡Œ=%sã€å‚™è€ƒãŒå…¥ã£ã¦ã„ã‚‹è¡Œ=%sã€‚"
-            "æ®µéš2å®Ÿè¡Œå‰ã«ãƒ–ãƒƒã‚¯ã‚’ä¿å­˜ã—ã€æœ¬å½“ã«ã€Œ%sã€åˆ—ã¸å…¥åŠ›ã—ã¦ã„ã‚‹ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚",
+            "ƒ^ƒXƒN“Á•Êw’è: AI ‰ğÍ‘ÎÛ‚ª‚ ‚è‚Ü‚¹‚ñiu%sv—ñ‚Í%sjB"
+            "?s”=%sAˆË—ŠNO‚Ì‚ ‚és=%sA”õl‚ª“ü‚Á‚Ä‚¢‚és=%sB"
+            "’iŠK2Às‘O‚ÉƒuƒbƒN‚ğ•Û‘¶‚µA–{“–‚Éu%sv—ñ‚Ö“ü—Í‚µ‚Ä‚¢‚é‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B",
             PLAN_COL_SPECIAL_REMARK,
-            "è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“" if miss_col else "ç©ºã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™",
+            "Œ©‚Â‚©‚è‚Ü‚¹‚ñ" if miss_col else "‹ó‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·",
             n_rows,
             n_tid_raw,
             n_rem_only,
             PLAN_COL_SPECIAL_REMARK,
         )
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ã‚¹ã‚­ãƒƒãƒ—ï¼ˆå¯¾è±¡è¡Œãªã—ï¼‰"
+            ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "ƒXƒLƒbƒvi‘ÎÛs‚È‚µj"
         return {}
 
     blob = "\n".join(sorted(lines))
@@ -6090,110 +6095,110 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
     )
     if cached_parsed is not None:
         logging.info(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆï¼ˆ%s ä»¶ãƒ»åŸºæº–å¹´=%sï¼‰ã€‚Gemini ã¯å‘¼ã³ã¾ã›ã‚“ã€‚",
+            "ƒ^ƒXƒN“Á•Êw’è: ƒLƒƒƒbƒVƒ…ƒqƒbƒgi%s ŒEŠî€”N=%sjBGemini ‚ÍŒÄ‚Ñ‚Ü‚¹‚ñB",
             len(lines),
             ref_y,
         )
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ãªã—ï¼ˆã‚­ãƒ£ãƒƒã‚·ãƒ¥ä½¿ç”¨ï¼‰"
+            ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚È‚µiƒLƒƒƒbƒVƒ…g—pj"
         out = copy.deepcopy(cached_parsed)
         if isinstance(out, dict):
             _repair_task_special_ai_wrong_top_level_keys(out, tasks_df)
         return out
 
     logging.info(
-        "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãªã—ã€‚Gemini ã§ %s ä»¶ã®å‚™è€ƒã‚’è§£æã—ã¾ã™ï¼ˆåŸºæº–å¹´=%sï¼‰ã€‚",
+        "ƒ^ƒXƒN“Á•Êw’è: ƒLƒƒƒbƒVƒ…‚È‚µBGemini ‚Å %s Œ‚Ì”õl‚ğ‰ğÍ‚µ‚Ü‚·iŠî€”N=%sjB",
         len(lines),
         ref_y,
     )
 
     if not API_KEY:
-        logging.info("GEMINI_API_KEY æœªè¨­å®šã®ãŸã‚ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®šã®AIè§£æã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚")
+        logging.info("GEMINI_API_KEY –¢İ’è‚Ì‚½‚ßƒ^ƒXƒN“Á•Êw’è‚ÌAI‰ğÍ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B")
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ãªã—ï¼ˆAPIã‚­ãƒ¼æœªè¨­å®šï¼‰"
+            ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚È‚µiAPIƒL[–¢İ’èj"
         return {}
 
     prompt = f"""
-ã‚ãªãŸã¯å·¥å ´ã®é…å°è¨ˆç”»å‘ã‘ã«ã€Excelã€Œç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã€æ¬„ã¸ã®è‡ªç”±è¨˜è¿°ã‚’èª­ã¿ã€é…å°ãƒ­ã‚¸ãƒƒã‚¯ãŒä½¿ãˆã‚‹ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã ã‘ã«è½ã¨ã—è¾¼ã‚€ã‚¢ã‚·ã‚¹ã‚¿ãƒ³ãƒˆã§ã™ã€‚
+‚ ‚È‚½‚ÍHê‚Ì”z‘äŒv‰æŒü‚¯‚ÉAExcelu“Á•Êw’è_”õlv—“‚Ö‚Ì©—R‹Lq‚ğ“Ç‚İA”z‘äƒƒWƒbƒN‚ªg‚¦‚éƒtƒB[ƒ‹ƒh‚¾‚¯‚É—‚Æ‚µ‚ŞƒAƒVƒXƒ^ƒ“ƒg‚Å‚·B
 
-ã€æœ€é‡è¦ã€‘
-1) ã€ç‰¹åˆ¥æŒ‡å®šåŸæ–‡ã€‘ã®å„è¡Œã¯ã€ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒã‚»ãƒ«ã«å…¥åŠ›ã—ãŸæ–‡å­—åˆ—ã‚’ **æ”¹å¤‰ãƒ»è¦ç´„ãƒ»æ–­ã¡åˆ‡ã‚Šã¯ã—ã¦ãŠã‚‰ãš**ï¼ˆå…ˆé ­æœ«å°¾ã®ç©ºç™½ã®ã¿é™¤å»ï¼‰ã€ãã®ã¾ã¾æ¸¡ã—ã¦ã„ã¾ã™ã€‚**åŸæ–‡ã®äº‹å®Ÿã‚„æ„å›³ã‚’åˆ¥ã®æ–‡è¨€ã«ç½®ãæ›ãˆãªã„ã§ãã ã•ã„ã€‚**
-2) ã‚ãªãŸã®å¿œç­”ã¯ **1å€‹ã® JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã¿**ï¼ˆå…ˆé ­ãŒ {{ ã€æœ«å°¾ãŒ }} ï¼‰ã€‚èª¬æ˜æ–‡ãƒ»ãƒãƒ¼ã‚¯ãƒ€ã‚¦ãƒ³ãƒ»ã‚³ãƒ¼ãƒ‰ãƒ•ã‚§ãƒ³ã‚¹ã¯ç¦æ­¢ã€‚
-3) JSON ã®ãƒˆãƒƒãƒ—ãƒ¬ãƒ™ãƒ«ã‚­ãƒ¼ã¯ã€å„è¡Œã® **ä¾é ¼NOã€ã¨ã€‘ã®é–“ã®æ–‡å­—åˆ—ã®ã¿** ã¨ **å®Œå…¨ä¸€è‡´** ã•ã›ã‚‹ã“ã¨ã€‚**å‚™è€ƒæœ¬æ–‡**ã«æ›¸ã‹ã‚ŒãŸå“ç•ªãƒ»åŸååãƒ»è£½å“ã‚³ãƒ¼ãƒ‰ï¼ˆä¾‹: 20010 ã§å§‹ã¾ã‚‹ç•ªå·åˆ—ï¼‰ã‚’ã‚­ãƒ¼ã«ã—ã¦ã¯ãªã‚‰ãªã„ã€‚å‚™è€ƒãŒãã®ã‚ˆã†ãªç•ªå·ã§å§‹ã¾ã£ã¦ã„ã¦ã‚‚ã€ã‚­ãƒ¼ã¯å¿…ãšã€ã€‘å†…ã®ä¾é ¼NOã ã‘ã¨ã™ã‚‹ã€‚
+yÅd—vz
+1) y“Á•Êw’èŒ´•¶z‚ÌŠes‚ÍAƒ†[ƒU[‚ªƒZƒ‹‚É“ü—Í‚µ‚½•¶š—ñ‚ğ **‰ü•ÏE—v–ñE’f‚¿Ø‚è‚Í‚µ‚Ä‚¨‚ç‚¸**iæ“ª––”ö‚Ì‹ó”’‚Ì‚İœ‹jA‚»‚Ì‚Ü‚Ü“n‚µ‚Ä‚¢‚Ü‚·B**Œ´•¶‚Ì–À‚âˆÓ}‚ğ•Ê‚Ì•¶Œ¾‚É’u‚«Š·‚¦‚È‚¢‚Å‚­‚¾‚³‚¢B**
+2) ‚ ‚È‚½‚Ì‰“š‚Í **1ŒÂ‚Ì JSON ƒIƒuƒWƒFƒNƒg‚Ì‚İ**iæ“ª‚ª {{ A––”ö‚ª }} jBà–¾•¶Eƒ}[ƒNƒ_ƒEƒ“EƒR[ƒhƒtƒFƒ“ƒX‚Í‹Ö~B
+3) JSON ‚ÌƒgƒbƒvƒŒƒxƒ‹ƒL[‚ÍAŠes‚Ì **ˆË—ŠNOy‚Æz‚ÌŠÔ‚Ì•¶š—ñ‚Ì‚İ** ‚Æ **Š®‘Sˆê’v** ‚³‚¹‚é‚±‚ÆB**”õl–{•¶**‚É‘‚©‚ê‚½•i”ÔEŒ´”½–¼E»•iƒR[ƒhi—á: 20010 ‚Ån‚Ü‚é”Ô†—ñj‚ğƒL[‚É‚µ‚Ä‚Í‚È‚ç‚È‚¢B”õl‚ª‚»‚Ì‚æ‚¤‚È”Ô†‚Ån‚Ü‚Á‚Ä‚¢‚Ä‚àAƒL[‚Í•K‚¸yz“à‚ÌˆË—ŠNO‚¾‚¯‚Æ‚·‚éB
 
-ã€è¿”å´JSONã®å¥‘ç´„ï¼ˆã“ã®ç¯€ã©ãŠã‚Šã«å‡ºåŠ›ã™ã‚‹ã“ã¨ï¼‰ã€‘
-â–  ãƒˆãƒƒãƒ—ãƒ¬ãƒ™ãƒ«
-- ã‚­ãƒ¼: ä¸Šè¨˜ã€ç‰¹åˆ¥æŒ‡å®šåŸæ–‡ã€‘ã® **ä¾é ¼NOã€â€¦ã€‘ã®æ‹¬å¼§å†…** ã®æ–‡å­—åˆ—ã¨ **å®Œå…¨ä¸€è‡´**ï¼ˆè¡¨è¨˜ãƒ»ãƒã‚¤ãƒ•ãƒ³ãƒ»è‹±å¤§æ–‡å­—å°æ–‡å­—ã‚’åŸæ–‡ã©ãŠã‚Šï¼‰ã€‚å‚™è€ƒæœ¬æ–‡ä¸­ã®æ•°å­—åˆ—ã‚’ã‚­ãƒ¼ã«ã—ãªã„ã€‚
-- å€¤: æ¬¡ã®ã„ãšã‚Œã‹ã€‚
-  (A) **JSONã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1ã¤** â€¦ å½“è©²ä¾é ¼NOã®å‚™è€ƒãŒãƒ—ãƒ­ãƒ³ãƒ—ãƒˆä¸Š **1è¡Œã ã‘** ã®ã¨ãã€‚
-  (B) **JSONé…åˆ—**ï¼ˆè¦ç´ ã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰â€¦ åŒä¸€ä¾é ¼NOã§å·¥ç¨‹åãƒ»æ©Ÿæ¢°åãŒç•°ãªã‚‹å‚™è€ƒè¡ŒãŒ **è¤‡æ•°** ã‚ã‚‹ã¨ãã€‚è¦ç´ ã®é †ã¯ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®è¡Œé †ã¨å¯¾å¿œã•ã›ã‚‹ã€‚
+y•Ô‹pJSON‚ÌŒ_–ñi‚±‚Ìß‚Ç‚¨‚è‚Éo—Í‚·‚é‚±‚Æjz
+¡ ƒgƒbƒvƒŒƒxƒ‹
+- ƒL[: ã‹Ly“Á•Êw’èŒ´•¶z‚Ì **ˆË—ŠNOycz‚ÌŠ‡ŒÊ“à** ‚Ì•¶š—ñ‚Æ **Š®‘Sˆê’v**i•\‹LEƒnƒCƒtƒ“E‰p‘å•¶š¬•¶š‚ğŒ´•¶‚Ç‚¨‚èjB”õl–{•¶’†‚Ì”š—ñ‚ğƒL[‚É‚µ‚È‚¢B
+- ’l: Ÿ‚Ì‚¢‚¸‚ê‚©B
+  (A) **JSONƒIƒuƒWƒFƒNƒg1‚Â** c “–ŠYˆË—ŠNO‚Ì”õl‚ªƒvƒƒ“ƒvƒgã **1s‚¾‚¯** ‚Ì‚Æ‚«B
+  (B) **JSON”z—ñ**i—v‘f‚ÍƒIƒuƒWƒFƒNƒgjc “¯ˆêˆË—ŠNO‚ÅH’ö–¼E‹@ŠB–¼‚ªˆÙ‚È‚é”õls‚ª **•¡”** ‚ ‚é‚Æ‚«B—v‘f‚Ì‡‚Íƒvƒƒ“ƒvƒg‚Ìs‡‚Æ‘Î‰‚³‚¹‚éB
 
-â–  process_nameï¼ˆæ–‡å­—åˆ—ï¼‰ãƒ»machine_nameï¼ˆæ–‡å­—åˆ—ï¼‰â€” **å¿…é ˆ**
-- å½“è©²å‚™è€ƒã«å¯¾å¿œã™ã‚‹ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆè¡Œã® **å·¥ç¨‹åã€Œâ€¦ã€**ãƒ»**æ©Ÿæ¢°åã€Œâ€¦ã€** ã®å€¤ã¨ **ä¸€è‡´** ã•ã›ã‚‹ï¼ˆã€Œï¼ˆç©ºï¼‰ã€ã®ã¨ãã¯ç©ºæ–‡å­—åˆ— ""ï¼‰ã€‚
-- ãƒ­ã‚°ãƒ»ãƒˆãƒ¬ãƒ¼ã‚¹ç”¨ã€‚çœç•¥ä¸å¯ã€‚
+¡ process_namei•¶š—ñjEmachine_namei•¶š—ñj? **•K{**
+- “–ŠY”õl‚É‘Î‰‚·‚éƒvƒƒ“ƒvƒgs‚Ì **H’ö–¼ucv**E**‹@ŠB–¼ucv** ‚Ì’l‚Æ **ˆê’v** ‚³‚¹‚éiui‹ójv‚Ì‚Æ‚«‚Í‹ó•¶š—ñ ""jB
+- ƒƒOEƒgƒŒ[ƒX—pBÈ—ª•s‰ÂB
 
-â–  restrict_to_process_nameï¼ˆæ–‡å­—åˆ—ï¼‰ãƒ»restrict_to_machine_nameï¼ˆæ–‡å­—åˆ—ï¼‰â€” **ä»»æ„**
-- **åŸæ–‡ãŒã€Œç‰¹å®šã®å·¥ç¨‹ã ã‘ã€ã€Œã“ã®æ©Ÿæ¢°ã ã‘ã€ãªã©ã€é©ç”¨ç¯„å›²ã‚’çµã£ã¦ã„ã‚‹ã¨ãã ã‘** å‡ºåŠ›ã™ã‚‹ã€‚
-- **åŸæ–‡ã«å·¥ç¨‹åãƒ»æ©Ÿæ¢°åã®é™å®šãŒç„¡ã„**ï¼ˆä¾é ¼å…¨ä½“ãƒ»å…¨è¡Œç¨‹ã¸ã®æŒ‡ç¤ºï¼‰ã¨ãã¯ **ä¸¡æ–¹ã¨ã‚‚çœç•¥** ã™ã‚‹ã‹ **ç©ºæ–‡å­—åˆ— ""** ã¨ã™ã‚‹ã€‚
-- ãã®å ´åˆã€é…å°ãƒ­ã‚¸ãƒƒã‚¯ã¯ **åŒä¸€ä¾é ¼NOã®åˆ¥è¡Œï¼ˆä¾‹: ã‚¨ãƒ³ãƒœã‚¹è¡Œã¨åˆ†å‰²è¡Œï¼‰ã«ã‚‚åŒã˜æŒ‡ç¤ºã‚’é©ç”¨** ã™ã‚‹ã€‚
-- çµã‚‹å ´åˆã¯ã€åŸæ–‡ã§ç¤ºã•ã‚ŒãŸè­˜åˆ¥åã‚’å…¥ã‚Œã‚‹ï¼ˆExcel ã®å·¥ç¨‹åãƒ»æ©Ÿæ¢°åã¨ç…§åˆã—ã‚„ã™ã„è¡¨è¨˜ï¼‰ã€‚
+¡ restrict_to_process_namei•¶š—ñjErestrict_to_machine_namei•¶š—ñj? **”CˆÓ**
+- **Œ´•¶‚ªu“Á’è‚ÌH’ö‚¾‚¯vu‚±‚Ì‹@ŠB‚¾‚¯v‚È‚ÇA“K—p”ÍˆÍ‚ği‚Á‚Ä‚¢‚é‚Æ‚«‚¾‚¯** o—Í‚·‚éB
+- **Œ´•¶‚ÉH’ö–¼E‹@ŠB–¼‚ÌŒÀ’è‚ª–³‚¢**iˆË—Š‘S‘ÌE‘Ss’ö‚Ö‚Ìw¦j‚Æ‚«‚Í **—¼•û‚Æ‚àÈ—ª** ‚·‚é‚© **‹ó•¶š—ñ ""** ‚Æ‚·‚éB
+- ‚»‚Ìê‡A”z‘äƒƒWƒbƒN‚Í **“¯ˆêˆË—ŠNO‚Ì•Êsi—á: ƒGƒ“ƒ{ƒXs‚Æ•ªŠ„sj‚É‚à“¯‚¶w¦‚ğ“K—p** ‚·‚éB
+- i‚éê‡‚ÍAŒ´•¶‚Å¦‚³‚ê‚½¯•Ê–¼‚ğ“ü‚ê‚éiExcel ‚ÌH’ö–¼E‹@ŠB–¼‚ÆÆ‡‚µ‚â‚·‚¢•\‹LjB
 
-â–  preferred_operatorï¼ˆæ–‡å­—åˆ—ï¼‰â€” æ¡ä»¶ä»˜ã**å¿…é ˆ**
-- **å¿…è¦æ¡ä»¶**: å½“è©²ä¾é ¼ã®åŸæ–‡ã‚’èª­ã¿ã€ã€Œ**èª°ãŒã“ã®åŠ å·¥ãƒ»ä½œæ¥­ã®ä¸»æ‹…å½“ï¼ˆOPï¼‰ã¨ã—ã¦å‰²ã‚Šå½“ã¦ãŸã„ã‹**ã€ãŒ **æ„å‘³ã¨ã—ã¦** èª­ã¿å–ã‚Œã‚‹ã¨ãã€‚
-  ä¾‹: ç‰¹å®šã®äººã«ã‚„ã£ã¦ã‚‚ã‚‰ã†ï¼ãã®äººã«ä»»ã›ã‚‹ï¼æ‹…å½“ã¯ã‚ã®äººï¼OPã¯ã€œï¼ã€œã•ã‚“ï¼ˆæ°åï¼‰ã«ä¾é ¼ã€ãªã©ã€‚**è¡¨ç¾ã®å‹ã«ä¾å­˜ã›ãš**ã€æ–‡ã®æ„å‘³ã§åˆ¤æ–­ã™ã‚‹ã€‚
-- **æº€ãŸã—ãŸã¨ãã®å‡ºåŠ›ç¾©å‹™**: ä¸Šè¨˜ã®æ„å‘³ãŒæˆç«‹ã™ã‚‹ã¨åˆ¤æ–­ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ã€**å¿…ãš** ã‚­ãƒ¼ `preferred_operator` ã‚’å«ã‚ã€å€¤ã¯ **ç©ºã§ãªã„æ–‡å­—åˆ—** ã¨ã™ã‚‹ã€‚ä½µã›ã¦ **process_name / machine_name ã¯å¿…é ˆ**ï¼ˆä¾‹: `{{"process_name":"â€¦","machine_name":"â€¦","preferred_operator":"â€¦"}}`ï¼‰ã€‚
-- **å€¤ã®å½¢å¼**: åŸæ–‡ã§ç¤ºã•ã‚ŒãŸ **æ‹…å½“è€…ã®è­˜åˆ¥åã‚’1ååˆ†**ï¼ˆå§“ãƒ»åãƒ»ãƒ‹ãƒƒã‚¯ãƒãƒ¼ãƒ ç­‰ã€åŸæ–‡ã«ç¾ã‚ŒãŸè¡¨è¨˜ã‚’ç¶­æŒï¼‰ã€‚æœ«å°¾ã®æ•¬ç§°ï¼ˆã•ã‚“ãƒ»å›ãƒ»æ°ï¼‰ã®ã¿é™¤å»ã€‚ä¾‹:ã€Œæ£®å²¡ã•ã‚“ã«ã‚„ã£ã¦ã‚‚ã‚‰ã„ã¾ã™ã€â†’ `"æ£®å²¡"`ã€‚
-- **å‡ºåŠ›ã—ã¦ã¯ã„ã‘ãªã„ã¨ã**: åŸæ–‡ã«æ‹…å½“è€…ã®æŒ‡æ„ãŒ **ä¸€åˆ‡ãªã„** ã¨åˆ¤æ–­ã—ãŸä¾é ¼NOã§ã¯ `preferred_operator` ã‚­ãƒ¼è‡ªä½“ã‚’ **çœç•¥** ã™ã‚‹ï¼ˆç©ºæ–‡å­—åˆ—ã‚‚ä»˜ã‘ãªã„ï¼‰ã€‚
+¡ preferred_operatori•¶š—ñj? ğŒ•t‚«**•K{**
+- **•K—vğŒ**: “–ŠYˆË—Š‚ÌŒ´•¶‚ğ“Ç‚İAu**’N‚ª‚±‚Ì‰ÁHEì‹Æ‚Ìå’S“–iOPj‚Æ‚µ‚ÄŠ„‚è“–‚Ä‚½‚¢‚©**v‚ª **ˆÓ–¡‚Æ‚µ‚Ä** “Ç‚İæ‚ê‚é‚Æ‚«B
+  —á: “Á’è‚Ìl‚É‚â‚Á‚Ä‚à‚ç‚¤^‚»‚Ìl‚É”C‚¹‚é^’S“–‚Í‚ ‚Ìl^OP‚Í?^?‚³‚ñi–¼j‚ÉˆË—ŠA‚È‚ÇB**•\Œ»‚ÌŒ^‚ÉˆË‘¶‚¹‚¸**A•¶‚ÌˆÓ–¡‚Å”»’f‚·‚éB
+- **–‚½‚µ‚½‚Æ‚«‚Ìo—Í‹`–±**: ã‹L‚ÌˆÓ–¡‚ª¬—§‚·‚é‚Æ”»’f‚µ‚½ƒIƒuƒWƒFƒNƒg‚Å‚ÍA**•K‚¸** ƒL[ `preferred_operator` ‚ğŠÜ‚ßA’l‚Í **‹ó‚Å‚È‚¢•¶š—ñ** ‚Æ‚·‚éB•¹‚¹‚Ä **process_name / machine_name ‚Í•K{**i—á: `{{"process_name":"c","machine_name":"c","preferred_operator":"c"}}`jB
+- **’l‚ÌŒ`®**: Œ´•¶‚Å¦‚³‚ê‚½ **’S“–Ò‚Ì¯•Ê–¼‚ğ1–¼•ª**i©E–¼EƒjƒbƒNƒl[ƒ€“™AŒ´•¶‚ÉŒ»‚ê‚½•\‹L‚ğˆÛjB––”ö‚ÌŒhÌi‚³‚ñEŒNEj‚Ì‚İœ‹B—á:uX‰ª‚³‚ñ‚É‚â‚Á‚Ä‚à‚ç‚¢‚Ü‚·v¨ `"X‰ª"`B
+- **o—Í‚µ‚Ä‚Í‚¢‚¯‚È‚¢‚Æ‚«**: Œ´•¶‚É’S“–Ò‚ÌwˆÓ‚ª **ˆêØ‚È‚¢** ‚Æ”»’f‚µ‚½ˆË—ŠNO‚Å‚Í `preferred_operator` ƒL[©‘Ì‚ğ **È—ª** ‚·‚éi‹ó•¶š—ñ‚à•t‚¯‚È‚¢jB
 
-â–  ãã®ä»–ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ï¼ˆrequired_op, speed_override, task_efficiency, priority, start_date, start_time, target_completion_date, ship_by_dateï¼‰
-- åŸæ–‡ã‹ã‚‰ **æ˜ç¢ºã«** èª­ã¿å–ã‚Œã‚‹å ´åˆã®ã¿å‡ºåŠ›ã€‚èª­ã¿å–ã‚Œãªã„æ•°å€¤ãƒ»æ—¥ä»˜ã¯ **çœç•¥**ï¼ˆæ¨æ¸¬ã§åŸ‹ã‚ãªã„ï¼‰ã€‚
+¡ ‚»‚Ì‘¼ƒtƒB[ƒ‹ƒhirequired_op, speed_override, task_efficiency, priority, start_date, start_time, target_completion_date, ship_by_datej
+- Œ´•¶‚©‚ç **–¾Šm‚É** “Ç‚İæ‚ê‚éê‡‚Ì‚İo—ÍB“Ç‚İæ‚ê‚È‚¢”’lE“ú•t‚Í **È—ª**i„‘ª‚Å–„‚ß‚È‚¢jB
 
-ã€åŒä¸€ä¾é ¼NOãƒ»è¤‡æ•°å·¥ç¨‹ã®ä¾‹ã€‘
-ä¾é ¼NO Y4-2 ã«ã€Œã‚¨ãƒ³ãƒœã‚¹ã€ã¨ã€Œåˆ†å‰²ã€ã®è¡ŒãŒã‚ã‚Šã€å‚™è€ƒãŒã€Œ4/5ã¾ã§ã«çµ‚ã‚ã‚‰ã›ã‚‹ã€ã®ã¿ã§å·¥ç¨‹ã®é™å®šãŒç„¡ã„å ´åˆ:
-- process_name / machine_name ã¯ **å‚™è€ƒãŒæ›¸ã‹ã‚ŒãŸè¡Œ** ã®å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
-- restrict_to_* ã¯ **å‡ºã•ãªã„ã‹ç©º** ã«ã—ã€**ã‚¨ãƒ³ãƒœã‚¹è¡Œãƒ»åˆ†å‰²è¡Œã®ä¸¡æ–¹** ã«åŒã˜å„ªå…ˆåº¦ãƒ»æ—¥ä»˜ç­‰ãŒåŠ¹ãã‚ˆã†ã«ã™ã‚‹ã€‚
+y“¯ˆêˆË—ŠNOE•¡”H’ö‚Ì—áz
+ˆË—ŠNO Y4-2 ‚ÉuƒGƒ“ƒ{ƒXv‚Æu•ªŠ„v‚Ìs‚ª‚ ‚èA”õl‚ªu4/5‚Ü‚Å‚ÉI‚í‚ç‚¹‚év‚Ì‚İ‚ÅH’ö‚ÌŒÀ’è‚ª–³‚¢ê‡:
+- process_name / machine_name ‚Í **”õl‚ª‘‚©‚ê‚½s** ‚Ì’l‚ğ“ü‚ê‚éB
+- restrict_to_* ‚Í **o‚³‚È‚¢‚©‹ó** ‚É‚µA**ƒGƒ“ƒ{ƒXsE•ªŠ„s‚Ì—¼•û** ‚É“¯‚¶—Dæ“xE“ú•t“™‚ªŒø‚­‚æ‚¤‚É‚·‚éB
 
-ã€åŸºæº–å¹´ï¼ˆå¹´ãªã—æ—¥ä»˜ç”¨ï¼‰ã€‘
-ã€Œ4/5ã€ã€Œ4/5ã«å‡ºè·ã€ã®ã‚ˆã†ã« **å¹´ãŒç„¡ã„** æ—¥ä»˜ã¯åŸå‰‡ **è¥¿æš¦ {ref_y} å¹´** ã¨ã—ã€YYYY-MM-DD ã§å‡ºåŠ›ã€‚
+yŠî€”Ni”N‚È‚µ“ú•t—pjz
+u4/5vu4/5‚Éo‰×v‚Ì‚æ‚¤‚É **”N‚ª–³‚¢** “ú•t‚ÍŒ´‘¥ **¼—ï {ref_y} ”N** ‚Æ‚µAYYYY-MM-DD ‚Åo—ÍB
 
-ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸€è¦§ï¼ˆå‹ã®å‚è€ƒï¼‰ã€‘
-- process_name, machine_name: æ–‡å­—åˆ—ï¼ˆå¿…é ˆã€‚ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆè¡Œã¨ä¸€è‡´ï¼‰
-- restrict_to_process_name, restrict_to_machine_name: æ–‡å­—åˆ—ï¼ˆä»»æ„ã€‚é™å®šãªã‚‰ï¼‰
-- preferred_operator: æ–‡å­—åˆ—ï¼ˆä¸Šè¨˜å¥‘ç´„ã«å¾“ã†ï¼‰
-- required_op: æ­£ã®æ•´æ•°
-- speed_override: æ­£ã®æ•°ï¼ˆm/åˆ†ï¼‰
-- task_efficiency: 0ã€œ1
-- priority: æ•´æ•°ï¼ˆå°ã•ã„ã»ã©å…ˆã«å‰²ä»˜ï¼‰
+yƒtƒB[ƒ‹ƒhˆê——iŒ^‚ÌQljz
+- process_name, machine_name: •¶š—ñi•K{Bƒvƒƒ“ƒvƒgs‚Æˆê’vj
+- restrict_to_process_name, restrict_to_machine_name: •¶š—ñi”CˆÓBŒÀ’è‚È‚çj
+- preferred_operator: •¶š—ñiã‹LŒ_–ñ‚É]‚¤j
+- required_op: ³‚Ì®”
+- speed_override: ³‚Ì”im/•ªj
+- task_efficiency: 0?1
+- priority: ®”i¬‚³‚¢‚Ù‚Çæ‚ÉŠ„•tj
 - start_date: YYYY-MM-DD / start_time: HH:MM
 - target_completion_date, ship_by_date: YYYY-MM-DD
 
-ã€è§£é‡ˆã®æŒ‡é‡ã€‘
-- ã€Œé–“ã«åˆã†ã‚ˆã†ã«ã€ã€Œç¹°ã‚Šä¸Šã’ã‚‹ã€â†’ priority ã‚’ä¸Šã’ã‚‹ï¼ˆæ•°å€¤ã‚’ä¸‹ã’ã‚‹ï¼‰ã€‚æ—¥ä»˜ãŒæ–‡ä¸­ã«ã‚ã‚Œã° target_completion_date ã¾ãŸã¯ ship_by_date ã«å…¥ã‚Œã‚‹ã€‚
-- æ‹…å½“è€…æŒ‡åã¯ **æ„å‘³ç†è§£** ã§ preferred_operator ã‚’æ±ºã‚ã‚‹ï¼ˆç‰¹å®šã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰åˆ—æŒ™ã«é ¼ã‚‰ãªã„ï¼‰ã€‚
-- æ•°å€¤ãƒ»æ—¥ä»˜ã¯æ¨æ¸¬ã§è£œã‚ãªã„ã€‚
-- **å‚™è€ƒãŒç‰¹å®šã®å·¥ç¨‹ãƒ»æ©Ÿæ¢°ã«ã ã‘è¨€åŠã—ã¦ã„ãªã„é™ã‚Š**ã€restrict_to_* ã¯ç©ºã«ã—ã€åŒä¸€ä¾é ¼NOã®ä»–è¡Œã«ã‚‚é©ç”¨ã•ã‚Œã‚‹å½¢ã«ã™ã‚‹ã€‚
+y‰ğß‚Ìwjz
+- uŠÔ‚É‡‚¤‚æ‚¤‚ÉvuŒJ‚èã‚°‚év¨ priority ‚ğã‚°‚éi”’l‚ğ‰º‚°‚éjB“ú•t‚ª•¶’†‚É‚ ‚ê‚Î target_completion_date ‚Ü‚½‚Í ship_by_date ‚É“ü‚ê‚éB
+- ’S“–Òw–¼‚Í **ˆÓ–¡—‰ğ** ‚Å preferred_operator ‚ğŒˆ‚ß‚éi“Á’è‚ÌƒL[ƒ[ƒh—ñ‹“‚É—Š‚ç‚È‚¢jB
+- ”’lE“ú•t‚Í„‘ª‚Å•â‚í‚È‚¢B
+- **”õl‚ª“Á’è‚ÌH’öE‹@ŠB‚É‚¾‚¯Œ¾‹y‚µ‚Ä‚¢‚È‚¢ŒÀ‚è**Arestrict_to_* ‚Í‹ó‚É‚µA“¯ˆêˆË—ŠNO‚Ì‘¼s‚É‚à“K—p‚³‚ê‚éŒ`‚É‚·‚éB
 
-ã€å‡ºåŠ›ç›´å‰ã®è‡ªå·±æ¤œè¨¼ï¼ˆå¿…ãšå®Ÿè¡Œã—ã¦ã‹ã‚‰ JSON ã‚’é–‰ã˜ã‚‹ï¼‰ã€‘
-- ã€ç‰¹åˆ¥æŒ‡å®šåŸæ–‡ã€‘ã® **å„è¡Œ** ã«ã¤ã„ã¦ã€å¯¾å¿œã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã« **process_name** ã¨ **machine_name** ãŒã‚ã‚‹ã‹ã€‚
-- åŒä¸€ä¾é ¼NOãŒè¤‡æ•°è¡Œã‚ã‚‹ã¨ãã¯ **é…åˆ—** ã§å„è¡Œã«1ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€ã¾ãŸã¯é©åˆ‡ã«ãƒãƒ¼ã‚¸ã—ãŸå˜ä¸€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‹restrict ã®é‹ç”¨ã‚’ä¸€è²«ã•ã›ã‚‹ã€‚
-- ã€Œä¸»æ‹…å½“OPã®æŒ‡æ„ã€ãŒã‚ã‚‹è¡Œã§ã¯ **éç©ºã® preferred_operator** ã‚’ä»˜ã‘ã‚‹ã€‚
+yo—Í’¼‘O‚Ì©ŒÈŒŸØi•K‚¸Às‚µ‚Ä‚©‚ç JSON ‚ğ•Â‚¶‚éjz
+- y“Á•Êw’èŒ´•¶z‚Ì **Šes** ‚É‚Â‚¢‚ÄA‘Î‰‚·‚éƒIƒuƒWƒFƒNƒg‚É **process_name** ‚Æ **machine_name** ‚ª‚ ‚é‚©B
+- “¯ˆêˆË—ŠNO‚ª•¡”s‚ ‚é‚Æ‚«‚Í **”z—ñ** ‚ÅŠes‚É1ƒIƒuƒWƒFƒNƒgA‚Ü‚½‚Í“KØ‚Éƒ}[ƒW‚µ‚½’PˆêƒIƒuƒWƒFƒNƒg{restrict ‚Ì‰^—p‚ğˆêŠÑ‚³‚¹‚éB
+- uå’S“–OP‚ÌwˆÓv‚ª‚ ‚és‚Å‚Í **”ñ‹ó‚Ì preferred_operator** ‚ğ•t‚¯‚éB
 
-ã€å‡ºåŠ›å½¢å¼ã®ä¾‹ã€‘ï¼ˆä¾é ¼NOãƒ»å€¤ã¯å®Ÿãƒ‡ãƒ¼ã‚¿ã«åˆã‚ã›æ›¿ãˆã‚‹ã“ã¨ï¼‰
+yo—ÍŒ`®‚Ì—áziˆË—ŠNOE’l‚ÍÀƒf[ƒ^‚É‡‚í‚¹‘Ö‚¦‚é‚±‚Æj
 {{
   "W3-14": {{
-    "process_name": "æ¤œæŸ»",
-    "machine_name": "ãƒ©ã‚¤ãƒ³A",
-    "preferred_operator": "æ£®å²¡"
+    "process_name": "ŒŸ¸",
+    "machine_name": "ƒ‰ƒCƒ“A",
+    "preferred_operator": "X‰ª"
   }},
   "Y3-26": {{
-    "process_name": "ã‚³ãƒ¼ãƒ†ã‚£ãƒ³ã‚°",
+    "process_name": "ƒR[ƒeƒBƒ“ƒO",
     "machine_name": "",
     "priority": 1,
     "ship_by_date": "{ref_y}-04-05",
     "target_completion_date": "{ref_y}-04-05"
   }},
   "Y4-2": {{
-    "process_name": "ã‚¨ãƒ³ãƒœã‚¹",
+    "process_name": "ƒGƒ“ƒ{ƒX",
     "machine_name": "E1",
     "priority": 2,
     "restrict_to_process_name": "",
@@ -6201,16 +6206,16 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
   }}
 }}
 
-ã€ç‰¹åˆ¥æŒ‡å®šåŸæ–‡ã€‘ï¼ˆExcel ã‹ã‚‰ãã®ã¾ã¾ã€‚1è¡Œï¼ä¾é ¼NOã¨å‚™è€ƒã®ãƒšã‚¢ï¼‰
+y“Á•Êw’èŒ´•¶ziExcel ‚©‚ç‚»‚Ì‚Ü‚ÜB1sˆË—ŠNO‚Æ”õl‚ÌƒyƒAj
 {blob}
 """
     try:
         ppath = os.path.join(log_dir, "ai_task_special_last_prompt.txt")
         with open(ppath, "w", encoding="utf-8", newline="\n") as pf:
             pf.write(prompt)
-        logging.info("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ä»Šå› Gemini ã«æ¸¡ã—ãŸãƒ—ãƒ­ãƒ³ãƒ—ãƒˆå…¨æ–‡ â†’ %s", ppath)
+        logging.info("ƒ^ƒXƒN“Á•Êw’è: ¡‰ñ Gemini ‚É“n‚µ‚½ƒvƒƒ“ƒvƒg‘S•¶ ¨ %s", ppath)
     except OSError as ex:
-        logging.warning("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆä¿å­˜å¤±æ•—: %s", ex)
+        logging.warning("ƒ^ƒXƒN“Á•Êw’è: ƒvƒƒ“ƒvƒg•Û‘¶¸”s: %s", ex)
 
     client = genai.Client(api_key=API_KEY)
     try:
@@ -6223,12 +6228,12 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
                 ai_cache, cache_key, parsed, content_key=cache_fingerprint
             )
             save_ai_cache(ai_cache)
-            logging.info("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AIè§£æãŒå®Œäº†ã—ã¾ã—ãŸã€‚")
+            logging.info("ƒ^ƒXƒN“Á•Êw’è: AI‰ğÍ‚ªŠ®—¹‚µ‚Ü‚µ‚½B")
             if ai_sheet_sink is not None:
-                ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ã‚ã‚Š"
+                ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚ ‚è"
             return parsed
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ã‚ã‚Šï¼ˆJSONè§£é‡ˆå¤±æ•—ï¼‰"
+            ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚ ‚èiJSON‰ğß¸”sj"
         return {}
     except Exception as e:
         err_text = str(e)
@@ -6237,7 +6242,7 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
         retry_sec = extract_retry_seconds(err_text) if is_quota else None
         if is_quota and retry_sec is not None:
             wait_sec = min(max(retry_sec, 1.0), 90.0)
-            logging.warning(f"ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI 429ã€‚{wait_sec:.1f}ç§’å¾…æ©Ÿã—ã¦å†è©¦è¡Œã—ã¾ã™ã€‚")
+            logging.warning(f"ƒ^ƒXƒN“Á•Êw’è AI 429B{wait_sec:.1f}•b‘Ò‹@‚µ‚ÄÄs‚µ‚Ü‚·B")
             time_module.sleep(wait_sec)
             try:
                 res = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
@@ -6250,14 +6255,14 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
                     )
                     save_ai_cache(ai_cache)
                     if ai_sheet_sink is not None:
-                        ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ã‚ã‚Šï¼ˆ429å†è©¦è¡Œå¾Œï¼‰"
+                        ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚ ‚èi429ÄsŒãj"
                     return parsed
             except Exception as e2:
-                logging.warning(f"ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI å†è©¦è¡Œå¤±æ•—: {e2}")
+                logging.warning(f"ƒ^ƒXƒN“Á•Êw’è AI Äs¸”s: {e2}")
         elif is_unavailable:
             wait_sec = 8.0
             logging.warning(
-                f"ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI 503/UNAVAILABLEã€‚{wait_sec:.1f}ç§’å¾…æ©Ÿã—ã¦å†è©¦è¡Œã—ã¾ã™ã€‚"
+                f"ƒ^ƒXƒN“Á•Êw’è AI 503/UNAVAILABLEB{wait_sec:.1f}•b‘Ò‹@‚µ‚ÄÄs‚µ‚Ü‚·B"
             )
             time_module.sleep(wait_sec)
             try:
@@ -6270,26 +6275,26 @@ def analyze_task_special_remarks(tasks_df, reference_year=None, ai_sheet_sink: d
                         ai_cache, cache_key, parsed, content_key=cache_fingerprint
                     )
                     save_ai_cache(ai_cache)
-                    logging.info("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AIå†è©¦è¡Œã§è§£æãŒå®Œäº†ã—ã¾ã—ãŸã€‚")
+                    logging.info("ƒ^ƒXƒN“Á•Êw’è: AIÄs‚Å‰ğÍ‚ªŠ®—¹‚µ‚Ü‚µ‚½B")
                     if ai_sheet_sink is not None:
-                        ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = "ã‚ã‚Šï¼ˆ503å†è©¦è¡Œå¾Œï¼‰"
+                        ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = "‚ ‚èi503ÄsŒãj"
                     return parsed
-                logging.warning("ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI 503å†è©¦è¡Œ: JSON æŠ½å‡ºã«å¤±æ•—ã—ã¾ã—ãŸã€‚")
+                logging.warning("ƒ^ƒXƒN“Á•Êw’è AI 503Äs: JSON ’Šo‚É¸”s‚µ‚Ü‚µ‚½B")
             except Exception as e2:
-                logging.warning(f"ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI 503å†è©¦è¡Œå¤±æ•—: {e2}")
+                logging.warning(f"ƒ^ƒXƒN“Á•Êw’è AI 503Äs¸”s: {e2}")
         else:
-            logging.warning(f"ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š AI ã‚¨ãƒ©ãƒ¼: {e}")
+            logging.warning(f"ƒ^ƒXƒN“Á•Êw’è AI ƒGƒ‰[: {e}")
         logging.warning(
-            "ã‚¿ã‚¹ã‚¯ç‰¹åˆ¥æŒ‡å®š: AIè§£æçµæœã‚’å–å¾—ã§ããªã‹ã£ãŸãŸã‚ã€ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã®é–‹å§‹æ—¥/å„ªå…ˆæŒ‡ç¤ºã¯åæ˜ ã•ã‚Œã¾ã›ã‚“ã€‚"
-            "ï¼ˆåˆ—ã€ŒåŠ å·¥é–‹å§‹æ—¥_æŒ‡å®šã€ã€ŒæŒ‡å®šç´æœŸ_ä¸Šæ›¸ãã€ã¯å»ƒæ­¢æ¸ˆã¿ã€‚å‚™è€ƒã®å†è¨˜è¼‰ã¾ãŸã¯å¾Œã‹ã‚‰ AI å†å®Ÿè¡Œã‚’æ¤œè¨ã—ã¦ãã ã•ã„ã€‚ï¼‰"
+            "ƒ^ƒXƒN“Á•Êw’è: AI‰ğÍŒ‹‰Ê‚ğæ“¾‚Å‚«‚È‚©‚Á‚½‚½‚ßA“Á•Êw’è_”õl‚ÌŠJn“ú/—Dæw¦‚Í”½‰f‚³‚ê‚Ü‚¹‚ñB"
+            "i—ñu‰ÁHŠJn“ú_w’èvuw’è”[Šú_ã‘‚«v‚Í”p~Ï‚İB”õl‚ÌÄ‹LÚ‚Ü‚½‚ÍŒã‚©‚ç AI ÄÀs‚ğŒŸ“¢‚µ‚Ä‚­‚¾‚³‚¢Bj"
         )
         if ai_sheet_sink is not None:
-            ai_sheet_sink["ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ_AI_API"] = f"å¤±æ•—: {e}"[:500]
+            ai_sheet_sink["“Á•Êw’è”õl_AI_API"] = f"¸”s: {e}"[:500]
         return {}
 
 
 def _merge_preferred_operator_cell_and_ai(row, ai_for_tid):
-    """Excelã€Œæ‹…å½“OP_æŒ‡å®šã€ã‚’å„ªå…ˆã—ã€ç©ºãªã‚‰ AI ã® preferred_operatorã€‚"""
+    """Excelu’S“–OP_w’èv‚ğ—Dæ‚µA‹ó‚È‚ç AI ‚Ì preferred_operatorB"""
     ai = ai_for_tid if isinstance(ai_for_tid, dict) else {}
     v = row.get(PLAN_COL_PREFERRED_OP)
     if v is not None and not (isinstance(v, float) and pd.isna(v)):
@@ -6306,8 +6311,8 @@ def _merge_preferred_operator_cell_and_ai(row, ai_for_tid):
 
 def _global_override_preferred_operator_for_task(tpref, task_id) -> str | None:
     """
-    ãƒ¡ã‚¤ãƒ³ã€Œå†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰ã€ã® task_preferred_operatorsã€‚
-    ã‚­ãƒ¼ã¯ä¾é ¼NOï¼ˆå¤§æ–‡å­—ãƒ»å°æ–‡å­—ã®å·®ã¯ç„¡è¦–ï¼‰ã€‚
+    ƒƒCƒ“uÄ—Dæ“Á•Ê‹LÚv‚Ì task_preferred_operatorsB
+    ƒL[‚ÍˆË—ŠNOi‘å•¶šE¬•¶š‚Ì·‚Í–³‹jB
     """
     if not isinstance(tpref, dict) or not tpref:
         return None
@@ -6329,9 +6334,9 @@ def _merge_task_row_with_ai(
     row, ai_for_tid, *, allow_ai_dispatch_priority_from_remark: bool = True
 ):
     """
-    ä¸Šæ›¸ãåˆ—ã¯åŠ å·¥é€Ÿåº¦_ä¸Šæ›¸ããƒ»åŸåæŠ•å…¥æ—¥_ä¸Šæ›¸ãç­‰ã®ã¿ï¼ˆè¨ˆç”»ã‚·ãƒ¼ãƒˆï¼‰ã€‚ãã®ä»–ã¯ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒ AI ã‹ã‚‰ã€‚
-    allow_ai_dispatch_priority_from_remark ãŒ False ã®ã¨ãã€AI ã® required_op / task_efficiency / priority /
-    start_date / start_time ã¯æ¡ç”¨ã—ãªã„ï¼ˆå‚™è€ƒã«ç´æœŸç³»æ–‡è¨€ãŒç„¡ã„è¡Œå‘ã‘ï¼‰ã€‚
+    ã‘‚«—ñ‚Í‰ÁH‘¬“x_ã‘‚«EŒ´”½“Š“ü“ú_ã‘‚«“™‚Ì‚İiŒv‰æƒV[ƒgjB‚»‚Ì‘¼‚Í“Á•Êw’è”õl AI ‚©‚çB
+    allow_ai_dispatch_priority_from_remark ‚ª False ‚Ì‚Æ‚«AAI ‚Ì required_op / task_efficiency / priority /
+    start_date / start_time ‚ÍÌ—p‚µ‚È‚¢i”õl‚É”[ŠúŒn•¶Œ¾‚ª–³‚¢sŒü‚¯jB
     """
     ai = ai_for_tid if isinstance(ai_for_tid, dict) else {}
 
@@ -6409,8 +6414,8 @@ def _ai_float_for_conflict(ai, key):
 
 def detect_planning_remark_ai_conflicts(row, ai_for_tid):
     """
-    ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã«ä¾ã‚‹ AI è§£æçµæœã¨ã€æ˜ç¤ºã‚»ãƒ«ã®ä¸¡æ–¹ã«å€¤ãŒã‚ã‚Šé£Ÿã„é•ã†åˆ—ã‚’è¿”ã™ã€‚
-    å‚™è€ƒãƒ»AIã„ãšã‚Œã‹æ¬ ã‘ã‚‹å ´åˆã¯ç©ºé›†åˆã€‚
+    “Á•Êw’è_”õl‚ÉˆË‚é AI ‰ğÍŒ‹‰Ê‚ÆA–¾¦ƒZƒ‹‚Ì—¼•û‚É’l‚ª‚ ‚èH‚¢ˆá‚¤—ñ‚ğ•Ô‚·B
+    ”õlEAI‚¢‚¸‚ê‚©Œ‡‚¯‚éê‡‚Í‹óW‡B
     """
     remark = str(row.get(PLAN_COL_SPECIAL_REMARK, "") or "").strip()
     if not remark or remark.lower() in ("nan", "none"):
@@ -6439,7 +6444,7 @@ def detect_planning_remark_ai_conflicts(row, ai_for_tid):
 
 
 def collect_planning_conflicts_by_excel_row(tasks_df, ai_by_tid):
-    """Excel è¡Œç•ªå·(1å§‹ã¾ã‚Šãƒ»ãƒ˜ãƒƒãƒ€ãƒ¼=1è¡Œç›®) -> çŸ›ç›¾ãŒã‚ã£ãŸåˆ—åã®é›†åˆ"""
+    """Excel s”Ô†(1n‚Ü‚èEƒwƒbƒ_[=1s–Ú) -> –µ‚‚ª‚ ‚Á‚½—ñ–¼‚ÌW‡"""
     res = {}
     for i, (_, row) in enumerate(tasks_df.iterrows()):
         if _plan_row_exclude_from_assignment(row):
@@ -6452,7 +6457,7 @@ def collect_planning_conflicts_by_excel_row(tasks_df, ai_by_tid):
 
 
 def _plan_sheet_apply_conflict_styles_to_ws(ws, num_data_rows: int, conflicts_by_row) -> None:
-    """æ—¢ã«é–‹ã„ã¦ã„ã‚‹é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆã¸ã€çŸ›ç›¾åˆ—ã®ç€è‰²ï¼ˆè–„é»„ãƒªã‚»ãƒƒãƒˆâ†’èµ¤ï¼‰ã‚’é©ç”¨ã™ã‚‹ã€‚ä¿å­˜ã¯å‘¼ã³å‡ºã—å´ã€‚"""
+    """Šù‚ÉŠJ‚¢‚Ä‚¢‚é”z‘äŒv‰æƒV[ƒg‚ÖA–µ‚—ñ‚Ì’…Fi”–‰©ƒŠƒZƒbƒg¨Ôj‚ğ“K—p‚·‚éB•Û‘¶‚ÍŒÄ‚Ño‚µ‘¤B"""
     header_map = {}
     for col_idx in range(1, ws.max_column + 1):
         v = ws.cell(1, col_idx).value
@@ -6475,7 +6480,7 @@ def _plan_sheet_apply_conflict_styles_to_ws(ws, num_data_rows: int, conflicts_by
                 cell.fill = clear_fill
             else:
                 cell.fill = yellow_input_fill
-            # ãƒ•ã‚©ãƒ³ãƒˆã¯ä¸Šæ›¸ãã—ãªã„ï¼ˆãƒ–ãƒƒã‚¯æ—¢å®šãƒ»ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šã‚’ç¶­æŒï¼‰
+            # ƒtƒHƒ“ƒg‚Íã‘‚«‚µ‚È‚¢iƒuƒbƒNŠù’èEƒ†[ƒU[İ’è‚ğˆÛj
 
     for r, colnames in conflicts_by_row.items():
         if r < 2:
@@ -6497,17 +6502,17 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
     when_str: str,
     num_data_rows: int,
     conflicts_by_row,
-    log_prefix: str = "æ®µéš2",
+    log_prefix: str = "’iŠK2",
 ) -> bool:
     """
-    æ®µéš2å‘ã‘: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆè§£æãƒ–ãƒ­ãƒƒã‚¯ï¼ˆAX:AYï¼‰ã¨çŸ›ç›¾ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ **1å›ã® load/save** ã§åæ˜ ã™ã‚‹ã€‚
-    å¾“æ¥ã¯åˆ¥é–¢æ•°ã§ãƒ–ãƒƒã‚¯ã‚’2å›é–‹ã„ã¦ã„ãŸãŸã‚ã€.xlsm ãŒå¤§ãã„ç’°å¢ƒã§åæ•°ç§’å˜ä½ã®çŸ­ç¸®ã«ãªã‚‹ã€‚
+    ’iŠK2Œü‚¯: ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg‰ğÍƒuƒƒbƒNiAX:AYj‚Æ–µ‚ƒnƒCƒ‰ƒCƒg‚ğ **1‰ñ‚Ì load/save** ‚Å”½‰f‚·‚éB
+    ]—ˆ‚Í•ÊŠÖ”‚ÅƒuƒbƒN‚ğ2‰ñŠJ‚¢‚Ä‚¢‚½‚½‚ßA.xlsm ‚ª‘å‚«‚¢ŠÂ‹«‚Å\”•b’PˆÊ‚Ì’Zk‚É‚È‚éB
     """
     if not wb_path or not os.path.isfile(wb_path):
         return False
     if _workbook_should_skip_openpyxl_io(wb_path):
         logging.info(
-            "%s: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æãƒ»çŸ›ç›¾ç€è‰²ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+            "%s: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚ÅƒOƒ[ƒoƒ‹‰ğÍE–µ‚’…F‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
             log_prefix,
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
@@ -6520,7 +6525,7 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
         )
     except Exception as ex:
         logging.info(
-            "%s: é…å°ã‚·ãƒ¼ãƒˆä¸€æ‹¬æ›¸è¾¼ã®ãŸã‚ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“: %s",
+            "%s: ”z‘äƒV[ƒgˆêŠ‡‘‚Ì‚½‚ßƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñ: %s",
             log_prefix,
             ex,
         )
@@ -6528,7 +6533,7 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
     try:
         if sheet_name not in wb.sheetnames:
             logging.info(
-                "%s: ã‚·ãƒ¼ãƒˆ '%s' ãŒç„¡ã„ãŸã‚ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æãƒ»çŸ›ç›¾ç€è‰²ã‚’ã‚¹ã‚­ãƒƒãƒ—ã€‚",
+                "%s: ƒV[ƒg '%s' ‚ª–³‚¢‚½‚ßƒOƒ[ƒoƒ‹‰ğÍE–µ‚’…F‚ğƒXƒLƒbƒvB",
                 log_prefix,
                 sheet_name,
             )
@@ -6545,8 +6550,8 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
                 sheet_name, num_data_rows, conflicts_by_row or {}
             )
             logging.warning(
-                "%s: é…å°ã‚·ãƒ¼ãƒˆã¸ã®ä¸€æ‹¬ä¿å­˜ã«å¤±æ•—ï¼ˆExcel ã§é–‹ã„ãŸã¾ã¾ç­‰ï¼‰ã€‚"
-                " çŸ›ç›¾ãƒã‚¤ãƒ©ã‚¤ãƒˆã¯ '%s' ã«æ›¸ãå‡ºã—ã¾ã—ãŸã€‚ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æã¯æœªä¿å­˜ã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚ (%s)",
+                "%s: ”z‘äƒV[ƒg‚Ö‚ÌˆêŠ‡•Û‘¶‚É¸”siExcel ‚ÅŠJ‚¢‚½‚Ü‚Ü“™jB"
+                " –µ‚ƒnƒCƒ‰ƒCƒg‚Í '%s' ‚É‘‚«o‚µ‚Ü‚µ‚½BƒOƒ[ƒoƒ‹‰ğÍ‚Í–¢•Û‘¶‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·B (%s)",
                 log_prefix,
                 _planning_conflict_sidecar_path(),
                 e,
@@ -6556,8 +6561,8 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
         _n_conf = len(conflicts_by_row) if conflicts_by_row else 0
         if _n_conf:
             logging.info(
-                "%s: ã€Œ%sã€%s:%s åˆ—ã«ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æã‚’ä¿å­˜ã—ã€"
-                "ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã¨åˆ—ã®çŸ›ç›¾ %s è¡Œã‚’åŒã˜ä¿å­˜ã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã—ã¾ã—ãŸã€‚",
+                "%s: u%sv%s:%s —ñ‚ÉƒOƒ[ƒoƒ‹‰ğÍ‚ğ•Û‘¶‚µA"
+                "“Á•Êw’è_”õl‚Æ—ñ‚Ì–µ‚ %s s‚ğ“¯‚¶•Û‘¶‚ÅƒnƒCƒ‰ƒCƒg‚µ‚Ü‚µ‚½B",
                 log_prefix,
                 sheet_name,
                 get_column_letter(lc),
@@ -6566,7 +6571,7 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
             )
         else:
             logging.info(
-                "%s: ã€Œ%sã€%s:%s åˆ—ã«ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æã‚’ä¿å­˜ã—ã¾ã—ãŸï¼ˆçŸ›ç›¾è¡Œãªã—ï¼‰ã€‚",
+                "%s: u%sv%s:%s —ñ‚ÉƒOƒ[ƒoƒ‹‰ğÍ‚ğ•Û‘¶‚µ‚Ü‚µ‚½i–µ‚s‚È‚µjB",
                 log_prefix,
                 sheet_name,
                 get_column_letter(lc),
@@ -6575,14 +6580,14 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
         return True
     except OSError as ex:
         logging.warning(
-            "%s: é…å°ã‚·ãƒ¼ãƒˆä¸€æ‹¬ä¿å­˜ã§ OSError: %s",
+            "%s: ”z‘äƒV[ƒgˆêŠ‡•Û‘¶‚Å OSError: %s",
             log_prefix,
             ex,
         )
         return False
     except Exception as ex:
         logging.warning(
-            "%s: é…å°ã‚·ãƒ¼ãƒˆã¸ã®ã‚°ãƒ­ãƒ¼ãƒãƒ«è§£æï¼‹çŸ›ç›¾ç€è‰²ï¼ˆä¸€æ‹¬ï¼‰ã§ä¾‹å¤–: %s",
+            "%s: ”z‘äƒV[ƒg‚Ö‚ÌƒOƒ[ƒoƒ‹‰ğÍ{–µ‚’…FiˆêŠ‡j‚Å—áŠO: %s",
             log_prefix,
             ex,
         )
@@ -6597,16 +6602,16 @@ def write_plan_sheet_global_parse_and_conflict_styles_one_io(
 
 def apply_planning_sheet_conflict_styles(wb_path, sheet_name, num_data_rows, conflicts_by_row):
     """
-    é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã‚·ãƒ¼ãƒˆã®ãƒ‡ãƒ¼ã‚¿è¡Œã‚’ã€çŸ›ç›¾åˆ—ã®ã¿èµ¤åœ°ãƒ»ç™½å¤ªå­—ã«ã™ã‚‹ã€‚
-    äº‹å‰ãƒ‘ã‚¹ã§ã¯ä¸Šæ›¸ãå…¥åŠ›åˆ—ã‚’æ®µéš1ã¨åŒã˜è–„é»„è‰²ã«æˆ»ã—ã€ãƒ•ã‚©ãƒ³ãƒˆã¯å¤‰æ›´ã—ãªã„ï¼ˆä½“è£ç¶­æŒï¼‰ã€‚
-    AIè§£æåˆ—ã¯ç€è‰²ã—ãªã„ï¼ˆæ®µéš1ã®ä»•æ§˜ã«åˆã‚ã›ã‚‹ï¼‰ã€‚
-    .xlsm ã¯ keep_vba=True ã§ä¿å­˜ã™ã‚‹ã€‚
+    ”z‘äŒv‰æ_ƒ^ƒXƒN“ü—ÍƒV[ƒg‚Ìƒf[ƒ^s‚ğA–µ‚—ñ‚Ì‚İÔ’nE”’‘¾š‚É‚·‚éB
+    –‘OƒpƒX‚Å‚Íã‘‚«“ü—Í—ñ‚ğ’iŠK1‚Æ“¯‚¶”–‰©F‚É–ß‚µAƒtƒHƒ“ƒg‚Í•ÏX‚µ‚È‚¢i‘ÌÙˆÛjB
+    AI‰ğÍ—ñ‚Í’…F‚µ‚È‚¢i’iŠK1‚Ìd—l‚É‡‚í‚¹‚éjB
+    .xlsm ‚Í keep_vba=True ‚Å•Û‘¶‚·‚éB
     """
     if not wb_path or not os.path.exists(wb_path):
         return
     if _workbook_should_skip_openpyxl_io(wb_path):
         logging.info(
-            "çŸ›ç›¾æ›¸å¼: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã®ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚",
+            "–µ‚‘®: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl ‚Å‚ÌƒnƒCƒ‰ƒCƒg‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
         return
@@ -6614,7 +6619,7 @@ def apply_planning_sheet_conflict_styles(wb_path, sheet_name, num_data_rows, con
     wb = load_workbook(wb_path, keep_vba=keep_vba)
     try:
         if sheet_name not in wb.sheetnames:
-            logging.warning(f"çŸ›ç›¾æ›¸å¼: ã‚·ãƒ¼ãƒˆ '{sheet_name}' ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚")
+            logging.warning(f"–µ‚‘®: ƒV[ƒg '{sheet_name}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB")
             return
         ws = wb[sheet_name]
         _plan_sheet_apply_conflict_styles_to_ws(ws, num_data_rows, conflicts_by_row)
@@ -6624,8 +6629,8 @@ def apply_planning_sheet_conflict_styles(wb_path, sheet_name, num_data_rows, con
         except OSError as e:
             write_planning_conflict_highlight_sidecar(sheet_name, num_data_rows, conflicts_by_row)
             logging.warning(
-                "é…å°ã‚·ãƒ¼ãƒˆã¸ã®çŸ›ç›¾ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ã§ãã¾ã›ã‚“ã§ã—ãŸï¼ˆExcel ã§ãƒ–ãƒƒã‚¯ã‚’é–‹ã„ãŸã¾ã¾ç­‰ï¼‰ã€‚"
-                " '%s' ã«æŒ‡ç¤ºã‚’æ›¸ãå‡ºã—ã¾ã—ãŸã€‚ãƒã‚¯ãƒ­ãŒã‚·ãƒ¼ãƒˆä¸Šã«ç›´æ¥é©ç”¨ã—ã¾ã™ã€‚ (%s)",
+                "”z‘äƒV[ƒg‚Ö‚Ì–µ‚ƒnƒCƒ‰ƒCƒg‚ğƒtƒ@ƒCƒ‹•Û‘¶‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½iExcel ‚ÅƒuƒbƒN‚ğŠJ‚¢‚½‚Ü‚Ü“™jB"
+                " '%s' ‚Éw¦‚ğ‘‚«o‚µ‚Ü‚µ‚½Bƒ}ƒNƒ‚ªƒV[ƒgã‚É’¼Ú“K—p‚µ‚Ü‚·B (%s)",
                 _planning_conflict_sidecar_path(),
                 e,
             )
@@ -6633,14 +6638,14 @@ def apply_planning_sheet_conflict_styles(wb_path, sheet_name, num_data_rows, con
             _remove_planning_conflict_sidecar_safe()
             if conflicts_by_row:
                 logging.info(
-                    f"ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã¨åˆ—ã®çŸ›ç›¾: {len(conflicts_by_row)} è¡Œã‚’ '{sheet_name}' ã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã—ã¾ã—ãŸã€‚"
+                    f"“Á•Êw’è_”õl‚Æ—ñ‚Ì–µ‚: {len(conflicts_by_row)} s‚ğ '{sheet_name}' ‚ÅƒnƒCƒ‰ƒCƒg‚µ‚Ü‚µ‚½B"
                 )
     finally:
         wb.close()
 
 
 def _ai_planning_target_due_date(ai_dict):
-    """AI JSON ã®å®Œäº†ãƒ»å‡ºè·ç›®æ¨™æ—¥ã‹ã‚‰ã€é…å°ã®ç›®æ¨™æ—¥1ã¤ã‚’æ±ºã‚ã‚‹ï¼ˆè¤‡æ•°ã‚ã‚Œã°æœ€ã‚‚æ—©ã„æ—¥ï¼å³ã—ã„æ–¹ï¼‰ã€‚"""
+    """AI JSON ‚ÌŠ®—¹Eo‰×–Ú•W“ú‚©‚çA”z‘ä‚Ì–Ú•W“ú1‚Â‚ğŒˆ‚ß‚éi•¡”‚ ‚ê‚ÎÅ‚à‘‚¢“úŒµ‚µ‚¢•ûjB"""
     if not isinstance(ai_dict, dict):
         return None
     dates = []
@@ -6655,8 +6660,8 @@ def _ai_planning_target_due_date(ai_dict):
 
 def _special_remark_implies_due_related_dispatch_priority(remark_raw: str) -> bool:
     """
-    ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã«ã€ç´æœŸãƒ»æœŸé™ãƒ»æœ€å„ªå…ˆãªã©ã€Œé…å°è©¦è¡Œã‚’å‰ã«å‡ºã™ã€æ„å›³ã®æ–‡è¨€ãŒã‚ã‚‹ã¨ã Trueã€‚
-    å‚™è€ƒãŒè¨˜å…¥ã•ã‚Œã¦ã„ã‚‹ã ã‘ã§ã¯ True ã«ã—ãªã„ï¼ˆAI ç”±æ¥ã®ç›®æ¨™æ—¥ãƒ»é–‹å§‹æ—¥ãƒ»å„ªå…ˆåº¦ã¯ä½¿ã‚ãªã„ï¼‰ã€‚
+    “Á•Êw’è_”õl‚ÉA”[ŠúEŠúŒÀEÅ—Dæ‚È‚Çu”z‘äs‚ğ‘O‚Éo‚·vˆÓ}‚Ì•¶Œ¾‚ª‚ ‚é‚Æ‚« TrueB
+    ”õl‚ª‹L“ü‚³‚ê‚Ä‚¢‚é‚¾‚¯‚Å‚Í True ‚É‚µ‚È‚¢iAI —R—ˆ‚Ì–Ú•W“úEŠJn“úE—Dæ“x‚Íg‚í‚È‚¢jB
     """
     if not remark_raw:
         return False
@@ -6666,45 +6671,45 @@ def _special_remark_implies_due_related_dispatch_priority(remark_raw: str) -> bo
     n = unicodedata.normalize("NFKC", s)
     n_lower = n.casefold()
     needles = (
-        "ç´æœŸ",
-        "æŒ‡å®šç´æœŸ",
-        "å›ç­”ç´æœŸ",
-        "è¨ˆç”»åŸºæº–",
-        "æœŸæ—¥",
-        "ç· åˆ‡",
-        "ç· ã‚åˆ‡ã‚Š",
-        "æœŸé™",
-        "æœ€å„ªå…ˆ",
-        "è‡³æ€¥",
-        "æ€¥ã",
-        "ç›´ã¡ã«",
-        "æ—©æ€¥",
-        "å‡ºè·",
-        "ç´å…¥",
-        "å¿…ç€",
+        "”[Šú",
+        "w’è”[Šú",
+        "‰ñ“š”[Šú",
+        "Œv‰æŠî€",
+        "Šú“ú",
+        "’÷Ø",
+        "’÷‚ßØ‚è",
+        "ŠúŒÀ",
+        "Å—Dæ",
+        "Š‹}",
+        "‹}‚¬",
+        "’¼‚¿‚É",
+        "‘‹}",
+        "o‰×",
+        "”[“ü",
+        "•K’…",
         "deadline",
-        "ãƒ‡ãƒƒãƒ‰ãƒ©ã‚¤ãƒ³",
-        "å‰å€’ã—",
-        "æ—©ã‚ã«",
-        "å³å®ˆ",
-        "ã¾ã§ã«",
-        "é–“ã«åˆã‚",
-        "é–“ã«åˆã„",
-        "é…ã‚Œãªã„",
-        "é…å»¶ä¸å¯",
-        "å„ªå…ˆé…å°",
-        "å…ˆã«é…å°",
-        "å®Œäº†äºˆå®š",
-        "æœ¬ç´æœŸ",
-        "å›ç­”æœŸé™",
+        "ƒfƒbƒhƒ‰ƒCƒ“",
+        "‘O“|‚µ",
+        "‘‚ß‚É",
+        "Œµç",
+        "‚Ü‚Å‚É",
+        "ŠÔ‚É‡‚í",
+        "ŠÔ‚É‡‚¢",
+        "’x‚ê‚È‚¢",
+        "’x‰„•s‰Â",
+        "—Dæ”z‘ä",
+        "æ‚É”z‘ä",
+        "Š®—¹—\’è",
+        "–{”[Šú",
+        "‰ñ“šŠúŒÀ",
     )
     return any(w.casefold() in n_lower for w in needles)
 
 
 def _task_id_same_machine_due_tiebreak_key(task_id) -> tuple:
     """
-    ç´æœŸåŸºæº–ï¼ˆå›ç­”â†’æŒ‡å®šï¼‰ãƒ»æ©Ÿæ¢°åãŒåŒã˜å¸¯ã§ã®è©¦è¡Œé †ã€‚
-    Y3-24 ã¯æœ«å°¾ã®æ•°å€¤ã€‚Y4-1-1 ã®ã‚ˆã†ã«ãƒã‚¤ãƒ•ãƒ³ãŒ2ã¤ä»¥ä¸Šã‚ã‚‹ã¨ãã¯ã€Œæœ€åˆã® - ã®ç›´å¾Œã€ã®æ•°å€¤éƒ¨ã‚’æ¡ç”¨ã€‚
+    ”[ŠúŠî€i‰ñ“š¨w’èjE‹@ŠB–¼‚ª“¯‚¶‘Ñ‚Å‚Ìs‡B
+    Y3-24 ‚Í––”ö‚Ì”’lBY4-1-1 ‚Ì‚æ‚¤‚ÉƒnƒCƒtƒ“‚ª2‚ÂˆÈã‚ ‚é‚Æ‚«‚ÍuÅ‰‚Ì - ‚Ì’¼Œãv‚Ì”’l•”‚ğÌ—pB
     """
     s = str(task_id or "").strip()
     if not s:
@@ -6727,8 +6732,8 @@ def _task_id_same_machine_due_tiebreak_key(task_id) -> tuple:
 
 
 # ---------------------------------------------------------------------------
-# é…å°ç”¨ã‚¿ã‚¹ã‚¯ã‚­ãƒ¥ãƒ¼
-#   é…å°è¨ˆç”» DataFrame 1è¡Œ â†’ å‰²ä»˜ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ç”¨ dict ã¸ã®å¤‰æ›ï¼ˆå„ªå…ˆåº¦ãƒ»ç´æœŸãƒ»AI ä¸Šæ›¸ãã‚’é›†ç´„ï¼‰
+# ”z‘ä—pƒ^ƒXƒNƒLƒ…[
+#   ”z‘äŒv‰æ DataFrame 1s ¨ Š„•tƒAƒ‹ƒSƒŠƒYƒ€—p dict ‚Ö‚Ì•ÏŠ·i—Dæ“xE”[ŠúEAI ã‘‚«‚ğW–ñj
 # ---------------------------------------------------------------------------
 def build_task_queue_from_planning_df(
     tasks_df,
@@ -6739,8 +6744,8 @@ def build_task_queue_from_planning_df(
     equipment_list=None,
 ):
     """
-    ``generate_plan`` å†…ã§å‘¼ã°ã‚Œã‚‹ã€‚å®Œäº†æ¸ˆã¿ãƒ»é…å°ä¸è¦è¡Œã‚’é™¤ãã€æ®‹ã‚Šã‚’ task_queue ã«ç©ã‚€ã€‚
-    ai_by_tid ãŒ None ã®ã¨ãã ã‘å†…éƒ¨ã§ analyze_task_special_remarks ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+    ``generate_plan`` “à‚ÅŒÄ‚Î‚ê‚éBŠ®—¹Ï‚İE”z‘ä•s—vs‚ğœ‚«Ac‚è‚ğ task_queue ‚ÉÏ‚ŞB
+    ai_by_tid ‚ª None ‚Ì‚Æ‚«‚¾‚¯“à•”‚Å analyze_task_special_remarks ‚ğÀs‚·‚éB
     """
     if ai_by_tid is None:
         ai_by_tid = analyze_task_special_remarks(tasks_df, reference_year=run_date.year)
@@ -6748,7 +6753,7 @@ def build_task_queue_from_planning_df(
     n_exclude_plan = 0
     seq_by_tid = _collect_process_content_order_by_task_id(tasks_df)
     same_tid_line_seq = defaultdict(int)
-    # ä¾é ¼NOç›´åˆ—é…å°ã®é †åºç”¨: iterrows ã®èª­ã¿è¾¼ã¿é †ï¼ˆ0 å§‹ã¾ã‚Šï¼‰ã€‚task_queue.sort å¾Œã‚‚ä¸å¤‰ã€‚
+    # ˆË—ŠNO’¼—ñ”z‘ä‚Ì‡˜—p: iterrows ‚Ì“Ç‚İ‚İ‡i0 n‚Ü‚èjBtask_queue.sort Œã‚à•s•ÏB
     planning_sheet_row_seq = 0
 
     for planning_df_iloc, (_, row) in enumerate(tasks_df.iterrows()):
@@ -6768,7 +6773,7 @@ def build_task_queue_from_planning_df(
         answer_due = parse_optional_date(_planning_df_cell_scalar(row, TASK_COL_ANSWER_DUE))
         specified_due = parse_optional_date(_planning_df_cell_scalar(row, TASK_COL_SPECIFIED_DUE))
         specified_due_ov = None
-        # ç´æœŸåŸºæº–: â‘ å›ç­”ç´æœŸï¼ˆç©ºã§ãªã‘ã‚Œã°ï¼‰â‘¡åˆ—ã€ŒæŒ‡å®šç´æœŸã€ï¼ˆåˆ—ã€ŒæŒ‡å®šç´æœŸ_ä¸Šæ›¸ãã€ã¯å»ƒæ­¢æ¸ˆã¿ï¼‰
+        # ”[ŠúŠî€: ‡@‰ñ“š”[Šúi‹ó‚Å‚È‚¯‚ê‚Îj‡A—ñuw’è”[Šúvi—ñuw’è”[Šú_ã‘‚«v‚Í”p~Ï‚İj
         specified_basis = specified_due
         due_basis = None
         due_source = "none"
@@ -6788,7 +6793,7 @@ def build_task_queue_from_planning_df(
             and raw_input_date_ov != raw_input_sheet
         ):
             logging.info(
-                "åŸåæŠ•å…¥æ—¥_ä¸Šæ›¸ãã‚’æ¡ç”¨: ä¾é ¼NO=%s ã‚·ãƒ¼ãƒˆåŸåæŠ•å…¥æ—¥=%s ä¸Šæ›¸ã=%s",
+                "Œ´”½“Š“ü“ú_ã‘‚«‚ğÌ—p: ˆË—ŠNO=%s ƒV[ƒgŒ´”½“Š“ü“ú=%s ã‘‚«=%s",
                 task_id,
                 raw_input_sheet,
                 raw_input_date_ov,
@@ -6826,7 +6831,7 @@ def build_task_queue_from_planning_df(
         if gop_name is not None:
             preferred_operator_raw = gop_name
             logging.info(
-                "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ä¾é ¼NO=%s ã®æ‹…å½“OPã‚’ã‚°ãƒ­ãƒ¼ãƒãƒ«æŒ‡åã§ä¸Šæ›¸ã %rï¼ˆã‚»ãƒ«ãƒ»ç‰¹åˆ¥æŒ‡å®šå‚™è€ƒAIã‚ˆã‚Šå„ªå…ˆï¼‰",
+                "ƒƒCƒ“Ä—Dæ“Á‹L: ˆË—ŠNO=%s ‚Ì’S“–OP‚ğƒOƒ[ƒoƒ‹w–¼‚Åã‘‚« %riƒZƒ‹E“Á•Êw’è”õlAI‚æ‚è—Dæj",
                 task_id,
                 gop_name,
             )
@@ -6855,7 +6860,7 @@ def build_task_queue_from_planning_df(
             if speed <= 0:
                 speed = 1.0
             logging.info(
-                "ãƒ¡ã‚¤ãƒ³ã‚°ãƒ­ãƒ¼ãƒãƒ«: ä¾é ¼NO=%s å·¥ç¨‹=%r æ©Ÿæ¢°å=%r ã« speed_multiplier ç´¯ç©=%s ã‚’é©ç”¨ï¼ˆé€Ÿåº¦ %s â†’ %sï¼‰",
+                "ƒƒCƒ“ƒOƒ[ƒoƒ‹: ˆË—ŠNO=%s H’ö=%r ‹@ŠB–¼=%r ‚É speed_multiplier —İÏ=%s ‚ğ“K—pi‘¬“x %s ¨ %sj",
                 task_id,
                 machine,
                 machine_name,
@@ -6878,17 +6883,17 @@ def build_task_queue_from_planning_df(
         if unit <= 0:
             unit = qty
 
-        # ç´æœŸã¯å„ªå…ˆé †ä½ãƒ»ç·Šæ€¥åº¦ã«ã¯ä½¿ã†ãŒã€é–‹å§‹æ—¥ã®ä¸‹é™ã«ã¯ä½¿ã‚ãªã„ï¼ˆä½™åŠ›ãŒã‚ã‚Œã°å‰å€’ã—é–‹å§‹ã™ã‚‹ãŸã‚ï¼‰ã€‚
+        # ”[Šú‚Í—Dæ‡ˆÊE‹Ù‹}“x‚É‚Íg‚¤‚ªAŠJn“ú‚Ì‰ºŒÀ‚É‚Íg‚í‚È‚¢i—]—Í‚ª‚ ‚ê‚Î‘O“|‚µŠJn‚·‚é‚½‚ßjB
         if due_basis is None:
             due_urgent = False
         else:
             due_urgent = due_basis <= run_date
 
-        # é–‹å§‹æ—¥ãƒ«ãƒ¼ãƒ«:
-        # 1) åŸåæŠ•å…¥æ—¥ãŒã‚ã‚‹ã¨ãã¯ã€ŒåŸåæŠ•å…¥æ—¥ 13:00 ä»¥é™ã€ã‚’é–‹å§‹å¯èƒ½æ—¥æ™‚ã®ä¸‹é™ã¨ã™ã‚‹ã€‚
-        #    ï¼ˆæ—¥ä»˜ä¸‹é™: max(run_date, raw_input_date)ã€åŒæ—¥æ™‚é–“ä¸‹é™: 13:00ï¼‰
-        # 2) ç‰¹åˆ¥æŒ‡å®šï¼ˆã‚»ãƒ«/AIï¼‰ã®é–‹å§‹æ—¥ãŒã‚ã‚‹å ´åˆã‚‚ã€åŸåæŠ•å…¥æ—¥ã‚ˆã‚Šå‰å€’ã—ã«ã¯ã—ãªã„ï¼ˆdate ä¸‹é™ã‚’ç¶­æŒï¼‰
-        # 3) åŸåãŒç„¡ã„ã¨ãã¯ run_date
+        # ŠJn“úƒ‹[ƒ‹:
+        # 1) Œ´”½“Š“ü“ú‚ª‚ ‚é‚Æ‚«‚ÍuŒ´”½“Š“ü“ú 13:00 ˆÈ~v‚ğŠJn‰Â”\“ú‚Ì‰ºŒÀ‚Æ‚·‚éB
+        #    i“ú•t‰ºŒÀ: max(run_date, raw_input_date)A“¯“úŠÔ‰ºŒÀ: 13:00j
+        # 2) “Á•Êw’èiƒZƒ‹/AIj‚ÌŠJn“ú‚ª‚ ‚éê‡‚àAŒ´”½“Š“ü“ú‚æ‚è‘O“|‚µ‚É‚Í‚µ‚È‚¢idate ‰ºŒÀ‚ğˆÛj
+        # 3) Œ´”½‚ª–³‚¢‚Æ‚«‚Í run_date
         if raw_input_date:
             effective_start_date = max(run_date, raw_input_date)
         else:
@@ -6901,7 +6906,7 @@ def build_task_queue_from_planning_df(
             )
             if raw_input_date and start_date_ov < raw_input_date:
                 logging.info(
-                    "é–‹å§‹æ—¥ä¸Šæ›¸ãã¯åŸåæŠ•å…¥æ—¥ã‚ˆã‚Šå‰å€’ã—ä¸å¯: ä¾é ¼NO=%s æŒ‡å®šé–‹å§‹æ—¥=%s åŸåæŠ•å…¥æ—¥=%s æ¡ç”¨é–‹å§‹æ—¥=%s",
+                    "ŠJn“úã‘‚«‚ÍŒ´”½“Š“ü“ú‚æ‚è‘O“|‚µ•s‰Â: ˆË—ŠNO=%s w’èŠJn“ú=%s Œ´”½“Š“ü“ú=%s Ì—pŠJn“ú=%s",
                     task_id,
                     start_date_ov,
                     raw_input_date,
@@ -6949,7 +6954,7 @@ def build_task_queue_from_planning_df(
                 "specified_due_date": specified_due,
                 "specified_due_override": specified_due_ov,
                 "due_basis_date": due_basis,
-                # ç´æœŸå¾Œã‚å€’ã—å†è©¦è¡Œã§ due_basis_date ã‚’å†…éƒ¨ +1 ã—ã¦ã‚‚ã€çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®å½“åˆ—ï¼ˆåˆ—åã¯äº’æ›ã§ã€Œè¨ˆç”»åŸºæº–ç´æœŸã€ï¼‰ã¯ã“ã®å€¤ã®ã¾ã¾
+                # ”[ŠúŒã‚ë“|‚µÄs‚Å due_basis_date ‚ğ“à•” +1 ‚µ‚Ä‚àAŒ‹‰Ê_ƒ^ƒXƒNˆê——‚Ì“–—ñi—ñ–¼‚ÍŒİŠ·‚ÅuŒv‰æŠî€”[Šúvj‚Í‚±‚Ì’l‚Ì‚Ü‚Ü
                 "due_basis_date_result_sheet": due_basis,
                 "due_source": due_source,
                 "due_source_rank": due_source_rank,
@@ -6991,7 +6996,7 @@ def build_task_queue_from_planning_df(
         planning_sheet_row_seq += 1
 
     logging.info(
-        "task_queue æ§‹ç¯‰å®Œäº†: total=%sï¼ˆé…å°ä¸è¦ã«ã‚ˆã‚Šã‚¹ã‚­ãƒƒãƒ— %s è¡Œï¼‰",
+        "task_queue \’zŠ®—¹: total=%si”z‘ä•s—v‚É‚æ‚èƒXƒLƒbƒv %s sj",
         len(task_queue),
         n_exclude_plan,
     )
@@ -7000,8 +7005,8 @@ def build_task_queue_from_planning_df(
 
 def _task_id_priority_key(task_id):
     """
-    ä¾é ¼NOã®åŒæ¡ä»¶ã‚¿ã‚¤ãƒ–ãƒ¬ãƒ¼ã‚¯ç”¨ã‚­ãƒ¼ã€‚
-    ä¾‹: Y3-24, Y3-34 ã®ã‚ˆã†ãªå ´åˆã¯ãƒã‚¤ãƒ•ãƒ³å¾ŒåŠã®æ•°å€¤ãŒå°ã•ã„æ–¹ã‚’å„ªå…ˆã€‚
+    ˆË—ŠNO‚Ì“¯ğŒƒ^ƒCƒuƒŒ[ƒN—pƒL[B
+    —á: Y3-24, Y3-34 ‚Ì‚æ‚¤‚Èê‡‚ÍƒnƒCƒtƒ“Œã”¼‚Ì”’l‚ª¬‚³‚¢•û‚ğ—DæB
     """
     s = str(task_id or "").strip()
     if not s:
@@ -7017,9 +7022,9 @@ def _task_id_priority_key(task_id):
 
 def _serial_dispatch_order_task_ids(task_queue) -> list:
     """
-    ä¾é ¼NOç›´åˆ—é…å°ã®å‡¦ç†é †ã€‚å„ä¾é ¼NOã«ã¤ã„ã¦ **é…å°è©¦è¡Œé †ç•ªã®æœ€å°å€¤** ãŒå°ã•ã„ä¾é ¼ã‚’å…ˆã«å®Œèµ°ã•ã›ã‚‹
-    ï¼ˆåŒä¸€ä¾é ¼å†…ã®è¤‡æ•°è¡Œã¯æœ€å°å¹…ã®è©¦è¡Œé †ã§ä»£è¡¨ï¼‰ã€‚ã‚¿ã‚¤ãƒ–ãƒ¬ãƒ¼ã‚¯ã¯è¨ˆç”»ã‚·ãƒ¼ãƒˆä¸Šã®å…ˆè¡Œè¡Œ
-    ï¼ˆplanning_sheet_row_seqï¼‰ã¨ä¾é ¼NOã‚­ãƒ¼ã€‚
+    ˆË—ŠNO’¼—ñ”z‘ä‚Ìˆ—‡BŠeˆË—ŠNO‚É‚Â‚¢‚Ä **”z‘äs‡”Ô‚ÌÅ¬’l** ‚ª¬‚³‚¢ˆË—Š‚ğæ‚ÉŠ®‘–‚³‚¹‚é
+    i“¯ˆêˆË—Š“à‚Ì•¡”s‚ÍÅ¬•‚Ìs‡‚Å‘ã•\jBƒ^ƒCƒuƒŒ[ƒN‚ÍŒv‰æƒV[ƒgã‚Ìæss
+    iplanning_sheet_row_seqj‚ÆˆË—ŠNOƒL[B
     """
     min_dto_by_tid: dict = {}
     first_seq_by_tid: dict = {}
@@ -7051,8 +7056,8 @@ def _serial_dispatch_order_task_ids(task_queue) -> list:
 
 def _excel_scalar_to_plan_string_cell(v):
     """
-    æ—¢å­˜ã‚·ãƒ¼ãƒˆï¼ˆread_excelï¼‰ç”±æ¥ã®ã‚¹ã‚«ãƒ©ãƒ¼ã‚’ã€é…å°è¨ˆç”» DataFrame ã®æ–‡å­—åˆ—åˆ—ï¼ˆStringDtypeï¼‰ã¸
-    ä»£å…¥ã§ãã‚‹ str ã«æ­£è¦åŒ–ã™ã‚‹ã€‚Excel ãŒæ•°å€¤ã¨ã—ã¦ä¿æŒã—ãŸå„ªå…ˆåº¦ 1 â†’ \"1\" ãªã©ã€‚
+    Šù‘¶ƒV[ƒgiread_excelj—R—ˆ‚ÌƒXƒJƒ‰[‚ğA”z‘äŒv‰æ DataFrame ‚Ì•¶š—ñ—ñiStringDtypej‚Ö
+    ‘ã“ü‚Å‚«‚é str ‚É³‹K‰»‚·‚éBExcel ‚ª”’l‚Æ‚µ‚Ä•Û‚µ‚½—Dæ“x 1 ¨ \"1\" ‚È‚ÇB
     """
     if v is None:
         return ""
@@ -7088,9 +7093,9 @@ def _excel_scalar_to_plan_string_cell(v):
 
 def _merge_plan_sheet_user_overrides(out_df):
     """
-    ãƒ–ãƒƒã‚¯å†…ã®ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ã«ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒå…¥åŠ›ã—ãŸä¸Šæ›¸ãåˆ—ã‚’ã€
-    æ®µéš1ã®æŠ½å‡ºçµæœã¸ (ä¾é ¼NO, å·¥ç¨‹å) å˜ä½ã§å¼•ãç¶™ãã€‚
-    ç©ºã®ã‚»ãƒ«ã¯ãƒãƒ¼ã‚¸ã—ãªã„ï¼ˆæ–°è¦æŠ½å‡ºå´ã®ç©ºã®ã¾ã¾ï¼‰ã€‚
+    ƒuƒbƒN“à‚Ìu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ív‚Éƒ†[ƒU[‚ª“ü—Í‚µ‚½ã‘‚«—ñ‚ğA
+    ’iŠK1‚Ì’ŠoŒ‹‰Ê‚Ö (ˆË—ŠNO, H’ö–¼) ’PˆÊ‚Åˆø‚«Œp‚®B
+    ‹ó‚ÌƒZƒ‹‚Íƒ}[ƒW‚µ‚È‚¢iV‹K’Šo‘¤‚Ì‹ó‚Ì‚Ü‚ÜjB
     """
     if out_df is None or out_df.empty:
         return out_df
@@ -7099,7 +7104,7 @@ def _merge_plan_sheet_user_overrides(out_df):
     try:
         df_old = pd.read_excel(TASKS_INPUT_WORKBOOK, sheet_name=PLAN_INPUT_SHEET_NAME)
     except Exception as e:
-        logging.info("æ®µéš1: æ—¢å­˜ã®é…å°ã‚·ãƒ¼ãƒˆã‚’èª­ã‚ãªã„ãŸã‚ä¸Šæ›¸ãç¶™æ‰¿ã‚’ã‚¹ã‚­ãƒƒãƒ— (%s)", e)
+        logging.info("’iŠK1: Šù‘¶‚Ì”z‘äƒV[ƒg‚ğ“Ç‚ß‚È‚¢‚½‚ßã‘‚«Œp³‚ğƒXƒLƒbƒv (%s)", e)
         return out_df
     df_old.columns = df_old.columns.str.strip()
     df_old = _align_dataframe_headers_to_canonical(
@@ -7149,22 +7154,22 @@ def _merge_plan_sheet_user_overrides(out_df):
 
     if merged_rows:
         logging.info(
-            "æ®µéš1: æ—¢å­˜ã‚·ãƒ¼ãƒˆã‹ã‚‰ä¸Šæ›¸ãåˆ—ã‚’ %s è¡Œã¸å¼•ãç¶™ãã¾ã—ãŸï¼ˆã‚­ãƒ¼: ä¾é ¼NO+å·¥ç¨‹åï¼‰ã€‚",
+            "’iŠK1: Šù‘¶ƒV[ƒg‚©‚çã‘‚«—ñ‚ğ %s s‚Öˆø‚«Œp‚¬‚Ü‚µ‚½iƒL[: ˆË—ŠNO+H’ö–¼jB",
             merged_rows,
         )
     return out_df
 
 
 # ---------------------------------------------------------------------------
-# é…å°ä¸è¦ï¼ˆ2ç³»çµ±ï¼‰
-#   (A) DataFrame ä¸Šã®ãƒ«ãƒ¼ãƒ« â€¦ åŒä¸€ä¾é ¼NOÃ—åŒä¸€æ©Ÿæ¢°ã§ã€Œåˆ†å‰²ã€è¡Œã« yesï¼ˆæ‰‹å…¥åŠ›ã¯ä¸Šæ›¸ãã—ãªã„ï¼‰
-#   (B) ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€â€¦ å·¥ç¨‹+æ©Ÿæ¢°ã”ã¨ã® C/D/E åˆ—ã€Gemini ã§ Dâ†’Eã€
-#       ä¿å­˜ãƒ­ãƒƒã‚¯æ™‚ã¯ xlwings ã§ A:E åŒæœŸâ†’Save ã®ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚ã‚Š
-#   ã„ãšã‚Œã‚‚ apply_exclude_rules_config_to_plan_df ã§è¨ˆç”» DataFrame ã«åæ˜ ã•ã‚Œã‚‹ã€‚
+# ”z‘ä•s—vi2Œn“j
+#   (A) DataFrame ã‚Ìƒ‹[ƒ‹ c “¯ˆêˆË—ŠNO~“¯ˆê‹@ŠB‚Åu•ªŠ„vs‚É yesiè“ü—Í‚Íã‘‚«‚µ‚È‚¢j
+#   (B) ƒ}ƒNƒƒuƒbƒNuİ’è_”z‘ä•s—vH’övc H’ö+‹@ŠB‚²‚Æ‚Ì C/D/E —ñAGemini ‚Å D¨EA
+#       •Û‘¶ƒƒbƒN‚Í xlwings ‚Å A:E “¯Šú¨Save ‚ÌƒtƒH[ƒ‹ƒoƒbƒN‚ ‚è
+#   ‚¢‚¸‚ê‚à apply_exclude_rules_config_to_plan_df ‚ÅŒv‰æ DataFrame ‚É”½‰f‚³‚ê‚éB
 # ---------------------------------------------------------------------------
 
 def _auto_exclude_cell_empty_for_autofill(v) -> bool:
-    """é…å°ä¸è¦ã‚»ãƒ«ãŒæœªå…¥åŠ›ã®ã¨ãã ã‘è‡ªå‹•ã§ yes ã‚’æ›¸ãè¾¼ã‚€ã€‚"""
+    """”z‘ä•s—vƒZƒ‹‚ª–¢“ü—Í‚Ì‚Æ‚«‚¾‚¯©“®‚Å yes ‚ğ‘‚«‚ŞB"""
     if v is None or (isinstance(v, float) and pd.isna(v)):
         return True
     if isinstance(v, str):
@@ -7174,7 +7179,7 @@ def _auto_exclude_cell_empty_for_autofill(v) -> bool:
 
 
 def _normalize_task_id_for_dup_grouping(raw) -> str:
-    """åŒä¸€ä¾é ¼NOã®ã‚°ãƒ«ãƒ¼ãƒ”ãƒ³ã‚°ç”¨ï¼ˆè¡¨è¨˜ã‚†ã‚Œãƒ»è‹±å­—ã®å¤§å°ã‚’å¯„ã›ã‚‹ï¼‰ã€‚"""
+    """“¯ˆêˆË—ŠNO‚ÌƒOƒ‹[ƒsƒ“ƒO—pi•\‹L‚ä‚êE‰pš‚Ì‘å¬‚ğŠñ‚¹‚éjB"""
     if raw is None or (isinstance(raw, float) and pd.isna(raw)):
         return ""
     if isinstance(raw, float) and raw == int(raw):
@@ -7188,19 +7193,19 @@ def _normalize_task_id_for_dup_grouping(raw) -> str:
 
 
 def _process_name_is_bunkatsu_for_auto_exclude(raw) -> bool:
-    """å·¥ç¨‹åãŒã€Œåˆ†å‰²ã€ï¼ˆç©ºç™½é™¤å»ãƒ»NFKC å¾Œï¼‰ã€‚"""
+    """H’ö–¼‚ªu•ªŠ„vi‹ó”’œ‹ENFKC ŒãjB"""
     t = unicodedata.normalize("NFKC", str(raw or "").strip())
-    t = re.sub(r"[\sã€€]+", "", t)
-    return t == "åˆ†å‰²"
+    t = re.sub(r"[\s@]+", "", t)
+    return t == "•ªŠ„"
 
 
 def _apply_auto_exclude_bunkatsu_duplicate_machine(
-    df: pd.DataFrame, log_prefix: str = "æ®µéš1"
+    df: pd.DataFrame, log_prefix: str = "’iŠK1"
 ) -> pd.DataFrame:
     """
-    åŒä¸€ä¾é ¼NOãŒ2è¡Œä»¥ä¸Šã‚ã‚Šã€ã‹ã¤ç©ºã§ãªã„åŒä¸€æ©Ÿæ¢°åãŒ2è¡Œä»¥ä¸Šã‚ã‚‹ã‚°ãƒ«ãƒ¼ãƒ—ã§ã¯ã€
-    å·¥ç¨‹åãŒã€Œåˆ†å‰²ã€ã®è¡Œã®ã€Œé…å°ä¸è¦ã€ã« yes ã‚’å…¥ã‚Œã‚‹ï¼ˆã‚»ãƒ«ãŒç©ºã®ã¨ãã®ã¿ï¼‰ã€‚
-    æ©Ÿæ¢°åã¯ _normalize_equipment_match_key ã§é‡è¤‡åˆ¤å®šã€‚
+    “¯ˆêˆË—ŠNO‚ª2sˆÈã‚ ‚èA‚©‚Â‹ó‚Å‚È‚¢“¯ˆê‹@ŠB–¼‚ª2sˆÈã‚ ‚éƒOƒ‹[ƒv‚Å‚ÍA
+    H’ö–¼‚ªu•ªŠ„v‚Ìs‚Ìu”z‘ä•s—vv‚É yes ‚ğ“ü‚ê‚éiƒZƒ‹‚ª‹ó‚Ì‚Æ‚«‚Ì‚İjB
+    ‹@ŠB–¼‚Í _normalize_equipment_match_key ‚Åd•¡”»’èB
     """
     if df is None or df.empty:
         return df
@@ -7210,7 +7215,7 @@ def _apply_auto_exclude_bunkatsu_duplicate_machine(
             return df
     if PLAN_COL_EXCLUDE_FROM_ASSIGNMENT not in df.columns:
         df[PLAN_COL_EXCLUDE_FROM_ASSIGNMENT] = ""
-    # read_excel ç­‰ã§ StringDtype ã«ãªã‚‹ã¨æ•°å€¤ãƒ»çœŸå½ã® .at ä»£å…¥ã§ TypeError ã«ãªã‚‹ãŸã‚ object ã«å¯„ã›ã‚‹
+    # read_excel “™‚Å StringDtype ‚É‚È‚é‚Æ”’lE^‹U‚Ì .at ‘ã“ü‚Å TypeError ‚É‚È‚é‚½‚ß object ‚ÉŠñ‚¹‚é
     df[PLAN_COL_EXCLUDE_FROM_ASSIGNMENT] = df[PLAN_COL_EXCLUDE_FROM_ASSIGNMENT].astype(object)
 
     by_tid = defaultdict(list)
@@ -7239,13 +7244,13 @@ def _apply_auto_exclude_bunkatsu_duplicate_machine(
                 df.at[i, PLAN_COL_EXCLUDE_FROM_ASSIGNMENT]
             ):
                 continue
-            # åˆ—ãŒ StringDtype ã®ã¨ã int ä»£å…¥ã§ TypeError ã«ãªã‚‹ãŸã‚æ–‡å­—åˆ—ã«ã™ã‚‹ï¼ˆ_plan_row_exclude_from_assignment ã¯ yes ã‚’çœŸã¨ã¿ãªã™ï¼‰
+            # —ñ‚ª StringDtype ‚Ì‚Æ‚« int ‘ã“ü‚Å TypeError ‚É‚È‚é‚½‚ß•¶š—ñ‚É‚·‚éi_plan_row_exclude_from_assignment ‚Í yes ‚ğ^‚Æ‚İ‚È‚·j
             df.at[i, PLAN_COL_EXCLUDE_FROM_ASSIGNMENT] = "yes"
             n_set += 1
 
     if n_set:
         logging.info(
-            "%s: åŒä¸€ä¾é ¼NOã‹ã¤åŒä¸€æ©Ÿæ¢°åãŒè¤‡æ•°è¡Œã‚ã‚‹ã‚°ãƒ«ãƒ¼ãƒ—ã§ã€å·¥ç¨‹åã€Œåˆ†å‰²ã€ã®è¡Œ %s ä»¶ã«ã€Œé…å°ä¸è¦ã€=yes ã‚’è‡ªå‹•è¨­å®šã—ã¾ã—ãŸã€‚",
+            "%s: “¯ˆêˆË—ŠNO‚©‚Â“¯ˆê‹@ŠB–¼‚ª•¡”s‚ ‚éƒOƒ‹[ƒv‚ÅAH’ö–¼u•ªŠ„v‚Ìs %s Œ‚Éu”z‘ä•s—vv=yes ‚ğ©“®İ’è‚µ‚Ü‚µ‚½B",
             log_prefix,
             n_set,
         )
@@ -7253,16 +7258,16 @@ def _apply_auto_exclude_bunkatsu_duplicate_machine(
 
 
 def _normalize_process_name_for_rule_match(raw) -> str:
-    """å·¥ç¨‹åã®ãƒ«ãƒ¼ãƒ«ç…§åˆï¼ˆNFKCãƒ»ç©ºç™½é™¤å»ï¼‰ã€‚"""
+    """H’ö–¼‚Ìƒ‹[ƒ‹Æ‡iNFKCE‹ó”’œ‹jB"""
     t = unicodedata.normalize("NFKC", str(raw or "").strip())
-    t = re.sub(r"[\sã€€]+", "", t)
+    t = re.sub(r"[\s@]+", "", t)
     return t
 
 
 def _exclude_rules_sheet_header_map(ws) -> dict:
-    """1è¡Œç›®è¦‹å‡ºã— â†’ åˆ—ç•ªå·(1å§‹ã¾ã‚Š)ã€‚
-    openpyxl ã¯æ–°è¦ã‚·ãƒ¼ãƒˆç›´å¾Œã« max_column ãŒ 0 ã®ã¾ã¾ã®ã“ã¨ãŒã‚ã‚Šã€è¦‹å‡ºã—ãŒèª­ã‚ãšä¿å­˜å‰ã« return ã—ã¦ã—ã¾ã†ã€‚
-    ãã®ãŸã‚æœ€ä½ Aï½E åˆ—ã¯å¿…ãšèµ°æŸ»ã™ã‚‹ã€‚
+    """1s–ÚŒ©o‚µ ¨ —ñ”Ô†(1n‚Ü‚è)B
+    openpyxl ‚ÍV‹KƒV[ƒg’¼Œã‚É max_column ‚ª 0 ‚Ì‚Ü‚Ü‚Ì‚±‚Æ‚ª‚ ‚èAŒ©o‚µ‚ª“Ç‚ß‚¸•Û‘¶‘O‚É return ‚µ‚Ä‚µ‚Ü‚¤B
+    ‚»‚Ì‚½‚ßÅ’á A`E —ñ‚Í•K‚¸‘–¸‚·‚éB
     """
     h = {}
     last_col = max(5, int(ws.max_column or 0))
@@ -7275,8 +7280,8 @@ def _exclude_rules_sheet_header_map(ws) -> dict:
 
 def _ensure_exclude_rules_sheet_headers_and_columns(ws, log_prefix: str) -> tuple[int, int, int, int, int]:
     """
-    1è¡Œç›®ã«æ¨™æº–è¦‹å‡ºã—ï¼ˆå·¥ç¨‹åãƒ»æ©Ÿæ¢°åãƒ»é…å°ä¸è¦ãƒ»é…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯ãƒ»ãƒ­ã‚¸ãƒƒã‚¯å¼ï¼‰ãŒã‚ã‚‹ã“ã¨ã‚’ä¿è¨¼ã™ã‚‹ã€‚
-    æ‰‹å‹•ã§ç©ºã‚·ãƒ¼ãƒˆã ã‘è¿½åŠ ã—ãŸå ´åˆã¯ A1:E1 ãŒç©ºã®ãŸã‚ã€ã“ã“ã§æ›¸ãè¾¼ã‚“ã§åˆ—ç•ªå·ã‚’è¿”ã™ã€‚
+    1s–Ú‚É•W€Œ©o‚µiH’ö–¼E‹@ŠB–¼E”z‘ä•s—vE”z‘ä•s”\ƒƒWƒbƒNEƒƒWƒbƒN®j‚ª‚ ‚é‚±‚Æ‚ğ•ÛØ‚·‚éB
+    è“®‚Å‹óƒV[ƒg‚¾‚¯’Ç‰Á‚µ‚½ê‡‚Í A1:E1 ‚ª‹ó‚Ì‚½‚ßA‚±‚±‚Å‘‚«‚ñ‚Å—ñ”Ô†‚ğ•Ô‚·B
     """
     headers = (
         EXCLUDE_RULE_COL_PROCESS,
@@ -7291,7 +7296,7 @@ def _ensure_exclude_rules_sheet_headers_and_columns(ws, log_prefix: str) -> tupl
     for i, name in enumerate(headers, start=1):
         ws.cell(row=1, column=i, value=name)
     logging.info(
-        "%s: ã€Œ%sã€ã®è¦‹å‡ºã—ãŒç„¡ã„ï¼åˆ—åãŒä¸€è‡´ã—ãªã„ãŸã‚ã€æ¨™æº–ã®1è¡Œç›®ï¼ˆA1:E1ï¼‰ã‚’è¨­å®šã—ã¾ã—ãŸã€‚",
+        "%s: u%sv‚ÌŒ©o‚µ‚ª–³‚¢^—ñ–¼‚ªˆê’v‚µ‚È‚¢‚½‚ßA•W€‚Ì1s–ÚiA1:E1j‚ğİ’è‚µ‚Ü‚µ‚½B",
         log_prefix,
         EXCLUDE_RULES_SHEET_NAME,
     )
@@ -7308,9 +7313,9 @@ def _compact_exclude_rules_data_rows(
     log_prefix: str,
 ) -> tuple[int, int]:
     """
-    2 è¡Œç›®ä»¥é™ã‹ã‚‰ã€Œç©ºè¡Œã€ã‚’é™¤ã„ã¦ä¸Šã«è©°ã‚ã‚‹ï¼ˆå…ƒã®ä¸¦ã³ã¯ç¶­æŒã€ã‚½ãƒ¼ãƒˆã—ãªã„ï¼‰ã€‚
-    ç©ºè¡Œ: å·¥ç¨‹åãŒç©ºã€ã¾ãŸã¯ Aï½E ç›¸å½“ã®5ã‚»ãƒ«ãŒã™ã¹ã¦ç©ºç™½ç›¸å½“ã€‚
-    Returns (æ®‹ã—ãŸãƒ‡ãƒ¼ã‚¿è¡Œæ•°, å‰Šé™¤ã—ãŸè¡Œæ•°).
+    2 s–ÚˆÈ~‚©‚çu‹ósv‚ğœ‚¢‚Äã‚É‹l‚ß‚éiŒ³‚Ì•À‚Ñ‚ÍˆÛAƒ\[ƒg‚µ‚È‚¢jB
+    ‹ós: H’ö–¼‚ª‹óA‚Ü‚½‚Í A`E ‘Š“–‚Ì5ƒZƒ‹‚ª‚·‚×‚Ä‹ó”’‘Š“–B
+    Returns (c‚µ‚½ƒf[ƒ^s”, íœ‚µ‚½s”).
     """
     max_r = int(ws.max_row or 1)
     if max_r < 2:
@@ -7340,7 +7345,7 @@ def _compact_exclude_rules_data_rows(
         ws.delete_rows(2, old_body)
         if old_body > 0:
             logging.info(
-                "%s: ã€Œ%sã€ã¯æœ‰åŠ¹ãªãƒ‡ãƒ¼ã‚¿è¡ŒãŒç„¡ã‹ã£ãŸãŸã‚ã€ãƒ‡ãƒ¼ã‚¿è¡Œ %s è¡Œã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚",
+                "%s: u%sv‚Í—LŒø‚Èƒf[ƒ^s‚ª–³‚©‚Á‚½‚½‚ßAƒf[ƒ^s %s s‚ğíœ‚µ‚Ü‚µ‚½B",
                 log_prefix,
                 EXCLUDE_RULES_SHEET_NAME,
                 old_body,
@@ -7357,7 +7362,7 @@ def _compact_exclude_rules_data_rows(
 
     if n_skip:
         logging.info(
-            "%s: ã€Œ%sã€ã‹ã‚‰ç©ºè¡Œã‚’ %s ä»¶å‰Šé™¤ã—ã€%s è¡Œã«è©°ã‚ã¾ã—ãŸï¼ˆä¸¦ã³é †ã¯ç¶­æŒï¼‰ã€‚",
+            "%s: u%sv‚©‚ç‹ós‚ğ %s Œíœ‚µA%s s‚É‹l‚ß‚Ü‚µ‚½i•À‚Ñ‡‚ÍˆÛjB",
             log_prefix,
             EXCLUDE_RULES_SHEET_NAME,
             n_skip,
@@ -7376,7 +7381,7 @@ def _cell_is_blank_for_rule(v) -> bool:
 
 
 def _exclude_rule_c_column_is_yes(v) -> bool:
-    """Cåˆ—ã€Œé…å°ä¸è¦ã€ãŒã‚ªãƒ³ï¼ˆã“ã®å·¥ç¨‹+æ©Ÿæ¢°ãƒ‘ã‚¿ãƒ¼ãƒ³ã¯å¸¸ã«é…å°ä¸è¦ï¼‰ã€‚"""
+    """C—ñu”z‘ä•s—vv‚ªƒIƒ“i‚±‚ÌH’ö+‹@ŠBƒpƒ^[ƒ“‚Íí‚É”z‘ä•s—vjB"""
     if v is None or (isinstance(v, float) and pd.isna(v)):
         return False
     if isinstance(v, bool):
@@ -7387,7 +7392,7 @@ def _exclude_rule_c_column_is_yes(v) -> bool:
         except (TypeError, ValueError):
             pass
     s = unicodedata.normalize("NFKC", str(v).strip()).lower()
-    return s in ("yes", "true", "1", "y", "ã¯ã„", "â—‹", "ã€‡", "â—")
+    return s in ("yes", "true", "1", "y", "‚Í‚¢", "›", "Z", "œ")
 
 
 def _task_row_matches_exclude_rule_target(
@@ -7404,7 +7409,7 @@ def _task_row_matches_exclude_rule_target(
 
 
 def _collect_process_machine_pairs_for_exclude_rules(df_src: pd.DataFrame) -> list[tuple[str, str]]:
-    """åŠ å·¥è¨ˆç”»DATA ã‹ã‚‰ã€æ®µéš1ã¨åŒã˜æŠ½å‡ºæ¡ä»¶ã§ (å·¥ç¨‹å, æ©Ÿæ¢°å) ã®ä¸€è¦§ï¼ˆé‡è¤‡é™¤ããƒ»é †åºç¶­æŒï¼‰ã€‚"""
+    """‰ÁHŒv‰æDATA ‚©‚çA’iŠK1‚Æ“¯‚¶’ŠoğŒ‚Å (H’ö–¼, ‹@ŠB–¼) ‚Ìˆê——id•¡œ‚­E‡˜ˆÛjB"""
     out: list[tuple[str, str]] = []
     seen: set[tuple[str, str]] = set()
     for _, row in df_src.iterrows():
@@ -7450,7 +7455,7 @@ def _parse_exclude_rule_json_cell(raw) -> dict | None:
 
 
 def _validate_exclude_rule_parsed_dict(o: object) -> dict | None:
-    """Geminiï¼Eåˆ—ã‹ã‚‰å¾—ãŸ dict ãŒé…å°ä¸è¦ãƒ«ãƒ¼ãƒ«ã¨ã—ã¦æœ‰åŠ¹ã‹ã€‚"""
+    """Gemini^E—ñ‚©‚ç“¾‚½ dict ‚ª”z‘ä•s—vƒ‹[ƒ‹‚Æ‚µ‚Ä—LŒø‚©B"""
     if not isinstance(o, dict):
         return None
     if int(o.get("version") or 0) != 1:
@@ -7462,7 +7467,7 @@ def _validate_exclude_rule_parsed_dict(o: object) -> dict | None:
 
 
 def _exclude_rule_de_cache_key(stripped_blob: str) -> str:
-    """ã€Œé…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯ã€æ–‡è¨€ï¼ˆæ­£è¦åŒ–æ¸ˆã¿ï¼‰ã«å¯¾ã™ã‚‹ ai_remarks_cache ç”¨ã‚­ãƒ¼ã€‚"""
+    """u”z‘ä•s”\ƒƒWƒbƒNv•¶Œ¾i³‹K‰»Ï‚İj‚É‘Î‚·‚é ai_remarks_cache —pƒL[B"""
     h = hashlib.sha256(stripped_blob.encode("utf-8")).hexdigest()
     return f"{AI_CACHE_KEY_PREFIX_EXCLUDE_RULE_DE}:{h}"
 
@@ -7495,22 +7500,22 @@ def _cache_put_exclude_rule_de_parsed(
 def _exclude_rule_logic_gemini_schema_instructions() -> str:
     allowed = ", ".join(sorted(EXCLUDE_RULE_ALLOWED_COLUMNS))
     return (
-        "ã€ã‚¹ã‚­ãƒ¼ãƒ version ã¯å¿…ãš 1ã€‘\n"
-        "1) å¸¸ã«é…å°ä¸è¦ï¼ˆèª¬æ˜ãŒæ¡ä»¶ãªã—ã§å¤–ã™æ„å‘³ï¼‰ã®ã¨ã:\n"
+        "yƒXƒL[ƒ} version ‚Í•K‚¸ 1z\n"
+        "1) í‚É”z‘ä•s—vià–¾‚ªğŒ‚È‚µ‚ÅŠO‚·ˆÓ–¡j‚Ì‚Æ‚«:\n"
         '{"version":1,"mode":"always_exclude"}\n\n'
-        "2) åˆ—ã®æ¡ä»¶ã§é…å°ä¸è¦ã¨ã™ã‚‹ã¨ã:\n"
-        '{"version":1,"mode":"conditions","require_all": true ã¾ãŸã¯ false,"conditions":[ ... ]}\n\n'
-        "conditions ã®å„è¦ç´ :\n"
-        "- {\"column\":\"åˆ—å\",\"op\":\"empty\"} â€¦ ã‚»ãƒ«ãŒç©º\n"
-        "- {\"column\":\"åˆ—å\",\"op\":\"not_empty\"}\n"
-        "- {\"column\":\"åˆ—å\",\"op\":\"eq\",\"value\":\"æ–‡å­—åˆ—\"} / ne / contains / not_contains / regexï¼ˆæ­£è¦è¡¨ç¾ï¼‰\n"
-        "- {\"column\":\"åˆ—å\",\"op\":\"gt\"|\"gte\"|\"lt\"|\"lte\",\"value\":æ•°å€¤} â€¦ æ•°å€¤æ¯”è¼ƒï¼ˆåˆ—ã¯æ•°ã¨ã—ã¦è§£é‡ˆï¼‰\n\n"
-        f"ã€ä½¿ç”¨å¯èƒ½ãªåˆ—åã®ã¿ã€‘ï¼ˆã“ã‚Œä»¥å¤–ã¯ä½¿ã‚ãªã„ï¼‰:\n{allowed}\n"
+        "2) —ñ‚ÌğŒ‚Å”z‘ä•s—v‚Æ‚·‚é‚Æ‚«:\n"
+        '{"version":1,"mode":"conditions","require_all": true ‚Ü‚½‚Í false,"conditions":[ ... ]}\n\n'
+        "conditions ‚ÌŠe—v‘f:\n"
+        "- {\"column\":\"—ñ–¼\",\"op\":\"empty\"} c ƒZƒ‹‚ª‹ó\n"
+        "- {\"column\":\"—ñ–¼\",\"op\":\"not_empty\"}\n"
+        "- {\"column\":\"—ñ–¼\",\"op\":\"eq\",\"value\":\"•¶š—ñ\"} / ne / contains / not_contains / regexi³‹K•\Œ»j\n"
+        "- {\"column\":\"—ñ–¼\",\"op\":\"gt\"|\"gte\"|\"lt\"|\"lte\",\"value\":”’l} c ”’l”äŠri—ñ‚Í”‚Æ‚µ‚Ä‰ğßj\n\n"
+        f"yg—p‰Â”\‚È—ñ–¼‚Ì‚İzi‚±‚êˆÈŠO‚Íg‚í‚È‚¢j:\n{allowed}\n"
     )
 
 
 def _parse_exclude_rule_json_array_response(text: str) -> list | None:
-    """ãƒ¢ãƒ‡ãƒ«å¿œç­”ã‹ã‚‰ JSON é…åˆ—ã‚’å–ã‚Šå‡ºã™ï¼ˆ```json ãƒ•ã‚§ãƒ³ã‚¹ä»˜ãå¯ï¼‰ã€‚"""
+    """ƒ‚ƒfƒ‹‰“š‚©‚ç JSON ”z—ñ‚ğæ‚èo‚·i```json ƒtƒFƒ“ƒX•t‚«‰ÂjB"""
     s = (text or "").strip()
     if not s:
         return None
@@ -7540,7 +7545,7 @@ def _evaluate_exclude_rule_one_condition(cond: dict, row) -> bool:
         return False
     col = cond.get("column")
     if col not in EXCLUDE_RULE_ALLOWED_COLUMNS:
-        logging.warning("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: æœªå¯¾å¿œã®åˆ—åã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸ: %s", col)
+        logging.warning("”z‘ä•s—vƒ‹[ƒ‹: –¢‘Î‰‚Ì—ñ–¼‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½: %s", col)
         return False
     op = str(cond.get("op") or "").strip().lower()
     val = _row_scalar_for_exclude_rule(row, col)
@@ -7592,7 +7597,7 @@ def _evaluate_exclude_rule_one_condition(cond: dict, row) -> bool:
 
 def evaluate_exclude_rule_json_for_row(rule: dict, row) -> bool:
     """
-    Eåˆ—ã® JSONï¼ˆversion=1ï¼‰ã‚’è©•ä¾¡ã—ã€å½“è©²ã‚¿ã‚¹ã‚¯è¡Œã‚’é…å°ä¸è¦ã¨ã™ã¹ããªã‚‰ Trueã€‚
+    E—ñ‚Ì JSONiversion=1j‚ğ•]‰¿‚µA“–ŠYƒ^ƒXƒNs‚ğ”z‘ä•s—v‚Æ‚·‚×‚«‚È‚ç TrueB
     mode: always_exclude | conditions
     """
     if not isinstance(rule, dict) or int(rule.get("version") or 0) != 1:
@@ -7617,8 +7622,8 @@ def evaluate_exclude_rule_json_for_row(rule: dict, row) -> bool:
 
 def _ai_compile_exclude_rule_logic_to_json(natural_language: str) -> dict | None:
     """
-    Dåˆ—ã®è‡ªç„¶è¨€èªã‚’ Gemini ã§ JSON ãƒ«ãƒ¼ãƒ«ã«å¤‰æ›ã€‚å¤±æ•—æ™‚ Noneã€‚
-    json/ai_remarks_cache.json ã« TTL ä»˜ãã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥ï¼ˆåŒä¸€æ–‡è¨€ãªã‚‰ API ã‚’å‘¼ã°ãªã„ï¼‰ã€‚
+    D—ñ‚Ì©‘RŒ¾Œê‚ğ Gemini ‚Å JSON ƒ‹[ƒ‹‚É•ÏŠ·B¸”s NoneB
+    json/ai_remarks_cache.json ‚É TTL •t‚«‚ÅƒLƒƒƒbƒVƒ…i“¯ˆê•¶Œ¾‚È‚ç API ‚ğŒÄ‚Î‚È‚¢jB
     """
     blob = str(natural_language or "").strip()
     if not blob:
@@ -7626,24 +7631,24 @@ def _ai_compile_exclude_rule_logic_to_json(natural_language: str) -> dict | None
     ai_cache = load_ai_cache()
     hit = _cache_get_exclude_rule_de_parsed(ai_cache, blob)
     if hit is not None:
-        logging.info("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: AIã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆï¼ˆé…å°ä¸èƒ½ãƒ­ã‚¸ãƒƒã‚¯â†’JSONï¼‰")
+        logging.info("”z‘ä•s—vƒ‹[ƒ‹: AIƒLƒƒƒbƒVƒ…ƒqƒbƒgi”z‘ä•s”\ƒƒWƒbƒN¨JSONj")
         return hit
     if not API_KEY:
         return None
     schema = _exclude_rule_logic_gemini_schema_instructions()
     prompt = (
-        "ã‚ãªãŸã¯å·¥å ´ã®é…å°ã‚·ã‚¹ãƒ†ãƒ ç”¨ã§ã™ã€‚æ¬¡ã®ã€Œé…å°ä¸èƒ½ã®èª¬æ˜ã€ã‚’ã€ã‚¿ã‚¹ã‚¯1è¡Œã‚’åˆ¤å®šã™ã‚‹æ©Ÿæ¢°å¯èª­ãƒ«ãƒ¼ãƒ«ã«å¤‰æ›ã—ã¦ãã ã•ã„ã€‚\n\n"
-        "ã€å‡ºåŠ›ã€‘å…ˆé ­ãŒ { ã§çµ‚ã‚ã‚ŠãŒ } ã® JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1ã¤ã®ã¿ï¼ˆèª¬æ˜ãƒ»ãƒãƒ¼ã‚¯ãƒ€ã‚¦ãƒ³ç¦æ­¢ï¼‰ã€‚\n\n"
+        "‚ ‚È‚½‚ÍHê‚Ì”z‘äƒVƒXƒeƒ€—p‚Å‚·BŸ‚Ìu”z‘ä•s”\‚Ìà–¾v‚ğAƒ^ƒXƒN1s‚ğ”»’è‚·‚é‹@ŠB‰Â“Çƒ‹[ƒ‹‚É•ÏŠ·‚µ‚Ä‚­‚¾‚³‚¢B\n\n"
+        "yo—Ízæ“ª‚ª { ‚ÅI‚í‚è‚ª } ‚Ì JSON ƒIƒuƒWƒFƒNƒg1‚Â‚Ì‚İià–¾Eƒ}[ƒNƒ_ƒEƒ“‹Ö~jB\n\n"
         f"{schema}\n"
-        f"ã€èª¬æ˜æ–‡ã€‘\n{blob}\n"
+        f"yà–¾•¶z\n{blob}\n"
     )
     try:
         ppath = os.path.join(log_dir, "ai_exclude_rule_logic_last_prompt.txt")
         with open(ppath, "w", encoding="utf-8", newline="\n") as pf:
             pf.write(prompt)
-        logging.info("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆ â†’ %s", ppath)
+        logging.info("”z‘ä•s—vƒ‹[ƒ‹: ƒvƒƒ“ƒvƒg ¨ %s", ppath)
     except OSError as ex:
-        logging.warning("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆä¿å­˜å¤±æ•—: %s", ex)
+        logging.warning("”z‘ä•s—vƒ‹[ƒ‹: ƒvƒƒ“ƒvƒg•Û‘¶¸”s: %s", ex)
     try:
         client = genai.Client(api_key=API_KEY)
         res = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
@@ -7661,14 +7666,14 @@ def _ai_compile_exclude_rule_logic_to_json(natural_language: str) -> dict | None
             save_ai_cache(ai_cache)
         return parsed
     except Exception as e:
-        logging.warning("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: Gemini å¤‰æ›å¤±æ•—: %s", e)
+        logging.warning("”z‘ä•s—vƒ‹[ƒ‹: Gemini •ÏŠ·¸”s: %s", e)
         return None
 
 
 def _ai_compile_exclude_rule_logics_batch(blobs: list[str]) -> list[dict | None]:
     """
-    è¤‡æ•°ã® D åˆ—æ–‡è¨€ã‚’ 1 å›ã® Gemini å‘¼ã³å‡ºã—ã§ JSON åŒ–ã€‚å¤±æ•—ãƒ»è¦ç´ æ•°ä¸ä¸€è‡´æ™‚ã¯ 1 ä»¶ãšã¤ã«ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã€‚
-    json/ai_remarks_cache.json ã«ãƒ’ãƒƒãƒˆã—ãŸæ–‡è¨€ã¯ API ã‚’å‘¼ã°ãªã„ã€‚
+    •¡”‚Ì D —ñ•¶Œ¾‚ğ 1 ‰ñ‚Ì Gemini ŒÄ‚Ño‚µ‚Å JSON ‰»B¸”sE—v‘f”•sˆê’v‚Í 1 Œ‚¸‚Â‚ÉƒtƒH[ƒ‹ƒoƒbƒNB
+    json/ai_remarks_cache.json ‚Éƒqƒbƒg‚µ‚½•¶Œ¾‚Í API ‚ğŒÄ‚Î‚È‚¢B
     """
     n = len(blobs)
     if n == 0:
@@ -7687,7 +7692,7 @@ def _ai_compile_exclude_rule_logics_batch(blobs: list[str]) -> list[dict | None]
             pend_b.append(s)
     if not pend_b:
         logging.info(
-            "é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: AIã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®ã¿ã§ Dâ†’E ãƒãƒƒãƒ %s ä»¶ã‚’å®Œçµï¼ˆAPI å‘¼ã³å‡ºã—ãªã—ï¼‰ã€‚",
+            "”z‘ä•s—vƒ‹[ƒ‹: AIƒLƒƒƒbƒVƒ…‚Ì‚İ‚Å D¨E ƒoƒbƒ` %s Œ‚ğŠ®Œ‹iAPI ŒÄ‚Ño‚µ‚È‚µjB",
             n,
         )
         return out
@@ -7701,19 +7706,19 @@ def _ai_compile_exclude_rule_logics_batch(blobs: list[str]) -> list[dict | None]
     schema = _exclude_rule_logic_gemini_schema_instructions()
     numbered = "\n".join(f"[{i + 1}] {str(b).strip()}" for i, b in enumerate(pend_b))
     prompt = (
-        "ã‚ãªãŸã¯å·¥å ´ã®é…å°ã‚·ã‚¹ãƒ†ãƒ ç”¨ã§ã™ã€‚ä»¥ä¸‹ã® N å€‹ã®ã€Œé…å°ä¸èƒ½ã®èª¬æ˜ã€ã‚’ã€ä¸ãˆãŸé †åºã§ãã‚Œãã‚Œ JSON ãƒ«ãƒ¼ãƒ«ã«å¤‰æ›ã—ã¦ãã ã•ã„ã€‚\n\n"
-        f"ã€å‡ºåŠ›ã€‘JSON é…åˆ—ã®ã¿ã€‚å…ˆé ­ãŒ [ ã§çµ‚ã‚ã‚ŠãŒ ] ã€‚è¦ç´ æ•°ã¯å¿…ãš {m}ï¼ˆMarkdownãƒ»èª¬æ˜ç¦æ­¢ï¼‰ã€‚\n"
-        f"é…åˆ—ã®å…ˆé ­è¦ç´ ãŒ [1]ã€2 ç•ªç›®ãŒ [2] â€¦ ã«å¯¾å¿œã—ã¾ã™ã€‚\n\n"
+        "‚ ‚È‚½‚ÍHê‚Ì”z‘äƒVƒXƒeƒ€—p‚Å‚·BˆÈ‰º‚Ì N ŒÂ‚Ìu”z‘ä•s”\‚Ìà–¾v‚ğA—^‚¦‚½‡˜‚Å‚»‚ê‚¼‚ê JSON ƒ‹[ƒ‹‚É•ÏŠ·‚µ‚Ä‚­‚¾‚³‚¢B\n\n"
+        f"yo—ÍzJSON ”z—ñ‚Ì‚İBæ“ª‚ª [ ‚ÅI‚í‚è‚ª ] B—v‘f”‚Í•K‚¸ {m}iMarkdownEà–¾‹Ö~jB\n"
+        f"”z—ñ‚Ìæ“ª—v‘f‚ª [1]A2 ”Ô–Ú‚ª [2] c ‚É‘Î‰‚µ‚Ü‚·B\n\n"
         f"{schema}\n"
-        f"ã€èª¬æ˜æ–‡ã€‘\n{numbered}\n"
+        f"yà–¾•¶z\n{numbered}\n"
     )
     try:
         ppath = os.path.join(log_dir, "ai_exclude_rule_logic_batch_last_prompt.txt")
         with open(ppath, "w", encoding="utf-8", newline="\n") as pf:
             pf.write(prompt)
-        logging.info("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«(ãƒãƒƒãƒ): ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆ â†’ %s", ppath)
+        logging.info("”z‘ä•s—vƒ‹[ƒ‹(ƒoƒbƒ`): ƒvƒƒ“ƒvƒg ¨ %s", ppath)
     except OSError as ex:
-        logging.warning("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«(ãƒãƒƒãƒ): ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆä¿å­˜å¤±æ•—: %s", ex)
+        logging.warning("”z‘ä•s—vƒ‹[ƒ‹(ƒoƒbƒ`): ƒvƒƒ“ƒvƒg•Û‘¶¸”s: %s", ex)
     try:
         client = genai.Client(api_key=API_KEY)
         res = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
@@ -7728,7 +7733,7 @@ def _ai_compile_exclude_rule_logics_batch(blobs: list[str]) -> list[dict | None]
         arr = _parse_exclude_rule_json_array_response(raw)
         if not isinstance(arr, list) or len(arr) != m:
             logging.warning(
-                "é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: ãƒãƒƒãƒå¿œç­”ãŒä¸æ­£ï¼ˆè¦ç´ æ•° %sã€æœŸå¾… %sï¼‰ã€‚1 ä»¶ãšã¤å†è©¦è¡Œã—ã¾ã™ã€‚",
+                "”z‘ä•s—vƒ‹[ƒ‹: ƒoƒbƒ`‰“š‚ª•s³i—v‘f” %sAŠú‘Ò %sjB1 Œ‚¸‚ÂÄs‚µ‚Ü‚·B",
                 len(arr) if isinstance(arr, list) else None,
                 m,
             )
@@ -7746,7 +7751,7 @@ def _ai_compile_exclude_rule_logics_batch(blobs: list[str]) -> list[dict | None]
             save_ai_cache(ai_cache)
         return out
     except Exception as e:
-        logging.warning("é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: ãƒãƒƒãƒ Gemini å¤±æ•—ã€å˜ç™ºã«ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯: %s", e)
+        logging.warning("”z‘ä•s—vƒ‹[ƒ‹: ƒoƒbƒ` Gemini ¸”sA’P”­‚ÉƒtƒH[ƒ‹ƒoƒbƒN: %s", e)
         for j, idx in enumerate(pend_i):
             out[idx] = _ai_compile_exclude_rule_logic_to_json(pend_b[j])
         return out
@@ -7760,10 +7765,10 @@ def _log_exclude_rules_sheet_debug(
     exc: BaseException | None = None,
 ) -> None:
     """
-    ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ã®ä¿å®ˆå‡¦ç†ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒ­ã‚°ã€‚
+    uİ’è_”z‘ä•s—vH’öv‚Ì•Ûçˆ—‚ÌƒCƒxƒ“ƒgƒƒOB
 
-    è¨­å®šã‚·ãƒ¼ãƒˆå‡¦ç†ã®æˆå¦ã‚’ log/exclude_rules_sheet_debug.txt ã«è¿½è¨˜ã—ã€execution_log ã«ã‚‚ã‚¿ã‚°ä»˜ãã§å‡ºåŠ›ã™ã‚‹ã€‚
-    event ä¾‹: START, OPEN_OK, OPEN_RETRY, OPEN_FAIL, HEADER_FIX, SYNC_ROWS, OPENPYXL_SAVE_OK, OPENPYXL_SAVE_FAIL,
+    İ’èƒV[ƒgˆ—‚Ì¬”Û‚ğ log/exclude_rules_sheet_debug.txt ‚É’Ç‹L‚µAexecution_log ‚É‚àƒ^ƒO•t‚«‚Åo—Í‚·‚éB
+    event —á: START, OPEN_OK, OPEN_RETRY, OPEN_FAIL, HEADER_FIX, SYNC_ROWS, OPENPYXL_SAVE_OK, OPENPYXL_SAVE_FAIL,
     OPENPYXL_SAVE_SKIPPED_EXCLUDE_RULES_POLICY, OPENPYXL_RETRY_WAIT, OPENPYXL_VBA_FALLBACK, MATRIX_TSV_WRITTEN,
     XLWINGS_UNAVAILABLE, XLWINGS_ATTACH_FAIL, XLWINGS_SYNC_SKIP, XLWINGS_SYNC_OK, XLWINGS_SYNC_FAIL,
     E_SIDECAR_WRITTEN, E_SIDECAR_APPLIED, FALLBACK_FAIL,
@@ -7787,9 +7792,9 @@ def _log_exclude_rules_sheet_debug(
         with open(exclude_rules_sheet_debug_log_path, "a", encoding="utf-8", newline="\n") as df:
             df.write(block)
     except OSError as wex:
-        logging.warning("exclude_rules_sheet_debug.txt ã¸æ›¸ã‘ã¾ã›ã‚“: %s", wex)
+        logging.warning("exclude_rules_sheet_debug.txt ‚Ö‘‚¯‚Ü‚¹‚ñ: %s", wex)
 
-    tag = "[è¨­å®š_é…å°ä¸è¦å·¥ç¨‹]"
+    tag = "[İ’è_”z‘ä•s—vH’ö]"
     msg = f"{tag} {event} | {log_prefix} | {summary}"
     if details:
         msg += f" | {details}"
@@ -7832,7 +7837,7 @@ def _log_exclude_rules_sheet_debug(
 
 
 def _xlwings_paths_equivalent(disk_path: str, book_fullname: str) -> bool:
-    """ãƒ‡ã‚£ã‚¹ã‚¯ãƒ‘ã‚¹ã¨ xlwings Book.full_name ãŒåŒä¸€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡ã™ã‹ï¼ˆè¡¨è¨˜ã‚†ã‚Œã‚’å¤šå°‘å¸åï¼‰ã€‚"""
+    """ƒfƒBƒXƒNƒpƒX‚Æ xlwings Book.full_name ‚ª“¯ˆêƒtƒ@ƒCƒ‹‚ğw‚·‚©i•\‹L‚ä‚ê‚ğ‘½­‹zûjB"""
     try:
         fn = str(book_fullname).strip()
     except Exception:
@@ -7878,7 +7883,7 @@ def _xlwings_book_matches_path(book, disk_path: str) -> bool:
 
 
 def _xlwings_find_book_on_running_instances(abs_path: str):
-    """èµ·å‹•ä¸­ã® Excel ã‹ã‚‰ãƒ‘ã‚¹ä¸€è‡´ã™ã‚‹ xlwings Book ã‚’è¿”ã™ã€‚ç„¡ã‘ã‚Œã° Noneã€‚"""
+    """‹N“®’†‚Ì Excel ‚©‚çƒpƒXˆê’v‚·‚é xlwings Book ‚ğ•Ô‚·B–³‚¯‚ê‚Î NoneB"""
     try:
         import xlwings as xw
     except ImportError:
@@ -7901,7 +7906,7 @@ def _xlwings_find_book_on_running_instances(abs_path: str):
 
 
 def _xlwings_try_open_in_running_apps(abs_path: str):
-    """æ—¢å­˜ã® Excel.App ã§ Workbooks.Open ã‚’è©¦ã™ã€‚æˆåŠŸæ™‚ Bookã€å¤±æ•—æ™‚ Noneã€‚"""
+    """Šù‘¶‚Ì Excel.App ‚Å Workbooks.Open ‚ğ‚·B¬Œ÷ BookA¸”s NoneB"""
     try:
         import xlwings as xw
     except ImportError:
@@ -7916,7 +7921,7 @@ def _xlwings_try_open_in_running_apps(abs_path: str):
 
 
 def _xlwings_release_book_after_mutation(xw_book, info: dict, mutation_ok: bool) -> None:
-    """å°‚ç”¨èµ·å‹•ã—ãŸ Excel ã¯çµ‚äº†ã™ã‚‹ã€‚å®Ÿè¡Œä¸­ Excel ã§ã ã‘ Open ã—ãŸãƒ–ãƒƒã‚¯ã¯å¤±æ•—æ™‚ã®ã¿é–‰ã˜ã‚‹ã€‚"""
+    """ê—p‹N“®‚µ‚½ Excel ‚ÍI—¹‚·‚éBÀs’† Excel ‚Å‚¾‚¯ Open ‚µ‚½ƒuƒbƒN‚Í¸”s‚Ì‚İ•Â‚¶‚éB"""
     if xw_book is None:
         return
     mode = info.get("mode", "keep")
@@ -7940,9 +7945,9 @@ def _xlwings_release_book_after_mutation(xw_book, info: dict, mutation_ok: bool)
 
 def _xlwings_attach_open_macro_workbook(macro_wb_path: str, log_prefix: str):
     """
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã‚’ xlwings ã§å–å¾—ã™ã‚‹ï¼ˆæœ¬ç•ªãƒ»ãƒ†ã‚¹ãƒˆå…±é€šï¼‰ã€‚
-    æˆ»ã‚Šå€¤: (Book, release_info) / å¤±æ•—æ™‚ Noneã€‚
-    release_info: mode ãŒ keep ã¾ãŸã¯ quit_excelã€opened_wb_here ãŒ boolã€‚
+    ƒ}ƒNƒƒuƒbƒN‚ğ xlwings ‚Åæ“¾‚·‚éi–{”ÔEƒeƒXƒg‹¤’ÊjB
+    –ß‚è’l: (Book, release_info) / ¸”s NoneB
+    release_info: mode ‚ª keep ‚Ü‚½‚Í quit_excelAopened_wb_here ‚ª boolB
     """
     try:
         import xlwings as xw  # noqa: F401
@@ -7950,7 +7955,7 @@ def _xlwings_attach_open_macro_workbook(macro_wb_path: str, log_prefix: str):
         _log_exclude_rules_sheet_debug(
             "XLWINGS_UNAVAILABLE",
             log_prefix,
-            "xlwings ãŒ import ã§ãã¾ã›ã‚“ï¼ˆpip install xlwings ã‚’ç¢ºèªï¼‰ã€‚",
+            "xlwings ‚ª import ‚Å‚«‚Ü‚¹‚ñipip install xlwings ‚ğŠm”FjB",
         )
         return None
 
@@ -7978,7 +7983,7 @@ def _xlwings_attach_open_macro_workbook(macro_wb_path: str, log_prefix: str):
         _log_exclude_rules_sheet_debug(
             "XLWINGS_ATTACH_FAIL",
             log_prefix,
-            "xlwings ã§ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚",
+            "xlwings ‚ÅƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B",
             details=f"path={abs_path}",
             exc=ex,
         )
@@ -7992,13 +7997,13 @@ def _xlwings_attach_workbook_for_tests(
     allow_dispatch_open: bool = False,
 ):
     """
-    æ¤œè¨¼ã‚¹ã‚¯ãƒªãƒ—ãƒˆç”¨: èµ·å‹•ä¸­ãƒ–ãƒƒã‚¯ã‚’å„ªå…ˆã—ã€å¿…è¦ãªã‚‰è¡¨ç¤ºä»˜ã Excel ã§é–‹ãã€‚
-    æˆ»ã‚Šå€¤: (Book, info, èª¬æ˜æ–‡å­—åˆ—) ã¾ãŸã¯ Noneã€‚
+    ŒŸØƒXƒNƒŠƒvƒg—p: ‹N“®’†ƒuƒbƒN‚ğ—Dæ‚µA•K—v‚È‚ç•\¦•t‚« Excel ‚ÅŠJ‚­B
+    –ß‚è’l: (Book, info, à–¾•¶š—ñ) ‚Ü‚½‚Í NoneB
     """
     abs_path = os.path.abspath(book_path)
     book = _xlwings_find_book_on_running_instances(abs_path)
     if book is not None:
-        return book, {"mode": "keep", "opened_wb_here": False}, f"{label}:æ—¢å­˜ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹"
+        return book, {"mode": "keep", "opened_wb_here": False}, f"{label}:Šù‘¶ƒCƒ“ƒXƒ^ƒ“ƒX"
     if not allow_dispatch_open:
         return None
     try:
@@ -8016,7 +8021,7 @@ def _xlwings_attach_workbook_for_tests(
 
 
 def _xlwings_app_save_perf_state_push(app):
-    """VBA å´ã®ã‚¹ãƒ—ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒ¼ãƒªãƒ³ã‚°ã¨ç«¶åˆã—ã«ããã™ã‚‹ãŸã‚ã€åŒæœŸãƒ»ä¿å­˜ã®çŸ­æ™‚é–“ã ã‘ Excel ã‚’é™ã‹ã«ã™ã‚‹ã€‚"""
+    """VBA ‘¤‚ÌƒXƒvƒ‰ƒbƒVƒ…ƒ|[ƒŠƒ“ƒO‚Æ‹£‡‚µ‚É‚­‚­‚·‚é‚½‚ßA“¯ŠúE•Û‘¶‚Ì’ZŠÔ‚¾‚¯ Excel ‚ğÃ‚©‚É‚·‚éB"""
     snap = {}
     for attr in ("screen_updating", "calculation", "enable_events"):
         try:
@@ -8058,10 +8063,10 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
     wb_path: str, ws_oxl, log_prefix: str
 ) -> bool:
     """
-    openpyxl ã§ä¿å­˜ã§ããªã„ã¨ãã€xlwings ã§ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€A:E ã‚’ãƒ¡ãƒ¢ãƒªä¸Šã®å€¤ã§ä¸Šæ›¸ãã— Saveã€‚
+    openpyxl ‚Å•Û‘¶‚Å‚«‚È‚¢‚Æ‚«Axlwings ‚Åuİ’è_”z‘ä•s—vH’övA:E ‚ğƒƒ‚ƒŠã‚Ì’l‚Åã‘‚«‚µ SaveB
 
-    è¡¨ç¤ºä¸­ã‚·ãƒ¼ãƒˆã«å¯¾ã™ã‚‹ä¸€æ‹¬ .value ã ã‘ã ã¨ã€ã‚¹ãƒ—ãƒ©ãƒƒã‚·ãƒ¥ï¼‹ãƒãƒ¼ãƒªãƒ³ã‚°ï¼ˆD3=trueï¼‰ä¸‹ã§
-    Range ä»£å…¥ãŒæ•°åˆ†ã‹ã‹ã‚‹è¨ˆæ¸¬ãŒã‚ã‚Šå¾—ã‚‹ã€‚åŒæœŸä¸­ã®ã¿ã‚·ãƒ¼ãƒˆã‚’ä¸€æ™‚éè¡¨ç¤ºã«ã— api.Value2 ã§æ›¸ãã€‚
+    •\¦’†ƒV[ƒg‚É‘Î‚·‚éˆêŠ‡ .value ‚¾‚¯‚¾‚ÆAƒXƒvƒ‰ƒbƒVƒ…{ƒ|[ƒŠƒ“ƒOiD3=truej‰º‚Å
+    Range ‘ã“ü‚ª”•ª‚©‚©‚éŒv‘ª‚ª‚ ‚è“¾‚éB“¯Šú’†‚Ì‚İƒV[ƒg‚ğˆê”ñ•\¦‚É‚µ api.Value2 ‚Å‘‚­B
     """
     global _exclude_rules_effective_read_path
 
@@ -8070,7 +8075,7 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
         _log_exclude_rules_sheet_debug(
             "XLWINGS_SYNC_SKIP",
             log_prefix,
-            "xlwings ã§ãƒ–ãƒƒã‚¯ã«æ¥ç¶šã§ããš A:E åŒæœŸã‚’ã‚¹ã‚­ãƒƒãƒ—ã€‚",
+            "xlwings ‚ÅƒuƒbƒN‚ÉÚ‘±‚Å‚«‚¸ A:E “¯Šú‚ğƒXƒLƒbƒvB",
             details=f"path={wb_path}",
         )
         return False
@@ -8082,15 +8087,15 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
             xw_book.app.display_alerts = False
         except Exception:
             pass
-        # å…¨ã‚·ãƒ¼ãƒˆåã‚’åˆ—æŒ™ã™ã‚‹ã¨ã‚·ãƒ¼ãƒˆæ•°åˆ†ã® COM å¾€å¾©ã«ãªã‚Šã€D3=true æ™‚ã¯ VBA ãƒãƒ¼ãƒªãƒ³ã‚°ã¨ç«¶åˆã—ã¦
-        # 1 ã‚·ãƒ¼ãƒˆæ•°ç§’ã€œåæ•°ç§’ã‹ã‹ã‚‹ã“ã¨ãŒã‚ã‚‹ï¼ˆè¨ˆæ¸¬ã§ 40 ã‚·ãƒ¼ãƒˆâ‰ˆ213sï¼‰ã€‚åå‰ã§ç›´æ¥è§£æ±ºã™ã‚‹ã€‚
+        # ‘SƒV[ƒg–¼‚ğ—ñ‹“‚·‚é‚ÆƒV[ƒg”•ª‚Ì COM ‰•œ‚É‚È‚èAD3=true ‚Í VBA ƒ|[ƒŠƒ“ƒO‚Æ‹£‡‚µ‚Ä
+        # 1 ƒV[ƒg”•b?\”•b‚©‚©‚é‚±‚Æ‚ª‚ ‚éiŒv‘ª‚Å 40 ƒV[ƒg?213sjB–¼‘O‚Å’¼Ú‰ğŒˆ‚·‚éB
         try:
             sht = xw_book.sheets[EXCLUDE_RULES_SHEET_NAME]
         except Exception:
             _log_exclude_rules_sheet_debug(
                 "XLWINGS_SYNC_SKIP",
                 log_prefix,
-                f"xlwings å´ã«ã‚·ãƒ¼ãƒˆã€Œ{EXCLUDE_RULES_SHEET_NAME}ã€ãŒã‚ã‚Šã¾ã›ã‚“ã€‚",
+                f"xlwings ‘¤‚ÉƒV[ƒgu{EXCLUDE_RULES_SHEET_NAME}v‚ª‚ ‚è‚Ü‚¹‚ñB",
                 details=f"path={wb_path}",
             )
             return False
@@ -8106,7 +8111,7 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
         try:
             try:
                 if int(sht.api.Visible) == -1:  # xlSheetVisible
-                    sht.api.Visible = 0  # xlSheetHiddenï¼ˆåŒæœŸä¸­ã ã‘ã€‚å†æç”»ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æ›´æ–°è² è·ã‚’æŠ‘ãˆã‚‹ï¼‰
+                    sht.api.Visible = 0  # xlSheetHiddeni“¯Šú’†‚¾‚¯BÄ•`‰æEƒEƒBƒ“ƒhƒEXV•‰‰×‚ğ—}‚¦‚éj
                     hid_sheet_for_write = True
             except Exception:
                 pass
@@ -8128,11 +8133,11 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
         _log_exclude_rules_sheet_debug(
             "XLWINGS_SYNC_OK",
             log_prefix,
-            "xlwings çµŒç”±ã§è¨­å®šã‚·ãƒ¼ãƒˆ Aã€œE ã‚’åŒæœŸã—ãƒ–ãƒƒã‚¯ã‚’ä¿å­˜ã—ã¾ã—ãŸã€‚",
+            "xlwings Œo—R‚Åİ’èƒV[ƒg A?E ‚ğ“¯Šú‚µƒuƒbƒN‚ğ•Û‘¶‚µ‚Ü‚µ‚½B",
             details=f"path={wb_path} rows={max_r}",
         )
         logging.info(
-            "%s: è¨­å®šã‚·ãƒ¼ãƒˆã‚’ xlwings ã§ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã«ä¿å­˜ã—ã¾ã—ãŸï¼ˆAã€œEï¼‰ã€‚",
+            "%s: İ’èƒV[ƒg‚ğ xlwings ‚Åƒ}ƒNƒƒuƒbƒN‚É•Û‘¶‚µ‚Ü‚µ‚½iA?EjB",
             log_prefix,
         )
         return True
@@ -8140,7 +8145,7 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
         _log_exclude_rules_sheet_debug(
             "XLWINGS_SYNC_FAIL",
             log_prefix,
-            "xlwings ã§ã® A:E åŒæœŸã¾ãŸã¯ Save ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
+            "xlwings ‚Å‚Ì A:E “¯Šú‚Ü‚½‚Í Save ‚É¸”s‚µ‚Ü‚µ‚½B",
             details=f"path={wb_path}",
             exc=ex,
         )
@@ -8149,17 +8154,17 @@ def _xlwings_sync_exclude_rules_sheet_from_openpyxl(
         _xlwings_release_book_after_mutation(xw_book, info, ok)
 
 
-# è¨­å®šã‚·ãƒ¼ãƒˆã®åˆ—ç¯„å›²ï¼ˆAã€œEï¼‰ã€‚xlwings åŒæœŸãƒ»VBA è¡Œåˆ— TSV å‡ºåŠ›ã§ã‚‚ä½¿ç”¨ã€‚
+# İ’èƒV[ƒg‚Ì—ñ”ÍˆÍiA?EjBxlwings “¯ŠúEVBA s—ñ TSV o—Í‚Å‚àg—pB
 EXCLUDE_RULES_SHEET_COM_SYNC_MAX_COL = 5
 EXCLUDE_RULES_MATRIX_CLIP_MAX_COL = 5
 
 
 def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> bool:
     """
-    è¨­å®šã‚·ãƒ¼ãƒˆã®ãƒ‡ã‚£ã‚¹ã‚¯åæ˜ ã€‚æ—¢å®šã¯ xlwings ã§ A:E åŒæœŸâ†’Saveï¼ˆEXCLUDE_RULES_TRY_OPENPYXL_SAVE=1 ã®ã¨ãã®ã¿ openpyxl save ã‚’è©¦è¡Œï¼‰ã€‚
-    ä¿å­˜ã§ããªã„ã¨ãã¯ log ã«è¡Œåˆ— TSV ã‚’å‡ºã—ã€VBAã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_Aã‹ã‚‰E_TSVã‹ã‚‰åæ˜ ã€ã§åæ˜ ã™ã‚‹ã€‚
+    İ’èƒV[ƒg‚ÌƒfƒBƒXƒN”½‰fBŠù’è‚Í xlwings ‚Å A:E “¯Šú¨SaveiEXCLUDE_RULES_TRY_OPENPYXL_SAVE=1 ‚Ì‚Æ‚«‚Ì‚İ openpyxl save ‚ğsjB
+    •Û‘¶‚Å‚«‚È‚¢‚Æ‚«‚Í log ‚És—ñ TSV ‚ğo‚µAVBAuİ’è_”z‘ä•s—vH’ö_A‚©‚çE_TSV‚©‚ç”½‰fv‚Å”½‰f‚·‚éB
 
-    _wb â€¦ ç·¨é›†æ¸ˆã¿ openpyxl ãƒ–ãƒƒã‚¯ï¼ˆopenpyxl çµŒè·¯æ™‚ã®ã¿ save ã«ä½¿ç”¨ï¼‰ã€‚
+    _wb c •ÒWÏ‚İ openpyxl ƒuƒbƒNiopenpyxl Œo˜H‚Ì‚İ save ‚Ég—pjB
     """
     global _exclude_rules_effective_read_path
 
@@ -8170,7 +8175,7 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
             _log_exclude_rules_sheet_debug(
                 "OPENPYXL_SAVE_FAIL",
                 log_prefix,
-                f"openpyxl ã§ã® .xlsm ä¿å­˜ã«å¤±æ•—ã—ã¾ã—ãŸ {which}ï¼ˆExcel ã§é–‹ãã£ã±ãªã—ãƒ»ãƒ­ãƒƒã‚¯ã®å¯èƒ½æ€§ï¼‰ã€‚",
+                f"openpyxl ‚Å‚Ì .xlsm •Û‘¶‚É¸”s‚µ‚Ü‚µ‚½ {which}iExcel ‚ÅŠJ‚«‚Á‚Ï‚È‚µEƒƒbƒN‚Ì‰Â”\«jB",
                 details=f"path={wb_path}",
                 exc=ex,
             )
@@ -8180,11 +8185,11 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
         _log_exclude_rules_sheet_debug(
             "OPENPYXL_SAVE_OK",
             log_prefix,
-            "openpyxl ã§è¨­å®šã‚·ãƒ¼ãƒˆã‚’å«ã‚€ãƒ–ãƒƒã‚¯ã‚’ä¿å­˜ã—ã¾ã—ãŸï¼ˆAã€œEï¼‰ã€‚",
+            "openpyxl ‚Åİ’èƒV[ƒg‚ğŠÜ‚ŞƒuƒbƒN‚ğ•Û‘¶‚µ‚Ü‚µ‚½iA?EjB",
             details=f"path={wb_path} {which}",
         )
         logging.info(
-            "%s: è¨­å®šã‚·ãƒ¼ãƒˆã‚’ openpyxl ã§ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã«ä¿å­˜ã—ã¾ã—ãŸã€‚%s",
+            "%s: İ’èƒV[ƒg‚ğ openpyxl ‚Åƒ}ƒNƒƒuƒbƒN‚É•Û‘¶‚µ‚Ü‚µ‚½B%s",
             log_prefix,
             which,
         )
@@ -8195,16 +8200,16 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
         _log_exclude_rules_sheet_debug(
             "OPENPYXL_SAVE_SKIPPED_EXCLUDE_RULES_POLICY",
             log_prefix,
-            "è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã®ä¿å­˜ã§ã¯ openpyxl save ã‚’è©¦è¡Œã—ã¾ã›ã‚“ï¼ˆxlwings åŒæœŸã‚’å…ˆè¡Œã€‚å†è©¦è¡Œã™ã‚‹å ´åˆã¯ EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1ï¼‰ã€‚",
+            "İ’è_”z‘ä•s—vH’ö‚Ì•Û‘¶‚Å‚Í openpyxl save ‚ğs‚µ‚Ü‚¹‚ñixlwings “¯Šú‚ğæsBÄs‚·‚éê‡‚Í EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1jB",
             details=f"path={wb_path}",
         )
         logging.info(
-            "%s: è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã¯ openpyxl ã‚’è©¦ã•ãš xlwings åŒæœŸâ†’Save ã‚’è©¦ã¿ã¾ã™ï¼ˆä¸å¯ãªã‚‰ VBA ç”¨è¡Œåˆ— TSVï¼‰ã€‚",
+            "%s: İ’è_”z‘ä•s—vH’ö‚Í openpyxl ‚ğ‚³‚¸ xlwings “¯Šú¨Save ‚ğ‚İ‚Ü‚·i•s‰Â‚È‚ç VBA —ps—ñ TSVjB",
             log_prefix,
         )
     elif not _workbook_should_skip_openpyxl_io(wb_path):
         logging.info(
-            "%s: è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã¯ openpyxl ã§ä¿å­˜ã—ã¾ã™ï¼ˆä¸å¯ã®ã¨ãã¯ xlwings åŒæœŸâ†’Saveã€ãã‚Œã‚‚ä¸å¯ãªã‚‰ VBA ç”¨è¡Œåˆ— TSVï¼‰ã€‚",
+            "%s: İ’è_”z‘ä•s—vH’ö‚Í openpyxl ‚Å•Û‘¶‚µ‚Ü‚·i•s‰Â‚Ì‚Æ‚«‚Í xlwings “¯Šú¨SaveA‚»‚ê‚à•s‰Â‚È‚ç VBA —ps—ñ TSVjB",
             log_prefix,
         )
         labels = ("(1/4)", "(2/4)", "(3/4)", "(4/4)")
@@ -8213,7 +8218,7 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
                 _log_exclude_rules_sheet_debug(
                     "OPENPYXL_RETRY_WAIT",
                     log_prefix,
-                    f"openpyxl å†ä¿å­˜ã¾ã§ 2 ç§’å¾…ã¡ã¾ã™ {label}ã€‚",
+                    f"openpyxl Ä•Û‘¶‚Ü‚Å 2 •b‘Ò‚¿‚Ü‚· {label}B",
                     details=f"path={wb_path}",
                 )
                 time_module.sleep(2.0)
@@ -8224,11 +8229,11 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
         _log_exclude_rules_sheet_debug(
             "OPENPYXL_SAVE_SKIPPED_INCOMPATIBLE_SHEET",
             log_prefix,
-            f"ãƒ–ãƒƒã‚¯ã«ã€Œ{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}ã€ãŒã‚ã‚‹ãŸã‚ openpyxl ã§ã®ä¿å­˜ã‚’è©¦ã¿ã¾ã›ã‚“ã€‚",
+            f"ƒuƒbƒN‚Éu{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}v‚ª‚ ‚é‚½‚ß openpyxl ‚Å‚Ì•Û‘¶‚ğ‚İ‚Ü‚¹‚ñB",
             details=f"path={wb_path}",
         )
         logging.info(
-            "%s: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ openpyxl save ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã€xlwings ã¾ãŸã¯è¡Œåˆ— TSV ã«åˆ‡ã‚Šæ›¿ãˆã¾ã™ã€‚",
+            "%s: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß openpyxl save ‚ğƒXƒLƒbƒv‚µAxlwings ‚Ü‚½‚Ís—ñ TSV ‚ÉØ‚è‘Ö‚¦‚Ü‚·B",
             log_prefix,
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
         )
@@ -8241,8 +8246,8 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
 
     if _write_exclude_rules_matrix_vba_tsv(wb_path, ws, log_prefix):
         logging.warning(
-            "%s: è¨­å®šã‚·ãƒ¼ãƒˆã‚’ log\\%s ã«å‡ºåŠ›ã—ã¾ã—ãŸã€‚"
-            " Excel ã§ãƒã‚¯ãƒ­ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_Aã‹ã‚‰E_TSVã‹ã‚‰åæ˜ ã€ã‚’å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚",
+            "%s: İ’èƒV[ƒg‚ğ log\\%s ‚Éo—Í‚µ‚Ü‚µ‚½B"
+            " Excel ‚Åƒ}ƒNƒuİ’è_”z‘ä•s—vH’ö_A‚©‚çE_TSV‚©‚ç”½‰fv‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B",
             log_prefix,
             EXCLUDE_RULES_MATRIX_VBA_FILENAME,
         )
@@ -8250,7 +8255,7 @@ def _persist_exclude_rules_workbook(_wb, wb_path: str, ws, log_prefix: str) -> b
     _log_exclude_rules_sheet_debug(
         "OPENPYXL_VBA_FALLBACK",
         log_prefix,
-        "openpyxl ä¿å­˜ã«å¤±æ•—ã—ãŸãŸã‚ VBA ç”¨è¡Œåˆ— TSV ã‚’å‡ºåŠ›ã—ã¾ã—ãŸï¼ˆãƒ–ãƒƒã‚¯ã¯ Excel ä¸Šã§æ‰‹å‹•åæ˜ ãŒå¿…è¦ãªå ´åˆãŒã‚ã‚Šã¾ã™ï¼‰ã€‚",
+        "openpyxl •Û‘¶‚É¸”s‚µ‚½‚½‚ß VBA —ps—ñ TSV ‚ğo—Í‚µ‚Ü‚µ‚½iƒuƒbƒN‚Í Excel ã‚Åè“®”½‰f‚ª•K—v‚Èê‡‚ª‚ ‚è‚Ü‚·jB",
         details=f"path={wb_path}",
     )
     return False
@@ -8286,7 +8291,7 @@ def _serialize_cell_for_matrix_tsv(val) -> str:
 def _write_exclude_rules_matrix_vba_tsv(
     wb_path: str, ws, log_prefix: str
 ) -> bool:
-    """VBA ç”¨: è¨­å®šã‚·ãƒ¼ãƒˆ 1 è¡Œç›®ã€œ max_row ã® Aã€œE ã‚’ Base64(UTF-8) ä»˜ã TSV ã§å‡ºåŠ›ã™ã‚‹ã€‚"""
+    """VBA —p: İ’èƒV[ƒg 1 s–Ú? max_row ‚Ì A?E ‚ğ Base64(UTF-8) •t‚« TSV ‚Åo—Í‚·‚éB"""
     max_r = max(1, int(ws.max_row or 1))
     lines = [
         "v1",
@@ -8309,19 +8314,19 @@ def _write_exclude_rules_matrix_vba_tsv(
         _log_exclude_rules_sheet_debug(
             "MATRIX_TSV_WRITTEN",
             log_prefix,
-            "è¨­å®šã‚·ãƒ¼ãƒˆ Aã€œE ã‚’ VBA åæ˜ ç”¨ TSV ã«æ›¸ãå‡ºã—ã¾ã—ãŸï¼ˆopenpyxl ä¿å­˜ä¸å¯æ™‚ï¼‰ã€‚",
+            "İ’èƒV[ƒg A?E ‚ğ VBA ”½‰f—p TSV ‚É‘‚«o‚µ‚Ü‚µ‚½iopenpyxl •Û‘¶•s‰ÂjB",
             details=f"path={path} rows={max_r}",
         )
         return True
     except OSError as ex:
-        logging.warning("%s: è¡Œåˆ— VBA ç”¨ TSV ã‚’æ›¸ã‘ã¾ã›ã‚“: %s", log_prefix, ex)
+        logging.warning("%s: s—ñ VBA —p TSV ‚ğ‘‚¯‚Ü‚¹‚ñ: %s", log_prefix, ex)
         return False
 
 
 def _build_exclude_rules_list_from_openpyxl_ws(
     ws, c_proc: int, c_mach: int, c_flag: int, c_e: int
 ) -> list[dict]:
-    """openpyxl ä¸Šã®è¨­å®šã‚·ãƒ¼ãƒˆã‹ã‚‰ _load_exclude_rules_from_workbook ã¨åŒå½¢ã®ãƒªã‚¹ãƒˆã‚’æ§‹ç¯‰ã€‚"""
+    """openpyxl ã‚Ìİ’èƒV[ƒg‚©‚ç _load_exclude_rules_from_workbook ‚Æ“¯Œ`‚ÌƒŠƒXƒg‚ğ\’zB"""
     rules: list[dict] = []
     max_r = int(ws.max_row or 1)
     for r in range(2, max_r + 1):
@@ -8380,7 +8385,7 @@ def _clear_exclude_rules_e_apply_files() -> None:
 def _write_exclude_rules_e_vba_tsv_from_cells(
     wb_path: str, c_e: int, cells: dict[str, str], log_prefix: str
 ) -> None:
-    """VBA ç”¨: è¡Œç•ªå·ã¨ Base64(UTF-8) ã‚»ãƒ«æ–‡å­—åˆ—ã® TSVã€‚"""
+    """VBA —p: s”Ô†‚Æ Base64(UTF-8) ƒZƒ‹•¶š—ñ‚Ì TSVB"""
     lines = [
         "v1",
         "workbook\t" + os.path.abspath(wb_path),
@@ -8400,19 +8405,19 @@ def _write_exclude_rules_e_vba_tsv_from_cells(
         _log_exclude_rules_sheet_debug(
             "E_VBA_TSV_WRITTEN",
             log_prefix,
-            "E åˆ—ã‚’ VBA åæ˜ ç”¨ TSV ã«æ›¸ãå‡ºã—ã¾ã—ãŸï¼ˆä¿å­˜å¤±æ•—æ™‚ã®ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ç”¨ï¼‰ã€‚",
+            "E —ñ‚ğ VBA ”½‰f—p TSV ‚É‘‚«o‚µ‚Ü‚µ‚½i•Û‘¶¸”s‚ÌƒtƒH[ƒ‹ƒoƒbƒN—pjB",
             details=f"path={path_tsv} cells={len(cells)}",
         )
     except OSError as ex:
-        logging.warning("%s: E åˆ— VBA ç”¨ TSV ã‚’æ›¸ã‘ã¾ã›ã‚“: %s", log_prefix, ex)
+        logging.warning("%s: E —ñ VBA —p TSV ‚ğ‘‚¯‚Ü‚¹‚ñ: %s", log_prefix, ex)
 
 
 def _write_exclude_rules_e_apply_artifacts(
     wb_path: str, ws, c_e: int, log_prefix: str
 ) -> None:
     """
-    E åˆ—ï¼ˆéç©ºï¼‰ã‚’ JSON ã‚µã‚¤ãƒ‰ã‚«ãƒ¼ãƒ‰ã¨ VBA ç”¨ TSV ã«æ›¸ãã€‚ç©ºãªã‚‰ä¸¡ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‰Šé™¤ã€‚
-    Python æ¬¡å›èµ·å‹•æ™‚ã® E å¾©å…ƒç”¨ JSON ã¨ã€ãƒã‚¯ãƒ­ã‹ã‚‰ã® E æ›¸è¾¼ã¿ç”¨ TSVã€‚
+    E —ñi”ñ‹ój‚ğ JSON ƒTƒCƒhƒJ[ƒh‚Æ VBA —p TSV ‚É‘‚­B‹ó‚È‚ç—¼ƒtƒ@ƒCƒ‹‚ğíœB
+    Python Ÿ‰ñ‹N“®‚Ì E •œŒ³—p JSON ‚ÆAƒ}ƒNƒ‚©‚ç‚Ì E ‘‚İ—p TSVB
     """
     cells: dict[str, str] = {}
     max_r = int(ws.max_row or 1)
@@ -8440,12 +8445,12 @@ def _write_exclude_rules_e_apply_artifacts(
         with open(path_sc, "w", encoding="utf-8", newline="\n") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
     except OSError as ex:
-        logging.warning("%s: E åˆ— JSON ã‚’æ›¸ã‘ã¾ã›ã‚“: %s", log_prefix, ex)
+        logging.warning("%s: E —ñ JSON ‚ğ‘‚¯‚Ü‚¹‚ñ: %s", log_prefix, ex)
     _write_exclude_rules_e_vba_tsv_from_cells(wb_path, c_e, cells, log_prefix)
     _log_exclude_rules_sheet_debug(
         "E_APPLY_FILES_WRITTEN",
         log_prefix,
-        "E åˆ—ã‚’ JSON ã¨ VBA ç”¨ TSV ã«æ›¸ãå‡ºã—ã¾ã—ãŸï¼ˆãƒã‚¯ãƒ­ã§ E åˆ—ã‚’åæ˜ å¾Œã€ãƒ•ã‚¡ã‚¤ãƒ«å‰Šé™¤ï¼‰ã€‚",
+        "E —ñ‚ğ JSON ‚Æ VBA —p TSV ‚É‘‚«o‚µ‚Ü‚µ‚½iƒ}ƒNƒ‚Å E —ñ‚ğ”½‰fŒãAƒtƒ@ƒCƒ‹íœjB",
         details=f"cells={len(cells)}",
     )
 
@@ -8454,8 +8459,8 @@ def _try_apply_pending_exclude_rules_e_column(
     wb_path: str, ws, c_e: int, log_prefix: str
 ) -> int:
     """
-    å‰å›ä¿å­˜ã«å¤±æ•—ã—ãŸã¨ãæ›¸ãå‡ºã—ãŸ JSON ã‹ã‚‰ E åˆ—ã‚’å¾©å…ƒã™ã‚‹ã€‚
-    ãƒ–ãƒƒã‚¯ãƒ‘ã‚¹ãŒä¸€è‡´ã—ãªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„ã€‚é©ç”¨å¾Œã¯ã‚µã‚¤ãƒ‰ã‚«ãƒ¼ãƒ‰ã‚’å‰Šé™¤ã™ã‚‹ã€‚
+    ‘O‰ñ•Û‘¶‚É¸”s‚µ‚½‚Æ‚«‘‚«o‚µ‚½ JSON ‚©‚ç E —ñ‚ğ•œŒ³‚·‚éB
+    ƒuƒbƒNƒpƒX‚ªˆê’v‚µ‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢B“K—pŒã‚ÍƒTƒCƒhƒJ[ƒh‚ğíœ‚·‚éB
     """
     path_sc = _exclude_rules_e_sidecar_path()
     if not os.path.isfile(path_sc):
@@ -8499,11 +8504,11 @@ def _try_apply_pending_exclude_rules_e_column(
         _log_exclude_rules_sheet_debug(
             "E_SIDECAR_APPLIED",
             log_prefix,
-            f"æœªä¿å­˜ã ã£ãŸ E åˆ—ã‚’ã‚µã‚¤ãƒ‰ã‚«ãƒ¼ãƒ‰ã‹ã‚‰ {n} ã‚»ãƒ«å¾©å…ƒã—ã¾ã—ãŸã€‚",
+            f"–¢•Û‘¶‚¾‚Á‚½ E —ñ‚ğƒTƒCƒhƒJ[ƒh‚©‚ç {n} ƒZƒ‹•œŒ³‚µ‚Ü‚µ‚½B",
             details=path_sc,
         )
         logging.info(
-            "%s: %s ã®å†…å®¹ã‚’ã‚·ãƒ¼ãƒˆã®ãƒ­ã‚¸ãƒƒã‚¯å¼åˆ—ã¸é©ç”¨ã—ã¾ã—ãŸï¼ˆç¶šã‘ã¦ä¿å­˜ã‚’è©¦ã¿ã¾ã™ï¼‰ã€‚",
+            "%s: %s ‚Ì“à—e‚ğƒV[ƒg‚ÌƒƒWƒbƒN®—ñ‚Ö“K—p‚µ‚Ü‚µ‚½i‘±‚¯‚Ä•Û‘¶‚ğ‚İ‚Ü‚·jB",
             log_prefix,
             path_sc,
         )
@@ -8514,8 +8519,8 @@ def _read_exclude_rules_d_cells_data_only_for_rows(
     wb_path: str, rows: list[int], c_d: int
 ) -> dict[int, object]:
     """
-    D åˆ—ãŒæ•°å¼ã®ã¨ãã€openpyxl ã®é€šå¸¸èª­è¾¼ã§ã¯ '=...' ã—ã‹å–ã‚Œãªã„ã€‚
-    data_only=True ã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥å€¤ã‚’èª­ã‚€ï¼ˆExcel ãŒä¸€åº¦ã§ã‚‚ä¿å­˜ãƒ»è¨ˆç®—æ¸ˆã¿ã®ãƒ–ãƒƒã‚¯ã§æœ‰åŠ¹ï¼‰ã€‚
+    D —ñ‚ª”®‚Ì‚Æ‚«Aopenpyxl ‚Ì’Êí“Ç‚Å‚Í '=...' ‚µ‚©æ‚ê‚È‚¢B
+    data_only=True ‚ÅƒLƒƒƒbƒVƒ…’l‚ğ“Ç‚ŞiExcel ‚ªˆê“x‚Å‚à•Û‘¶EŒvZÏ‚İ‚ÌƒuƒbƒN‚Å—LŒøjB
     """
     out: dict[int, object] = {}
     if not rows or not os.path.isfile(wb_path):
@@ -8557,28 +8562,28 @@ def run_exclude_rules_sheet_maintenance(
     wb_path: str, pairs: list[tuple[str, str]], log_prefix: str
 ) -> None:
     """
-    ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ã®è¡ŒåŒæœŸãƒ»Dâ†’E ã® AI è£œå®Œãƒ»ãƒ‡ã‚£ã‚¹ã‚¯åæ˜ ï¼ˆæ—¢å®šã¯ xlwings ã§ Aã€œE åŒæœŸâ†’Saveã€‚``EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1`` ã®ã¨ã openpyxl save ã‚’è©¦è¡Œï¼‰ã€‚
+    uİ’è_”z‘ä•s—vH’öv‚Ìs“¯ŠúED¨E ‚Ì AI •âŠ®EƒfƒBƒXƒN”½‰fiŠù’è‚Í xlwings ‚Å A?E “¯Šú¨SaveB``EXCLUDE_RULES_TRY_OPENPYXL_SAVE=1`` ‚Ì‚Æ‚« openpyxl save ‚ğsjB
 
-    xlwings ã§ã‚‚ä¿å­˜ã§ããªã„ã¨ãã¯ ``log/exclude_rules_matrix_vba.tsv`` ã‚’æ®‹ã—ã€ãƒã‚¯ãƒ­
-    ``è¨­å®š_é…å°ä¸è¦å·¥ç¨‹_Aã‹ã‚‰E_TSVã‹ã‚‰åæ˜ `` ã§ Aã€œE ã‚’åæ˜ ã™ã‚‹ã€‚
-    ä½µã›ã¦å¾“æ¥ã©ãŠã‚Š E åˆ—ã®ã¿ã® ``exclude_rules_e_column_vba.tsv`` ã‚‚å‡ºåŠ›ã•ã‚Œå¾—ã‚‹ï¼ˆè¡Œåˆ— TSV å„ªå…ˆã§åæ˜ å¾Œã¯å‰Šé™¤ï¼‰ã€‚
-    ä¿å­˜æˆåŠŸæ™‚ã¯ TSV/JSON ã¯å‰Šé™¤ã•ã‚Œã‚‹ã€‚
+    xlwings ‚Å‚à•Û‘¶‚Å‚«‚È‚¢‚Æ‚«‚Í ``log/exclude_rules_matrix_vba.tsv`` ‚ğc‚µAƒ}ƒNƒ
+    ``İ’è_”z‘ä•s—vH’ö_A‚©‚çE_TSV‚©‚ç”½‰f`` ‚Å A?E ‚ğ”½‰f‚·‚éB
+    •¹‚¹‚Ä]—ˆ‚Ç‚¨‚è E —ñ‚Ì‚İ‚Ì ``exclude_rules_e_column_vba.tsv`` ‚ào—Í‚³‚ê“¾‚éis—ñ TSV —Dæ‚Å”½‰fŒã‚ÍíœjB
+    •Û‘¶¬Œ÷‚Í TSV/JSON ‚Ííœ‚³‚ê‚éB
 
-    ``json/exclude_rules_e_column_pending.json`` ã¯ Python æ¬¡å›èµ·å‹•æ™‚ã® E åˆ—å¾©å…ƒç”¨ã€‚
-    ã‚·ãƒ¼ãƒˆã®æ–°è¦ä½œæˆã¨ 1 è¡Œç›®è¦‹å‡ºã—ã¯ VBAã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_ã‚·ãƒ¼ãƒˆã‚’ç¢ºä¿ã€ã€‚
+    ``json/exclude_rules_e_column_pending.json`` ‚Í Python Ÿ‰ñ‹N“®‚Ì E —ñ•œŒ³—pB
+    ƒV[ƒg‚ÌV‹Kì¬‚Æ 1 s–ÚŒ©o‚µ‚Í VBAuİ’è_”z‘ä•s—vH’ö_ƒV[ƒg‚ğŠm•ÛvB
     """
     if not wb_path:
         _log_exclude_rules_sheet_debug(
             "SKIP_NO_PATH",
             log_prefix,
-            "TASK_INPUT_WORKBOOK ãŒç©ºã®ãŸã‚è¨­å®šã‚·ãƒ¼ãƒˆå‡¦ç†ã‚’ã—ã¾ã›ã‚“ã€‚",
+            "TASK_INPUT_WORKBOOK ‚ª‹ó‚Ì‚½‚ßİ’èƒV[ƒgˆ—‚ğ‚µ‚Ü‚¹‚ñB",
         )
         return
     if not os.path.exists(wb_path):
         _log_exclude_rules_sheet_debug(
             "SKIP_NO_FILE",
             log_prefix,
-            "ãƒ–ãƒƒã‚¯ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚",
+            "ƒuƒbƒN‚ª‘¶İ‚µ‚Ü‚¹‚ñB",
             details=f"path={wb_path}",
         )
         return
@@ -8586,7 +8591,7 @@ def run_exclude_rules_sheet_maintenance(
     _log_exclude_rules_sheet_debug(
         "START",
         log_prefix,
-        "è¨­å®šã‚·ãƒ¼ãƒˆä¿å®ˆé–‹å§‹",
+        "İ’èƒV[ƒg•ÛçŠJn",
         details=f"path={wb_path} pairs={len(pairs)}",
     )
     global _exclude_rules_effective_read_path
@@ -8596,11 +8601,11 @@ def run_exclude_rules_sheet_maintenance(
         _log_exclude_rules_sheet_debug(
             "SKIP_OPENPYXL_INCOMPATIBLE_BOOK",
             log_prefix,
-            f"ãƒ–ãƒƒã‚¯ã«ã€Œ{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}ã€ãŒå«ã¾ã‚Œã‚‹ãŸã‚ã€openpyxl ã«ã‚ˆã‚‹è¨­å®šã‚·ãƒ¼ãƒˆä¿å®ˆã¯è¡Œã„ã¾ã›ã‚“ã€‚",
+            f"ƒuƒbƒN‚Éu{OPENPYXL_INCOMPATIBLE_SHEET_MARKER}v‚ªŠÜ‚Ü‚ê‚é‚½‚ßAopenpyxl ‚É‚æ‚éİ’èƒV[ƒg•Ûç‚Ís‚¢‚Ü‚¹‚ñB",
             details=f"path={wb_path}",
         )
         logging.warning(
-            "%s: ã€Œ%sã€å«æœ‰ã®ãŸã‚ã€Œ%sã€ã® openpyxl ä¿å®ˆã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸï¼ˆExcelï¼xlwings ã§ç·¨é›†ã—ã¦ãã ã•ã„ï¼‰ã€‚",
+            "%s: u%svŠÜ—L‚Ì‚½‚ßu%sv‚Ì openpyxl •Ûç‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½iExcel^xlwings ‚Å•ÒW‚µ‚Ä‚­‚¾‚³‚¢jB",
             log_prefix,
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
             EXCLUDE_RULES_SHEET_NAME,
@@ -8616,7 +8621,7 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "OPEN_RETRY",
                 log_prefix,
-                "keep_vba=True ã§ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ãš keep_vba=False ã§å†è©¦è¡Œã—ã¾ã™ï¼ˆãƒã‚¯ãƒ­ãŒå¤±ã‚ã‚Œã‚‹å¯èƒ½æ€§ï¼‰ã€‚",
+                "keep_vba=True ‚ÅƒuƒbƒN‚ğŠJ‚¯‚¸ keep_vba=False ‚ÅÄs‚µ‚Ü‚·iƒ}ƒNƒ‚ª¸‚í‚ê‚é‰Â”\«jB",
                 exc=e1,
             )
             try:
@@ -8625,7 +8630,7 @@ def run_exclude_rules_sheet_maintenance(
                 _log_exclude_rules_sheet_debug(
                     "OPEN_FAIL",
                     log_prefix,
-                    "ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“ã€‚ã‚·ãƒ¼ãƒˆã¯ä½œæˆãƒ»ä¿å­˜ã•ã‚Œã¾ã›ã‚“ã€‚",
+                    "ƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñBƒV[ƒg‚Íì¬E•Û‘¶‚³‚ê‚Ü‚¹‚ñB",
                     details=f"path={wb_path}",
                     exc=e2,
                 )
@@ -8634,7 +8639,7 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "OPEN_FAIL",
                 log_prefix,
-                "ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“ã€‚ã‚·ãƒ¼ãƒˆã¯ä½œæˆãƒ»ä¿å­˜ã•ã‚Œã¾ã›ã‚“ã€‚",
+                "ƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñBƒV[ƒg‚Íì¬E•Û‘¶‚³‚ê‚Ü‚¹‚ñB",
                 details=f"path={wb_path}",
                 exc=e1,
             )
@@ -8643,7 +8648,7 @@ def run_exclude_rules_sheet_maintenance(
     _log_exclude_rules_sheet_debug(
         "OPEN_OK",
         log_prefix,
-        "ãƒ–ãƒƒã‚¯ã‚’é–‹ãã¾ã—ãŸã€‚",
+        "ƒuƒbƒN‚ğŠJ‚«‚Ü‚µ‚½B",
         details=f"keep_vba={keep_vba} sheets={len(wb.sheetnames)}",
     )
 
@@ -8652,11 +8657,11 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "SKIP_NO_SHEET",
                 log_prefix,
-                "ã‚·ãƒ¼ãƒˆãŒã‚ã‚Šã¾ã›ã‚“ã€‚VBA ã®ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_ã‚·ãƒ¼ãƒˆã‚’ç¢ºä¿ã€ã‚’å®Ÿè¡Œã™ã‚‹ã‹ã€æ®µéš1/2 ã‚’ãƒã‚¯ãƒ­ã‹ã‚‰èµ·å‹•ã—ã¦ãã ã•ã„ã€‚",
+                "ƒV[ƒg‚ª‚ ‚è‚Ü‚¹‚ñBVBA ‚Ìuİ’è_”z‘ä•s—vH’ö_ƒV[ƒg‚ğŠm•Ûv‚ğÀs‚·‚é‚©A’iŠK1/2 ‚ğƒ}ƒNƒ‚©‚ç‹N“®‚µ‚Ä‚­‚¾‚³‚¢B",
                 details=f"path={wb_path}",
             )
             logging.error(
-                "%s: ã€Œ%sã€ãŒã‚ã‚Šã¾ã›ã‚“ã€‚Python ã§ã¯ã‚·ãƒ¼ãƒˆã‚’ä½œæˆã—ã¾ã›ã‚“ã€‚",
+                "%s: u%sv‚ª‚ ‚è‚Ü‚¹‚ñBPython ‚Å‚ÍƒV[ƒg‚ğì¬‚µ‚Ü‚¹‚ñB",
                 log_prefix,
                 EXCLUDE_RULES_SHEET_NAME,
             )
@@ -8684,11 +8689,11 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "HEADER_FIX",
                 log_prefix,
-                "1è¡Œç›®ã«æ¨™æº–è¦‹å‡ºã—ã‚’æ›¸ãè¾¼ã¿ã¾ã—ãŸï¼ˆç©ºã‚·ãƒ¼ãƒˆãƒ»åˆ—åä¸ä¸€è‡´ã®è£œæ­£ï¼‰ã€‚",
+                "1s–Ú‚É•W€Œ©o‚µ‚ğ‘‚«‚İ‚Ü‚µ‚½i‹óƒV[ƒgE—ñ–¼•sˆê’v‚Ì•â³jB",
                 details=f"cols=({c_proc},{c_mach},{c_flag},{c_d},{c_e})",
             )
 
-        # å‰å›ãƒ–ãƒƒã‚¯ä¿å­˜ã«å¤±æ•—ã—ãŸã¨ãé€€é¿ã—ãŸ E åˆ—ã‚’ã€å…ˆã«ãƒ¯ãƒ¼ã‚¯ã‚·ãƒ¼ãƒˆã¸æˆ»ã™ï¼ˆç¶šãä¿å­˜ã§ãƒ‡ã‚£ã‚¹ã‚¯ã¸è¼‰ã‚‹ï¼‰
+        # ‘O‰ñƒuƒbƒN•Û‘¶‚É¸”s‚µ‚½‚Æ‚«‘Ş”ğ‚µ‚½ E —ñ‚ğAæ‚Éƒ[ƒNƒV[ƒg‚Ö–ß‚·i‘±‚­•Û‘¶‚ÅƒfƒBƒXƒN‚ÖÚ‚éj
         _try_apply_pending_exclude_rules_e_column(wb_path, ws, c_e, log_prefix)
 
         existing_keys: set[tuple[str, str]] = set()
@@ -8716,33 +8721,33 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "SYNC_ROWS",
                 log_prefix,
-                f"å·¥ç¨‹+æ©Ÿæ¢°ã®è¡Œã‚’ {added} ä»¶è¿½åŠ ã—ã¾ã—ãŸã€‚",
+                f"H’ö+‹@ŠB‚Ìs‚ğ {added} Œ’Ç‰Á‚µ‚Ü‚µ‚½B",
             )
             logging.info(
-                "%s: ã€Œ%sã€ã«å·¥ç¨‹+æ©Ÿæ¢°ã®çµ„ã¿åˆã‚ã›ã‚’ %s è¡Œè¿½åŠ ã—ã¾ã—ãŸã€‚",
+                "%s: u%sv‚ÉH’ö+‹@ŠB‚Ì‘g‚İ‡‚í‚¹‚ğ %s s’Ç‰Á‚µ‚Ü‚µ‚½B",
                 log_prefix,
                 EXCLUDE_RULES_SHEET_NAME,
                 added,
             )
 
-        # åŠ å·¥è¨ˆç”»ã‹ã‚‰ãƒšã‚¢ãŒ1ä»¶ã‚‚å–ã‚Œãšã€ã‚·ãƒ¼ãƒˆã«ã‚‚ãƒ‡ãƒ¼ã‚¿è¡ŒãŒç„¡ã„ã¨ãã¯ä¾‹è¡Œã®ã¿ï¼ˆå¾“æ¥ã®æ–°è¦ã‚·ãƒ¼ãƒˆç›¸å½“ï¼‰
+        # ‰ÁHŒv‰æ‚©‚çƒyƒA‚ª1Œ‚àæ‚ê‚¸AƒV[ƒg‚É‚àƒf[ƒ^s‚ª–³‚¢‚Æ‚«‚Í—ás‚Ì‚İi]—ˆ‚ÌV‹KƒV[ƒg‘Š“–j
         if added == 0 and not existing_keys:
-            ws.append(["æ¢±åŒ…", "", "yes", "", ""])
+            ws.append(["«•ï", "", "yes", "", ""])
             existing_keys.add(
-                (_normalize_process_name_for_rule_match("æ¢±åŒ…"), _normalize_equipment_match_key(""))
+                (_normalize_process_name_for_rule_match("«•ï"), _normalize_equipment_match_key(""))
             )
             _log_exclude_rules_sheet_debug(
                 "EXAMPLE_ROW",
                 log_prefix,
-                "ãƒ‡ãƒ¼ã‚¿è¡ŒãŒç„¡ã‹ã£ãŸãŸã‚ä¾‹ï¼ˆæ¢±åŒ…=yesï¼‰ã‚’1è¡Œè¿½åŠ ã€‚",
+                "ƒf[ƒ^s‚ª–³‚©‚Á‚½‚½‚ß—ái«•ï=yesj‚ğ1s’Ç‰ÁB",
             )
             logging.info(
-                "%s: ã€Œ%sã€ã«ãƒ‡ãƒ¼ã‚¿è¡ŒãŒç„¡ã‹ã£ãŸãŸã‚ã€ä¾‹ï¼ˆæ¢±åŒ…=yesï¼‰ã‚’1è¡Œè¿½åŠ ã—ã¾ã—ãŸã€‚",
+                "%s: u%sv‚Éƒf[ƒ^s‚ª–³‚©‚Á‚½‚½‚ßA—ái«•ï=yesj‚ğ1s’Ç‰Á‚µ‚Ü‚µ‚½B",
                 log_prefix,
                 EXCLUDE_RULES_SHEET_NAME,
             )
 
-        # ç©ºè¡Œè©°ã‚ã¯ AI ã‚ˆã‚Šå…ˆã«è¡Œã†ï¼ˆå¾Œã‹ã‚‰è©°ã‚ã‚‹ã¨ã€æ›¸ãè¾¼ã‚“ã è¡Œç•ªå·ã¨ç”»é¢ä¸Šã®è¡ŒãŒãšã‚Œã‚‹ï¼‰
+        # ‹ós‹l‚ß‚Í AI ‚æ‚èæ‚És‚¤iŒã‚©‚ç‹l‚ß‚é‚ÆA‘‚«‚ñ‚¾s”Ô†‚Æ‰æ–Êã‚Ìs‚ª‚¸‚ê‚éj
         n_kept, n_removed_empty = _compact_exclude_rules_data_rows(
             ws, c_proc, c_mach, c_flag, c_d, c_e, log_prefix
         )
@@ -8750,7 +8755,7 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "DATA_COMPACT",
                 log_prefix,
-                "ç©ºè¡Œã‚’å‰Šé™¤ã—ã¦ãƒ‡ãƒ¼ã‚¿è¡Œã‚’è©°ã‚ã¾ã—ãŸï¼ˆä¸¦ã³é †ã¯ç¶­æŒï¼‰ã€‚AI è£œå®Œã‚ˆã‚Šå‰ã€‚",
+                "‹ós‚ğíœ‚µ‚Äƒf[ƒ^s‚ğ‹l‚ß‚Ü‚µ‚½i•À‚Ñ‡‚ÍˆÛjBAI •âŠ®‚æ‚è‘OB",
                 details=f"rows={n_kept} removed_empty={n_removed_empty}",
             )
 
@@ -8759,14 +8764,14 @@ def run_exclude_rules_sheet_maintenance(
         for r in range(2, max_r + 1):
             dv = ws.cell(row=r, column=c_d).value
             ev = ws.cell(row=r, column=c_e).value
-            # C åˆ—ã®æœ‰ç„¡ã«é–¢ä¿‚ãªãã€D ã«èª¬æ˜ãŒã‚ã‚Š E ãŒç©ºãªã‚‰ Dâ†’E ã‚’è©¦ã™
+            # C —ñ‚Ì—L–³‚ÉŠÖŒW‚È‚­AD ‚Éà–¾‚ª‚ ‚è E ‚ª‹ó‚È‚ç D¨E ‚ğ‚·
             if _cell_is_blank_for_rule(dv):
                 continue
             if not _cell_is_blank_for_rule(ev):
                 continue
             pending_rows.append(r)
 
-        # D ãŒæ•°å¼ã®ã¨ãã¯é€šå¸¸èª­è¾¼ã§ã¯ '=...' ã ã‘å–ã‚Œã‚‹ã€‚data_only ã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥è¡¨ç¤ºå€¤ã‚’è£œã†ã€‚
+        # D ‚ª”®‚Ì‚Æ‚«‚Í’Êí“Ç‚Å‚Í '=...' ‚¾‚¯æ‚ê‚éBdata_only ‚ÅƒLƒƒƒbƒVƒ…•\¦’l‚ğ•â‚¤B
         formula_rows = [
             r
             for r in pending_rows
@@ -8793,7 +8798,7 @@ def run_exclude_rules_sheet_maintenance(
                     blob = str(alt).strip()
                 else:
                     logging.warning(
-                        "%s: ã€Œ%sã€%s è¡Œç›®ã® D åˆ—ãŒæ•°å¼ã§ã€ã‚­ãƒ£ãƒƒã‚·ãƒ¥å€¤ã‚’èª­ã‚ã¾ã›ã‚“ã§ã—ãŸï¼ˆExcel ã§ä¸€åº¦ä¿å­˜ã™ã‚‹ã‹ D ã‚’å€¤ã«ã—ã¦ãã ã•ã„ï¼‰ã€‚",
+                        "%s: u%sv%s s–Ú‚Ì D —ñ‚ª”®‚ÅAƒLƒƒƒbƒVƒ…’l‚ğ“Ç‚ß‚Ü‚¹‚ñ‚Å‚µ‚½iExcel ‚Åˆê“x•Û‘¶‚·‚é‚© D ‚ğ’l‚É‚µ‚Ä‚­‚¾‚³‚¢jB",
                         log_prefix,
                         EXCLUDE_RULES_SHEET_NAME,
                         r,
@@ -8812,7 +8817,7 @@ def run_exclude_rules_sheet_maintenance(
             for r, parsed in zip(pending_rows, parsed_list):
                 if not parsed:
                     logging.warning(
-                        "%s: ã€Œ%sã€%s è¡Œç›®ã® D åˆ—ã‚’ JSON ã«ã§ãã¾ã›ã‚“ã§ã—ãŸï¼ˆAPIã‚­ãƒ¼ãƒ»å¿œç­”ã‚’ç¢ºèªï¼‰ã€‚",
+                        "%s: u%sv%s s–Ú‚Ì D —ñ‚ğ JSON ‚É‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½iAPIƒL[E‰“š‚ğŠm”FjB",
                         log_prefix,
                         EXCLUDE_RULES_SHEET_NAME,
                         r,
@@ -8822,9 +8827,9 @@ def run_exclude_rules_sheet_maintenance(
                 ws.cell(row=r, column=c_e, value=jstr)
                 cell_addr = f"{get_column_letter(c_e)}{r}"
                 ai_e_cell_addrs.append(cell_addr)
-                preview = jstr if len(jstr) <= 160 else (jstr[:160] + "â€¦")
+                preview = jstr if len(jstr) <= 160 else (jstr[:160] + "c")
                 logging.info(
-                    "%s: ã€Œ%sã€ãƒ­ã‚¸ãƒƒã‚¯å¼åˆ—ã€Œ%sã€ã‚»ãƒ« %s ã« JSON ã‚’æ›¸ãè¾¼ã¿: %s",
+                    "%s: u%svƒƒWƒbƒN®—ñu%svƒZƒ‹ %s ‚É JSON ‚ğ‘‚«‚İ: %s",
                     log_prefix,
                     EXCLUDE_RULES_SHEET_NAME,
                     EXCLUDE_RULE_COL_LOGIC_JSON,
@@ -8836,11 +8841,11 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "AI_E_FILLED",
                 log_prefix,
-                f"Dâ†’E ã® AI è£œå®Œã‚’ {ai_filled} è¡Œå®Ÿæ–½ã€‚",
+                f"D¨E ‚Ì AI •âŠ®‚ğ {ai_filled} sÀ{B",
                 details="cells=" + ",".join(ai_e_cell_addrs),
             )
             logging.info(
-                "%s: ã€Œ%sã€ã§ Dâ†’E ã® AI è£œå®Œã‚’ %s è¡Œï¼ˆã‚»ãƒ«: %sï¼‰ã€‚",
+                "%s: u%sv‚Å D¨E ‚Ì AI •âŠ®‚ğ %s siƒZƒ‹: %sjB",
                 log_prefix,
                 EXCLUDE_RULES_SHEET_NAME,
                 ai_filled,
@@ -8860,11 +8865,11 @@ def run_exclude_rules_sheet_maintenance(
             _log_exclude_rules_sheet_debug(
                 "TEST_E1234",
                 log_prefix,
-                f'Eåˆ— {_e_addr} ã«ãƒ†ã‚¹ãƒˆã§ "1234" ã‚’æ›¸ãè¾¼ã¿',
+                f'E—ñ {_e_addr} ‚ÉƒeƒXƒg‚Å "1234" ‚ğ‘‚«‚İ',
                 details=f"row={_er_row}",
             )
             logging.warning(
-                '%s: ã€ãƒ†ã‚¹ãƒˆã€‘%s ã« "1234" ã‚’æ›¸ãè¾¼ã¿ï¼ˆEXCLUDE_RULES_TEST_E1234ï¼‰ã€‚',
+                '%s: yƒeƒXƒgz%s ‚É "1234" ‚ğ‘‚«‚İiEXCLUDE_RULES_TEST_E1234jB',
                 log_prefix,
                 _e_addr,
             )
@@ -8876,27 +8881,27 @@ def run_exclude_rules_sheet_maintenance(
         persisted = _persist_exclude_rules_workbook(wb, wb_path, ws, log_prefix)
         if not persisted:
             logging.warning(
-                "%s: è¨­å®šã‚·ãƒ¼ãƒˆã® openpyxl ä¿å­˜ã«å¤±æ•—ã—ã¾ã—ãŸã€‚"
-                " log ã®è¡Œåˆ— TSV ã‚’ãƒã‚¯ãƒ­ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_Aã‹ã‚‰E_TSVã‹ã‚‰åæ˜ ã€ã€"
-                "ã¾ãŸã¯ E åˆ—ã®ã¿ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹_Eåˆ—_TSVã‹ã‚‰åæ˜ ã€ã§åæ˜ ã—ã¦ãã ã•ã„ã€‚",
+                "%s: İ’èƒV[ƒg‚Ì openpyxl •Û‘¶‚É¸”s‚µ‚Ü‚µ‚½B"
+                " log ‚Ìs—ñ TSV ‚ğƒ}ƒNƒuİ’è_”z‘ä•s—vH’ö_A‚©‚çE_TSV‚©‚ç”½‰fvA"
+                "‚Ü‚½‚Í E —ñ‚Ì‚İuİ’è_”z‘ä•s—vH’ö_E—ñ_TSV‚©‚ç”½‰fv‚Å”½‰f‚µ‚Ä‚­‚¾‚³‚¢B",
                 log_prefix,
             )
     except Exception as ex:
         _log_exclude_rules_sheet_debug(
             "FATAL",
             log_prefix,
-            "è¨­å®šã‚·ãƒ¼ãƒˆå‡¦ç†ä¸­ã«æœªæ•æ‰ä¾‹å¤–ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚",
+            "İ’èƒV[ƒgˆ—’†‚É–¢•ß‘¨—áŠO‚ª”­¶‚µ‚Ü‚µ‚½B",
             exc=ex,
         )
-        logging.exception("%s: è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã®å‡¦ç†ã§ä¾‹å¤–", log_prefix)
+        logging.exception("%s: İ’è_”z‘ä•s—vH’ö‚Ìˆ—‚Å—áŠO", log_prefix)
     finally:
         if wb is not None:
             wb.close()
-            _log_exclude_rules_sheet_debug("CLOSED", log_prefix, "ãƒ–ãƒƒã‚¯ã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ã¾ã—ãŸã€‚")
+            _log_exclude_rules_sheet_debug("CLOSED", log_prefix, "ƒuƒbƒN‚ğƒNƒ[ƒY‚µ‚Ü‚µ‚½B")
 
 
 def _resolve_exclude_rules_workbook_path_for_read(wb_path: str) -> str:
-    """ç›´å‰ã®ä¿å®ˆã§å®ŸåŠ¹ãƒ‘ã‚¹ãŒå¤‰ã‚ã£ãŸã¨ãï¼ˆé€šå¸¸ã¯ä¿å­˜æˆåŠŸå¾Œã®å…ƒãƒ–ãƒƒã‚¯ï¼‰ã«ãã‚Œã‚’ä½¿ã†ã€‚"""
+    """’¼‘O‚Ì•Ûç‚ÅÀŒøƒpƒX‚ª•Ï‚í‚Á‚½‚Æ‚«i’Êí‚Í•Û‘¶¬Œ÷Œã‚ÌŒ³ƒuƒbƒNj‚É‚»‚ê‚ğg‚¤B"""
     p = _exclude_rules_effective_read_path
     if p and os.path.exists(p):
         return p
@@ -8904,7 +8909,7 @@ def _resolve_exclude_rules_workbook_path_for_read(wb_path: str) -> str:
 
 
 def _load_exclude_rules_from_workbook(wb_path: str) -> list[dict]:
-    """ã‚·ãƒ¼ãƒˆã‹ã‚‰ãƒ«ãƒ¼ãƒ«è¡Œã‚’èª­ã¿ã€è©•ä¾¡ç”¨ãƒªã‚¹ãƒˆã‚’è¿”ã™ã€‚"""
+    """ƒV[ƒg‚©‚çƒ‹[ƒ‹s‚ğ“Ç‚İA•]‰¿—pƒŠƒXƒg‚ğ•Ô‚·B"""
     if not wb_path:
         return []
     global _exclude_rules_rules_snapshot, _exclude_rules_snapshot_wb
@@ -8922,7 +8927,7 @@ def _load_exclude_rules_from_workbook(wb_path: str) -> list[dict]:
         return []
     if _workbook_should_skip_openpyxl_io(path):
         logging.warning(
-            "é…å°ä¸è¦ãƒ«ãƒ¼ãƒ«: ãƒ–ãƒƒã‚¯ã«ã€Œ%sã€ãŒã‚ã‚‹ãŸã‚ pandas(openpyxl) ã§ã®ã€Œ%sã€èª­è¾¼ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸï¼ˆãƒ«ãƒ¼ãƒ«ã¯æœªé©ç”¨ï¼‰ã€‚",
+            "”z‘ä•s—vƒ‹[ƒ‹: ƒuƒbƒN‚Éu%sv‚ª‚ ‚é‚½‚ß pandas(openpyxl) ‚Å‚Ìu%sv“Ç‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½iƒ‹[ƒ‹‚Í–¢“K—pjB",
             OPENPYXL_INCOMPATIBLE_SHEET_MARKER,
             EXCLUDE_RULES_SHEET_NAME,
         )
@@ -8959,7 +8964,7 @@ def _load_exclude_rules_from_workbook(wb_path: str) -> list[dict]:
 def apply_exclude_rules_config_to_plan_df(
     df: pd.DataFrame, wb_path: str, log_prefix: str
 ) -> pd.DataFrame:
-    """è¨­å®šã‚·ãƒ¼ãƒˆã«åŸºã¥ãã€Œé…å°ä¸è¦ã€ã‚’è¨­å®šï¼ˆC=yes ã¾ãŸã¯ E ã® JSON ãŒçœŸï¼‰ã€‚"""
+    """İ’èƒV[ƒg‚ÉŠî‚Ã‚«u”z‘ä•s—vv‚ğİ’èiC=yes ‚Ü‚½‚Í E ‚Ì JSON ‚ª^jB"""
     if df is None or df.empty:
         return df
     if TASK_COL_MACHINE not in df.columns or PLAN_COL_EXCLUDE_FROM_ASSIGNMENT not in df.columns:
@@ -8990,14 +8995,14 @@ def apply_exclude_rules_config_to_plan_df(
                 n += 1
                 break
     if n:
-        logging.info("%s: è¨­å®šã€Œ%sã€ã«ã‚ˆã‚Šé…å°ä¸è¦=yes ã‚’ %s è¡Œã«è¨­å®šã—ã¾ã—ãŸã€‚", log_prefix, EXCLUDE_RULES_SHEET_NAME, n)
+        logging.info("%s: İ’èu%sv‚É‚æ‚è”z‘ä•s—v=yes ‚ğ %s s‚Éİ’è‚µ‚Ü‚µ‚½B", log_prefix, EXCLUDE_RULES_SHEET_NAME, n)
     return df
 
 
 def _sort_stage1_plan_df_by_dispatch_trial_order_asc(plan_df: "pd.DataFrame") -> "pd.DataFrame":
     """
-    æ®µéš1å‡ºåŠ›ç›´å‰: é…å°è©¦è¡Œé †ç•ªã®æ˜‡é †ã«è¡Œã‚’ä¸¦ã¹æ›¿ãˆãŸ DataFrame ã‚’è¿”ã™ã€‚
-    æ­£ã®æ•´æ•°ã§ãªã„ã‚»ãƒ«ã¯æœ€å¾Œï¼ˆåŒå¸¯å†…ã¯å…ƒã®è¡Œé †ï¼‰ã€‚
+    ’iŠK1o—Í’¼‘O: ”z‘äs‡”Ô‚Ì¸‡‚És‚ğ•À‚×‘Ö‚¦‚½ DataFrame ‚ğ•Ô‚·B
+    ³‚Ì®”‚Å‚È‚¢ƒZƒ‹‚ÍÅŒãi“¯‘Ñ“à‚ÍŒ³‚Ìs‡jB
     """
     col = RESULT_TASK_COL_DISPATCH_TRIAL_ORDER
     if plan_df is None or getattr(plan_df, "empty", True) or col not in plan_df.columns:
@@ -9023,28 +9028,28 @@ def _sort_stage1_plan_df_by_dispatch_trial_order_asc(plan_df: "pd.DataFrame") ->
 
 
 # =============================================================================
-# æ®µéš1ã‚¨ãƒ³ãƒˆãƒªï¼ˆtask_extract_stage1.py â†’ run_stage1_extractï¼‰
-#   åŠ å·¥è¨ˆç”»DATA èª­å– â†’ é…å°ä¸è¦è‡ªå‹•å‡¦ç† â†’ è¨­å®šã‚·ãƒ¼ãƒˆä¿å®ˆ â†’ plan_input_tasks.xlsx å‡ºåŠ›
+# ’iŠK1ƒGƒ“ƒgƒŠitask_extract_stage1.py ¨ run_stage1_extractj
+#   ‰ÁHŒv‰æDATA “Çæ ¨ ”z‘ä•s—v©“®ˆ— ¨ İ’èƒV[ƒg•Ûç ¨ plan_input_tasks.xlsx o—Í
 # =============================================================================
 def run_stage1_extract():
     """
-    æ®µéš1: åŠ å·¥è¨ˆç”»DATA ã‹ã‚‰é…å°ç”¨ã‚¿ã‚¹ã‚¯ä¸€è¦§ã‚’æŠ½å‡ºã— output/plan_input_tasks.xlsx ã¸å‡ºåŠ›ã€‚
-    åŒä¸€ä¾é ¼NOã§åŒä¸€æ©Ÿæ¢°åãŒè¤‡æ•°è¡Œã‚ã‚‹ã¨ãã€å·¥ç¨‹åã€Œåˆ†å‰²ã€è¡Œã®ç©ºã®ã€Œé…å°ä¸è¦ã€ã« yes ã‚’è‡ªå‹•è¨­å®šã™ã‚‹ã€‚
-    ãƒã‚¯ãƒ­ãƒ–ãƒƒã‚¯ã®ã€Œè¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã€ã§å·¥ç¨‹+æ©Ÿæ¢°ã”ã¨ã®é…å°ä¸è¦ãƒ»æ¡ä»¶å¼ï¼ˆAIï¼‰ã‚’ç®¡ç†ã™ã‚‹ï¼ˆã‚·ãƒ¼ãƒˆä½œæˆã¯ VBAï¼‰ã€‚
+    ’iŠK1: ‰ÁHŒv‰æDATA ‚©‚ç”z‘ä—pƒ^ƒXƒNˆê——‚ğ’Šo‚µ output/plan_input_tasks.xlsx ‚Öo—ÍB
+    “¯ˆêˆË—ŠNO‚Å“¯ˆê‹@ŠB–¼‚ª•¡”s‚ ‚é‚Æ‚«AH’ö–¼u•ªŠ„vs‚Ì‹ó‚Ìu”z‘ä•s—vv‚É yes ‚ğ©“®İ’è‚·‚éB
+    ƒ}ƒNƒƒuƒbƒN‚Ìuİ’è_”z‘ä•s—vH’öv‚ÅH’ö+‹@ŠB‚²‚Æ‚Ì”z‘ä•s—vEğŒ®iAIj‚ğŠÇ—‚·‚éiƒV[ƒgì¬‚Í VBAjB
     """
     if not TASKS_INPUT_WORKBOOK:
-        logging.error("TASK_INPUT_WORKBOOK ãŒæœªè¨­å®šã§ã™ã€‚")
+        logging.error("TASK_INPUT_WORKBOOK ‚ª–¢İ’è‚Å‚·B")
         return False
     if not os.path.exists(TASKS_INPUT_WORKBOOK):
-        logging.error(f"TASK_INPUT_WORKBOOK ãŒå­˜åœ¨ã—ã¾ã›ã‚“: {TASKS_INPUT_WORKBOOK}")
+        logging.error(f"TASK_INPUT_WORKBOOK ‚ª‘¶İ‚µ‚Ü‚¹‚ñ: {TASKS_INPUT_WORKBOOK}")
         return False
     reset_gemini_usage_tracker()
     df_src = load_tasks_df()
     try:
         _pm_pairs = _collect_process_machine_pairs_for_exclude_rules(df_src)
-        run_exclude_rules_sheet_maintenance(TASKS_INPUT_WORKBOOK, _pm_pairs, "æ®µéš1")
+        run_exclude_rules_sheet_maintenance(TASKS_INPUT_WORKBOOK, _pm_pairs, "’iŠK1")
     except Exception:
-        logging.exception("æ®µéš1: è¨­å®š_é…å°ä¸è¦å·¥ç¨‹ã®ä¿å®ˆã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰")
+        logging.exception("’iŠK1: İ’è_”z‘ä•s—vH’ö‚Ì•Ûç‚Å—áŠOi‘±sj")
     records = []
     for _, row in df_src.iterrows():
         if row_has_completion_keyword(row):
@@ -9071,7 +9076,7 @@ def run_stage1_extract():
         if _roll_len <= 0:
             _roll_len = _qty_total_s1 if _qty_total_s1 > 0 else max(qty, 1e-9)
         rec[PLAN_COL_ROLL_UNIT_LENGTH] = _roll_len
-        # å·¥ç¨‹å + æ©Ÿæ¢°å ã‚’â€œå› å­â€ã¨ã—ã¦è¡¨ç¤ºç”¨ã«è¿½åŠ ï¼ˆå¾Œæ®µã¯è¨ˆç®—ã‚­ãƒ¼ã«ã‚‚ä½¿ç”¨ï¼‰
+        # H’ö–¼ + ‹@ŠB–¼ ‚ğgˆöqh‚Æ‚µ‚Ä•\¦—p‚É’Ç‰ÁiŒã’i‚ÍŒvZƒL[‚É‚àg—pj
         if machine_name:
             rec[PLAN_COL_PROCESS_FACTOR] = f"{machine}+{machine_name}"
         else:
@@ -9084,7 +9089,7 @@ def run_stage1_extract():
         rec[PLAN_COL_AI_PARSE] = ""
         records.append(rec)
     if not records:
-        logging.warning("æ®µéš1: æŠ½å‡ºå¯¾è±¡ã‚¿ã‚¹ã‚¯ãŒã‚ã‚Šã¾ã›ã‚“ã€‚")
+        logging.warning("’iŠK1: ’Šo‘ÎÛƒ^ƒXƒN‚ª‚ ‚è‚Ü‚¹‚ñB")
     order = plan_input_sheet_column_order()
     out_df = pd.DataFrame(records)
     if out_df.empty:
@@ -9111,23 +9116,23 @@ def run_stage1_extract():
             need_combo_col_index_stage1,
         ) = load_skills_and_needs()
     except PlanningValidationError:
-        logging.error("æ®µéš1ã‚’ä¸­æ–­: ãƒã‚¹ã‚¿ skills ã®æ¤œè¨¼ã‚¨ãƒ©ãƒ¼ï¼ˆå„ªå…ˆåº¦ã®æ•°å€¤é‡è¤‡ãªã©ï¼‰ã€‚")
+        logging.error("’iŠK1‚ğ’†’f: ƒ}ƒXƒ^ skills ‚ÌŒŸØƒGƒ‰[i—Dæ“x‚Ì”’ld•¡‚È‚ÇjB")
         raise
     except Exception as e:
-        logging.info("æ®µéš1: ãƒã‚¹ã‚¿ need ã‚’èª­ã‚ãšå…ƒåˆ—ã¯ need ãªã—ã§åŸ‹ã‚ã¾ã™ (%s)", e)
+        logging.info("’iŠK1: ƒ}ƒXƒ^ need ‚ğ“Ç‚ß‚¸Œ³—ñ‚Í need ‚È‚µ‚Å–„‚ß‚Ü‚· (%s)", e)
         req_map, need_rules = {}, []
         equipment_list_stage1 = []
         need_combo_col_index_stage1 = {}
     out_df = _merge_plan_sheet_user_overrides(out_df)
     _refresh_plan_reference_columns(out_df, req_map, need_rules)
     try:
-        _apply_auto_exclude_bunkatsu_duplicate_machine(out_df, log_prefix="æ®µéš1")
+        _apply_auto_exclude_bunkatsu_duplicate_machine(out_df, log_prefix="’iŠK1")
     except Exception as ex:
-        logging.exception("æ®µéš1: åˆ†å‰²è¡Œã®é…å°ä¸è¦è‡ªå‹•è¨­å®šã§ä¾‹å¤–ï¼ˆå‡ºåŠ›ã¯ç¶šè¡Œï¼‰: %s", ex)
+        logging.exception("’iŠK1: •ªŠ„s‚Ì”z‘ä•s—v©“®İ’è‚Å—áŠOio—Í‚Í‘±sj: %s", ex)
     try:
-        out_df = apply_exclude_rules_config_to_plan_df(out_df, TASKS_INPUT_WORKBOOK, "æ®µéš1")
+        out_df = apply_exclude_rules_config_to_plan_df(out_df, TASKS_INPUT_WORKBOOK, "’iŠK1")
     except Exception as ex:
-        logging.warning("æ®µéš1: è¨­å®šã‚·ãƒ¼ãƒˆã«ã‚ˆã‚‹é…å°ä¸è¦é©ç”¨ã§ä¾‹å¤–ï¼ˆç¶šè¡Œï¼‰: %s", ex)
+        logging.warning("’iŠK1: İ’èƒV[ƒg‚É‚æ‚é”z‘ä•s—v“K—p‚Å—áŠOi‘±sj: %s", ex)
     try:
         _ext_dt_s1 = _extract_data_extraction_datetime()
         _run_d_s1 = _ext_dt_s1.date() if _ext_dt_s1 is not None else datetime.now().date()
@@ -9140,18 +9145,18 @@ def run_stage1_extract():
             equipment_list_stage1,
         )
     except Exception as ex:
-        logging.warning("æ®µéš1: é…å°è©¦è¡Œé †ç•ªåˆ—ã®è¨ˆç®—ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸï¼ˆç¶šè¡Œï¼‰: %s", ex)
+        logging.warning("’iŠK1: ”z‘äs‡”Ô—ñ‚ÌŒvZ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½i‘±sj: %s", ex)
     out_df = _sort_stage1_plan_df_by_dispatch_trial_order_asc(out_df)
     out_path = os.path.join(output_dir, STAGE1_OUTPUT_FILENAME)
-    out_df.to_excel(out_path, sheet_name="ã‚¿ã‚¹ã‚¯ä¸€è¦§", index=False)
-    _apply_excel_date_columns_date_only_display(out_path, "ã‚¿ã‚¹ã‚¯ä¸€è¦§")
-    _apply_plan_input_visual_format(out_path, "ã‚¿ã‚¹ã‚¯ä¸€è¦§")
-    logging.info(f"æ®µéš1å®Œäº†: '{out_path}' ã‚’å‡ºåŠ›ã—ã¾ã—ãŸã€‚ãƒã‚¯ãƒ­ã§ '{PLAN_INPUT_SHEET_NAME}' ã«å–ã‚Šè¾¼ã‚“ã§ãã ã•ã„ã€‚")
-    _try_write_main_sheet_gemini_usage_summary("æ®µéš1")
+    out_df.to_excel(out_path, sheet_name="ƒ^ƒXƒNˆê——", index=False)
+    _apply_excel_date_columns_date_only_display(out_path, "ƒ^ƒXƒNˆê——")
+    _apply_plan_input_visual_format(out_path, "ƒ^ƒXƒNˆê——")
+    logging.info(f"’iŠK1Š®—¹: '{out_path}' ‚ğo—Í‚µ‚Ü‚µ‚½Bƒ}ƒNƒ‚Å '{PLAN_INPUT_SHEET_NAME}' ‚Éæ‚è‚ñ‚Å‚­‚¾‚³‚¢B")
+    _try_write_main_sheet_gemini_usage_summary("’iŠK1")
     return True
 
 
-# ç¨¼åƒãƒ«ãƒ¼ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ãƒ»2026å¹´3æœˆåŸºæº–ï¼‰
+# ‰Ò“­ƒ‹[ƒ‹iƒfƒtƒHƒ‹ƒg’lE2026”N3ŒŠî€j
 TARGET_YEAR = 2026
 TARGET_MONTH = 3
 DEFAULT_START_TIME = time(8, 45)
@@ -9160,15 +9165,15 @@ DEFAULT_BREAKS = [
     (time(12, 0), time(12, 50)),
     (time(14, 45), time(15, 0))
 ]
-# çµ‚æ¥­ç›´å‰ãƒ‡ãƒ•ã‚¡ãƒ¼: ASSIGN_END_OF_DAY_DEFER_MINUTES ãŒæ­£ã®ã¨ãã€team_end_limit ã¾ã§ã®æ®‹ã‚ŠãŒãã®åˆ†æ•°ä»¥ä¸‹ã§ã€
-# ã‹ã¤ remaining_unitsï¼ˆåˆ‡ã‚Šä¸Šã’ï¼‰ãŒ ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ä»¥ä¸‹ã®ã¨ãã€ãã®æ—¥ã®é–‹å§‹ä¸å¯ï¼ˆNoneï¼‰ã€‚
-# åŒã˜ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã€ŒASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ãƒ­ãƒ¼ãƒ«åˆ†ä»¥ä¸Šã¯å›ã›ãªã„ã€ï¼ˆåå®¹ãŒé–¾å€¤æœªæº€ï¼‰ã¨ãã¯
-# æ–°è¦ã«åŠ å·¥ã‚’å§‹ã‚ãªã„ï¼ˆ_eod_reject_capacity_units_below_thresholdï¼‰ã€‚
-# ASSIGN_END_OF_DAY_DEFER_MINUTES æ—¢å®š 45ï¼ˆåˆ†ï¼‰ã€‚0 ã‚’æ˜ç¤ºã™ã‚‹ã¨ç„¡åŠ¹ï¼ˆå¾“æ¥ã©ãŠã‚Šï¼‰ã€‚
-# ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS æ—¢å®š 5ã€‚ååˆ†å¤§ããªå€¤ï¼ˆä¾‹: 999999ï¼‰ã«ã™ã‚‹ã¨å®Ÿè³ªã€Œæ®‹ãƒ­ãƒ¼ãƒ«ã«ä¾ã‚‰ãšçµ‚æ¥­ç›´å‰ã¯ä¸å¯ã€ã€‚
-# ä¼‘æ†©: å¸¯å†…ã«è½ã¡ãŸé–‹å§‹ã¯ _defer_team_start_past_prebreak_and_end_of_day ã§ä¼‘æ†©çµ‚äº†ã¸ç¹°ã‚Šä¸‹ã’ã€‚
-# ä¼‘æ†©ã‚’ã¾ãŸãé€£ç¶šé…å°ã¯ _contiguous_work_minutes_until_next_break_or_limit ã§å´ä¸‹ã€‚
-# ï¼ˆæ—§ ASSIGN_DEFER_MIN_REMAINING_ROLLS / ASSIGN_PRE_BREAK_DEFER_GAP_MINUTES ã¯å»ƒæ­¢ãƒ»ç„¡è¦–ï¼‰
+# I‹Æ’¼‘Oƒfƒtƒ@[: ASSIGN_END_OF_DAY_DEFER_MINUTES ‚ª³‚Ì‚Æ‚«Ateam_end_limit ‚Ü‚Å‚Ìc‚è‚ª‚»‚Ì•ª”ˆÈ‰º‚ÅA
+# ‚©‚Â remaining_unitsiØ‚èã‚°j‚ª ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ˆÈ‰º‚Ì‚Æ‚«A‚»‚Ì“ú‚ÌŠJn•s‰ÂiNonejB
+# “¯‚¶ƒEƒBƒ“ƒhƒE‚ÅuASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ƒ[ƒ‹•ªˆÈã‚Í‰ñ‚¹‚È‚¢viû—e‚ªè‡’l–¢–j‚Æ‚«‚Í
+# V‹K‚É‰ÁH‚ğn‚ß‚È‚¢i_eod_reject_capacity_units_below_thresholdjB
+# ASSIGN_END_OF_DAY_DEFER_MINUTES Šù’è 45i•ªjB0 ‚ğ–¾¦‚·‚é‚Æ–³Œøi]—ˆ‚Ç‚¨‚èjB
+# ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS Šù’è 5B\•ª‘å‚«‚È’li—á: 999999j‚É‚·‚é‚ÆÀ¿ucƒ[ƒ‹‚ÉˆË‚ç‚¸I‹Æ’¼‘O‚Í•s‰ÂvB
+# ‹xŒe: ‘Ñ“à‚É—‚¿‚½ŠJn‚Í _defer_team_start_past_prebreak_and_end_of_day ‚Å‹xŒeI—¹‚ÖŒJ‚è‰º‚°B
+# ‹xŒe‚ğ‚Ü‚½‚®˜A‘±”z‘ä‚Í _contiguous_work_minutes_until_next_break_or_limit ‚Å‹p‰ºB
+# i‹Œ ASSIGN_DEFER_MIN_REMAINING_ROLLS / ASSIGN_PRE_BREAK_DEFER_GAP_MINUTES ‚Í”p~E–³‹j
 ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS = max(
     0,
     int(os.environ.get("ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS", "5").strip() or 0),
@@ -9182,7 +9187,7 @@ ASSIGN_END_OF_DAY_DEFER_MINUTES = max(
 def _eod_minutes_window_covers_start(
     team_start: datetime, team_end_limit: datetime
 ) -> bool:
-    """ASSIGN_END_OF_DAY_DEFER_MINUTES ãŒæ­£ã®ã¨ãã€é–‹å§‹ãŒçµ‚æ¥­ä¸Šé™ã®ãã®åˆ†æ•°ä»¥å†…ã‹ã€‚"""
+    """ASSIGN_END_OF_DAY_DEFER_MINUTES ‚ª³‚Ì‚Æ‚«AŠJn‚ªI‹ÆãŒÀ‚Ì‚»‚Ì•ª”ˆÈ“à‚©B"""
     gap = ASSIGN_END_OF_DAY_DEFER_MINUTES
     if gap <= 0:
         return False
@@ -9195,8 +9200,8 @@ def _eod_reject_capacity_units_below_threshold(
     units_fit_until_close: int, team_start: datetime, team_end_limit: datetime
 ) -> bool:
     """
-    çµ‚æ¥­ã¾ã§ã‚ã¨ ASSIGN_END_OF_DAY_DEFER_MINUTES åˆ†ä»¥å†…ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã§ã€
-    ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ãƒ­ãƒ¼ãƒ«åˆ†ä»¥ä¸Šã¯å›ã›ãªã„ï¼ˆåå®¹ãƒ­ãƒ¼ãƒ«æ•°ãŒé–¾å€¤æœªæº€ï¼‰ã¨ã Trueï¼ˆæ–°è¦åŠ å·¥ã‚’å§‹ã‚ãªã„ï¼å€™è£œå´ä¸‹ï¼‰ã€‚
+    I‹Æ‚Ü‚Å‚ ‚Æ ASSIGN_END_OF_DAY_DEFER_MINUTES •ªˆÈ“à‚ÌƒEƒBƒ“ƒhƒE“à‚ÅA
+    ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ƒ[ƒ‹•ªˆÈã‚Í‰ñ‚¹‚È‚¢iû—eƒ[ƒ‹”‚ªè‡’l–¢–j‚Æ‚« TrueiV‹K‰ÁH‚ğn‚ß‚È‚¢Œó•â‹p‰ºjB
     """
     th = ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS
     if th <= 0:
@@ -9207,11 +9212,11 @@ def _eod_reject_capacity_units_below_threshold(
 
 
 # =========================================================
-# 1. ã‚³ã‚¢è¨ˆç®—ãƒ­ã‚¸ãƒƒã‚¯ (æ—¥æ™‚ãƒ™ãƒ¼ã‚¹)
-#    ä¼‘æ†©å¸¯ã‚’æŒŸã‚“ã ã€Œå®Ÿåƒåˆ†ã€æ›ç®—ãƒ»çµ‚äº†æ™‚åˆ»ã®ç¹°ã‚Šä¸Šã’ã€‚å‰²ä»˜ãƒ«ãƒ¼ãƒ—ã®ä¸‹å›ã‚Šã€‚
+# 1. ƒRƒAŒvZƒƒWƒbƒN (“úƒx[ƒX)
+#    ‹xŒe‘Ñ‚ğ‹²‚ñ‚¾uÀ“­•ªvŠ·ZEI—¹‚ÌŒJ‚èã‚°BŠ„•tƒ‹[ƒv‚Ì‰º‰ñ‚èB
 # =========================================================
 def merge_time_intervals(intervals):
-    """æ™‚åˆ»åŒºé–“ã®ãƒªã‚¹ãƒˆã‚’ã‚½ãƒ¼ãƒˆã—ã€é‡ãªã‚‹åŒºé–“ã‚’çµåˆã—ã¦è¿”ã™ã€‚"""
+    """‹æŠÔ‚ÌƒŠƒXƒg‚ğƒ\[ƒg‚µAd‚È‚é‹æŠÔ‚ğŒ‹‡‚µ‚Ä•Ô‚·B"""
     if not intervals:
         return []
     intervals.sort(key=lambda x: x[0])
@@ -9231,8 +9236,8 @@ def _contiguous_work_minutes_until_next_break_or_limit(
     end_limit_dt: datetime,
 ) -> int:
     """
-    start_dt ã‹ã‚‰æ¬¡ã®ä¼‘æ†©é–‹å§‹ï¼ˆã¾ãŸã¯çµ‚æ¥­ä¸Šé™ï¼‰ã¾ã§ã®ã€é€£ç¶šã—ã¦å®Ÿåƒã«ä½¿ãˆã‚‹åˆ†æ•°ã€‚
-    é–‹å§‹ãŒä¼‘æ†©å¸¯å†…ãªã‚‰ 0ï¼ˆå‘¼ã³å‡ºã—å…ƒã§å´ä¸‹ï¼‰ã€‚breaks_dt ã¯ merge æ¸ˆã¿æƒ³å®šã€‚
+    start_dt ‚©‚çŸ‚Ì‹xŒeŠJni‚Ü‚½‚ÍI‹ÆãŒÀj‚Ü‚Å‚ÌA˜A‘±‚µ‚ÄÀ“­‚Ég‚¦‚é•ª”B
+    ŠJn‚ª‹xŒe‘Ñ“à‚È‚ç 0iŒÄ‚Ño‚µŒ³‚Å‹p‰ºjBbreaks_dt ‚Í merge Ï‚İ‘z’èB
     """
     if start_dt >= end_limit_dt:
         return 0
@@ -9255,9 +9260,9 @@ def _break_end_to_skip_if_contiguous_under(
     min_contiguous_mins: int,
 ) -> datetime | None:
     """
-    ä¼‘æ†©å¸¯å¤–ã§ã‚‚ã€æ¬¡ã®ä¼‘æ†©é–‹å§‹ã¾ã§ã®é€£ç¶šå®ŸåƒãŒ min_contiguous_mins æœªæº€ãªã‚‰ã€
-    ãã®ä¼‘æ†©åŒºé–“ã®çµ‚äº†æ™‚åˆ»ã‚’è¿”ã™ï¼ˆåˆå¾Œä¼‘æ†©ç›´å‰ã« 1 ãƒ­ãƒ¼ãƒ«åˆ†ãŒåã¾ã‚‰ãªã„é–‹å§‹ã ã‘é€²ã‚ã‚‹ï¼‰ã€‚
-    çµ‚æ¥­ã¾ã§ã—ã‹å®ŸåƒãŒç¶šã‹ãªã„å ´åˆã¯ Noneã€‚
+    ‹xŒe‘ÑŠO‚Å‚àAŸ‚Ì‹xŒeŠJn‚Ü‚Å‚Ì˜A‘±À“­‚ª min_contiguous_mins –¢–‚È‚çA
+    ‚»‚Ì‹xŒe‹æŠÔ‚ÌI—¹‚ğ•Ô‚·iŒßŒã‹xŒe’¼‘O‚É 1 ƒ[ƒ‹•ª‚ªû‚Ü‚ç‚È‚¢ŠJn‚¾‚¯i‚ß‚éjB
+    I‹Æ‚Ü‚Å‚µ‚©À“­‚ª‘±‚©‚È‚¢ê‡‚Í NoneB
     """
     if min_contiguous_mins <= 0:
         return None
@@ -9292,22 +9297,22 @@ def _defer_team_start_past_prebreak_and_end_of_day(
     min_contiguous_work_mins: int | None = None,
 ) -> datetime | None:
     """
-    - ASSIGN_END_OF_DAY_DEFER_MINUTES > 0 ã‹ã¤ (team_end_limit - è©¦è¡Œé–‹å§‹) ãŒãã®åˆ†æ•°ä»¥ä¸‹ã§ã€
-      remaining_units åˆ‡ã‚Šä¸Šã’ãŒ ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ä»¥ä¸‹ã®ã¨ãã€å½“æ—¥é–‹å§‹ä¸å¯ï¼ˆNoneï¼‰ã€‚
-    - è©¦è¡Œé–‹å§‹ãŒä¼‘æ†©å¸¯å†…ã®ã¨ãã¯ **ä¼‘æ†©çµ‚äº†æ™‚åˆ»ã¸ç¹°ã‚Šä¸‹ã’**ã—ã€`refloor_fn` ã§è¨­å‚™ä¸‹é™ãƒ»avail ã‚’å†é©ç”¨ã™ã‚‹ã€‚
-      ç¹°ã‚Šä¸‹ã’ã®ã‚ã¨çµ‚æ¥­è¶…éãƒ»EOD ãƒ‡ãƒ•ã‚¡ãƒ¼ã«è©²å½“ã™ã‚Œã° Noneã€‚
-    - min_contiguous_work_mins ãŒæ­£ã®ã¨ãã€å¸¯å¤–ã§ã‚‚ **æ¬¡ã®ä¼‘æ†©ã¾ã§ã®é€£ç¶šå®Ÿåƒ**ãŒãã‚Œæœªæº€ãªã‚‰
-      å½“è©²ä¼‘æ†©ã®çµ‚äº†ã¸ç¹°ã‚Šä¸‹ã’ï¼ˆä¸Šã¨åŒæ§˜ã« refloor ã—ãƒ«ãƒ¼ãƒ—ï¼‰ã€‚
+    - ASSIGN_END_OF_DAY_DEFER_MINUTES > 0 ‚©‚Â (team_end_limit - sŠJn) ‚ª‚»‚Ì•ª”ˆÈ‰º‚ÅA
+      remaining_units Ø‚èã‚°‚ª ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS ˆÈ‰º‚Ì‚Æ‚«A“–“úŠJn•s‰ÂiNonejB
+    - sŠJn‚ª‹xŒe‘Ñ“à‚Ì‚Æ‚«‚Í **‹xŒeI—¹‚ÖŒJ‚è‰º‚°**‚µA`refloor_fn` ‚Åİ”õ‰ºŒÀEavail ‚ğÄ“K—p‚·‚éB
+      ŒJ‚è‰º‚°‚Ì‚ ‚ÆI‹Æ’´‰ßEEOD ƒfƒtƒ@[‚ÉŠY“–‚·‚ê‚Î NoneB
+    - min_contiguous_work_mins ‚ª³‚Ì‚Æ‚«A‘ÑŠO‚Å‚à **Ÿ‚Ì‹xŒe‚Ü‚Å‚Ì˜A‘±À“­**‚ª‚»‚ê–¢–‚È‚ç
+      “–ŠY‹xŒe‚ÌI—¹‚ÖŒJ‚è‰º‚°iã‚Æ“¯—l‚É refloor ‚µƒ‹[ƒvjB
     """
     _tid = str(task.get("task_id", "") or "").strip()
-    _team_txt = ", ".join(str(x) for x in team) if team else "â€”"
+    _team_txt = ", ".join(str(x) for x in team) if team else "?"
 
     def _trace_block(msg: str, *a) -> None:
         if not _trace_schedule_task_enabled(_tid):
             return
         _log_dispatch_trace_schedule(
             _tid,
-            "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ãƒ–ãƒ­ãƒƒã‚¯åˆ¤å®š: " + msg,
+            "[”z‘äƒgƒŒ[ƒX task=%s] ƒuƒƒbƒN”»’è: " + msg,
             _tid,
             *a,
         )
@@ -9316,7 +9321,7 @@ def _defer_team_start_past_prebreak_and_end_of_day(
     for _ in range(64):
         if ts >= team_end_limit:
             _trace_block(
-                "é–‹å§‹ä¸å¯(çµ‚æ¥­è¶…é) machine=%s team=%s rem=%.4f trial_start=%s end_limit=%s",
+                "ŠJn•s‰Â(I‹Æ’´‰ß) machine=%s team=%s rem=%.4f trial_start=%s end_limit=%s",
                 task.get("machine"),
                 _team_txt,
                 float(task.get("remaining_units") or 0),
@@ -9332,7 +9337,7 @@ def _defer_team_start_past_prebreak_and_end_of_day(
                 break
         if break_end is not None:
             _trace_block(
-                "ä¼‘æ†©å¸¯å†…ã®ãŸã‚çµ‚äº†ã¸ç¹°ã‚Šä¸‹ã’ machine=%s team=%s rem=%.4f break_end=%s trial_was=%s",
+                "‹xŒe‘Ñ“à‚Ì‚½‚ßI—¹‚ÖŒJ‚è‰º‚° machine=%s team=%s rem=%.4f break_end=%s trial_was=%s",
                 task.get("machine"),
                 _team_txt,
                 float(task.get("remaining_units") or 0),
@@ -9348,7 +9353,7 @@ def _defer_team_start_past_prebreak_and_end_of_day(
             )
             if slip_end is not None:
                 _trace_block(
-                    "ä¼‘æ†©ç›´å‰ã§é€£ç¶šå®Ÿåƒä¸è¶³ã®ãŸã‚ä¼‘æ†©çµ‚äº†ã¸ç¹°ã‚Šä¸‹ã’ machine=%s team=%s rem=%.4f need_contig_min=%s trial_was=%s break_end=%s",
+                    "‹xŒe’¼‘O‚Å˜A‘±À“­•s‘«‚Ì‚½‚ß‹xŒeI—¹‚ÖŒJ‚è‰º‚° machine=%s team=%s rem=%.4f need_contig_min=%s trial_was=%s break_end=%s",
                     task.get("machine"),
                     _team_txt,
                     float(task.get("remaining_units") or 0),
@@ -9367,7 +9372,7 @@ def _defer_team_start_past_prebreak_and_end_of_day(
             and rem_ceil <= ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS
         ):
             _trace_block(
-                "é–‹å§‹ä¸å¯(çµ‚æ¥­ç›´å‰ãƒ»å°æ®‹ãƒ­ãƒ¼ãƒ«) machine=%s team=%s rem_ceil=%s max_rem=%s trial_start=%s end_limit=%s gap_end_min=%s",
+                "ŠJn•s‰Â(I‹Æ’¼‘OE¬cƒ[ƒ‹) machine=%s team=%s rem_ceil=%s max_rem=%s trial_start=%s end_limit=%s gap_end_min=%s",
                 task.get("machine"),
                 _team_txt,
                 rem_ceil,
@@ -9381,7 +9386,7 @@ def _defer_team_start_past_prebreak_and_end_of_day(
         return ts
 
     _trace_block(
-        "é–‹å§‹ä¸å¯(ä¼‘æ†©ç¹°ã‚Šä¸‹ã’æ‰“åˆ‡ã‚Š) machine=%s team=%s rem=%.4f trial_start=%s",
+        "ŠJn•s‰Â(‹xŒeŒJ‚è‰º‚°‘ÅØ‚è) machine=%s team=%s rem=%.4f trial_start=%s",
         task.get("machine"),
         _team_txt,
         float(task.get("remaining_units") or 0),
@@ -9392,9 +9397,9 @@ def _defer_team_start_past_prebreak_and_end_of_day(
 
 def _expand_timeline_events_for_equipment_grid(timeline_events: list) -> list:
     """
-    è¨­å‚™æ¯ã®æ™‚é–“å‰²ãƒ»ãƒ¡ãƒ³ãƒãƒ¼æ—¥ç¨‹ãƒ»ç¨¼åƒç‡ç”¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹å‘ã‘ã€‚
-    1 æœ¬ã®ã‚¤ãƒ™ãƒ³ãƒˆãŒæ—¥ã‚’ã¾ãŸãå ´åˆã€e["date"] ã ã‘å½“æ—¥ã«è¼‰ã›ã‚‹ã¨ç¿Œæœã‚»ã‚°ãƒ¡ãƒ³ãƒˆãŒæ¬ ã‘ã‚‹ãŸã‚ã€
-    start_dtã€œend_dt ã‚’å„å°±æ¥­æ—¥ DEFAULT_START_TIMEã€œDEFAULT_END_TIME ã«ã‚¯ãƒªãƒƒãƒ—ã—ãŸè¤‡è£½ã¸å±•é–‹ã™ã‚‹ã€‚
+    İ”õ–ˆ‚ÌŠÔŠ„Eƒƒ“ƒo[“ú’öE‰Ò“­—¦—pƒCƒ“ƒfƒbƒNƒXŒü‚¯B
+    1 –{‚ÌƒCƒxƒ“ƒg‚ª“ú‚ğ‚Ü‚½‚®ê‡Ae["date"] ‚¾‚¯“–“ú‚ÉÚ‚¹‚é‚Æ—‚’©ƒZƒOƒƒ“ƒg‚ªŒ‡‚¯‚é‚½‚ßA
+    start_dt?end_dt ‚ğŠeA‹Æ“ú DEFAULT_START_TIME?DEFAULT_END_TIME ‚ÉƒNƒŠƒbƒv‚µ‚½•¡»‚Ö“WŠJ‚·‚éB
     """
     expanded: list = []
     for e in timeline_events:
@@ -9430,8 +9435,8 @@ def _expand_timeline_events_for_equipment_grid(timeline_events: list) -> list:
 
 def get_actual_work_minutes(start_dt, end_dt, breaks_dt):
     """
-    start_dt ã‹ã‚‰ end_dt ã¾ã§ã®ã€Œä¼‘æ†©ã‚’é™¤ã„ãŸå®Ÿåƒåˆ†æ•°ã€ã€‚
-    breaks_dt â€¦ (åŒºé–“é–‹å§‹, åŒºé–“çµ‚äº†) ã®åˆ—ï¼ˆdatetime ã¾ãŸã¯ timeã€‚å‘¼ã³å‡ºã—å…ƒã®å‹¤æ€ ã‚¤ãƒ™ãƒ³ãƒˆã¨æ•´åˆï¼‰ã€‚
+    start_dt ‚©‚ç end_dt ‚Ü‚Å‚Ìu‹xŒe‚ğœ‚¢‚½À“­•ª”vB
+    breaks_dt c (‹æŠÔŠJn, ‹æŠÔI—¹) ‚Ì—ñidatetime ‚Ü‚½‚Í timeBŒÄ‚Ño‚µŒ³‚Ì‹Î‘ÓƒCƒxƒ“ƒg‚Æ®‡jB
     """
     current = start_dt
     actual_mins = 0
@@ -9457,8 +9462,8 @@ def get_actual_work_minutes(start_dt, end_dt, breaks_dt):
 
 def calculate_end_time(start_dt, duration_minutes, breaks_dt, end_limit_dt):
     """
-    start_dt ã‹ã‚‰å®Ÿåƒ duration_minutes åˆ†é€²ã‚ãŸçµ‚äº† datetime ã‚’æ±‚ã‚ã‚‹ï¼ˆä¼‘æ†©ã¯ã‚¹ã‚­ãƒƒãƒ—ï¼‰ã€‚
-    end_limit_dt ã‚’è¶…ãˆãªã„ã‚ˆã†æ‰“ã¡åˆ‡ã‚Šã€‚æˆ»ã‚Šå€¤: (çµ‚äº†æ™‚åˆ», å®Ÿéš›ã«é€²ã‚ãŸå®Ÿåƒåˆ†, æ®‹ã‚Šæœªæ¶ˆåŒ–åˆ†)
+    start_dt ‚©‚çÀ“­ duration_minutes •ªi‚ß‚½I—¹ datetime ‚ğ‹‚ß‚éi‹xŒe‚ÍƒXƒLƒbƒvjB
+    end_limit_dt ‚ğ’´‚¦‚È‚¢‚æ‚¤‘Å‚¿Ø‚èB–ß‚è’l: (I—¹, ÀÛ‚Éi‚ß‚½À“­•ª, c‚è–¢Á‰»•ª)
     """
     current = start_dt
     remaining_work = duration_minutes
@@ -9495,41 +9500,41 @@ def calculate_end_time(start_dt, duration_minutes, breaks_dt, end_limit_dt):
 
 def match_need_sheet_condition(condition_raw: str, task_id: str) -> bool:
     """
-    need ã‚·ãƒ¼ãƒˆã€Œä¾é ¼NOæ¡ä»¶ã€æ¬„ã®è§£é‡ˆã€‚
-    ç©ºãƒ»*ãƒ»å…¨ä»¶ â†’ å¸¸ã«ãƒãƒƒãƒã€‚
-    prefix:ABC / æ¥é ­è¾:ABC â†’ ä¾é ¼NO ãŒãã®æ–‡å­—åˆ—ã§å§‹ã¾ã‚‹
-    regex:... / æ­£è¦è¡¨ç¾:... â†’ æ­£è¦è¡¨ç¾ï¼ˆéƒ¨åˆ†ä¸€è‡´ï¼‰
-    ãã‚Œä»¥å¤–ã®çŸ­æ–‡ã¯æ¥é ­è¾ã¨ã—ã¦æ‰±ã†ã€‚å¾“æ¥ã®æ—¥æœ¬èªä¾‹ã€Œä¾é ¼NOãŒJRã§â€¦ã€ã¯ JR ã‚’æ¤œå‡ºã—ãŸã‚‰æ¥é ­è¾JRæ‰±ã„ã€‚
+    need ƒV[ƒguˆË—ŠNOğŒv—“‚Ì‰ğßB
+    ‹óE*E‘SŒ ¨ í‚Éƒ}ƒbƒ`B
+    prefix:ABC / Ú“ª«:ABC ¨ ˆË—ŠNO ‚ª‚»‚Ì•¶š—ñ‚Ån‚Ü‚é
+    regex:... / ³‹K•\Œ»:... ¨ ³‹K•\Œ»i•”•ªˆê’vj
+    ‚»‚êˆÈŠO‚Ì’Z•¶‚ÍÚ“ª«‚Æ‚µ‚Äˆµ‚¤B]—ˆ‚Ì“ú–{Œê—áuˆË—ŠNO‚ªJR‚Åcv‚Í JR ‚ğŒŸo‚µ‚½‚çÚ“ª«JRˆµ‚¢B
     """
     cond = (condition_raw or "").strip()
     tid = str(task_id).strip()
-    if not cond or cond in ("*", "å…¨ä»¶", "å…¨ã¦", "any", "ANY"):
+    if not cond or cond in ("*", "‘SŒ", "‘S‚Ä", "any", "ANY"):
         return True
     low = cond.lower()
-    cn = cond.replace("ï¼š", ":")
-    if low.startswith("prefix:") or low.startswith("æ¥é ­è¾:"):
+    cn = cond.replace("F", ":")
+    if low.startswith("prefix:") or low.startswith("Ú“ª«:"):
         pref = cn.split(":", 1)[1].strip() if ":" in cn else ""
         return bool(pref) and tid.startswith(pref)
-    if low.startswith("regex:") or low.startswith("æ­£è¦è¡¨ç¾:"):
+    if low.startswith("regex:") or low.startswith("³‹K•\Œ»:"):
         pat = cn.split(":", 1)[1].strip() if ":" in cn else ""
         if not pat:
             return False
         try:
             return re.search(pat, tid) is not None
         except re.error:
-            logging.warning(f"need ä¾é ¼NOæ¡ä»¶ã®æ­£è¦è¡¨ç¾ãŒç„¡åŠ¹ã§ã™: {pat}")
+            logging.warning(f"need ˆË—ŠNOğŒ‚Ì³‹K•\Œ»‚ª–³Œø‚Å‚·: {pat}")
             return False
-    if "ä¾é ¼" in cond and "JR" in cond.upper():
+    if "ˆË—Š" in cond and "JR" in cond.upper():
         return tid.upper().startswith("JR")
     return tid.startswith(cond)
 
 
 def parse_need_sheet_special_rules(needs_df, label_col, equipment_list, cond_col):
-    """ç‰¹åˆ¥æŒ‡å®š1ï½99 è¡Œã‹ã‚‰ã€è¨­å‚™åˆ¥ã®å¿…è¦äººæ•°ä¸Šæ›¸ãï¼ˆ1ï½99ï¼‰ã‚’æŠ½å‡ºï¼ˆå…ˆã«å®šç¾©ã•ã‚ŒãŸç•ªå·ãŒå„ªå…ˆï¼‰ã€‚"""
+    """“Á•Êw’è1`99 s‚©‚çAİ”õ•Ê‚Ì•K—vl”ã‘‚«i1`99j‚ğ’Šoiæ‚É’è‹`‚³‚ê‚½”Ô†‚ª—DæjB"""
     rules = []
     for _, row in needs_df.iterrows():
         lab = str(row.get(label_col, "") or "").strip()
-        m = re.match(r"ç‰¹åˆ¥æŒ‡å®š\s*(\d+)", lab)
+        m = re.match(r"“Á•Êw’è\s*(\d+)", lab)
         if not m:
             continue
         order = int(m.group(1))
@@ -9555,14 +9560,14 @@ def parse_need_sheet_special_rules(needs_df, label_col, equipment_list, cond_col
 
 def resolve_need_required_op(process: str, machine_name: str, task_id: str, req_map: dict, need_rules: list) -> int:
     """
-    need ã‚·ãƒ¼ãƒˆã®ã€Œå·¥ç¨‹å + æ©Ÿæ¢°åã€ã§å¿…è¦OPäººæ•°ã‚’è§£æ±ºï¼ˆç‰¹åˆ¥æŒ‡å®š1ã€œ99ã¯ order ãŒå°ã•ã„ã»ã©å„ªå…ˆï¼‰ã€‚
+    need ƒV[ƒg‚ÌuH’ö–¼ + ‹@ŠB–¼v‚Å•K—vOPl”‚ğ‰ğŒˆi“Á•Êw’è1?99‚Í order ‚ª¬‚³‚¢‚Ù‚Ç—DæjB
 
-    req_map ã¯
-      - f\"{process}+{machine_name}\"ï¼ˆå³å¯†ã‚­ãƒ¼ï¼‰
-      - machine_nameï¼ˆæ©Ÿæ¢°ã ã‘ã®ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ï¼‰
-      - processï¼ˆå·¥ç¨‹ã ã‘ã®ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ï¼‰
-    ã®ã„ãšã‚Œã‹ã§ base ã‚’å¼•ã‘ã‚‹å‰æã€‚
-    need_rules ã® overrides ã‚‚åŒæ§˜ã«ã‚­ãƒ¼ã‚’æŒã¤ã€‚
+    req_map ‚Í
+      - f\"{process}+{machine_name}\"iŒµ–§ƒL[j
+      - machine_namei‹@ŠB‚¾‚¯‚ÌƒtƒH[ƒ‹ƒoƒbƒNj
+      - processiH’ö‚¾‚¯‚ÌƒtƒH[ƒ‹ƒoƒbƒNj
+    ‚Ì‚¢‚¸‚ê‚©‚Å base ‚ğˆø‚¯‚é‘O’ñB
+    need_rules ‚Ì overrides ‚à“¯—l‚ÉƒL[‚ğ‚ÂB
     """
     p = str(process).strip()
     m = str(machine_name).strip()
@@ -9597,7 +9602,7 @@ def resolve_need_required_op_explain(
     process: str, machine_name: str, task_id: str, req_map: dict, need_rules: list
 ) -> tuple[int, str]:
     """
-    resolve_need_required_op ã¨åŒå€¤ã‚’è¿”ã—ã¤ã¤ã€ãƒ­ã‚°ç”¨ã«å‚ç…§å…ƒã®èª¬æ˜æ–‡å­—åˆ—ã‚’ä»˜ã‘ã‚‹ã€‚
+    resolve_need_required_op ‚Æ“¯’l‚ğ•Ô‚µ‚Â‚ÂAƒƒO—p‚ÉQÆŒ³‚Ìà–¾•¶š—ñ‚ğ•t‚¯‚éB
     """
     p = str(process).strip()
     m = str(machine_name).strip()
@@ -9609,41 +9614,41 @@ def resolve_need_required_op_explain(
         base_src = f"req_map[{combo_key!r}]={base}"
     elif m and m in req_map:
         base = req_map[m]
-        base_src = f"req_map[æ©Ÿæ¢°åã®ã¿ {m!r}]={base}ï¼ˆè¤‡åˆã‚­ãƒ¼ä¸åœ¨ï¼‰"
+        base_src = f"req_map[‹@ŠB–¼‚Ì‚İ {m!r}]={base}i•¡‡ƒL[•sİj"
     elif p and p in req_map:
         base = req_map[p]
-        base_src = f"req_map[å·¥ç¨‹åã®ã¿ {p!r}]={base}ï¼ˆè¤‡åˆãƒ»æ©Ÿæ¢°ã‚­ãƒ¼ä¸åœ¨ï¼‰"
+        base_src = f"req_map[H’ö–¼‚Ì‚İ {p!r}]={base}i•¡‡E‹@ŠBƒL[•sİj"
     else:
         base = 1
-        base_src = "req_mapè©²å½“ãªã—â†’æ—¢å®š1"
+        base_src = "req_mapŠY“–‚È‚µ¨Šù’è1"
     for rule in need_rules:
         if not match_need_sheet_condition(rule["condition"], task_id):
             continue
         order = rule.get("order", "?")
         if combo_key and combo_key in rule["overrides"]:
             v = int(rule["overrides"][combo_key])
-            return v, f"needç‰¹åˆ¥æŒ‡å®š{order} [{combo_key!r}]={v}"
+            return v, f"need“Á•Êw’è{order} [{combo_key!r}]={v}"
         if m and m in rule["overrides"]:
             v = int(rule["overrides"][m])
-            return v, f"needç‰¹åˆ¥æŒ‡å®š{order} [æ©Ÿæ¢°å{m!r}]={v}"
+            return v, f"need“Á•Êw’è{order} [‹@ŠB–¼{m!r}]={v}"
         if p and p in rule["overrides"]:
             v = int(rule["overrides"][p])
-            return v, f"needç‰¹åˆ¥æŒ‡å®š{order} [å·¥ç¨‹å{p!r}]={v}"
+            return v, f"need“Á•Êw’è{order} [H’ö–¼{p!r}]={v}"
     return int(base), base_src
 
 
 def _need_row_label_hints_surplus_add(label_a0: str) -> bool:
-    """need ã‚·ãƒ¼ãƒˆ Aåˆ—: åŸºæœ¬å¿…è¦äººæ•°ã®ç›´ä¸‹ã«ã‚ã‚‹ã€Œé…å°çµæœã§ä½™å‰°ãŒå‡ºãŸã¨ãã®è¿½åŠ å¢—å“¡ä¸Šé™ã€è¡Œã‹ã€‚"""
+    """need ƒV[ƒg A—ñ: Šî–{•K—vl”‚Ì’¼‰º‚É‚ ‚éu”z‘äŒ‹‰Ê‚Å—]è‚ªo‚½‚Æ‚«‚Ì’Ç‰Á‘ˆõãŒÀvs‚©B"""
     s = unicodedata.normalize("NFKC", str(label_a0 or "").strip())
-    if not s or s.startswith("ç‰¹åˆ¥æŒ‡å®š"):
+    if not s or s.startswith("“Á•Êw’è"):
         return False
-    if "ä¾é ¼" in s and "æ¡ä»¶" in s:
+    if "ˆË—Š" in s and "ğŒ" in s:
         return False
-    if "è¿½åŠ " in s and ("äººæ•°" in s or "äººå“¡" in s or "å¢—å“¡" in s):
+    if "’Ç‰Á" in s and ("l”" in s or "lˆõ" in s or "‘ˆõ" in s):
         return True
-    if "å¢—å“¡" in s or "ä½™å‰°" in s:
+    if "‘ˆõ" in s or "—]è" in s:
         return True
-    if "é…å°" in s and ("è¿½åŠ " in s or "å¢—" in s or "ä½™å‰°" in s):
+    if "”z‘ä" in s and ("’Ç‰Á" in s or "‘" in s or "—]è" in s):
         return True
     return False
 
@@ -9651,13 +9656,13 @@ def _need_row_label_hints_surplus_add(label_a0: str) -> bool:
 def _find_need_surplus_add_row_index(
     needs_raw, base_row: int, col0: int, pm_cols: list
 ) -> int | None:
-    """åŸºæœ¬å¿…è¦äººæ•°è¡Œã®æ¬¡è¡Œã‚’å„ªå…ˆã€‚ãƒ©ãƒ™ãƒ«ã¾ãŸã¯æ•°å€¤ã§è¿½åŠ äººæ•°è¡Œã¨åˆ¤å®šã€‚"""
+    """Šî–{•K—vl”s‚ÌŸs‚ğ—DæBƒ‰ƒxƒ‹‚Ü‚½‚Í”’l‚Å’Ç‰Ál”s‚Æ”»’èB"""
     r = base_row + 1
     if r >= needs_raw.shape[0]:
         return None
     v0 = needs_raw.iat[r, col0]
     s0 = "" if pd.isna(v0) else str(v0).strip()
-    if s0.startswith("ç‰¹åˆ¥æŒ‡å®š"):
+    if s0.startswith("“Á•Êw’è"):
         return None
     if _need_row_label_hints_surplus_add(s0):
         return r
@@ -9665,7 +9670,7 @@ def _find_need_surplus_add_row_index(
     for col_idx, _, _ in pm_cols:
         if parse_optional_int(needs_raw.iat[r, col_idx]) is not None:
             nz += 1
-    if nz > 0 and not unicodedata.normalize("NFKC", s0).startswith("ç‰¹åˆ¥"):
+    if nz > 0 and not unicodedata.normalize("NFKC", s0).startswith("“Á•Ê"):
         return r
     return None
 
@@ -9678,9 +9683,9 @@ def resolve_need_surplus_extra_max(
     need_rules: list,
 ) -> int:
     """
-    need ã‚·ãƒ¼ãƒˆã€Œé…å°æ™‚è¿½åŠ äººæ•°ã€è¡Œï¼ˆå·¥ç¨‹Ã—æ©Ÿæ¢°åˆ—ï¼‰ã®å€¤ï¼å¿…è¦äººæ•°ã‚’æº€ãŸã—ãŸã†ãˆã§
-    ã•ã‚‰ã«å‰²ã‚Šå½“ã¦å¯èƒ½ãªäººæ•°ã®ä¸Šé™ï¼ˆ0 ãªã‚‰å¾“æ¥ã©ãŠã‚Šå¿…è¦äººæ•°ã¡ã‚‡ã†ã©ã®ã¿ï¼‰ã€‚
-    need_rules ã¯ç¾çŠ¶ã“ã®è¡Œã‚’ä¸Šæ›¸ãã—ãªã„ï¼ˆå°†æ¥æ‹¡å¼µç”¨ã« task_id ã‚’å—ã‘å–ã‚‹ï¼‰ã€‚
+    need ƒV[ƒgu”z‘ä’Ç‰Ál”vsiH’ö~‹@ŠB—ñj‚Ì’l•K—vl”‚ğ–‚½‚µ‚½‚¤‚¦‚Å
+    ‚³‚ç‚ÉŠ„‚è“–‚Ä‰Â”\‚Èl”‚ÌãŒÀi0 ‚È‚ç]—ˆ‚Ç‚¨‚è•K—vl”‚¿‚å‚¤‚Ç‚Ì‚İjB
+    need_rules ‚ÍŒ»ó‚±‚Ìs‚ğã‘‚«‚µ‚È‚¢i«—ˆŠg’£—p‚É task_id ‚ğó‚¯æ‚éjB
     """
     _ = (task_id, need_rules)
     if not surplus_map:
@@ -9711,13 +9716,13 @@ def resolve_need_surplus_extra_max_explain(
     surplus_map: dict,
     need_rules: list,
 ) -> tuple[int, str]:
-    """resolve_need_surplus_extra_max ã¨åŒå€¤ï¼‹å‚ç…§å…ƒèª¬æ˜ï¼ˆãƒ­ã‚°ç”¨ï¼‰ã€‚"""
+    """resolve_need_surplus_extra_max ‚Æ“¯’l{QÆŒ³à–¾iƒƒO—pjB"""
     val = resolve_need_surplus_extra_max(
         process, machine_name, task_id, surplus_map, need_rules
     )
     _ = need_rules
     if not surplus_map:
-        return val, "surplus_mapç©ºï¼ˆé…å°æ™‚è¿½åŠ äººæ•°è¡Œãªã—ï¼‰"
+        return val, "surplus_map‹ói”z‘ä’Ç‰Ál”s‚È‚µj"
     p = str(process).strip()
     m = str(machine_name).strip()
     combo_key = f"{p}+{m}" if p and m else None
@@ -9726,19 +9731,19 @@ def resolve_need_surplus_extra_max_explain(
         return val, f"surplus_map[{combo_key!r}]={raw}"
     if m and m in surplus_map:
         raw = surplus_map[m]
-        return val, f"surplus_map[æ©Ÿæ¢°åã®ã¿ {m!r}]={raw}ï¼ˆè¤‡åˆã‚­ãƒ¼ä¸åœ¨ï¼‰"
+        return val, f"surplus_map[‹@ŠB–¼‚Ì‚İ {m!r}]={raw}i•¡‡ƒL[•sİj"
     if p and p in surplus_map:
         raw = surplus_map[p]
-        return val, f"surplus_map[å·¥ç¨‹åã®ã¿ {p!r}]={raw}ï¼ˆè¤‡åˆã‚­ãƒ¼ä¸åœ¨ï¼‰"
-    return val, "surpluså½“ã‚­ãƒ¼ãªã—â†’0"
+        return val, f"surplus_map[H’ö–¼‚Ì‚İ {p!r}]={raw}i•¡‡ƒL[•sİj"
+    return val, "surplus“–ƒL[‚È‚µ¨0"
 
 
 def _surplus_team_time_factor(
     rq_base: int, team_len: int, extra_max_allowed: int
 ) -> float:
     """
-    å¿…è¦äººæ•°ã‚’è¶…ãˆã¦å…¥ã‚ŒãŸãƒ¡ãƒ³ãƒãƒ¼ã«ã‚ˆã‚‹å˜ä½æ™‚é–“ã¸ã®ä¿‚æ•°ï¼ˆ1.0ï¼çŸ­ç¸®ãªã—ï¼‰ã€‚
-    è¿½åŠ æ ï¼ˆextra_max_allowedï¼‰ã‚’ä½¿ã„åˆ‡ã£ãŸã¨ãã§ã‚‚ã€çŸ­ç¸®ã¯ SURPLUS_TEAM_MAX_SPEEDUP_RATIO ã‚’ä¸Šé™ã¨ã™ã‚‹ç·šå½¢ãƒ¢ãƒ‡ãƒ«ã€‚
+    •K—vl”‚ğ’´‚¦‚Ä“ü‚ê‚½ƒƒ“ƒo[‚É‚æ‚é’PˆÊŠÔ‚Ö‚ÌŒW”i1.0’Zk‚È‚µjB
+    ’Ç‰Á˜giextra_max_allowedj‚ğg‚¢Ø‚Á‚½‚Æ‚«‚Å‚àA’Zk‚Í SURPLUS_TEAM_MAX_SPEEDUP_RATIO ‚ğãŒÀ‚Æ‚·‚éüŒ`ƒ‚ƒfƒ‹B
     """
     rq = max(1, int(rq_base))
     tl = int(team_len)
@@ -9752,12 +9757,12 @@ def _surplus_team_time_factor(
 
 def _team_assign_trace_tuple_label() -> str:
     if TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF:
-        return "(-äººæ•°, é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ)"
+        return "(-l”, ŠJn, -’PˆÊ”, —Dæ“x‡Œv)"
     if TEAM_ASSIGN_START_SLACK_WAIT_MINUTES <= 0:
-        return "(é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ)"
+        return "(ŠJn, -’PˆÊ”, —Dæ“x‡Œv)"
     return (
-        f"æœ€æ—©é–‹å§‹ã‹ã‚‰{TEAM_ASSIGN_START_SLACK_WAIT_MINUTES}åˆ†ä»¥å†…ã¯"
-        "(0,-äººæ•°,é–‹å§‹,-å˜ä½æ•°,å„ªå…ˆåº¦)ã€è¶…éã¯(1,é–‹å§‹,-äººæ•°,-å˜ä½æ•°,å„ªå…ˆåº¦)"
+        f"Å‘ŠJn‚©‚ç{TEAM_ASSIGN_START_SLACK_WAIT_MINUTES}•ªˆÈ“à‚Í"
+        "(0,-l”,ŠJn,-’PˆÊ”,—Dæ“x)A’´‰ß‚Í(1,ŠJn,-l”,-’PˆÊ”,—Dæ“x)"
     )
 
 
@@ -9769,12 +9774,12 @@ def _team_assignment_sort_tuple(
     t_min: datetime | None = None,
 ) -> tuple:
     """
-    ãƒãƒ¼ãƒ å€™è£œã®å„ªåŠ£ç”¨ã‚¿ãƒ—ãƒ«ï¼ˆè¾æ›¸å¼ã§å°ã•ã„æ–¹ãŒæ¡ç”¨ï¼‰ã€‚
-    - TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF: (-äººæ•°, é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ)
-    - ãã‚Œä»¥å¤–ã‹ã¤ TEAM_ASSIGN_START_SLACK_WAIT_MINUTES>0 ã‹ã¤ t_min ã‚ã‚Š:
-        æœ€æ—©é–‹å§‹ã‹ã‚‰ã‚¹ãƒ©ãƒƒã‚¯ä»¥å†… â†’ (0, -äººæ•°, é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦) â€¦ é…ã‚Œã¦ã‚‚äººæ•°ã‚’åšã
-        ã‚¹ãƒ©ãƒƒã‚¯è¶… â†’ (1, é–‹å§‹, -äººæ•°, -å˜ä½æ•°, å„ªå…ˆåº¦) â€¦ é–‹å§‹ã‚’å„ªå…ˆ
-    - ä¸Šè¨˜ä»¥å¤–: (é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ)
+    ƒ`[ƒ€Œó•â‚Ì—D—ò—pƒ^ƒvƒ‹i«‘®‚Å¬‚³‚¢•û‚ªÌ—pjB
+    - TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF: (-l”, ŠJn, -’PˆÊ”, —Dæ“x‡Œv)
+    - ‚»‚êˆÈŠO‚©‚Â TEAM_ASSIGN_START_SLACK_WAIT_MINUTES>0 ‚©‚Â t_min ‚ ‚è:
+        Å‘ŠJn‚©‚çƒXƒ‰ƒbƒNˆÈ“à ¨ (0, -l”, ŠJn, -’PˆÊ”, —Dæ“x) c ’x‚ê‚Ä‚àl”‚ğŒú‚­
+        ƒXƒ‰ƒbƒN’´ ¨ (1, ŠJn, -l”, -’PˆÊ”, —Dæ“x) c ŠJn‚ğ—Dæ
+    - ã‹LˆÈŠO: (ŠJn, -’PˆÊ”, —Dæ“x‡Œv)
     """
     n = len(team)
     if TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF:
@@ -9788,16 +9793,16 @@ def _team_assignment_sort_tuple(
     return (1, team_start, -n, -units_today, team_prio_sum)
 
 
-# skills ã‚»ãƒ«: OP / AS + ä»»æ„ã®å„ªå…ˆåº¦æ•´æ•°ï¼ˆä¾‹ OP1, AS 3ï¼‰ã€‚æ•°å€¤ãŒå°ã•ã„ã»ã©å‰²å½“ã§å…ˆã«é¸ã°ã‚Œã‚‹ã€‚
+# skills ƒZƒ‹: OP / AS + ”CˆÓ‚Ì—Dæ“x®”i—á OP1, AS 3jB”’l‚ª¬‚³‚¢‚Ù‚ÇŠ„“–‚Åæ‚É‘I‚Î‚ê‚éB
 _SKILL_OP_AS_CELL_RE = re.compile(r"^(OP|AS)(\d*)$", re.IGNORECASE)
 
 
 def parse_op_as_skill_cell(cell_val):
     """
-    master.xlsmã€Œskillsã€ã®ã‚»ãƒ«1ã¤ã‚’è§£é‡ˆã™ã‚‹ã€‚
-    - ã€ŒOPã€ã¾ãŸã¯ã€ŒASã€ã®ç›´å¾Œã«å„ªå…ˆåº¦ç”¨ã®æ•´æ•°ï¼ˆç©ºç™½ã¯é™¤å»ã—ã¦è§£é‡ˆï¼‰ã€‚ä¾‹: OP, OP1, AS3, AS 12
-    - å„ªå…ˆåº¦ã¯å°ã•ã„ã»ã©é«˜å„ªå…ˆï¼ˆåŒä¸€æ¡ä»¶ã®ãƒãƒ¼ãƒ å€™è£œã‹ã‚‰å…ˆã«é¸ã°ã‚Œã‚‹ï¼‰ã€‚æ•°å­—çœç•¥æ™‚ã¯ 1ã€‚
-    - OP/AS ã§å§‹ã¾ã‚‰ãªã„ãƒ»ç©ºã¯ã‚¹ã‚­ãƒ«ãªã—ã€‚
+    master.xlsmuskillsv‚ÌƒZƒ‹1‚Â‚ğ‰ğß‚·‚éB
+    - uOPv‚Ü‚½‚ÍuASv‚Ì’¼Œã‚É—Dæ“x—p‚Ì®”i‹ó”’‚Íœ‹‚µ‚Ä‰ğßjB—á: OP, OP1, AS3, AS 12
+    - —Dæ“x‚Í¬‚³‚¢‚Ù‚Ç‚—Dæi“¯ˆêğŒ‚Ìƒ`[ƒ€Œó•â‚©‚çæ‚É‘I‚Î‚ê‚éjB”šÈ—ª‚Í 1B
+    - OP/AS ‚Ån‚Ü‚ç‚È‚¢E‹ó‚ÍƒXƒLƒ‹‚È‚µB
     """
     if cell_val is None or (isinstance(cell_val, float) and pd.isna(cell_val)):
         return None, 10**9
@@ -9826,9 +9831,9 @@ def _validate_skills_op_as_priority_numbers_unique(
     skills_dict: dict, column_keys: list
 ) -> None:
     """
-    masterã€Œskillsã€ã®å„åˆ—ï¼ˆå·¥ç¨‹+æ©Ÿæ¢°ã‚­ãƒ¼ç­‰ï¼‰ã«ã¤ã„ã¦ã€OP/AS ã®å‰²å½“å„ªå…ˆåº¦ã®**æ•°å€¤**ãŒ
-    ãƒ¡ãƒ³ãƒãƒ¼é–“ã§é‡è¤‡ã—ã¦ã„ãªã„ã‹æ¤œè¨¼ã™ã‚‹ã€‚é‡è¤‡æ™‚ã¯ PlanningValidationErrorã€‚
-    ï¼ˆOP1 ã¨ AS1 ã®ã‚ˆã†ã«ãƒ­ãƒ¼ãƒ«ãŒç•°ãªã£ã¦ã‚‚åŒä¸€æ•°å€¤ãªã‚‰é‡è¤‡ã¨ã¿ãªã™ï¼‰
+    masteruskillsv‚ÌŠe—ñiH’ö+‹@ŠBƒL[“™j‚É‚Â‚¢‚ÄAOP/AS ‚ÌŠ„“–—Dæ“x‚Ì**”’l**‚ª
+    ƒƒ“ƒo[ŠÔ‚Åd•¡‚µ‚Ä‚¢‚È‚¢‚©ŒŸØ‚·‚éBd•¡‚Í PlanningValidationErrorB
+    iOP1 ‚Æ AS1 ‚Ì‚æ‚¤‚Éƒ[ƒ‹‚ªˆÙ‚È‚Á‚Ä‚à“¯ˆê”’l‚È‚çd•¡‚Æ‚İ‚È‚·j
     """
     errors: list[str] = []
     for combo in column_keys:
@@ -9852,17 +9857,17 @@ def _validate_skills_op_as_priority_numbers_unique(
             pr_to_entries[int(pr)].append(f"{mnm}({role})")
         for pr, entries in sorted(pr_to_entries.items()):
             if len(entries) > 1:
-                errors.append(f'åˆ—ã€Œ{ck}ã€: å„ªå…ˆåº¦ {pr} ãŒé‡è¤‡ â†’ ' + "ã€".join(entries))
+                errors.append(f'—ñu{ck}v: —Dæ“x {pr} ‚ªd•¡ ¨ ' + "A".join(entries))
     if errors:
         cap = 50
         tail = errors[:cap]
         msg = (
-            "ãƒã‚¹ã‚¿ã€Œskillsã€ã§ã€åŒä¸€åˆ—ã® OP/AS å„ªå…ˆåº¦ã®æ•°å€¤ãŒé‡è¤‡ã—ã¦ã„ã¾ã™ã€‚"
-            " åˆ—ã”ã¨ã«æ•°å€¤ã¯1äººã«ã¤ã1ç¨®é¡ã«ã—ã¦ãã ã•ã„ã€‚\n"
+            "ƒ}ƒXƒ^uskillsv‚ÅA“¯ˆê—ñ‚Ì OP/AS —Dæ“x‚Ì”’l‚ªd•¡‚µ‚Ä‚¢‚Ü‚·B"
+            " —ñ‚²‚Æ‚É”’l‚Í1l‚É‚Â‚«1í—Ş‚É‚µ‚Ä‚­‚¾‚³‚¢B\n"
             + "\n".join(tail)
         )
         if len(errors) > cap:
-            msg += f"\nâ€¦ä»– {len(errors) - cap} ä»¶"
+            msg += f"\nc‘¼ {len(errors) - cap} Œ"
         raise PlanningValidationError(msg)
 
 
@@ -9871,9 +9876,9 @@ def build_member_assignment_priority_reference(
     members: list | None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    çµæœãƒ–ãƒƒã‚¯ç”¨: ãƒã‚¹ã‚¿ skills ã®ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€åˆ—ã”ã¨ã«ã€å‰²å½“ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã¨åŒã˜
-    (å„ªå…ˆåº¦å€¤æ˜‡é †, ãƒ¡ãƒ³ãƒãƒ¼åæ˜‡é †) ã§ä¸¦ã¹ãŸå‚è€ƒè¡¨ã¨ã€ãƒ«ãƒ¼ãƒ«èª¬æ˜ã®è¡¨ã‚’è¿”ã™ã€‚
-    å½“æ—¥ã®å‡ºå‹¤ãƒ»è¨­å‚™ç©ºããƒ»åŒä¸€ä¾é ¼ã®å·¥ç¨‹é †ãƒ»ãƒãƒ¼ãƒ äººæ•°ã¯åæ˜ ã—ãªã„ï¼ˆã‚ãã¾ã§ãƒã‚¹ã‚¿ä¸Šã®é †åºï¼‰ã€‚
+    Œ‹‰ÊƒuƒbƒN—p: ƒ}ƒXƒ^ skills ‚ÌuH’ö–¼+‹@ŠB–¼v—ñ‚²‚Æ‚ÉAŠ„“–ƒAƒ‹ƒSƒŠƒYƒ€‚Æ“¯‚¶
+    (—Dæ“x’l¸‡, ƒƒ“ƒo[–¼¸‡) ‚Å•À‚×‚½Ql•\‚ÆAƒ‹[ƒ‹à–¾‚Ì•\‚ğ•Ô‚·B
+    “–“ú‚Ìo‹ÎEİ”õ‹ó‚«E“¯ˆêˆË—Š‚ÌH’ö‡Eƒ`[ƒ€l”‚Í”½‰f‚µ‚È‚¢i‚ ‚­‚Ü‚Åƒ}ƒXƒ^ã‚Ì‡˜jB
     """
     mem_list = list(members) if members else list((skills_dict or {}).keys())
     mem_list = [str(m).strip() for m in mem_list if m and str(m).strip()]
@@ -9882,49 +9887,49 @@ def build_member_assignment_priority_reference(
     slack_m = TEAM_ASSIGN_START_SLACK_WAIT_MINUTES
     if surplus_on:
         team_rule = (
-            "TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF=æœ‰åŠ¹: "
-            "(-äººæ•°, é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ) ã®è¾æ›¸å¼ï¼ˆäººæ•°æœ€å„ªå…ˆãƒ»å¾“æ¥ï¼‰ã€‚"
+            "TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF=—LŒø: "
+            "(-l”, ŠJn, -’PˆÊ”, —Dæ“x‡Œv) ‚Ì«‘®il”Å—DæE]—ˆjB"
         )
     elif slack_m > 0:
         team_rule = (
-            f"æ—¢å®š: ãã®æ—¥ã®æˆç«‹å€™è£œå…¨ä½“ã®ã€Œæœ€æ—©é–‹å§‹ã€ã‚’åŸºæº–ã«ã€"
-            f"é–‹å§‹ãŒãã®{slack_m}åˆ†ä»¥å†…ã®é…ã‚Œãªã‚‰äººæ•°ã‚’åšãå„ªå…ˆï¼ˆ0,-äººæ•°,é–‹å§‹,-å˜ä½æ•°,å„ªå…ˆåº¦ï¼‰ã€"
-            f"ãã‚Œã‚ˆã‚Šé…ã„å€™è£œã¯é–‹å§‹ã‚’å„ªå…ˆï¼ˆ1,é–‹å§‹,-äººæ•°,-å˜ä½æ•°,å„ªå…ˆåº¦ï¼‰ã€‚"
-            f"ç’°å¢ƒå¤‰æ•° TEAM_ASSIGN_START_SLACK_WAIT_MINUTES=0 ã§ç„¡åŠ¹åŒ–ã€‚"
+            f"Šù’è: ‚»‚Ì“ú‚Ì¬—§Œó•â‘S‘Ì‚ÌuÅ‘ŠJnv‚ğŠî€‚ÉA"
+            f"ŠJn‚ª‚»‚Ì{slack_m}•ªˆÈ“à‚Ì’x‚ê‚È‚çl”‚ğŒú‚­—Dæi0,-l”,ŠJn,-’PˆÊ”,—Dæ“xjA"
+            f"‚»‚ê‚æ‚è’x‚¢Œó•â‚ÍŠJn‚ğ—Dæi1,ŠJn,-l”,-’PˆÊ”,—Dæ“xjB"
+            f"ŠÂ‹«•Ï” TEAM_ASSIGN_START_SLACK_WAIT_MINUTES=0 ‚Å–³Œø‰»B"
         )
     else:
         team_rule = (
             "TEAM_ASSIGN_START_SLACK_WAIT_MINUTES=0: "
-            "(é–‹å§‹, -å˜ä½æ•°, å„ªå…ˆåº¦åˆè¨ˆ) ã®ã¿ï¼ˆé–‹å§‹æœ€å„ªå…ˆï¼‰ã€‚"
+            "(ŠJn, -’PˆÊ”, —Dæ“x‡Œv) ‚Ì‚İiŠJnÅ—DæjB"
         )
 
     legend_rows = [
         {
-            "åŒºåˆ†": "ã‚¹ã‚­ãƒ«åˆ—ã®ä¸¦ã³",
-            "å†…å®¹": "å„ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€åˆ—ã«ã¤ã„ã¦ã€ã‚»ãƒ«ãŒ OP/ASï¼ˆ+å„ªå…ˆåº¦æ•´æ•°ï¼‰ã®ãƒ¡ãƒ³ãƒãƒ¼ã®ã¿å¯¾è±¡ã€‚"
-            " æ•°å€¤ãŒå°ã•ã„ã»ã©é«˜å„ªå…ˆã€‚çœç•¥æ™‚ã¯å„ªå…ˆåº¦ 1ï¼ˆparse_op_as_skill_cell ã¨åŒä¸€ï¼‰ã€‚"
-            " åŒä¸€åˆ—ã§ã¯å„ªå…ˆåº¦ã®æ•°å€¤ã¯ãƒ¡ãƒ³ãƒãƒ¼é–“ã§é‡è¤‡ä¸å¯ï¼ˆãƒã‚¹ã‚¿èª­è¾¼æ™‚ã«æ¤œè¨¼ï¼‰ã€‚",
+            "‹æ•ª": "ƒXƒLƒ‹—ñ‚Ì•À‚Ñ",
+            "“à—e": "ŠeuH’ö–¼+‹@ŠB–¼v—ñ‚É‚Â‚¢‚ÄAƒZƒ‹‚ª OP/ASi+—Dæ“x®”j‚Ìƒƒ“ƒo[‚Ì‚İ‘ÎÛB"
+            " ”’l‚ª¬‚³‚¢‚Ù‚Ç‚—DæBÈ—ª‚Í—Dæ“x 1iparse_op_as_skill_cell ‚Æ“¯ˆêjB"
+            " “¯ˆê—ñ‚Å‚Í—Dæ“x‚Ì”’l‚Íƒƒ“ƒo[ŠÔ‚Åd•¡•s‰Âiƒ}ƒXƒ^“Ç‚ÉŒŸØjB",
         },
         {
-            "åŒºåˆ†": "å½“æ—¥ã¨ã®å·®",
-            "å†…å®¹": "å®Ÿéš›ã®é…å°ã¯ã€ã“ã®é †ã®ã†ã¡ãã®æ—¥å‡ºå‹¤ã‹ã¤ AS/OP è¦ä»¶ã‚’æº€ãŸã™è€…ã ã‘ãŒå€™è£œã€‚"
-            " è¨­å‚™ã®ç©ºããƒ»åŒä¸€ä¾é ¼NOã®å·¥ç¨‹é †ãƒ»å¿…è¦äººæ•°ãƒ»å¢—å“¡æ ãƒ»æŒ‡åOPã§å¤‰ã‚ã‚Šã¾ã™ã€‚",
+            "‹æ•ª": "“–“ú‚Æ‚Ì·",
+            "“à—e": "ÀÛ‚Ì”z‘ä‚ÍA‚±‚Ì‡‚Ì‚¤‚¿‚»‚Ì“úo‹Î‚©‚Â AS/OP —vŒ‚ğ–‚½‚·Ò‚¾‚¯‚ªŒó•âB"
+            " İ”õ‚Ì‹ó‚«E“¯ˆêˆË—ŠNO‚ÌH’ö‡E•K—vl”E‘ˆõ˜gEw–¼OP‚Å•Ï‚í‚è‚Ü‚·B",
         },
         {
-            "åŒºåˆ†": "ãƒãƒ¼ãƒ å€™è£œã®æ¯”è¼ƒ",
-            "å†…å®¹": team_rule,
+            "‹æ•ª": "ƒ`[ƒ€Œó•â‚Ì”äŠr",
+            "“à—e": team_rule,
         },
         {
-            "åŒºåˆ†": "æŒ‡åãƒ»ã‚°ãƒ­ãƒ¼ãƒãƒ«ä¸Šæ›¸ã",
-            "å†…å®¹": "æ‹…å½“OP_æŒ‡å®šãƒ»ãƒ¡ã‚¤ãƒ³ã€Œå†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰ã€ã® OP æŒ‡åã¯æœ¬è¡¨ã‚ˆã‚Šå„ªå…ˆã•ã‚Œã¾ã™ã€‚",
+            "‹æ•ª": "w–¼EƒOƒ[ƒoƒ‹ã‘‚«",
+            "“à—e": "’S“–OP_w’èEƒƒCƒ“uÄ—Dæ“Á•Ê‹LÚv‚Ì OP w–¼‚Í–{•\‚æ‚è—Dæ‚³‚ê‚Ü‚·B",
         },
         {
-            "åŒºåˆ†": "TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF",
-            "å†…å®¹": "1/æœ‰åŠ¹ï¼ˆäººæ•°æœ€å„ªå…ˆãƒ»å¾“æ¥ï¼‰" if surplus_on else "0/ç„¡åŠ¹ï¼ˆæ—¢å®šï¼‰",
+            "‹æ•ª": "TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF",
+            "“à—e": "1/—LŒøil”Å—DæE]—ˆj" if surplus_on else "0/–³ŒøiŠù’èj",
         },
         {
-            "åŒºåˆ†": "TEAM_ASSIGN_START_SLACK_WAIT_MINUTES",
-            "å†…å®¹": str(slack_m),
+            "‹æ•ª": "TEAM_ASSIGN_START_SLACK_WAIT_MINUTES",
+            "“à—e": str(slack_m),
         },
     ]
     df_legend = pd.DataFrame(legend_rows)
@@ -9957,30 +9962,30 @@ def build_member_assignment_priority_reference(
         if not ranked:
             out.append(
                 {
-                    "å·¥ç¨‹å": proc,
-                    "æ©Ÿæ¢°å": mach,
-                    "ã‚¹ã‚­ãƒ«åˆ—ã‚­ãƒ¼": combo,
-                    "å„ªå…ˆé †ä½": "",
-                    "ãƒ¡ãƒ³ãƒãƒ¼": "ï¼ˆãªã—ï¼‰",
-                    "ãƒ­ãƒ¼ãƒ«": "",
-                    "å„ªå…ˆåº¦å€¤_å°ã•ã„ã»ã©å…ˆ": "",
-                    "skillsã‚»ãƒ«å€¤": "",
-                    "å‚™è€ƒ": "ã“ã®åˆ—ã« OP/AS ã®è³‡æ ¼ã‚»ãƒ«ãŒã‚ã‚‹ãƒ¡ãƒ³ãƒãƒ¼ãŒã„ã¾ã›ã‚“",
+                    "H’ö–¼": proc,
+                    "‹@ŠB–¼": mach,
+                    "ƒXƒLƒ‹—ñƒL[": combo,
+                    "—Dæ‡ˆÊ": "",
+                    "ƒƒ“ƒo[": "i‚È‚µj",
+                    "ƒ[ƒ‹": "",
+                    "—Dæ“x’l_¬‚³‚¢‚Ù‚Çæ": "",
+                    "skillsƒZƒ‹’l": "",
+                    "”õl": "‚±‚Ì—ñ‚É OP/AS ‚Ì‘ŠiƒZƒ‹‚ª‚ ‚éƒƒ“ƒo[‚ª‚¢‚Ü‚¹‚ñ",
                 }
             )
             continue
         for i, (pr, m, role, cell_s) in enumerate(ranked, start=1):
             out.append(
                 {
-                    "å·¥ç¨‹å": proc,
-                    "æ©Ÿæ¢°å": mach,
-                    "ã‚¹ã‚­ãƒ«åˆ—ã‚­ãƒ¼": combo,
-                    "å„ªå…ˆé †ä½": i,
-                    "ãƒ¡ãƒ³ãƒãƒ¼": m,
-                    "ãƒ­ãƒ¼ãƒ«": role,
-                    "å„ªå…ˆåº¦å€¤_å°ã•ã„ã»ã©å…ˆ": pr,
-                    "skillsã‚»ãƒ«å€¤": cell_s,
-                    "å‚™è€ƒ": "",
+                    "H’ö–¼": proc,
+                    "‹@ŠB–¼": mach,
+                    "ƒXƒLƒ‹—ñƒL[": combo,
+                    "—Dæ‡ˆÊ": i,
+                    "ƒƒ“ƒo[": m,
+                    "ƒ[ƒ‹": role,
+                    "—Dæ“x’l_¬‚³‚¢‚Ù‚Çæ": pr,
+                    "skillsƒZƒ‹’l": cell_s,
+                    "”õl": "",
                 }
             )
 
@@ -9989,60 +9994,60 @@ def build_member_assignment_priority_reference(
 
 
 def _normalize_person_name_for_match(s):
-    """æ‹…å½“è€…æŒ‡åã®ã‚ã„ã¾ã„ä¸€è‡´ç”¨ï¼ˆNFKCãƒ»å¯Œç”°/å†¨ç”°ã®è¡¨è¨˜å¯„ã›ãƒ»ç©ºç™½é™¤å»ãƒ»æœ«å°¾æ•¬ç§°ã®ã¿é™¤å»ï¼‰ã€‚"""
+    """’S“–Òw–¼‚Ì‚ ‚¢‚Ü‚¢ˆê’v—piNFKCE•x“c/•y“c‚Ì•\‹LŠñ‚¹E‹ó”’œ‹E––”öŒhÌ‚Ì‚İœ‹jB"""
     if s is None:
         return ""
     t = unicodedata.normalize("NFKC", str(s).strip())
-    if "å¯Œç”°" in t:
-        t = t.replace("å¯Œç”°", "å†¨ç”°")
-    t = re.sub(r"[\sã€€]+", "", t)
-    t = re.sub(r"(ã•ã‚“|æ§˜|æ°)$", "", t)
+    if "•x“c" in t:
+        t = t.replace("•x“c", "•y“c")
+    t = re.sub(r"[\s@]+", "", t)
+    t = re.sub(r"(‚³‚ñ|—l|)$", "", t)
     return t
 
 
 def _split_person_sei_mei(s) -> tuple[str, str]:
     """
-    æ°åã‚’å§“ãƒ»åã«åˆ†ã‘ã‚‹ã€‚æœ€åˆã®åŠè§’ï¼å…¨è§’ç©ºç™½ã®æ‰‹å‰ã‚’å§“ã€ä»¥é™ã‚’åã¨ã™ã‚‹ã€‚
-    ç©ºç™½ãŒç„¡ã„å ´åˆã¯ (å…¨ä½“, '')ï¼ˆåãªã—æ‰±ã„ï¼‰ã€‚
-    æœ«å°¾ã® ã•ã‚“ï¼æ§˜ï¼æ° ã¯åˆ†å‰²å‰ã«é™¤å»ã™ã‚‹ã€‚
+    –¼‚ğ©E–¼‚É•ª‚¯‚éBÅ‰‚Ì”¼Šp^‘SŠp‹ó”’‚Ìè‘O‚ğ©AˆÈ~‚ğ–¼‚Æ‚·‚éB
+    ‹ó”’‚ª–³‚¢ê‡‚Í (‘S‘Ì, '')i–¼‚È‚µˆµ‚¢jB
+    ––”ö‚Ì ‚³‚ñ^—l^ ‚Í•ªŠ„‘O‚Éœ‹‚·‚éB
     """
     if s is None:
         return "", ""
     t = unicodedata.normalize("NFKC", str(s).strip())
     if not t or t.lower() in ("nan", "none", "null"):
         return "", ""
-    t = re.sub(r"(ã•ã‚“|æ§˜|æ°)$", "", t)
+    t = re.sub(r"(‚³‚ñ|—l|)$", "", t)
     for i, ch in enumerate(t):
         if ch in " \u3000":
             sei = t[:i].strip()
             rest = t[i + 1 :]
-            mei = re.sub(r"[\sã€€]+", "", rest.strip())
+            mei = re.sub(r"[\s@]+", "", rest.strip())
             return sei, mei
     return t.strip(), ""
 
 
 def _normalize_sei_for_match(sei: str) -> str:
-    """å§“ã®ã¿æ­£è¦åŒ–ã€‚è¡¨è¨˜ã‚†ã‚Œã¯è¨±å®¹ã—ãªã„å‰æã§ã€NFKCãƒ»å¯Œç”°/å†¨ç”°å¯„ã›ãƒ»ç©ºç™½é™¤å»ã€‚"""
+    """©‚Ì‚İ³‹K‰»B•\‹L‚ä‚ê‚Í‹–—e‚µ‚È‚¢‘O’ñ‚ÅANFKCE•x“c/•y“cŠñ‚¹E‹ó”’œ‹B"""
     if not sei:
         return ""
     t = unicodedata.normalize("NFKC", str(sei).strip())
-    if "å¯Œç”°" in t:
-        t = t.replace("å¯Œç”°", "å†¨ç”°")
-    t = re.sub(r"[\sã€€]+", "", t)
+    if "•x“c" in t:
+        t = t.replace("•x“c", "•y“c")
+    t = re.sub(r"[\s@]+", "", t)
     return t
 
 
 def _normalize_mei_for_match(mei: str) -> str:
-    """åã®æ­£è¦åŒ–ï¼ˆã‚†ã‚Œè¨±å®¹ã®å‰å‡¦ç†ï¼‰ã€‚NFKCãƒ»ç©ºç™½é™¤å»ã€‚å§“ç”¨ã®å¯Œç”°ç½®æ›ã¯è¡Œã‚ãªã„ã€‚"""
+    """–¼‚Ì³‹K‰»i‚ä‚ê‹–—e‚Ì‘Oˆ—jBNFKCE‹ó”’œ‹B©—p‚Ì•x“c’uŠ·‚Ís‚í‚È‚¢B"""
     if not mei:
         return ""
     t = unicodedata.normalize("NFKC", str(mei).strip())
-    t = re.sub(r"[\sã€€]+", "", t)
+    t = re.sub(r"[\s@]+", "", t)
     return t
 
 
 def _has_duplicate_surname_among_members(member_names) -> bool:
-    """skills ãƒ¡ãƒ³ãƒãƒ¼ä¸€è¦§ã«ã€æ­£è¦åŒ–å¾ŒåŒä¸€ã®å§“ãŒ2äººä»¥ä¸Šã„ã‚‹ã‹ã€‚"""
+    """skills ƒƒ“ƒo[ˆê——‚ÉA³‹K‰»Œã“¯ˆê‚Ì©‚ª2lˆÈã‚¢‚é‚©B"""
     cnt = Counter()
     for name in member_names or []:
         if name is None or (isinstance(name, float) and pd.isna(name)):
@@ -10058,7 +10063,7 @@ def _has_duplicate_surname_among_members(member_names) -> bool:
 
 
 def _mei_matches_with_fuzzy_allowed(r_mei_n: str, m_mei_n: str) -> bool:
-    """åŒä¸€å§“ãŒãƒ­ã‚¹ã‚¿ãƒ¼ã§é‡è¤‡ã—ãªã„ã¨ãã®ã¿ä½¿ã†åã®ã‚†ã‚Œè¨±å®¹ã€‚"""
+    """“¯ˆê©‚ªƒƒXƒ^[‚Åd•¡‚µ‚È‚¢‚Æ‚«‚Ì‚İg‚¤–¼‚Ì‚ä‚ê‹–—eB"""
     if not r_mei_n and not m_mei_n:
         return True
     if not r_mei_n or not m_mei_n:
@@ -10070,15 +10075,15 @@ def _mei_matches_with_fuzzy_allowed(r_mei_n: str, m_mei_n: str) -> bool:
 
 def _resolve_preferred_name_to_capable_member(raw, capable_candidates, roster_member_names=None):
     """
-    è‡ªç”±è¨˜è¿°ã®æŒ‡åã‚’ã€å½“æ—¥ã‚¹ã‚­ãƒ«ä¸Š OP/AS ã®ãƒ¡ãƒ³ãƒãƒ¼åï¼ˆskills ã‚·ãƒ¼ãƒˆã®è¡Œã‚­ãƒ¼ï¼‰ã«è§£æ±ºã™ã‚‹ã€‚
-    capable_candidates: ãã®è¨­å‚™ã§ OP ã¾ãŸã¯ AS ã¨ã—ã¦å‰²å½“å¯èƒ½ãªãƒ¡ãƒ³ãƒãƒ¼åãƒªã‚¹ãƒˆã€‚
-    roster_member_names: skills ã®å…¨ãƒ¡ãƒ³ãƒãƒ¼åï¼ˆçœç•¥æ™‚ã¯ capable_candidatesï¼‰ã€‚åŒä¸€å§“ã®é‡è¤‡åˆ¤å®šã«ä½¿ç”¨ã€‚
+    ©—R‹Lq‚Ìw–¼‚ğA“–“úƒXƒLƒ‹ã OP/AS ‚Ìƒƒ“ƒo[–¼iskills ƒV[ƒg‚ÌsƒL[j‚É‰ğŒˆ‚·‚éB
+    capable_candidates: ‚»‚Ìİ”õ‚Å OP ‚Ü‚½‚Í AS ‚Æ‚µ‚ÄŠ„“–‰Â”\‚Èƒƒ“ƒo[–¼ƒŠƒXƒgB
+    roster_member_names: skills ‚Ì‘Sƒƒ“ƒo[–¼iÈ—ª‚Í capable_candidatesjB“¯ˆê©‚Ìd•¡”»’è‚Ég—pB
 
-    åå‰ã®è¡¨è¨˜ã‚†ã‚Œ:
-    - å§“ã¯æ­£è¦åŒ–å¾Œã«å®Œå…¨ä¸€è‡´ã®ã¿ï¼ˆã‚†ã‚Œè¨±å®¹ã—ãªã„ã€‚å¯Œç”°/å†¨ç”°ã®ã¿å¾“æ¥ã©ãŠã‚Šå¯„ã›ï¼‰ã€‚
-    - roster ã«åŒä¸€å§“ãŒ2äººä»¥ä¸Šã„ãªã„ã¨ãã ã‘ã€åã¯éƒ¨åˆ†ä¸€è‡´ï¼ˆã©ã¡ã‚‰ã‹ãŒä»–æ–¹ã‚’å«ã‚€ï¼‰ã¾ãŸã¯å®Œå…¨ä¸€è‡´ã‚’è¨±å®¹ã€‚
-    - åŒä¸€å§“ãŒãƒ­ã‚¹ã‚¿ãƒ¼ã«ã„ã‚‹é–“ã¯åã‚‚å®Œå…¨ä¸€è‡´å¿…é ˆã€‚
-    - å§“ã®ã¿ã®å…¥åŠ›ã§åã‚†ã‚Œãƒ¢ãƒ¼ãƒ‰ã®ã¨ãã€å§“ãŒä¸€è‡´ã™ã‚‹å€™è£œãŒè¤‡æ•°ã„ã‚Œã°è§£æ±ºä¸å¯ï¼ˆNoneï¼‰ã€‚
+    –¼‘O‚Ì•\‹L‚ä‚ê:
+    - ©‚Í³‹K‰»Œã‚ÉŠ®‘Sˆê’v‚Ì‚İi‚ä‚ê‹–—e‚µ‚È‚¢B•x“c/•y“c‚Ì‚İ]—ˆ‚Ç‚¨‚èŠñ‚¹jB
+    - roster ‚É“¯ˆê©‚ª2lˆÈã‚¢‚È‚¢‚Æ‚«‚¾‚¯A–¼‚Í•”•ªˆê’vi‚Ç‚¿‚ç‚©‚ª‘¼•û‚ğŠÜ‚Şj‚Ü‚½‚ÍŠ®‘Sˆê’v‚ğ‹–—eB
+    - “¯ˆê©‚ªƒƒXƒ^[‚É‚¢‚éŠÔ‚Í–¼‚àŠ®‘Sˆê’v•K{B
+    - ©‚Ì‚İ‚Ì“ü—Í‚Å–¼‚ä‚êƒ‚[ƒh‚Ì‚Æ‚«A©‚ªˆê’v‚·‚éŒó•â‚ª•¡”‚¢‚ê‚Î‰ğŒˆ•s‰ÂiNonejB
     """
     if not raw or not capable_candidates:
         return None
@@ -10128,14 +10133,14 @@ def _resolve_preferred_name_to_capable_member(raw, capable_candidates, roster_me
 
 
 def _resolve_preferred_op_to_member(raw, op_candidates, roster_member_names=None):
-    """å½“æ—¥ã‚¹ã‚­ãƒ«ä¸Š OP ã®ã¿ã¸è§£æ±ºï¼ˆå¾“æ¥ APIï¼‰ã€‚å®Ÿä½“ã¯ `_resolve_preferred_name_to_capable_member`ã€‚"""
+    """“–“úƒXƒLƒ‹ã OP ‚Ì‚İ‚Ö‰ğŒˆi]—ˆ APIjBÀ‘Ì‚Í `_resolve_preferred_name_to_capable_member`B"""
     return _resolve_preferred_name_to_capable_member(
         raw, op_candidates, roster_member_names
     )
 
 
 def _task_process_matches_global_contains(machine_val: str, contains: str) -> bool:
-    """å·¥ç¨‹åï¼ˆã‚¿ã‚¹ã‚¯ã® machineï¼‰ã«éƒ¨åˆ†ä¸€è‡´ï¼ˆNFKCãƒ»å¤§å°ç„¡è¦–ï¼‰ã€‚"""
+    """H’ö–¼iƒ^ƒXƒN‚Ì machinej‚É•”•ªˆê’viNFKCE‘å¬–³‹jB"""
     m = unicodedata.normalize("NFKC", str(machine_val or "").strip()).casefold()
     c = unicodedata.normalize("NFKC", str(contains or "").strip()).casefold()
     if not c:
@@ -10144,7 +10149,7 @@ def _task_process_matches_global_contains(machine_val: str, contains: str) -> bo
 
 
 def _coerce_global_day_process_operator_rules(raw_val) -> list:
-    """Gemini ã® global_day_process_operator_rules ã‚’æ­£è¦åŒ–ï¼ˆç©ºãƒ»ä¸æ­£ã¯é™¤å¤–ï¼‰ã€‚"""
+    """Gemini ‚Ì global_day_process_operator_rules ‚ğ³‹K‰»i‹óE•s³‚ÍœŠOjB"""
     out: list[dict] = []
     if not isinstance(raw_val, list):
         return out
@@ -10195,8 +10200,8 @@ def _active_global_day_process_must_include(
     roster_members: list,
 ) -> tuple[list[str], list[str]]:
     """
-    ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆç”±æ¥ã®ã€Œæ—¥ä»˜Ã—å·¥ç¨‹Ã—è¤‡æ•°æŒ‡åã€ã§ã€ãã®æ—¥ãƒ»ãã®å·¥ç¨‹ã‚¿ã‚¹ã‚¯ã«
-    **ãƒãƒ¼ãƒ ã¸å¿…ãšå«ã‚ã‚‹**ãƒ¡ãƒ³ãƒãƒ¼ï¼ˆskills è¡Œã‚­ãƒ¼ï¼‰ã¨è­¦å‘Šãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿”ã™ã€‚
+    ƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg—R—ˆ‚Ìu“ú•t~H’ö~•¡”w–¼v‚ÅA‚»‚Ì“úE‚»‚ÌH’öƒ^ƒXƒN‚É
+    **ƒ`[ƒ€‚Ö•K‚¸ŠÜ‚ß‚é**ƒƒ“ƒo[iskills sƒL[j‚ÆŒxƒƒbƒZ[ƒW‚ğ•Ô‚·B
     """
     rules = gpo.get("global_day_process_operator_rules") or []
     if not isinstance(rules, list):
@@ -10226,9 +10231,9 @@ def _active_global_day_process_must_include(
                     acc.append(mem)
             else:
                 warns.append(
-                    "ãƒ¡ã‚¤ãƒ³ã‚°ãƒ­ãƒ¼ãƒãƒ«(æ—¥ä»˜Ã—å·¥ç¨‹)æŒ‡å: "
-                    f"ä¾é ¼NO={tid} æ—¥ä»˜={current_date} å·¥ç¨‹={machine!r} ã® "
-                    f"æŒ‡åã€Œ{raw_name}ã€ã‚’å½“æ—¥ã‚¹ã‚­ãƒ«è©²å½“ãƒ¡ãƒ³ãƒãƒ¼ã«è§£æ±ºã§ãã¾ã›ã‚“"
+                    "ƒƒCƒ“ƒOƒ[ƒoƒ‹(“ú•t~H’ö)w–¼: "
+                    f"ˆË—ŠNO={tid} “ú•t={current_date} H’ö={machine!r} ‚Ì "
+                    f"w–¼u{raw_name}v‚ğ“–“úƒXƒLƒ‹ŠY“–ƒƒ“ƒo[‚É‰ğŒˆ‚Å‚«‚Ü‚¹‚ñ"
                 )
     return acc, warns
 
@@ -10236,7 +10241,7 @@ def _active_global_day_process_must_include(
 def _merge_global_day_process_and_pref_anchor(
     must_include: list, pref_mem, capable_members: list
 ) -> list[str]:
-    """å¿…é ˆãƒ¡ãƒ³ãƒãƒ¼ã¨æ‹…å½“OPæŒ‡åã‚’1æœ¬åŒ–ï¼ˆcapable ã«ã„ã‚‹ã‚‚ã®ã ã‘ï¼‰ã€‚"""
+    """•K{ƒƒ“ƒo[‚Æ’S“–OPw–¼‚ğ1–{‰»icapable ‚É‚¢‚é‚à‚Ì‚¾‚¯jB"""
     fixed: list[str] = []
     seen: set[str] = set()
     for m in must_include or []:
@@ -10253,37 +10258,37 @@ def _merge_global_day_process_and_pref_anchor(
 
 
 # =========================================================
-# 2. ãƒã‚¹ã‚¿ãƒ‡ãƒ¼ã‚¿ãƒ»å‡ºå‹¤ç°¿(ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼) ã¨ AIè§£æ
-#    master.xlsm ã® skills / need / å„ãƒ¡ãƒ³ãƒãƒ¼å‹¤æ€ ã‚·ãƒ¼ãƒˆã‚’èª­ã¿ã€
-#    å‚™è€ƒãƒ»ä¼‘æš‡åŒºåˆ†ã¯å¿…è¦ã«å¿œã˜ã¦ Gemini ã§æ§‹é€ åŒ–ã™ã‚‹ã€‚
+# 2. ƒ}ƒXƒ^ƒf[ƒ^Eo‹Î•ë(ƒJƒŒƒ“ƒ_[) ‚Æ AI‰ğÍ
+#    master.xlsm ‚Ì skills / need / Šeƒƒ“ƒo[‹Î‘ÓƒV[ƒg‚ğ“Ç‚İA
+#    ”õlE‹x‰É‹æ•ª‚Í•K—v‚É‰‚¶‚Ä Gemini ‚Å\‘¢‰»‚·‚éB
 # =========================================================
 def load_skills_and_needs():
     """
-    çµ±åˆãƒ•ã‚¡ã‚¤ãƒ«(MASTER_FILE)ã‹ã‚‰ã‚¹ã‚­ãƒ«ã¨ need ã‚’å‹•çš„ã«èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+    “‡ƒtƒ@ƒCƒ‹(MASTER_FILE)‚©‚çƒXƒLƒ‹‚Æ need ‚ğ“®“I‚É“Ç‚İ‚İ‚Ü‚·B
 
-    æˆ»ã‚Šå€¤ã¯7è¦ç´ ã€‚æœ€å¾Œã¯ need ã‚·ãƒ¼ãƒˆä¸Šã®ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€åˆ—ä½ç½®ï¼ˆå·¦ã»ã©å°ã•ã„æ•´æ•°ï¼‰ã®è¾æ›¸
-    ``need_combo_col_index``ï¼ˆé…å°ã‚­ãƒ¥ãƒ¼ã‚½ãƒ¼ãƒˆç”¨ï¼‰ã€‚
+    –ß‚è’l‚Í7—v‘fBÅŒã‚Í need ƒV[ƒgã‚ÌuH’ö–¼+‹@ŠB–¼v—ñˆÊ’ui¶‚Ù‚Ç¬‚³‚¢®”j‚Ì«‘
+    ``need_combo_col_index``i”z‘äƒLƒ…[ƒ\[ƒg—pjB
 
-    ä»Šå›ã® need ã¯ï¼ˆExcelä¸Šã§ï¼‰
-      å·¥ç¨‹åè¡Œãƒ»æ©Ÿæ¢°åè¡Œã®ã‚ã¨ã€ŒåŸºæœ¬å¿…è¦äººæ•°ã€è¡Œï¼ˆAåˆ—ã«ã€Œå¿…è¦äººæ•°ã€ã‚’å«ã‚€ï¼‰
-      ãã®ç›´ä¸‹: é…å°ã§ä½™å‰°äººå“¡ãŒã‚ã‚‹ã¨ãã«è¿½åŠ ã§å…¥ã‚Œã‚‰ã‚Œã‚‹äººæ•°ï¼ˆå·¥ç¨‹Ã—æ©Ÿæ¢°ã”ã¨ã€‚æœªè¨­å®šã¯ 0ï¼‰
-      ä»¥é™: ç‰¹åˆ¥æŒ‡å®š1ã€œ99
-    ã¨ã„ã†æ§‹é€ ã®ãŸã‚ã€å¿…è¦OPã¯ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€ã§è§£æ±ºã™ã‚‹ã€‚
+    ¡‰ñ‚Ì need ‚ÍiExcelã‚Åj
+      H’ö–¼sE‹@ŠB–¼s‚Ì‚ ‚ÆuŠî–{•K—vl”vsiA—ñ‚Éu•K—vl”v‚ğŠÜ‚Şj
+      ‚»‚Ì’¼‰º: ”z‘ä‚Å—]èlˆõ‚ª‚ ‚é‚Æ‚«‚É’Ç‰Á‚Å“ü‚ê‚ç‚ê‚él”iH’ö~‹@ŠB‚²‚ÆB–¢İ’è‚Í 0j
+      ˆÈ~: “Á•Êw’è1?99
+    ‚Æ‚¢‚¤\‘¢‚Ì‚½‚ßA•K—vOP‚ÍuH’ö–¼+‹@ŠB–¼v‚Å‰ğŒˆ‚·‚éB
 
-    skills äº¤å·®ã‚»ãƒ«ã¯ OP/AS ã®å¾Œã«å„ªå…ˆåº¦æ•´æ•°ï¼ˆä¾‹ OP1, AS3ï¼‰ã€‚æ•°å€¤ãŒå°ã•ã„ã»ã©å½“è©²å·¥ç¨‹ã¸ã®å‰²å½“ã§å„ªå…ˆã€‚
-    æ•°å­—çœç•¥ã® OP/AS ã¯å„ªå…ˆåº¦ 1ã€‚
-    åŒä¸€åˆ—ï¼ˆåŒä¸€å·¥ç¨‹Ã—æ©Ÿæ¢°ï¼‰ã§ã¯å„ªå…ˆåº¦ã®æ•°å€¤ã¯ãƒ¡ãƒ³ãƒãƒ¼é–“ã§é‡è¤‡ä¸å¯ï¼ˆé‡è¤‡æ™‚ã¯ PlanningValidationErrorï¼‰ã€‚
+    skills Œğ·ƒZƒ‹‚Í OP/AS ‚ÌŒã‚É—Dæ“x®”i—á OP1, AS3jB”’l‚ª¬‚³‚¢‚Ù‚Ç“–ŠYH’ö‚Ö‚ÌŠ„“–‚Å—DæB
+    ”šÈ—ª‚Ì OP/AS ‚Í—Dæ“x 1B
+    “¯ˆê—ñi“¯ˆêH’ö~‹@ŠBj‚Å‚Í—Dæ“x‚Ì”’l‚Íƒƒ“ƒo[ŠÔ‚Åd•¡•s‰Âid•¡‚Í PlanningValidationErrorjB
     """
     try:
-        # åŒä¸€ãƒ–ãƒƒã‚¯ã‚’ pd.read_excel ã§éƒ½åº¦é–‹ãã¨ I/O ãŒé‡ã„ãŸã‚ã€ExcelFile ã‚’1å›ã ã‘é–‹ã„ã¦ã‚·ãƒ¼ãƒˆã‚’ parse ã™ã‚‹ã€‚
+        # “¯ˆêƒuƒbƒN‚ğ pd.read_excel ‚Å“s“xŠJ‚­‚Æ I/O ‚ªd‚¢‚½‚ßAExcelFile ‚ğ1‰ñ‚¾‚¯ŠJ‚¢‚ÄƒV[ƒg‚ğ parse ‚·‚éB
         with pd.ExcelFile(MASTER_FILE) as _master_xls:
-            # skills ã¯æ–°ä»•æ§˜:
-            #   1è¡Œç›®: å·¥ç¨‹å
-            #   2è¡Œç›®: æ©Ÿæ¢°å
-            #   A3ä»¥é™: ãƒ¡ãƒ³ãƒãƒ¼å
-            #   äº¤å·®ã‚»ãƒ«: OP ã¾ãŸã¯ AS ã®å¾Œã«å‰²å½“å„ªå…ˆåº¦ã®æ•´æ•°ï¼ˆä¾‹ OP1, AS3ï¼‰ã€‚æ•°å€¤ãŒå°ã•ã„ã»ã©å½“è©²å·¥ç¨‹ã¸å„ªå…ˆå‰²å½“ã€‚
-            #             æ•°å­—çœç•¥ã® OP/AS ã¯å„ªå…ˆåº¦ 1ï¼ˆå¾“æ¥ã©ãŠã‚Šæœ€å„ªå…ˆæ‰±ã„ï¼‰ã€‚
-            # ã‚’åŸºæœ¬ã¨ã—ã¤ã¤ã€æ—§ä»•æ§˜ï¼ˆ1è¡Œãƒ˜ãƒƒãƒ€ï¼‰ã«ã‚‚ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯å¯¾å¿œã™ã‚‹ã€‚
+            # skills ‚ÍVd—l:
+            #   1s–Ú: H’ö–¼
+            #   2s–Ú: ‹@ŠB–¼
+            #   A3ˆÈ~: ƒƒ“ƒo[–¼
+            #   Œğ·ƒZƒ‹: OP ‚Ü‚½‚Í AS ‚ÌŒã‚ÉŠ„“–—Dæ“x‚Ì®”i—á OP1, AS3jB”’l‚ª¬‚³‚¢‚Ù‚Ç“–ŠYH’ö‚Ö—DæŠ„“–B
+            #             ”šÈ—ª‚Ì OP/AS ‚Í—Dæ“x 1i]—ˆ‚Ç‚¨‚èÅ—Dæˆµ‚¢jB
+            # ‚ğŠî–{‚Æ‚µ‚Â‚ÂA‹Œd—li1sƒwƒbƒ_j‚É‚àƒtƒH[ƒ‹ƒoƒbƒN‘Î‰‚·‚éB
             skills_raw = pd.read_excel(
                 _master_xls, sheet_name="skills", header=None
             )
@@ -10344,7 +10349,7 @@ def load_skills_and_needs():
                     skills_dict[m_name] = row_skills
                 members = list(skills_dict.keys())
                 logging.info(
-                    "skillsã‚·ãƒ¼ãƒˆ: 2æ®µãƒ˜ãƒƒãƒ€å½¢å¼ã§èª­ã¿è¾¼ã¿ã¾ã—ãŸï¼ˆå·¥ç¨‹+æ©Ÿæ¢°=%såˆ—, ãƒ¡ãƒ³ãƒãƒ¼=%säººï¼‰ã€‚",
+                    "skillsƒV[ƒg: 2’iƒwƒbƒ_Œ`®‚Å“Ç‚İ‚İ‚Ü‚µ‚½iH’ö+‹@ŠB=%s—ñ, ƒƒ“ƒo[=%sljB",
                     len(pm_cols),
                     len(members),
                 )
@@ -10359,13 +10364,13 @@ def load_skills_and_needs():
 
                 member_col = None
                 for c in skill_cols:
-                    if c in ("ãƒ¡ãƒ³ãƒãƒ¼", "æ‹…å½“è€…", "æ°å", "ä½œæ¥­è€…"):
+                    if c in ("ƒƒ“ƒo[", "’S“–Ò", "–¼", "ì‹ÆÒ"):
                         member_col = c
                         break
                 if member_col is None and skill_cols:
                     member_col = skill_cols[0]
                     logging.warning(
-                        "skillsã‚·ãƒ¼ãƒˆ: ãƒ¡ãƒ³ãƒãƒ¼åˆ—åãŒæ¨™æº–ã¨ä¸€è‡´ã—ãªã„ãŸã‚ã€å…ˆé ­åˆ— '%s' ã‚’ãƒ¡ãƒ³ãƒãƒ¼åˆ—ã¨ã—ã¦æ‰±ã„ã¾ã™ã€‚",
+                        "skillsƒV[ƒg: ƒƒ“ƒo[—ñ–¼‚ª•W€‚Æˆê’v‚µ‚È‚¢‚½‚ßAæ“ª—ñ '%s' ‚ğƒƒ“ƒo[—ñ‚Æ‚µ‚Äˆµ‚¢‚Ü‚·B",
                         member_col,
                     )
 
@@ -10403,18 +10408,18 @@ def load_skills_and_needs():
                     skills_dict[m_name] = row_skills
                 members = list(skills_dict.keys())
                 logging.info(
-                    "skillsã‚·ãƒ¼ãƒˆ: 1è¡Œãƒ˜ãƒƒãƒ€å½¢å¼ï¼ˆæ—§äº’æ›ï¼‰ã§èª­ã¿è¾¼ã¿ã¾ã—ãŸï¼ˆãƒ¡ãƒ³ãƒãƒ¼=%säººï¼‰ã€‚",
+                    "skillsƒV[ƒg: 1sƒwƒbƒ_Œ`®i‹ŒŒİŠ·j‚Å“Ç‚İ‚İ‚Ü‚µ‚½iƒƒ“ƒo[=%sljB",
                     len(members),
                 )
 
             if not members:
-                logging.error("skillsã‚·ãƒ¼ãƒˆã‹ã‚‰ãƒ¡ãƒ³ãƒãƒ¼ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸã€‚")
+                logging.error("skillsƒV[ƒg‚©‚çƒƒ“ƒo[‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½B")
             else:
                 _validate_skills_op_as_priority_numbers_unique(
                     skills_dict, equipment_list
                 )
 
-            # need ã¯ header=None ã§èª­ã¿ã€å…ˆé ­ã®è¤‡æ•°è¡Œã‚’â€œè¦‹å‡ºã—è¡Œâ€ã¨ã—ã¦è§£é‡ˆ
+            # need ‚Í header=None ‚Å“Ç‚İAæ“ª‚Ì•¡”s‚ğgŒ©o‚µsh‚Æ‚µ‚Ä‰ğß
             needs_raw = pd.read_excel(
                 _master_xls, sheet_name="need", header=None
             )
@@ -10429,19 +10434,19 @@ def load_skills_and_needs():
             if pd.isna(v0):
                 continue
             s0 = str(v0).strip()
-            if process_header_row is None and s0 == "å·¥ç¨‹å":
+            if process_header_row is None and s0 == "H’ö–¼":
                 process_header_row = r
-            elif machine_header_row is None and s0 == "æ©Ÿæ¢°å":
+            elif machine_header_row is None and s0 == "‹@ŠB–¼":
                 machine_header_row = r
-            if base_row is None and "å¿…è¦äººæ•°" in s0 and not s0.startswith("ç‰¹åˆ¥æŒ‡å®š"):
+            if base_row is None and "•K—vl”" in s0 and not s0.startswith("“Á•Êw’è"):
                 base_row = r
             if process_header_row is not None and machine_header_row is not None and base_row is not None:
                 break
 
         if process_header_row is None or machine_header_row is None or base_row is None:
-            raise ValueError("need ã‚·ãƒ¼ãƒˆã®ãƒ˜ãƒƒãƒ€ãƒ¼è¡Œï¼ˆå·¥ç¨‹å/æ©Ÿæ¢°å/åŸºæœ¬å¿…è¦äººæ•°ï¼‰ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚")
+            raise ValueError("need ƒV[ƒg‚Ìƒwƒbƒ_[siH’ö–¼/‹@ŠB–¼/Šî–{•K—vl”j‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB")
 
-        # ã€Œä¾é ¼NOæ¡ä»¶ã€åˆ—ä½ç½®ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ 1åˆ—ç›®ï¼‰
+        # uˆË—ŠNOğŒv—ñˆÊ’uiƒfƒtƒHƒ‹ƒg‚Í 1—ñ–Új
         cond_col_idx = 1
         for r in range(needs_raw.shape[0]):
             c1 = needs_raw.iat[r, 1] if needs_raw.shape[1] > 1 else None
@@ -10452,7 +10457,7 @@ def load_skills_and_needs():
                 cond_col_idx = 1
                 break
 
-        # å·¥ç¨‹åÃ—æ©Ÿæ¢°å ã®åˆ—ä¸€è¦§ï¼ˆåˆ—ç•ªå·ã¯ Excelä¸Šã®å®Ÿåˆ—ã‚’ä¿æŒï¼‰
+        # H’ö–¼~‹@ŠB–¼ ‚Ì—ñˆê——i—ñ”Ô†‚Í Excelã‚ÌÀ—ñ‚ğ•Ûj
         pm_cols = []
         for col_idx in range(needs_raw.shape[1]):
             if col_idx < 3:
@@ -10468,12 +10473,12 @@ def load_skills_and_needs():
             pm_cols.append((col_idx, p_s, m_s))
 
         req_map = {}
-        # å·¥ç¨‹å+æ©Ÿæ¢°åã‚³ãƒ³ãƒœ â†’ need ã‚·ãƒ¼ãƒˆä¸Šã®åˆ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆå·¦ã»ã©å°ã•ã„ï¼é…å°ã‚­ãƒ¥ãƒ¼ã§å…ˆï¼‰
+        # H’ö–¼+‹@ŠB–¼ƒRƒ“ƒ{ ¨ need ƒV[ƒgã‚Ì—ñƒCƒ“ƒfƒbƒNƒXi¶‚Ù‚Ç¬‚³‚¢”z‘äƒLƒ…[‚Åæj
         need_combo_col_index: dict[str, int] = {}
         # need_rules: [{'order': int, 'condition': str, 'overrides': {combo_key/machine/process: int}}]
         need_rules = []
 
-        # åŸºæœ¬å¿…è¦äººæ•°
+        # Šî–{•K—vl”
         for col_idx, p_s, m_s in pm_cols:
             n = parse_optional_int(needs_raw.iat[base_row, col_idx])
             if n is None or n < 1:
@@ -10481,7 +10486,7 @@ def load_skills_and_needs():
             combo_key = f"{p_s}+{m_s}"
             need_combo_col_index[combo_key] = col_idx
             req_map[combo_key] = n
-            # ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ç”¨ï¼ˆæ©Ÿæ¢°å or å·¥ç¨‹åã ã‘ã§å¼•ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹ï¼‰
+            # ƒtƒH[ƒ‹ƒoƒbƒN—pi‹@ŠB–¼ or H’ö–¼‚¾‚¯‚Åˆø‚¯‚é‚æ‚¤‚É‚·‚éj
             if p_s not in req_map:
                 req_map[p_s] = n
             if m_s not in req_map:
@@ -10503,21 +10508,21 @@ def load_skills_and_needs():
                 if m_s not in surplus_map:
                     surplus_map[m_s] = ex
             logging.info(
-                "need ã‚·ãƒ¼ãƒˆ: é…å°æ™‚è¿½åŠ äººæ•°è¡Œã‚’æ¤œå‡ºï¼ˆExcelè¡Œâ‰ˆ%sï¼‰ã€‚åˆ—ã”ã¨ã®ä¸Šé™ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚",
+                "need ƒV[ƒg: ”z‘ä’Ç‰Ál”s‚ğŒŸoiExcels?%sjB—ñ‚²‚Æ‚ÌãŒÀ‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B",
                 surplus_row + 1,
             )
         else:
             logging.info(
-                "need ã‚·ãƒ¼ãƒˆ: åŸºæœ¬å¿…è¦äººæ•°ã®ç›´ä¸‹ã«é…å°æ™‚è¿½åŠ äººæ•°è¡Œã‚’æ¤œå‡ºã§ãã¾ã›ã‚“ã§ã—ãŸï¼ˆçœç•¥å¯ï¼‰ã€‚"
+                "need ƒV[ƒg: Šî–{•K—vl”‚Ì’¼‰º‚É”z‘ä’Ç‰Ál”s‚ğŒŸo‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½iÈ—ª‰ÂjB"
             )
 
         if TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW:
             logging.info(
-                "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW ãŒæœ‰åŠ¹: é…å°æ™‚è¿½åŠ äººæ•°ã¯èª­ã¿è¾¼ã‚“ã§ã‚‚å¸¸ã« 0 æ‰±ã„ï¼ˆãƒãƒ¼ãƒ ã¯åŸºæœ¬å¿…è¦äººæ•°ã®ã¿è©¦è¡Œï¼‰ã€‚"
+                "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW ‚ª—LŒø: ”z‘ä’Ç‰Ál”‚Í“Ç‚İ‚ñ‚Å‚àí‚É 0 ˆµ‚¢iƒ`[ƒ€‚ÍŠî–{•K—vl”‚Ì‚İsjB"
             )
 
         logging.info(
-            "needäººæ•°ãƒã‚¹ã‚¿: %s ã® need ã‚·ãƒ¼ãƒˆã‚’èª­ã¿è¾¼ã¿ï¼ˆskills ã¨åŒä¸€ ExcelFile ã§é–‹ã„ãŸç›´å¾Œã€‚need å°‚ç”¨ãƒ‡ã‚£ã‚¹ã‚¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã¯ç„¡ã—ãƒ»AI json ã¨ã¯ç„¡é–¢ä¿‚ï¼‰ã€‚",
+            "needl”ƒ}ƒXƒ^: %s ‚Ì need ƒV[ƒg‚ğ“Ç‚İ‚İiskills ‚Æ“¯ˆê ExcelFile ‚ÅŠJ‚¢‚½’¼ŒãBneed ê—pƒfƒBƒXƒNƒLƒƒƒbƒVƒ…‚Í–³‚µEAI json ‚Æ‚Í–³ŠÖŒWjB",
             os.path.abspath(MASTER_FILE),
         )
         for _ci, _ps, _ms in pm_cols:
@@ -10525,19 +10530,19 @@ def load_skills_and_needs():
             _bn = req_map.get(_ck)
             _sx = surplus_map.get(_ck, 0) if surplus_map else 0
             logging.info(
-                "needåˆ—ã‚µãƒãƒª combo=%r åŸºæœ¬å¿…è¦äººæ•°=%s é…å°æ™‚è¿½åŠ äººæ•°ä¸Šé™=%s",
+                "need—ñƒTƒ}ƒŠ combo=%r Šî–{•K—vl”=%s ”z‘ä’Ç‰Ál”ãŒÀ=%s",
                 _ck,
                 _bn,
                 _sx,
             )
 
-        # ç‰¹åˆ¥æŒ‡å®š
+        # “Á•Êw’è
         for r in range(needs_raw.shape[0]):
             v0 = needs_raw.iat[r, col0]
             if pd.isna(v0):
                 continue
             lab = str(v0).strip()
-            m = re.match(r"ç‰¹åˆ¥æŒ‡å®š\s*(\d+)", lab)
+            m = re.match(r"“Á•Êw’è\s*(\d+)", lab)
             if not m:
                 continue
             order = int(m.group(1))
@@ -10554,7 +10559,7 @@ def load_skills_and_needs():
                 if n is not None and 1 <= n <= 99:
                     combo_key = f"{p_s}+{m_s}"
                     overrides[combo_key] = n
-                    # ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ç”¨
+                    # ƒtƒH[ƒ‹ƒoƒbƒN—p
                     overrides[p_s] = n
                     overrides[m_s] = n
 
@@ -10562,9 +10567,9 @@ def load_skills_and_needs():
                 need_rules.append({"order": order, "condition": cond, "overrides": overrides})
 
         need_rules.sort(key=lambda rr: rr["order"])
-        logging.info(f"need ç‰¹åˆ¥æŒ‡å®šãƒ«ãƒ¼ãƒ«: {len(need_rules)} ä»¶ï¼ˆå·¥ç¨‹å+æ©Ÿæ¢°åã‚­ãƒ¼ï¼‰ã€‚")
+        logging.info(f"need “Á•Êw’èƒ‹[ƒ‹: {len(need_rules)} ŒiH’ö–¼+‹@ŠB–¼ƒL[jB")
 
-        logging.info(f"ã€{MASTER_FILE}ã€ã‹ã‚‰ã‚¹ã‚­ãƒ«ã¨è¨­å‚™è¦ä»¶(need)ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚")
+        logging.info(f"w{MASTER_FILE}x‚©‚çƒXƒLƒ‹‚Æİ”õ—vŒ(need)‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B")
         return (
             skills_dict,
             members,
@@ -10578,7 +10583,7 @@ def load_skills_and_needs():
     except PlanningValidationError:
         raise
     except Exception as e:
-        logging.error(f"ãƒã‚¹ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«({MASTER_FILE})ã®ã‚¹ã‚­ãƒ«/needèª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼: {e}")
+        logging.error(f"ƒ}ƒXƒ^ƒtƒ@ƒCƒ‹({MASTER_FILE})‚ÌƒXƒLƒ‹/need“Ç‚İ‚İƒGƒ‰[: {e}")
         return {}, [], [], {}, [], [], {}
 
 
@@ -10586,13 +10591,13 @@ def load_team_combination_presets_from_master() -> dict[
     str, list[tuple[int, int | None, tuple[str, ...], int | None]]
 ]:
     """
-    master.xlsmã€Œçµ„ã¿åˆã‚ã›è¡¨ã€ã‚’èª­ã¿ã€å·¥ç¨‹+æ©Ÿæ¢°ã‚­ãƒ¼ã”ã¨ã«
-    [(çµ„åˆã›å„ªå…ˆåº¦, å¿…è¦äººæ•°ã¾ãŸã¯None, ãƒ¡ãƒ³ãƒãƒ¼ã‚¿ãƒ—ãƒ«, çµ„åˆã›è¡ŒIDã¾ãŸã¯None), ...] ã‚’è¿”ã™ã€‚
-    åŒä¸€ã‚­ãƒ¼å†…ã¯å„ªå…ˆåº¦æ˜‡é †ã€åŒé †ä½ã¯ã‚·ãƒ¼ãƒˆä¸Šã®è¡Œé †ã€‚
-    ã€Œå¿…è¦äººæ•°ã€åˆ—ã¯é…å°æ™‚ã« need åŸºæœ¬äººæ•°ã‚ˆã‚Šå„ªå…ˆã™ã‚‹ï¼ˆãƒ¡ãƒ³ãƒãƒ¼åˆ—äººæ•°ã¨ä¸€è‡´ã™ã‚‹ã“ã¨ï¼‰ã€‚
-    é…å°ã§ã¯æˆç«‹ã—ãŸãƒ—ãƒªã‚»ãƒƒãƒˆã‚’ã™ã¹ã¦å€™è£œã«è¼‰ã›ã€çµ„åˆã›æ¢ç´¢ã¨ã¾ã¨ã‚ã¦ team_start ç­‰ã§æœ€è‰¯ã‚’é¸ã¶
-    ï¼ˆã‚·ãƒ¼ãƒˆå„ªå…ˆåº¦ã¯è©¦è¡Œé †ã®ã¿ã€‚å…ˆé ­ãƒ—ãƒªã‚»ãƒƒãƒˆã®å³æ±ºã¯ã—ãªã„ï¼‰ã€‚
-    A åˆ—ã€Œçµ„åˆã›è¡ŒIDã€ãŒç„¡ã„ï¼ç©ºã®æ—§ã‚·ãƒ¼ãƒˆã§ã¯ ID ã¯ Noneã€‚
+    master.xlsmu‘g‚İ‡‚í‚¹•\v‚ğ“Ç‚İAH’ö+‹@ŠBƒL[‚²‚Æ‚É
+    [(‘g‡‚¹—Dæ“x, •K—vl”‚Ü‚½‚ÍNone, ƒƒ“ƒo[ƒ^ƒvƒ‹, ‘g‡‚¹sID‚Ü‚½‚ÍNone), ...] ‚ğ•Ô‚·B
+    “¯ˆêƒL[“à‚Í—Dæ“x¸‡A“¯‡ˆÊ‚ÍƒV[ƒgã‚Ìs‡B
+    u•K—vl”v—ñ‚Í”z‘ä‚É need Šî–{l”‚æ‚è—Dæ‚·‚éiƒƒ“ƒo[—ñl”‚Æˆê’v‚·‚é‚±‚ÆjB
+    ”z‘ä‚Å‚Í¬—§‚µ‚½ƒvƒŠƒZƒbƒg‚ğ‚·‚×‚ÄŒó•â‚ÉÚ‚¹A‘g‡‚¹’Tõ‚Æ‚Ü‚Æ‚ß‚Ä team_start “™‚ÅÅ—Ç‚ğ‘I‚Ô
+    iƒV[ƒg—Dæ“x‚Ís‡‚Ì‚İBæ“ªƒvƒŠƒZƒbƒg‚Ì‘¦Œˆ‚Í‚µ‚È‚¢jB
+    A —ñu‘g‡‚¹sIDv‚ª–³‚¢^‹ó‚Ì‹ŒƒV[ƒg‚Å‚Í ID ‚Í NoneB
     """
     if not TEAM_ASSIGN_USE_MASTER_COMBO_SHEET:
         return {}
@@ -10602,7 +10607,7 @@ def load_team_combination_presets_from_master() -> dict[
     try:
         df = pd.read_excel(path, sheet_name=MASTER_SHEET_TEAM_COMBINATIONS, header=0)
     except Exception as e:
-        logging.info("çµ„ã¿åˆã‚ã›è¡¨ã‚·ãƒ¼ãƒˆã®èª­è¾¼ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã™: %s", e)
+        logging.info("‘g‚İ‡‚í‚¹•\ƒV[ƒg‚Ì“Ç‚ğƒXƒLƒbƒv‚µ‚Ü‚·: %s", e)
         return {}
     if df is None or df.empty:
         return {}
@@ -10613,19 +10618,19 @@ def load_team_combination_presets_from_master() -> dict[
         return str(x).strip()
 
     colmap = {norm_cell(c): c for c in df.columns if norm_cell(c)}
-    id_c = colmap.get("çµ„åˆã›è¡ŒID") or colmap.get("ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹")
-    proc_c = colmap.get("å·¥ç¨‹å")
-    mach_c = colmap.get("æ©Ÿæ¢°å")
-    combo_c = colmap.get("å·¥ç¨‹+æ©Ÿæ¢°")
-    prio_c = colmap.get("çµ„åˆã›å„ªå…ˆåº¦")
-    req_c = colmap.get("å¿…è¦äººæ•°")
+    id_c = colmap.get("‘g‡‚¹sID") or colmap.get("ƒCƒ“ƒfƒbƒNƒX")
+    proc_c = colmap.get("H’ö–¼")
+    mach_c = colmap.get("‹@ŠB–¼")
+    combo_c = colmap.get("H’ö+‹@ŠB")
+    prio_c = colmap.get("‘g‡‚¹—Dæ“x")
+    req_c = colmap.get("•K—vl”")
 
     def mem_col_order(c) -> int:
-        m = re.search(r"ãƒ¡ãƒ³ãƒãƒ¼\s*(\d+)", norm_cell(c))
+        m = re.search(r"ƒƒ“ƒo[\s*(\d+)", norm_cell(c))
         return int(m.group(1)) if m else 9999
 
     mem_keys = sorted(
-        [c for c in df.columns if norm_cell(str(c)).startswith("ãƒ¡ãƒ³ãƒãƒ¼")],
+        [c for c in df.columns if norm_cell(str(c)).startswith("ƒƒ“ƒo[")],
         key=mem_col_order,
     )
     buckets: dict[
@@ -10681,9 +10686,9 @@ def _lookup_combo_sheet_row_id_for_preset_team(
     team: tuple,
 ) -> int | None:
     """
-    æ¡ç”¨ãƒãƒ¼ãƒ ã®ãƒ¡ãƒ³ãƒãƒ¼é›†åˆï¼ˆNFKCãƒ»trimï¼‰ãŒçµ„ã¿åˆã‚ã›è¡¨ãƒ—ãƒªã‚»ãƒƒãƒˆã®ã„ãšã‚Œã‹ã¨ä¸€è‡´ã™ã‚‹ã¨ãã€
-    ãã®è¡Œã®çµ„åˆã›è¡ŒIDï¼ˆAåˆ—ï¼‰ã‚’è¿”ã™ã€‚çµ„åˆã›æ¢ç´¢ã®ã¿ã§æ±ºã¾ã‚Š combo_sheet_row_id ãŒä»˜ã„ã¦ã„ãªã„
-    å±¥æ­´è¡Œã®è£œå®Œã«ä½¿ã†ã€‚è¤‡æ•°ä¸€è‡´æ™‚ã¯çµ„åˆã›å„ªå…ˆåº¦ï¼ˆæ•°å€¤ãŒå°ã•ã„æ–¹ï¼‰ã‚’æ¡ç”¨ã€‚
+    Ì—pƒ`[ƒ€‚Ìƒƒ“ƒo[W‡iNFKCEtrimj‚ª‘g‚İ‡‚í‚¹•\ƒvƒŠƒZƒbƒg‚Ì‚¢‚¸‚ê‚©‚Æˆê’v‚·‚é‚Æ‚«A
+    ‚»‚Ìs‚Ì‘g‡‚¹sIDiA—ñj‚ğ•Ô‚·B‘g‡‚¹’Tõ‚Ì‚İ‚ÅŒˆ‚Ü‚è combo_sheet_row_id ‚ª•t‚¢‚Ä‚¢‚È‚¢
+    —š—ğs‚Ì•âŠ®‚Ég‚¤B•¡”ˆê’v‚Í‘g‡‚¹—Dæ“xi”’l‚ª¬‚³‚¢•ûj‚ğÌ—pB
     """
     if not preset_rows or not team:
         return None
@@ -10739,7 +10744,7 @@ def parse_time_str(time_str, default_time):
 
 
 def _excel_scalar_to_time_optional(v) -> time | None:
-    """master ãƒ¡ã‚¤ãƒ³ã®æ™‚åˆ»ã‚»ãƒ«ï¼ˆdatetime / time / æ–‡å­—åˆ—ï¼‰ã‚’ time ã«ã€‚è§£é‡ˆä¸èƒ½ã¯ Noneã€‚"""
+    """master ƒƒCƒ“‚ÌƒZƒ‹idatetime / time / •¶š—ñj‚ğ time ‚ÉB‰ğß•s”\‚Í NoneB"""
     if v is None or (isinstance(v, float) and pd.isna(v)):
         return None
     if isinstance(v, time):
@@ -10751,14 +10756,14 @@ def _excel_scalar_to_time_optional(v) -> time | None:
 
 def _pick_master_main_sheet_name(sheetnames: list[str]) -> str | None:
     """
-    master.xlsm ã®ã€Œãƒ¡ã‚¤ãƒ³ã€è¨­å®šã‚·ãƒ¼ãƒˆåã‚’è§£æ±ºã™ã‚‹ï¼ˆVBA MasterGetMainWorksheet ã¨åŒè¶£æ—¨ï¼‰ã€‚
-    ã€Œã€‡æœˆãƒ¡ã‚¤ãƒ³ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã€ç­‰ã‚’èª¤æ¡ç”¨ã—ãªã„ã‚ˆã†ã€Œã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã€ã‚’å«ã‚€åå‰ã¯é™¤å¤–ã—ã€
-    è¤‡æ•°å€™è£œã¯ã‚·ãƒ¼ãƒˆåãŒæœ€çŸ­ã®ã‚‚ã®ã‚’å„ªå…ˆã™ã‚‹ã€‚
+    master.xlsm ‚ÌuƒƒCƒ“vİ’èƒV[ƒg–¼‚ğ‰ğŒˆ‚·‚éiVBA MasterGetMainWorksheet ‚Æ“¯ï|jB
+    uZŒƒƒCƒ“ƒJƒŒƒ“ƒ_[v“™‚ğŒëÌ—p‚µ‚È‚¢‚æ‚¤uƒJƒŒƒ“ƒ_[v‚ğŠÜ‚Ş–¼‘O‚ÍœŠO‚µA
+    •¡”Œó•â‚ÍƒV[ƒg–¼‚ªÅ’Z‚Ì‚à‚Ì‚ğ—Dæ‚·‚éB
     """
-    for prefer in ("ãƒ¡ã‚¤ãƒ³", "ãƒ¡ã‚¤ãƒ³_", "Main"):
+    for prefer in ("ƒƒCƒ“", "ƒƒCƒ“_", "Main"):
         if prefer in sheetnames:
             return prefer
-    cand = [sn for sn in sheetnames if "ãƒ¡ã‚¤ãƒ³" in sn and "ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼" not in sn]
+    cand = [sn for sn in sheetnames if "ƒƒCƒ“" in sn and "ƒJƒŒƒ“ƒ_[" not in sn]
     if not cand:
         return None
     return min(cand, key=len)
@@ -10766,8 +10771,8 @@ def _pick_master_main_sheet_name(sheetnames: list[str]) -> str | None:
 
 def _read_master_main_factory_operating_times(master_path: str) -> tuple[time | None, time | None]:
     """
-    master.xlsm ã®ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆ A12ï¼ˆç¨¼åƒé–‹å§‹ï¼‰ãƒ»B12ï¼ˆç¨¼åƒçµ‚äº†ï¼‰ã‚’èª­ã‚€ã€‚
-    ã„ãšã‚Œã‹æ¬ æãƒ»ä¸æ­£ãƒ»é–‹å§‹>=çµ‚äº†ã®ã¨ãã¯ (None, None)ã€‚
+    master.xlsm ‚ÌƒƒCƒ“ƒV[ƒg A12i‰Ò“­ŠJnjEB12i‰Ò“­I—¹j‚ğ“Ç‚ŞB
+    ‚¢‚¸‚ê‚©Œ‡‘¹E•s³EŠJn>=I—¹‚Ì‚Æ‚«‚Í (None, None)B
     """
     p = (master_path or "").strip()
     if not p or not os.path.isfile(p):
@@ -10777,7 +10782,7 @@ def _read_master_main_factory_operating_times(master_path: str) -> tuple[time | 
     try:
         wb = load_workbook(p, data_only=True, read_only=False)
     except Exception as e:
-        logging.warning("å·¥å ´ç¨¼åƒæ™‚åˆ»: master ã‚’ openpyxl ã§é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸï¼ˆæ—¢å®šã®æ—¥å†…æ ã‚’ä½¿ã„ã¾ã™ï¼‰: %s", e)
+        logging.warning("Hê‰Ò“­: master ‚ğ openpyxl ‚ÅŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½iŠù’è‚Ì“ú“à˜g‚ğg‚¢‚Ü‚·j: %s", e)
         return None, None
     try:
         sn = _pick_master_main_sheet_name(list(wb.sheetnames))
@@ -10790,7 +10795,7 @@ def _read_master_main_factory_operating_times(master_path: str) -> tuple[time | 
             return None, None
         if st >= et:
             logging.warning(
-                "å·¥å ´ç¨¼åƒæ™‚åˆ»: master ãƒ¡ã‚¤ãƒ³ A12/B12 ãŒé–‹å§‹>=çµ‚äº† (%s >= %s) ã®ãŸã‚æ—¢å®šå€¤ã‚’ä½¿ã„ã¾ã™ã€‚",
+                "Hê‰Ò“­: master ƒƒCƒ“ A12/B12 ‚ªŠJn>=I—¹ (%s >= %s) ‚Ì‚½‚ßŠù’è’l‚ğg‚¢‚Ü‚·B",
                 st,
                 et,
             )
@@ -10805,8 +10810,8 @@ def _read_master_main_factory_operating_times(master_path: str) -> tuple[time | 
 
 def _read_master_main_regular_shift_times(master_path: str) -> tuple[time | None, time | None]:
     """
-    master.xlsm ã®ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆ A15ï¼ˆå®šå¸¸é–‹å§‹ï¼‰ãƒ»B15ï¼ˆå®šå¸¸çµ‚äº†ï¼‰ã‚’èª­ã‚€ã€‚
-    ã„ãšã‚Œã‹æ¬ æãƒ»ä¸æ­£ãƒ»é–‹å§‹>=çµ‚äº†ã®ã¨ãã¯ (None, None)ã€‚
+    master.xlsm ‚ÌƒƒCƒ“ƒV[ƒg A15i’èíŠJnjEB15i’èíI—¹j‚ğ“Ç‚ŞB
+    ‚¢‚¸‚ê‚©Œ‡‘¹E•s³EŠJn>=I—¹‚Ì‚Æ‚«‚Í (None, None)B
     """
     p = (master_path or "").strip()
     if not p or not os.path.isfile(p):
@@ -10817,7 +10822,7 @@ def _read_master_main_regular_shift_times(master_path: str) -> tuple[time | None
         wb = load_workbook(p, data_only=True, read_only=False)
     except Exception as e:
         logging.warning(
-            "å®šå¸¸æ™‚åˆ»: master ã‚’ openpyxl ã§é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸï¼ˆçµæœã‚·ãƒ¼ãƒˆã®å®šå¸¸å¤–ç€è‰²ã‚’ã‚¹ã‚­ãƒƒãƒ—ï¼‰: %s",
+            "’èí: master ‚ğ openpyxl ‚ÅŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½iŒ‹‰ÊƒV[ƒg‚Ì’èíŠO’…F‚ğƒXƒLƒbƒvj: %s",
             e,
         )
         return None, None
@@ -10832,7 +10837,7 @@ def _read_master_main_regular_shift_times(master_path: str) -> tuple[time | None
             return None, None
         if st >= et:
             logging.warning(
-                "å®šå¸¸æ™‚åˆ»: master ãƒ¡ã‚¤ãƒ³ A15/B15 ãŒé–‹å§‹>=çµ‚äº† (%s >= %s) ã®ãŸã‚ç€è‰²ãƒ»æ¯”è¼ƒã«ä½¿ã„ã¾ã›ã‚“ã€‚",
+                "’èí: master ƒƒCƒ“ A15/B15 ‚ªŠJn>=I—¹ (%s >= %s) ‚Ì‚½‚ß’…FE”äŠr‚Ég‚¢‚Ü‚¹‚ñB",
                 st,
                 et,
             )
@@ -10847,7 +10852,7 @@ def _read_master_main_regular_shift_times(master_path: str) -> tuple[time | None
 
 @contextmanager
 def _override_default_factory_hours_from_master(master_path: str):
-    """æ®µéš2ã®é–“ã ã‘ DEFAULT_START_TIME / DEFAULT_END_TIME ã‚’ master ãƒ¡ã‚¤ãƒ³ A12/B12 ã§ä¸Šæ›¸ãã€‚"""
+    """’iŠK2‚ÌŠÔ‚¾‚¯ DEFAULT_START_TIME / DEFAULT_END_TIME ‚ğ master ƒƒCƒ“ A12/B12 ‚Åã‘‚«B"""
     global DEFAULT_START_TIME, DEFAULT_END_TIME
     orig_s, orig_e = DEFAULT_START_TIME, DEFAULT_END_TIME
     ns, ne = _read_master_main_factory_operating_times(master_path)
@@ -10856,7 +10861,7 @@ def _override_default_factory_hours_from_master(master_path: str):
             DEFAULT_START_TIME = ns
             DEFAULT_END_TIME = ne
             logging.info(
-                "å·¥å ´ç¨¼åƒæ : master.xlsm ãƒ¡ã‚¤ãƒ³ A12/B12 ã‚’æ¡ç”¨ â†’ %s ï½ %sï¼ˆçµæœ_* ã®æ—¥å†…ã‚°ãƒªãƒƒãƒ‰ãƒ»é…å°æ ï¼‰",
+                "Hê‰Ò“­˜g: master.xlsm ƒƒCƒ“ A12/B12 ‚ğÌ—p ¨ %s ` %siŒ‹‰Ê_* ‚Ì“ú“àƒOƒŠƒbƒhE”z‘ä˜gj",
                 DEFAULT_START_TIME.strftime("%H:%M"),
                 DEFAULT_END_TIME.strftime("%H:%M"),
             )
@@ -10867,15 +10872,15 @@ def _override_default_factory_hours_from_master(master_path: str):
 
 def infer_mid_break_from_reason(reason_text, start_t, end_t, break1_start=None, break1_end=None):
     """
-    å‚™è€ƒã‹ã‚‰ä¸­æŠœã‘æ™‚é–“ã‚’æ¨å®šã™ã‚‹ãƒ­ãƒ¼ã‚«ãƒ«è£œæ­£ã€‚
-    AIãŒä¸­æŠœã‘ã‚’è¿”ã•ãªã„å ´åˆã®ãƒ•ã‚§ã‚¤ãƒ«ã‚»ãƒ¼ãƒ•ã¨ã—ã¦ä½¿ã†ã€‚
-    master.xlsm ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ç”±æ¥ã®ä¼‘æš‡åŒºåˆ†: å‰ä¼‘=åˆå‰å¹´ä¼‘ãƒ»åˆå¾Œã®ã¿å‹¤å‹™ã€å¾Œä¼‘=åˆå¾Œå¹´ä¼‘ãƒ»åˆå‰ã®ã¿å‹¤å‹™ï¼ˆå‡ºå‹¤ç°¿.txt ã¨åŒç¾©ï¼‰ã€‚
-    å‰ä¼‘ãƒ»å¾Œä¼‘ã®å¢ƒç•Œã¯ãƒ¡ãƒ³ãƒãƒ¼å‹¤æ€ ã®ä¼‘æ†©æ™‚é–“1_é–‹å§‹/çµ‚äº†ï¼ˆæœªæŒ‡å®šæ™‚ã¯ DEFAULT_BREAKS[0]ï¼‰ã«åˆã‚ã›ã‚‹ã€‚
+    ”õl‚©‚ç’†”²‚¯ŠÔ‚ğ„’è‚·‚éƒ[ƒJƒ‹•â³B
+    AI‚ª’†”²‚¯‚ğ•Ô‚³‚È‚¢ê‡‚ÌƒtƒFƒCƒ‹ƒZ[ƒt‚Æ‚µ‚Äg‚¤B
+    master.xlsm ƒJƒŒƒ“ƒ_[—R—ˆ‚Ì‹x‰É‹æ•ª: ‘O‹x=Œß‘O”N‹xEŒßŒã‚Ì‚İ‹Î–±AŒã‹x=ŒßŒã”N‹xEŒß‘O‚Ì‚İ‹Î–±io‹Î•ë.txt ‚Æ“¯‹`jB
+    ‘O‹xEŒã‹x‚Ì‹«ŠE‚Íƒƒ“ƒo[‹Î‘Ó‚Ì‹xŒeŠÔ1_ŠJn/I—¹i–¢w’è‚Í DEFAULT_BREAKS[0]j‚É‡‚í‚¹‚éB
     """
     if reason_text is None:
         return None, None
     txt = str(reason_text).strip()
-    if not txt or txt.lower() in ("nan", "none", "null", "é€šå¸¸"):
+    if not txt or txt.lower() in ("nan", "none", "null", "’Êí"):
         return None, None
 
     b1_s = break1_start if break1_start is not None else DEFAULT_BREAKS[0][0]
@@ -10883,64 +10888,64 @@ def infer_mid_break_from_reason(reason_text, start_t, end_t, break1_start=None, 
 
     noon_end = time(12, 0)
     afternoon_start = time(13, 0)
-    # ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼è¨˜å·ã¨ä¸€è‡´ã•ã›ã‚‹ï¼ˆã‚·ãƒ•ãƒˆæ™‚åˆ»ãŒèª¤ã£ã¦ã„ã‚‹å ´åˆã®è£œå®Œç”¨ã€‚æ­£ã—ã„è¡Œã§ã¯åŒºé–“ãŒç©ºã«ãªã‚Šè¿½åŠ ã•ã‚Œãªã„ï¼‰
-    if txt == "å‰ä¼‘":
-        # æ­£ã—ã„è¡Œã¯å‡ºå‹¤ãŒä¼‘æ†©1çµ‚äº†ä»¥é™ã§è£œå®Œä¸è¦ã€‚å…¨æ—¥ã‚·ãƒ•ãƒˆã®èª¤å…¥åŠ›æ™‚ã¯ãã“ã¾ã§ã‚’ä¸­æŠœã‘ï¼ˆåˆå‰å¹´ä¼‘ç›¸å½“ï¼‰
+    # ƒJƒŒƒ“ƒ_[‹L†‚Æˆê’v‚³‚¹‚éiƒVƒtƒg‚ªŒë‚Á‚Ä‚¢‚éê‡‚Ì•âŠ®—pB³‚µ‚¢s‚Å‚Í‹æŠÔ‚ª‹ó‚É‚È‚è’Ç‰Á‚³‚ê‚È‚¢j
+    if txt == "‘O‹x":
+        # ³‚µ‚¢s‚Ío‹Î‚ª‹xŒe1I—¹ˆÈ~‚Å•âŠ®•s—vB‘S“úƒVƒtƒg‚ÌŒë“ü—Í‚Í‚»‚±‚Ü‚Å‚ğ’†”²‚¯iŒß‘O”N‹x‘Š“–j
         if start_t and start_t < b1_e:
             return start_t, b1_e
         return None, None
-    if txt == "å¾Œä¼‘":
+    if txt == "Œã‹x":
         if end_t and b1_s < end_t:
             return b1_s, end_t
         return None, None
 
-    # 1) æ˜ç¤ºçš„ãªæ™‚åˆ»ç¯„å›²ï¼ˆä¾‹: 11:00-14:00 / 11:00ï½14:00ï¼‰
-    m = re.search(r"(\d{1,2}[:ï¼š]\d{2})\s*[~ã€œ\-ï¼ãƒ¼]\s*(\d{1,2}[:ï¼š]\d{2})", txt)
+    # 1) –¾¦“I‚È”ÍˆÍi—á: 11:00-14:00 / 11:00`14:00j
+    m = re.search(r"(\d{1,2}[:F]\d{2})\s*[~?\-|[]\s*(\d{1,2}[:F]\d{2})", txt)
     if m:
-        s = parse_time_str(m.group(1).replace("ï¼š", ":"), None)
-        e = parse_time_str(m.group(2).replace("ï¼š", ":"), None)
+        s = parse_time_str(m.group(1).replace("F", ":"), None)
+        e = parse_time_str(m.group(2).replace("F", ":"), None)
         if s and e and s < e:
             return s, e
 
-    # 2) ã‚ã„ã¾ã„èªï¼ˆåˆå‰/åˆå¾Œ/çµ‚æ—¥ï¼‰ + ç¾å ´é›¢è„±ãƒ»ä¼‘æš‡ç³»ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
-    # ã€Œåˆå¾Œä¼‘ã¿ã§ã™ã€ç­‰ã¯ã€Œåˆå¾Œã€ã‚’å«ã‚€ãŒã€æ—§ãƒ­ã‚¸ãƒƒã‚¯ã¯ã€ŒæŠœã‘ã€ç­‰ã®ã¿è¦‹ã¦ãŠã‚Šä¸­æŠœã‘æ¨å®šã«åˆ°é”ã—ãªã‹ã£ãŸ
+    # 2) ‚ ‚¢‚Ü‚¢ŒêiŒß‘O/ŒßŒã/I“új + Œ»ê—£’EE‹x‰ÉŒnƒL[ƒ[ƒh
+    # uŒßŒã‹x‚İ‚Å‚·v“™‚ÍuŒßŒãv‚ğŠÜ‚Ş‚ªA‹ŒƒƒWƒbƒN‚Íu”²‚¯v“™‚Ì‚İŒ©‚Ä‚¨‚è’†”²‚¯„’è‚É“’B‚µ‚È‚©‚Á‚½
     leave_keywords = (
-        "äº‹å‹™æ‰€", "ä¼šè­°", "æ•™è‚²", "ç ”ä¿®", "å¤–å‡º", "é›¢ã‚Œ", "æŠœã‘", "ä¸­æŠœã‘", "æ‰“åˆã›",
-        "ä¼‘ã¿", "ä¼‘æš‡", "æ¬ å‹¤",
+        "––±Š", "‰ï‹c", "‹³ˆç", "Œ¤C", "ŠOo", "—£‚ê", "”²‚¯", "’†”²‚¯", "‘Å‡‚¹",
+        "‹x‚İ", "‹x‰É", "Œ‡‹Î",
     )
     has_leave_hint = any(k in txt for k in leave_keywords)
     if not has_leave_hint:
         return None, None
 
-    if ("çµ‚æ—¥" in txt) or ("1æ—¥" in txt and "é€šå¸¸" not in txt):
+    if ("I“ú" in txt) or ("1“ú" in txt and "’Êí" not in txt):
         return start_t, end_t
-    if ("åˆå‰ä¸­" in txt) or ("åˆå‰" in txt):
+    if ("Œß‘O’†" in txt) or ("Œß‘O" in txt):
         return start_t, noon_end
-    if ("åˆå¾Œ" in txt):
+    if ("ŒßŒã" in txt):
         return afternoon_start, end_t
 
     return None, None
 
 
-# çµæœ_ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼(å‡ºå‹¤ç°¿) ã®é€€å‹¤è¡¨ç¤ºã€‚VBA å‡ºå‹¤ç°¿ã€Œå¾Œä¼‘ã€ï¼ˆåˆå¾Œå¹´ä¼‘ï¼‰ã¨åŒæ§˜ã«å®Ÿè³ª ä¼‘æ†©æ™‚é–“1_é–‹å§‹ã§çµ‚äº†ã¨ã¿ãªã™ã€‚
+# Œ‹‰Ê_ƒJƒŒƒ“ƒ_[(o‹Î•ë) ‚Ì‘Ş‹Î•\¦BVBA o‹Î•ëuŒã‹xviŒßŒã”N‹xj‚Æ“¯—l‚ÉÀ¿ ‹xŒeŠÔ1_ŠJn‚ÅI—¹‚Æ‚İ‚È‚·B
 _AFTERNOON_OFF_DISPLAY_END = DEFAULT_BREAKS[0][0]
 
 
 def _reason_is_afternoon_off(reason: str) -> bool:
-    """å¾Œä¼‘ï¼ˆåˆå¾Œå¹´ä¼‘ãƒ»åˆå‰ã®ã¿å‹¤å‹™ï¼‰ã¾ãŸã¯å‚™è€ƒã®åˆå¾Œä¼‘ç³»ã€‚"""
+    """Œã‹xiŒßŒã”N‹xEŒß‘O‚Ì‚İ‹Î–±j‚Ü‚½‚Í”õl‚ÌŒßŒã‹xŒnB"""
     r = str(reason or "")
-    return ("åˆå¾Œ" in r and ("ä¼‘" in r or "ä¼‘ã¿" in r)) or ("å¾Œä¼‘" in r)
+    return ("ŒßŒã" in r and ("‹x" in r or "‹x‚İ" in r)) or ("Œã‹x" in r)
 
 
 def _reason_is_morning_off(reason: str) -> bool:
-    """å‰ä¼‘ï¼ˆåˆå‰å¹´ä¼‘ãƒ»åˆå¾Œã®ã¿å‹¤å‹™ï¼‰ã€‚ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ç”±æ¥ã®ç•¥å·ã®ã¿æ˜ç¤ºæ‰±ã„ï¼ˆäº‹å‹™æ‰€å‹¤å‹™ãªã©ã¨æ··åŒã—ãªã„ï¼‰ã€‚"""
-    return "å‰ä¼‘" in str(reason or "")
+    """‘O‹xiŒß‘O”N‹xEŒßŒã‚Ì‚İ‹Î–±jBƒJƒŒƒ“ƒ_[—R—ˆ‚Ì—ª†‚Ì‚İ–¾¦ˆµ‚¢i––±Š‹Î–±‚È‚Ç‚Æ¬“¯‚µ‚È‚¢jB"""
+    return "‘O‹x" in str(reason or "")
 
 
 def _calendar_display_clock_out_for_calendar_sheet(entry: dict, day_date: date):
     """
-    é…å°ã¯ breaks_dt ã®åˆå¾Œä¸­æŠœã‘ã§æ­£ã—ããªã‚‹ä¸€æ–¹ã€end_dt ãŒ 17:00 ã®ã¾ã¾ã ã¨çµæœã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã®é€€å‹¤åˆ—ã ã‘èª¤ã‚‹ã€‚
-    å¾Œä¼‘ï¼ˆåˆå¾Œå¹´ä¼‘ï¼‰ã¾ãŸã¯å‚™è€ƒãŒåˆå¾Œä¼‘ã¿ç³»ã§ã€å®šæ™‚ã¾ã§ç¶šãåˆå¾Œã®ä¸­æŠœã‘ãŒã‚ã‚‹ã¨ãã ã‘é€€å‹¤è¡¨ç¤ºã‚’ä¼‘æ†©æ™‚é–“1_é–‹å§‹ã«æƒãˆã‚‹ï¼ˆend_dt æœ¬ä½“ã¯å¤‰æ›´ã—ãªã„ï¼‰ã€‚
+    ”z‘ä‚Í breaks_dt ‚ÌŒßŒã’†”²‚¯‚Å³‚µ‚­‚È‚éˆê•ûAend_dt ‚ª 17:00 ‚Ì‚Ü‚Ü‚¾‚ÆŒ‹‰ÊƒJƒŒƒ“ƒ_[‚Ì‘Ş‹Î—ñ‚¾‚¯Œë‚éB
+    Œã‹xiŒßŒã”N‹xj‚Ü‚½‚Í”õl‚ªŒßŒã‹x‚İŒn‚ÅA’è‚Ü‚Å‘±‚­ŒßŒã‚Ì’†”²‚¯‚ª‚ ‚é‚Æ‚«‚¾‚¯‘Ş‹Î•\¦‚ğ‹xŒeŠÔ1_ŠJn‚É‘µ‚¦‚éiend_dt –{‘Ì‚Í•ÏX‚µ‚È‚¢jB
     """
     if not entry.get("is_working"):
         return None
@@ -10973,9 +10978,9 @@ def _calendar_display_clock_out_for_calendar_sheet(entry: dict, day_date: date):
 
 def _member_schedule_break_cell_label(grid_mid_dt, breaks_dt, shift_end_dt, reason):
     """
-    å€‹äºº_* ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®10åˆ†æ ãŒä¼‘æ†©å¸¯ã«å…¥ã‚‹ã¨ãã®æ–‡è¨€ã€‚
-    æ˜¼é£Ÿãªã©é€šå¸¸ä¼‘æ†©ã¯ã€Œä¼‘æ†©ã€ã€‚å¾Œä¼‘ï¼ˆåˆå¾Œå¹´ä¼‘ï¼‰ã§å®šæ™‚ã¾ã§å·¥å ´ã«ã„ãªã„åˆå¾Œå¸¯ã¯ã€Œä¼‘æš‡ã€ã€‚
-    å‰ä¼‘ï¼ˆåˆå‰å¹´ä¼‘ï¼‰ã§åˆå‰ã®æ¬ å‹¤åŒºé–“ãŒä¼‘æ†©å¸¯ã¨ã—ã¦å…¥ã£ã¦ã„ã‚‹å ´åˆã¯ã€Œä¼‘æš‡ã€ã€‚
+    ŒÂl_* ƒXƒPƒWƒ…[ƒ‹‚Ì10•ª˜g‚ª‹xŒe‘Ñ‚É“ü‚é‚Æ‚«‚Ì•¶Œ¾B
+    ’‹H‚È‚Ç’Êí‹xŒe‚Íu‹xŒevBŒã‹xiŒßŒã”N‹xj‚Å’è‚Ü‚ÅHê‚É‚¢‚È‚¢ŒßŒã‘Ñ‚Íu‹x‰ÉvB
+    ‘O‹xiŒß‘O”N‹xj‚ÅŒß‘O‚ÌŒ‡‹Î‹æŠÔ‚ª‹xŒe‘Ñ‚Æ‚µ‚Ä“ü‚Á‚Ä‚¢‚éê‡‚Íu‹x‰ÉvB
     """
     reason = str(reason or "")
     afternoon_off = _reason_is_afternoon_off(reason)
@@ -10990,12 +10995,12 @@ def _member_schedule_break_cell_label(grid_mid_dt, breaks_dt, shift_end_dt, reas
             if isinstance(bs, datetime):
                 bs = bs.time()
             if afternoon_off and bs >= DEFAULT_BREAKS[0][0] and b_e >= shift_end_dt - timedelta(seconds=2):
-                return "ä¼‘æš‡"
+                return "‹x‰É"
             if morning_off and bs < DEFAULT_BREAKS[0][0]:
                 be_t = b_e.time() if isinstance(b_e, datetime) else b_e
                 if be_t <= time(13, 0):
-                    return "ä¼‘æš‡"
-        return "ä¼‘æ†©"
+                    return "‹x‰É"
+        return "‹xŒe"
     return None
 
 
@@ -11007,40 +11012,40 @@ def _member_schedule_off_shift_label(
     reason: str,
 ) -> str:
     """
-    å€‹äºº_* ã‚·ãƒ¼ãƒˆã§æ‰€å®šå‡ºé€€å‹¤ã®å¤–å´ã®10åˆ†æ ã€‚
-    å‰ä¼‘ã®åˆå‰ï¼ˆå·¥å ´æ—¥ã®æ‰€å®šé–‹å§‹ï½åˆå¾Œå‡ºå‹¤ã¾ã§ï¼‰ã¯å¹´ä¼‘ã€å¾Œä¼‘ã®åˆå¾Œã¯å¹´ä¼‘ã€‚ãã‚Œä»¥å¤–ã®ã‚·ãƒ•ãƒˆå¤–ã¯å‹¤å‹™å¤–ã€‚
+    ŒÂl_* ƒV[ƒg‚ÅŠ’èo‘Ş‹Î‚ÌŠO‘¤‚Ì10•ª˜gB
+    ‘O‹x‚ÌŒß‘OiHê“ú‚ÌŠ’èŠJn`ŒßŒão‹Î‚Ü‚Åj‚Í”N‹xAŒã‹x‚ÌŒßŒã‚Í”N‹xB‚»‚êˆÈŠO‚ÌƒVƒtƒgŠO‚Í‹Î–±ŠOB
     """
     r = str(reason or "")
     day_start = datetime.combine(day_date, DEFAULT_START_TIME)
     day_end = datetime.combine(day_date, DEFAULT_END_TIME)
     if grid_mid_dt < d_start_dt:
         if _reason_is_morning_off(r) and grid_mid_dt >= day_start:
-            return "å¹´ä¼‘"
-        return "å‹¤å‹™å¤–"
+            return "”N‹x"
+        return "‹Î–±ŠO"
     if grid_mid_dt >= d_end_dt:
         if _reason_is_afternoon_off(r) and grid_mid_dt < day_end:
-            return "å¹´ä¼‘"
-        return "å‹¤å‹™å¤–"
-    return "å‹¤å‹™å¤–"
+            return "”N‹x"
+        return "‹Î–±ŠO"
+    return "‹Î–±ŠO"
 
 
 def _member_schedule_full_day_off_label(entry) -> str:
     """
-    å…¨æ—¥éå‹¤å‹™ï¼ˆis_working=Falseï¼‰ã®å€‹äººã‚·ãƒ¼ãƒˆåˆ—ã®è¡¨ç¤ºã€‚
-    ä¼‘æš‡åŒºåˆ†ãŒå¹´ä¼‘ï¼ˆã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ *ï¼‰ã®ã¨ãã¯ã€å¹´ä¼‘ã€ã€‚å·¥å ´ä¼‘æ—¥ãªã©ã¯ã€ä¼‘ã€ã€‚
+    ‘S“ú”ñ‹Î–±iis_working=Falsej‚ÌŒÂlƒV[ƒg—ñ‚Ì•\¦B
+    ‹x‰É‹æ•ª‚ª”N‹xiƒJƒŒƒ“ƒ_[ *j‚Ì‚Æ‚«‚Íw”N‹xxBHê‹x“ú‚È‚Ç‚Íw‹xxB
     """
     if not entry:
-        return "ä¼‘"
+        return "‹x"
     r = str(entry.get("reason") or "").strip()
-    if r == "å¹´ä¼‘" or r.startswith("å¹´ä¼‘ "):
-        return "å¹´ä¼‘"
-    return "ä¼‘"
+    if r == "”N‹x" or r.startswith("”N‹x "):
+        return "”N‹x"
+    return "‹x"
 
 
 def _attendance_remark_text(row) -> str:
     """
-    å‹¤æ€ 1è¡Œã‹ã‚‰ã€Œå‚™è€ƒã€åˆ—ã®ãƒ†ã‚­ã‚¹ãƒˆã®ã¿å–å¾—ã™ã‚‹ã€‚
-    å‹¤æ€ AIã®è§£æãƒªã‚¹ãƒˆã¸ã®æŠ•å…¥ã¯ã“ã®åˆ—ã®ã¿ã€‚reason æ–‡å­—åˆ—ã¯ load_attendance ã§å‚™è€ƒã¨ä¼‘æš‡åŒºåˆ†ã‚’åˆæˆã™ã‚‹ã€‚
+    ‹Î‘Ó1s‚©‚çu”õlv—ñ‚ÌƒeƒLƒXƒg‚Ì‚İæ“¾‚·‚éB
+    ‹Î‘ÓAI‚Ì‰ğÍƒŠƒXƒg‚Ö‚Ì“Š“ü‚Í‚±‚Ì—ñ‚Ì‚İBreason •¶š—ñ‚Í load_attendance ‚Å”õl‚Æ‹x‰É‹æ•ª‚ğ‡¬‚·‚éB
     """
     if row is None:
         return ""
@@ -11059,7 +11064,7 @@ def _attendance_remark_text(row) -> str:
 
 
 def _attendance_leave_type_text(row) -> str:
-    """å‹¤æ€ 1è¡Œã‹ã‚‰ã€Œä¼‘æš‡åŒºåˆ†ã€åˆ—ï¼ˆã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ç”±æ¥ã® å‰ä¼‘/å¾Œä¼‘ ç­‰ï¼‰ã€‚"""
+    """‹Î‘Ó1s‚©‚çu‹x‰É‹æ•ªv—ñiƒJƒŒƒ“ƒ_[—R—ˆ‚Ì ‘O‹x/Œã‹x “™jB"""
     if row is None:
         return ""
     try:
@@ -11077,7 +11082,7 @@ def _attendance_leave_type_text(row) -> str:
 
 
 def _ai_json_bool(v, default: bool = False) -> bool:
-    """å‹¤æ€ å‚™è€ƒ AI ã®çœŸå½å€¤ï¼ˆbool / æ•°å€¤ / æ–‡å­—åˆ—ã®æºã‚Œã‚’å¸åï¼‰ã€‚"""
+    """‹Î‘Ó”õl AI ‚Ì^‹U’libool / ”’l / •¶š—ñ‚Ì—h‚ê‚ğ‹zûjB"""
     if v is None:
         return default
     if isinstance(v, bool):
@@ -11089,33 +11094,33 @@ def _ai_json_bool(v, default: bool = False) -> bool:
             return default
         return v != 0.0
     s = str(v).strip().lower()
-    if s in ("true", "1", "yes", "y", "ã¯ã„", "çœŸ", "on"):
+    if s in ("true", "1", "yes", "y", "‚Í‚¢", "^", "on"):
         return True
-    if s in ("false", "0", "no", "n", "ã„ã„ãˆ", "å½", "off", ""):
+    if s in ("false", "0", "no", "n", "‚¢‚¢‚¦", "‹U", "off", ""):
         return False
     return default
 
 
 def _parse_attendance_overtime_end_optional(v) -> time | None:
-    """å‹¤æ€ ã€Œæ®‹æ¥­çµ‚æ¥­ã€åˆ—ã€‚æœ‰åŠ¹ãªæ™‚åˆ»ã®ã¿ã€‚ç©ºãƒ»ä¸æ­£ã¯ Noneï¼ˆ_excel_scalar_to_time_optional ã¨åŒè¶£æ—¨ï¼‰ã€‚"""
+    """‹Î‘Óuc‹ÆI‹Æv—ñB—LŒø‚È‚Ì‚İB‹óE•s³‚Í Nonei_excel_scalar_to_time_optional ‚Æ“¯ï|jB"""
     return _excel_scalar_to_time_optional(v)
 
 
 def load_attendance_and_analyze(members):
     attendance_data = {}
-    # â€»ã€Œå‹¤æ€ å‚™è€ƒã€ã¯ master å„ãƒ¡ãƒ³ãƒãƒ¼ã‚·ãƒ¼ãƒˆã®ã€Œå‚™è€ƒã€åˆ—ã®ã¿ã€‚ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆãƒ»ç‰¹åˆ¥æŒ‡å®š_å‚™è€ƒã¯åˆ¥APIï¼ˆgenerate_plan å´ã§è¿½è¨˜ï¼‰ã€‚
+    # ¦u‹Î‘Ó”õlv‚Í master Šeƒƒ“ƒo[ƒV[ƒg‚Ìu”õlv—ñ‚Ì‚İBƒƒCƒ“Ä—DæE“Á•Êw’è_”õl‚Í•ÊAPIigenerate_plan ‘¤‚Å’Ç‹LjB
     ai_log = {
-        "ï¼ˆæ³¨ï¼‰ã“ã®ã‚·ãƒ¼ãƒˆã®è¦‹æ–¹": "å…ˆé ­2è¡Œã¯å‹¤æ€ ã€Œå‚™è€ƒã€ã®å‡ºé€€å‹¤AIã®ã¿ã€‚ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆãƒ»ç‰¹åˆ¥æŒ‡å®šã¯ä¸‹æ®µã®JSONã¨ã€Œ_*_AI_APIã€è¡Œã€‚",
-        "å‹¤æ€ å‚™è€ƒ_AI_API": "ãªã—",
-        "å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°": "è§£æå¯¾è±¡ã®å‚™è€ƒè¡Œãªã—",
+        "i’j‚±‚ÌƒV[ƒg‚ÌŒ©•û": "æ“ª2s‚Í‹Î‘Óu”õlv‚Ìo‘Ş‹ÎAI‚Ì‚İBƒƒCƒ“Ä—DæE“Á•Êw’è‚Í‰º’i‚ÌJSON‚Æu_*_AI_APIvsB",
+        "‹Î‘Ó”õl_AI_API": "‚È‚µ",
+        "‹Î‘Ó”õl_AI_Ú×": "‰ğÍ‘ÎÛ‚Ì”õls‚È‚µ",
     }
     
-    # 1. ãƒ¡ãƒ³ãƒãƒ¼åˆ¥ã‚·ãƒ¼ãƒˆã‹ã‚‰ã®èª­ã¿è¾¼ã¿
+    # 1. ƒƒ“ƒo[•ÊƒV[ƒg‚©‚ç‚Ì“Ç‚İ‚İ
     all_records = []
     try:
         xls = pd.ExcelFile(MASTER_FILE)
         for sheet_name in xls.sheet_names:
-            if "ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼" in sheet_name or sheet_name.lower() in ['skills', 'need', 'tasks']:
+            if "ƒJƒŒƒ“ƒ_[" in sheet_name or sheet_name.lower() in ['skills', 'need', 'tasks']:
                 continue 
                 
             m_name = sheet_name.strip()
@@ -11124,55 +11129,55 @@ def load_attendance_and_analyze(members):
                 
             df_sheet = pd.read_excel(xls, sheet_name=sheet_name)
             df_sheet.columns = df_sheet.columns.str.strip()
-            df_sheet['ãƒ¡ãƒ³ãƒãƒ¼'] = m_name 
+            df_sheet['ƒƒ“ƒo['] = m_name 
             all_records.append(df_sheet)
             
         if all_records:
             df = pd.concat(all_records, ignore_index=True)
-            df['æ—¥ä»˜'] = pd.to_datetime(df['æ—¥ä»˜'], errors='coerce').dt.date
-            df = df.dropna(subset=['æ—¥ä»˜'])
-            logging.info(f"ã€{MASTER_FILE}ã€ã®å„ãƒ¡ãƒ³ãƒãƒ¼ã®å‹¤æ€ ã‚·ãƒ¼ãƒˆã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚")
+            df['“ú•t'] = pd.to_datetime(df['“ú•t'], errors='coerce').dt.date
+            df = df.dropna(subset=['“ú•t'])
+            logging.info(f"w{MASTER_FILE}x‚ÌŠeƒƒ“ƒo[‚Ì‹Î‘ÓƒV[ƒg‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B")
             _cols = {str(c).strip() for c in df.columns}
             if ATT_COL_REMARK in _cols and ATT_COL_LEAVE_TYPE in _cols:
                 logging.info(
-                    "å‹¤æ€ åˆ—: AI å…¥åŠ›ã¯ã€Œ%sã€ã®ã¿ã€‚å‚™è€ƒãŒç©ºã®æ—¥ã¯ã€Œ%sã€ï¼ˆå‰ä¼‘ãƒ»å¾Œä¼‘ãƒ»ä»–æ‹ ç‚¹å‹¤å‹™ãªã©ï¼‰ã‚’ reason ã«åæ˜ ã—ã¾ã™ã€‚",
+                    "‹Î‘Ó—ñ: AI “ü—Í‚Íu%sv‚Ì‚İB”õl‚ª‹ó‚Ì“ú‚Íu%svi‘O‹xEŒã‹xE‘¼‹’“_‹Î–±‚È‚Çj‚ğ reason ‚É”½‰f‚µ‚Ü‚·B",
                     ATT_COL_REMARK,
                     ATT_COL_LEAVE_TYPE,
                 )
             elif ATT_COL_REMARK not in _cols:
                 logging.warning(
-                    "å‹¤æ€ ãƒ‡ãƒ¼ã‚¿ã«ã€Œ%sã€åˆ—ãŒã‚ã‚Šã¾ã›ã‚“ã€‚å‚™è€ƒãƒ™ãƒ¼ã‚¹ã® AI è§£æã¯ç©ºæ‰±ã„ã«ãªã‚Šã¾ã™ã€‚",
+                    "‹Î‘Óƒf[ƒ^‚Éu%sv—ñ‚ª‚ ‚è‚Ü‚¹‚ñB”õlƒx[ƒX‚Ì AI ‰ğÍ‚Í‹óˆµ‚¢‚É‚È‚è‚Ü‚·B",
                     ATT_COL_REMARK,
                 )
             if ATT_COL_OT_END in _cols:
                 logging.info(
-                    "å‹¤æ€ åˆ—: ä»»æ„ã€Œ%sã€ã§é€€å‹¤ä¸Šé™æ™‚åˆ»ã‚’æŒ‡å®šã§ãã¾ã™ï¼ˆå…¨æ—¥ä¼‘ã¿è¡Œã§ã¯ç„¡è¦–ï¼‰ã€‚",
+                    "‹Î‘Ó—ñ: ”CˆÓu%sv‚Å‘Ş‹ÎãŒÀ‚ğw’è‚Å‚«‚Ü‚·i‘S“ú‹x‚İs‚Å‚Í–³‹jB",
                     ATT_COL_OT_END,
                 )
         else:
-            raise FileNotFoundError("æœ‰åŠ¹ãªãƒ¡ãƒ³ãƒãƒ¼åˆ¥å‹¤æ€ ã‚·ãƒ¼ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚")
+            raise FileNotFoundError("—LŒø‚Èƒƒ“ƒo[•Ê‹Î‘ÓƒV[ƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB")
             
     except Exception as e:
-        logging.warning(f"å‹¤æ€ ã‚·ãƒ¼ãƒˆèª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼: {e} ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚’ç”Ÿæˆã—ã¾ã™ã€‚")
+        logging.warning(f"‹Î‘ÓƒV[ƒg“Ç‚İ‚İƒGƒ‰[: {e} ƒfƒtƒHƒ‹ƒgƒJƒŒƒ“ƒ_[‚ğ¶¬‚µ‚Ü‚·B")
         default_dates = generate_default_calendar_dates(TARGET_YEAR, TARGET_MONTH)
         records = []
         for d in default_dates:
-            for m in members: records.append({'æ—¥ä»˜': d, 'ãƒ¡ãƒ³ãƒãƒ¼': m, 'å‚™è€ƒ': 'é€šå¸¸'})
+            for m in members: records.append({'“ú•t': d, 'ƒƒ“ƒo[': m, '”õl': '’Êí'})
         df = pd.DataFrame(records)
 
-    # 2. AI ã«ã‚ˆã‚‹å‹¤æ€ æ–‡è„ˆã®è§£æï¼ˆå‚™è€ƒãŒç©ºã§ã‚‚ä¼‘æš‡åŒºåˆ†ã®ã¿ã®è¡Œã¯ AI ã«æ¸¡ã—ã€è¡¨è¨˜æºã‚Œã¯ãƒ¢ãƒ‡ãƒ«ã«è§£é‡ˆã•ã›ã‚‹ï¼‰
+    # 2. AI ‚É‚æ‚é‹Î‘Ó•¶–¬‚Ì‰ğÍi”õl‚ª‹ó‚Å‚à‹x‰É‹æ•ª‚Ì‚İ‚Ìs‚Í AI ‚É“n‚µA•\‹L—h‚ê‚Íƒ‚ƒfƒ‹‚É‰ğß‚³‚¹‚éj
     remarks_to_analyze = []
     for _, row in df.iterrows():
-        m = str(row.get('ãƒ¡ãƒ³ãƒãƒ¼', '')).strip()
+        m = str(row.get('ƒƒ“ƒo[', '')).strip()
         if m not in members:
             continue
         rem = _attendance_remark_text(row)
         lt = _attendance_leave_type_text(row)
-        d_str = row['æ—¥ä»˜'].strftime("%Y-%m-%d") if pd.notna(row['æ—¥ä»˜']) else ""
+        d_str = row['“ú•t'].strftime("%Y-%m-%d") if pd.notna(row['“ú•t']) else ""
         if rem:
-            remarks_to_analyze.append(f"{d_str}_{m} ã®å‚™è€ƒ: {rem}")
-        elif lt and lt not in ("é€šå¸¸", ""):
-            remarks_to_analyze.append(f"{d_str}_{m} ã®ä¼‘æš‡åŒºåˆ†ï¼ˆå‚™è€ƒã¯ç©ºï¼‰: {lt}")
+            remarks_to_analyze.append(f"{d_str}_{m} ‚Ì”õl: {rem}")
+        elif lt and lt not in ("’Êí", ""):
+            remarks_to_analyze.append(f"{d_str}_{m} ‚Ì‹x‰É‹æ•ªi”õl‚Í‹ój: {lt}")
 
     if remarks_to_analyze:
         remarks_blob = "\n".join(remarks_to_analyze)
@@ -11181,50 +11186,50 @@ def load_attendance_and_analyze(members):
         ).hexdigest()
         ai_cache = load_ai_cache()
 
-        # åŒä¸€å‚™è€ƒã‚»ãƒƒãƒˆã¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’å„ªå…ˆåˆ©ç”¨ã—ã€APIã‚³ãƒ¼ãƒ«ã‚’ç¯€ç´„
+        # “¯ˆê”õlƒZƒbƒg‚ÍƒLƒƒƒbƒVƒ…‚ğ—Dæ—˜—p‚µAAPIƒR[ƒ‹‚ğß–ñ
         cached_data = get_cached_ai_result(ai_cache, cache_key)
         if cached_data is not None:
             ai_parsed = cached_data
-            ai_log["å‹¤æ€ å‚™è€ƒ_AI_API"] = "ãªã—(ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä½¿ç”¨)"
-            ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆ"
+            ai_log["‹Î‘Ó”õl_AI_API"] = "‚È‚µ(ƒLƒƒƒbƒVƒ…g—p)"
+            ai_log["‹Î‘Ó”õl_AI_Ú×"] = "ƒLƒƒƒbƒVƒ…ƒqƒbƒg"
         elif not API_KEY:
             ai_parsed = {}
-            ai_log["å‹¤æ€ å‚™è€ƒ_AI_API"] = "ãªã—"
-            ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "GEMINI_API_KEYæœªè¨­å®šã®ãŸã‚å‹¤æ€ å‚™è€ƒAIã‚’ã‚¹ã‚­ãƒƒãƒ—"
-            logging.info("GEMINI_API_KEY æœªè¨­å®šã®ãŸã‚å‚™è€ƒAIè§£æã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸã€‚")
+            ai_log["‹Î‘Ó”õl_AI_API"] = "‚È‚µ"
+            ai_log["‹Î‘Ó”õl_AI_Ú×"] = "GEMINI_API_KEY–¢İ’è‚Ì‚½‚ß‹Î‘Ó”õlAI‚ğƒXƒLƒbƒv"
+            logging.info("GEMINI_API_KEY –¢İ’è‚Ì‚½‚ß”õlAI‰ğÍ‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½B")
         else:
-            logging.info("â–  AIãŒè¤‡æ•°æ—¥ã®ç‰¹è¨˜äº‹é …ã‚’è§£æä¸­...")
-            ai_log["å‹¤æ€ å‚™è€ƒ_AI_API"] = "ã‚ã‚Š"
+            logging.info("¡ AI‚ª•¡”“ú‚Ì“Á‹L–€‚ğ‰ğÍ’†...")
+            ai_log["‹Î‘Ó”õl_AI_API"] = "‚ ‚è"
             
             prompt = f"""
-            ä»¥ä¸‹ã®å„æ—¥ãƒ»ãƒ¡ãƒ³ãƒãƒ¼ã®å‚™è€ƒã‚’èª­ã¿å–ã‚Šã€å‡ºé€€å‹¤æ™‚åˆ»ã®å¤‰æ›´ã‚„ä¸­æŠœã‘ã€ä¼‘æ—¥ã®åˆ¤å®šã‚’è¡Œã„ã€JSONå½¢å¼ã§å‡ºåŠ›ã—ã¦ãã ã•ã„ã€‚
-            ãƒãƒ¼ã‚¯ãƒ€ã‚¦ãƒ³è¨˜å·(``` ç­‰)ã¯ä¸€åˆ‡å«ã‚ãšã€ç´”ç²‹ãªJSONæ–‡å­—åˆ—ã®ã¿ã‚’è¿”ã—ã¦ãã ã•ã„ã€‚
+            ˆÈ‰º‚ÌŠe“úEƒƒ“ƒo[‚Ì”õl‚ğ“Ç‚İæ‚èAo‘Ş‹Î‚Ì•ÏX‚â’†”²‚¯A‹x“ú‚Ì”»’è‚ğs‚¢AJSONŒ`®‚Åo—Í‚µ‚Ä‚­‚¾‚³‚¢B
+            ƒ}[ƒNƒ_ƒEƒ“‹L†(``` “™)‚ÍˆêØŠÜ‚ß‚¸Aƒˆ‚ÈJSON•¶š—ñ‚Ì‚İ‚ğ•Ô‚µ‚Ä‚­‚¾‚³‚¢B
 
-            ã€JSONã®å‡ºåŠ›å½¢å¼ï¼ˆã‚­ãƒ¼åã‚’å³å¯†ã«å®ˆã‚‹ã“ã¨ï¼‰ã€‘
+            yJSON‚Ìo—ÍŒ`®iƒL[–¼‚ğŒµ–§‚Éç‚é‚±‚Æjz
             {{
-              "YYYY-MM-DD_ãƒ¡ãƒ³ãƒãƒ¼å": {{
-                "å‡ºå‹¤æ™‚åˆ»": "HH:MM", 
-                "é€€å‹¤æ™‚åˆ»": "HH:MM", 
-                "ä¸­æŠœã‘é–‹å§‹": "HH:MM",
-                "ä¸­æŠœã‘çµ‚äº†": "HH:MM",
-                "ä½œæ¥­åŠ¹ç‡": 1.0,     
+              "YYYY-MM-DD_ƒƒ“ƒo[–¼": {{
+                "o‹Î": "HH:MM", 
+                "‘Ş‹Î": "HH:MM", 
+                "’†”²‚¯ŠJn": "HH:MM",
+                "’†”²‚¯I—¹": "HH:MM",
+                "ì‹ÆŒø—¦": 1.0,     
                 "is_holiday": false,
-                "é…å°ä¸å‚åŠ ": false
+                "”z‘ä•sQ‰Á": false
               }}
             }}
-            ãƒ»ã‚­ãƒ¼åã¯ä¸Šè¨˜ã®æ—¥æœ¬èªã‚­ãƒ¼ã‚’ãã®ã¾ã¾ä½¿ã†ï¼ˆè‹±èªã‚­ãƒ¼ã«ç½®ãæ›ãˆãªã„ï¼‰
-            ãƒ»å‡ºå‹¤æ™‚åˆ»/é€€å‹¤æ™‚åˆ»: å½“è©²è¡Œã®ã€Œå‚™è€ƒã€ã¾ãŸã¯ã€Œä¼‘æš‡åŒºåˆ†ï¼ˆå‚™è€ƒã¯ç©ºï¼‰ã€ã®æ–‡è„ˆã‹ã‚‰æ¨æ¸¬ã€‚ä¸æ˜ã‚„å¤‰æ›´ãªã—ãªã‚‰ null
-            ãƒ»ä¸­æŠœã‘é–‹å§‹/çµ‚äº†: ä¸€æ™‚çš„ãªé›¢è„±ï¼ˆä¸­æŠœã‘ãƒ»äº‹å‹™æ‰€ãƒ»ä¼šè­°ãªã©ï¼‰ãŒã‚ã‚‹å ´åˆã€ãã®é–‹å§‹ãƒ»çµ‚äº†ã€‚ãªã„å ´åˆã¯ null
-            ãƒ»æ›–æ˜§èªã®è§£é‡ˆä¾‹:
-              - ã€Œåˆå‰ä¸­ã¯äº‹å‹™æ‰€ã§ä½œæ¥­ã€=> ä¸­æŠœã‘é–‹å§‹ "08:45", ä¸­æŠœã‘çµ‚äº† "12:00"
-              - ã€Œåˆå¾Œã¯ä¼šè­°ã€=> ä¸­æŠœã‘é–‹å§‹ "13:00", ä¸­æŠœã‘çµ‚äº† "17:00"
-            ãƒ»is_holiday: ãã®æ—¥ãŒä¼šç¤¾ã«æ¥ãªã„ãƒ»çµ‚æ—¥ä¼‘æš‡ãƒ»æ¬ å‹¤ãªã© **å‹¤å‹™è‡ªä½“ãŒãªã„** ã¨åˆ¤æ–­ã§ãã‚‹å ´åˆã®ã¿ trueã€‚åˆå‰ä¼‘ãƒ»åˆå¾Œä¼‘ãªã©éƒ¨åˆ†çš„ãªä¼‘ã¿ã¯ falseï¼ˆä¸­æŠœã‘ã‚„æ™‚åˆ»ã§è¡¨ç¾ï¼‰
-            ãƒ»é…å°ä¸å‚åŠ : å‹¤å‹™ã¯ã‚ã‚‹ãŒ **åŠ å·¥ãƒ©ã‚¤ãƒ³ã¸ã®é…å°ï¼ˆOP/AS ã®å‰²å½“ï¼‰ã«è¼‰ã›ã¦ã¯ã„ã‘ãªã„** ã¨èª­ã¿å–ã‚Œã‚‹å ´åˆã¯ trueã€‚è¡¨è¨˜ã¯å•ã‚ãšæ„å‘³ã§åˆ¤æ–­ã™ã‚‹ã“ã¨ã€‚
-              ä¾‹: ã€Œé…å°ä¸å¯ã€ã€Œé…å°ï¼®ï¼§ã€ã€Œãƒ©ã‚¤ãƒ³ã«ä¹—ã‚‰ãªã„ã€ã€Œæœˆæ¬¡ç‚¹æ¤œã®ã¿ã€ã€Œç‚¹æ¤œã§ä¸€æ—¥ã€ã€Œäº‹å‹™ã®ã¿ã€ã€Œæ•™è‚²ã§ç¾å ´ä¸å¯ã€ã€Œæ‰‹é…ãªã—ã€ã€Œã‚¢ã‚µã‚¤ãƒ³ä¸è¦ã€ãªã©ã®æºã‚Œã‚„å©‰æ›²è¡¨ç¾ã‚‚å«ã‚€ã€‚
-              é€šå¸¸å‹¤å‹™ã§ç‰¹ã«åˆ¶é™ãŒèª­ã¿å–ã‚Œãªã„å ´åˆã¯ false
-            ãƒ»ä½œæ¥­åŠ¹ç‡: 0.0ã€œ1.0ã®æ•°å€¤
+            EƒL[–¼‚Íã‹L‚Ì“ú–{ŒêƒL[‚ğ‚»‚Ì‚Ü‚Üg‚¤i‰pŒêƒL[‚É’u‚«Š·‚¦‚È‚¢j
+            Eo‹Î/‘Ş‹Î: “–ŠYs‚Ìu”õlv‚Ü‚½‚Íu‹x‰É‹æ•ªi”õl‚Í‹ójv‚Ì•¶–¬‚©‚ç„‘ªB•s–¾‚â•ÏX‚È‚µ‚È‚ç null
+            E’†”²‚¯ŠJn/I—¹: ˆê“I‚È—£’Ei’†”²‚¯E––±ŠE‰ï‹c‚È‚Çj‚ª‚ ‚éê‡A‚»‚ÌŠJnEI—¹B‚È‚¢ê‡‚Í null
+            EB–†Œê‚Ì‰ğß—á:
+              - uŒß‘O’†‚Í––±Š‚Åì‹Æv=> ’†”²‚¯ŠJn "08:45", ’†”²‚¯I—¹ "12:00"
+              - uŒßŒã‚Í‰ï‹cv=> ’†”²‚¯ŠJn "13:00", ’†”²‚¯I—¹ "17:00"
+            Eis_holiday: ‚»‚Ì“ú‚ª‰ïĞ‚É—ˆ‚È‚¢EI“ú‹x‰ÉEŒ‡‹Î‚È‚Ç **‹Î–±©‘Ì‚ª‚È‚¢** ‚Æ”»’f‚Å‚«‚éê‡‚Ì‚İ trueBŒß‘O‹xEŒßŒã‹x‚È‚Ç•”•ª“I‚È‹x‚İ‚Í falsei’†”²‚¯‚â‚Å•\Œ»j
+            E”z‘ä•sQ‰Á: ‹Î–±‚Í‚ ‚é‚ª **‰ÁHƒ‰ƒCƒ“‚Ö‚Ì”z‘äiOP/AS ‚ÌŠ„“–j‚ÉÚ‚¹‚Ä‚Í‚¢‚¯‚È‚¢** ‚Æ“Ç‚İæ‚ê‚éê‡‚Í trueB•\‹L‚Í–â‚í‚¸ˆÓ–¡‚Å”»’f‚·‚é‚±‚ÆB
+              —á: u”z‘ä•s‰Âvu”z‘ä‚m‚fvuƒ‰ƒCƒ“‚Éæ‚ç‚È‚¢vuŒŸ“_ŒŸ‚Ì‚İvu“_ŒŸ‚Åˆê“úvu––±‚Ì‚İvu‹³ˆç‚ÅŒ»ê•s‰Âvuè”z‚È‚µvuƒAƒTƒCƒ“•s—vv‚È‚Ç‚Ì—h‚ê‚â›U‹È•\Œ»‚àŠÜ‚ŞB
+              ’Êí‹Î–±‚Å“Á‚É§ŒÀ‚ª“Ç‚İæ‚ê‚È‚¢ê‡‚Í false
+            Eì‹ÆŒø—¦: 0.0?1.0‚Ì”’l
             
-            ã€ç‰¹è¨˜äº‹é …ãƒªã‚¹ãƒˆã€‘
+            y“Á‹L–€ƒŠƒXƒgz
             {chr(10).join(remarks_to_analyze)}
             """
             try:
@@ -11236,10 +11241,10 @@ def load_attendance_and_analyze(members):
                     ai_parsed = json.loads(match.group(0))
                     put_cached_ai_result(ai_cache, cache_key, ai_parsed)
                     save_ai_cache(ai_cache)
-                    ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "è§£ææˆåŠŸ"
+                    ai_log["‹Î‘Ó”õl_AI_Ú×"] = "‰ğÍ¬Œ÷"
                 else:
                     ai_parsed = {}
-                    ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "JSONãƒ‘ãƒ¼ã‚¹å¤±æ•—"
+                    ai_log["‹Î‘Ó”õl_AI_Ú×"] = "JSONƒp[ƒX¸”s"
             except Exception as e:
                 err_text = str(e)
                 is_quota_or_rate = ("429" in err_text) or ("RESOURCE_EXHAUSTED" in err_text)
@@ -11247,7 +11252,7 @@ def load_attendance_and_analyze(members):
 
                 if is_quota_or_rate and retry_sec is not None:
                     wait_sec = min(max(retry_sec, 1.0), 90.0)
-                    logging.warning(f"AIé€šä¿¡ 429/RESOURCE_EXHAUSTEDã€‚{wait_sec:.1f}ç§’å¾…æ©Ÿã—ã¦1å›ã ã‘å†è©¦è¡Œã—ã¾ã™ã€‚")
+                    logging.warning(f"AI’ÊM 429/RESOURCE_EXHAUSTEDB{wait_sec:.1f}•b‘Ò‹@‚µ‚Ä1‰ñ‚¾‚¯Äs‚µ‚Ü‚·B")
                     time_module.sleep(wait_sec)
                     try:
                         res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
@@ -11257,26 +11262,26 @@ def load_attendance_and_analyze(members):
                             ai_parsed = json.loads(match.group(0))
                             put_cached_ai_result(ai_cache, cache_key, ai_parsed)
                             save_ai_cache(ai_cache)
-                            ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "å†è©¦è¡Œã§è§£ææˆåŠŸ"
+                            ai_log["‹Î‘Ó”õl_AI_Ú×"] = "Äs‚Å‰ğÍ¬Œ÷"
                         else:
                             ai_parsed = {}
-                            ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = "å†è©¦è¡Œå¾ŒJSONãƒ‘ãƒ¼ã‚¹å¤±æ•—"
+                            ai_log["‹Î‘Ó”õl_AI_Ú×"] = "ÄsŒãJSONƒp[ƒX¸”s"
                     except Exception as e2:
                         ai_parsed = {}
-                        logging.warning(f"AIå†è©¦è¡Œã‚¨ãƒ©ãƒ¼: {e2}")
-                        ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = f"429å¾Œå†è©¦è¡Œå¤±æ•—: {e2}"
+                        logging.warning(f"AIÄsƒGƒ‰[: {e2}")
+                        ai_log["‹Î‘Ó”õl_AI_Ú×"] = f"429ŒãÄs¸”s: {e2}"
                 else:
                     ai_parsed = {}
-                    logging.warning(f"AIé€šä¿¡ã‚¨ãƒ©ãƒ¼: {e}")
-                    ai_log["å‹¤æ€ å‚™è€ƒ_AI_è©³ç´°"] = str(e)
+                    logging.warning(f"AI’ÊMƒGƒ‰[: {e}")
+                    ai_log["‹Î‘Ó”õl_AI_Ú×"] = str(e)
     else:
         ai_parsed = {}
 
-    # 3. æ—¥ä»˜ã”ã¨ã®åˆ¶ç´„è¾æ›¸ã‚’æ§‹ç¯‰
+    # 3. “ú•t‚²‚Æ‚Ì§–ñ«‘‚ğ\’z
     for _, row in df.iterrows():
-        if pd.isna(row['æ—¥ä»˜']): continue
-        curr_date = row['æ—¥ä»˜']
-        m = str(row.get('ãƒ¡ãƒ³ãƒãƒ¼', '')).strip()
+        if pd.isna(row['“ú•t']): continue
+        curr_date = row['“ú•t']
+        m = str(row.get('ƒƒ“ƒo[', '')).strip()
         if m not in members: continue
 
         if curr_date not in attendance_data:
@@ -11288,12 +11293,12 @@ def load_attendance_and_analyze(members):
         key = f"{curr_date.strftime('%Y-%m-%d')}_{m}"
         ai_info = ai_parsed.get(key, {})
 
-        is_empty_shift = pd.isna(row.get('å‡ºå‹¤æ™‚é–“')) and pd.isna(row.get('é€€å‹¤æ™‚é–“')) and not ai_info
+        is_empty_shift = pd.isna(row.get('o‹ÎŠÔ')) and pd.isna(row.get('‘Ş‹ÎŠÔ')) and not ai_info
         is_holiday = _ai_json_bool(ai_info.get("is_holiday"), False) or is_empty_shift
-        exclude_from_line = _ai_json_bool(ai_info.get("é…å°ä¸å‚åŠ "), False)
+        exclude_from_line = _ai_json_bool(ai_info.get("”z‘ä•sQ‰Á"), False)
 
-        ai_eff = ai_info.get("ä½œæ¥­åŠ¹ç‡")
-        excel_eff = row.get('ä½œæ¥­åŠ¹ç‡')
+        ai_eff = ai_info.get("ì‹ÆŒø—¦")
+        excel_eff = row.get('ì‹ÆŒø—¦')
         
         if ai_eff is not None:
             eff_val = ai_eff
@@ -11310,37 +11315,37 @@ def load_attendance_and_analyze(members):
         if original_reason:
             if (
                 leave_type
-                and leave_type not in ("é€šå¸¸", "")
+                and leave_type not in ("’Êí", "")
                 and leave_type not in original_reason
             ):
                 reason = f"{leave_type} {original_reason}"
             else:
                 reason = original_reason
-        elif leave_type and leave_type not in ("é€šå¸¸", ""):
+        elif leave_type and leave_type not in ("’Êí", ""):
             reason = leave_type
         else:
-            reason = 'é€šå¸¸' if not is_empty_shift else 'ä¼‘æ—¥ã‚·ãƒ•ãƒˆ'
+            reason = '’Êí' if not is_empty_shift else '‹x“úƒVƒtƒg'
 
-        # ãƒã‚¹ã‚¿ã«å‡ºå‹¤ãƒ»é€€å‹¤ã®ä¸¡æ–¹ãŒå…¥ã£ã¦ã„ã‚‹æ—¥ã¯ã€å‹¤æ€ AIã®å‡ºå‹¤/é€€å‹¤æ™‚åˆ»ã§ä¸Šæ›¸ãã—ãªã„ï¼ˆä¼‘æš‡åŒºåˆ†ã®ã¿ã®è¡Œã§èª¤æ¨å®šã•ã‚Œã†ã‚‹ï¼‰
-        excel_s = row.get("å‡ºå‹¤æ™‚é–“")
-        excel_e = row.get("é€€å‹¤æ™‚é–“")
+        # ƒ}ƒXƒ^‚Éo‹ÎE‘Ş‹Î‚Ì—¼•û‚ª“ü‚Á‚Ä‚¢‚é“ú‚ÍA‹Î‘ÓAI‚Ìo‹Î/‘Ş‹Î‚Åã‘‚«‚µ‚È‚¢i‹x‰É‹æ•ª‚Ì‚İ‚Ìs‚ÅŒë„’è‚³‚ê‚¤‚éj
+        excel_s = row.get("o‹ÎŠÔ")
+        excel_e = row.get("‘Ş‹ÎŠÔ")
         if not pd.isna(excel_s) and not pd.isna(excel_e):
             start_t = parse_time_str(excel_s, DEFAULT_START_TIME)
             end_t = parse_time_str(excel_e, DEFAULT_END_TIME)
         else:
-            start_t = parse_time_str(ai_info.get("å‡ºå‹¤æ™‚åˆ»") or excel_s, DEFAULT_START_TIME)
-            end_t = parse_time_str(ai_info.get("é€€å‹¤æ™‚åˆ»") or excel_e, DEFAULT_END_TIME)
+            start_t = parse_time_str(ai_info.get("o‹Î") or excel_s, DEFAULT_START_TIME)
+            end_t = parse_time_str(ai_info.get("‘Ş‹Î") or excel_e, DEFAULT_END_TIME)
         base_end_t = end_t
 
-        b1_s = parse_time_str(row.get('ä¼‘æ†©æ™‚é–“1_é–‹å§‹'), DEFAULT_BREAKS[0][0])
-        b1_e = parse_time_str(row.get('ä¼‘æ†©æ™‚é–“1_çµ‚äº†'), DEFAULT_BREAKS[0][1])
-        b2_s = parse_time_str(row.get('ä¼‘æ†©æ™‚é–“2_é–‹å§‹'), DEFAULT_BREAKS[1][0])
-        b2_e = parse_time_str(row.get('ä¼‘æ†©æ™‚é–“2_çµ‚äº†'), DEFAULT_BREAKS[1][1])
+        b1_s = parse_time_str(row.get('‹xŒeŠÔ1_ŠJn'), DEFAULT_BREAKS[0][0])
+        b1_e = parse_time_str(row.get('‹xŒeŠÔ1_I—¹'), DEFAULT_BREAKS[0][1])
+        b2_s = parse_time_str(row.get('‹xŒeŠÔ2_ŠJn'), DEFAULT_BREAKS[1][0])
+        b2_e = parse_time_str(row.get('‹xŒeŠÔ2_I—¹'), DEFAULT_BREAKS[1][1])
 
-        # â˜…è¿½åŠ : AIã‹ã‚‰ä¸­æŠœã‘æ™‚é–“ã‚’å–å¾—
-        mid_break_s = parse_time_str(ai_info.get("ä¸­æŠœã‘é–‹å§‹"), None)
-        mid_break_e = parse_time_str(ai_info.get("ä¸­æŠœã‘çµ‚äº†"), None)
-        # AIãŒä¸­æŠœã‘ã‚’è¿”ã•ãªã‹ã£ãŸå ´åˆã¯ã€å‚™è€ƒæ–‡è¨€ã‹ã‚‰ãƒ­ãƒ¼ã‚«ãƒ«æ¨å®šã§è£œå®Œ
+        # š’Ç‰Á: AI‚©‚ç’†”²‚¯ŠÔ‚ğæ“¾
+        mid_break_s = parse_time_str(ai_info.get("’†”²‚¯ŠJn"), None)
+        mid_break_e = parse_time_str(ai_info.get("’†”²‚¯I—¹"), None)
+        # AI‚ª’†”²‚¯‚ğ•Ô‚³‚È‚©‚Á‚½ê‡‚ÍA”õl•¶Œ¾‚©‚çƒ[ƒJƒ‹„’è‚Å•âŠ®
         if not (mid_break_s and mid_break_e):
             fb_s, fb_e = infer_mid_break_from_reason(reason, start_t, end_t, b1_s, b1_e)
             if fb_s and fb_e:
@@ -11359,7 +11364,7 @@ def load_attendance_and_analyze(members):
         end_dt = combine_dt(end_t)
         if (not is_holiday) and start_dt and end_dt and end_dt <= start_dt:
             logging.warning(
-                "å‹¤æ€  %s %s: æ®‹æ¥­çµ‚æ¥­é©ç”¨å¾Œã«é€€å‹¤ãŒå‡ºå‹¤ä»¥å‰ã¨ãªã£ãŸãŸã‚ã€æ®‹æ¥­çµ‚æ¥­ã‚’ç„¡è¦–ã—ã¦å®šæ™‚é€€å‹¤ã«æˆ»ã—ã¾ã™ã€‚",
+                "‹Î‘Ó %s %s: c‹ÆI‹Æ“K—pŒã‚É‘Ş‹Î‚ªo‹ÎˆÈ‘O‚Æ‚È‚Á‚½‚½‚ßAc‹ÆI‹Æ‚ğ–³‹‚µ‚Ä’è‘Ş‹Î‚É–ß‚µ‚Ü‚·B",
                 curr_date,
                 m,
             )
@@ -11367,11 +11372,11 @@ def load_attendance_and_analyze(members):
             end_dt = combine_dt(end_t)
         breaks_dt = []
         
-        # é€šå¸¸ã®ä¼‘æ†©ã‚’è¿½åŠ 
+        # ’Êí‚Ì‹xŒe‚ğ’Ç‰Á
         if b1_s and b1_e: breaks_dt.append((combine_dt(b1_s), combine_dt(b1_e)))
         if b2_s and b2_e: breaks_dt.append((combine_dt(b2_s), combine_dt(b2_e)))
         
-        # â˜…è¿½åŠ : ä¸­æŠœã‘æ™‚é–“ãŒã‚ã‚‹å ´åˆã¯ã€ç‰¹åˆ¥ãªã€Œä¼‘æ†©ã€ã¨ã—ã¦ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«è¨ˆç®—ã«è¿½åŠ 
+        # š’Ç‰Á: ’†”²‚¯ŠÔ‚ª‚ ‚éê‡‚ÍA“Á•Ê‚Èu‹xŒev‚Æ‚µ‚ÄƒXƒPƒWƒ…[ƒ‹ŒvZ‚É’Ç‰Á
         if mid_break_s and mid_break_e: breaks_dt.append((combine_dt(mid_break_s), combine_dt(mid_break_e)))
         
         is_working = not is_holiday
@@ -11389,69 +11394,69 @@ def load_attendance_and_analyze(members):
 
 
 # ---------------------------------------------------------------------------
-# å…¨ä¾é ¼å…±é€š: åŠ å·¥å†…å®¹åˆ—ã®å·¥ç¨‹é †åº / å€‹åˆ¥: ECâ†’æ¤œæŸ»ãƒ­ãƒ¼ãƒ«ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
+# ‘SˆË—Š‹¤’Ê: ‰ÁH“à—e—ñ‚ÌH’ö‡˜ / ŒÂ•Ê: EC¨ŒŸ¸ƒ[ƒ‹ƒpƒCƒvƒ‰ƒCƒ“
 # ---------------------------------------------------------------------------
 ROLL_PIPELINE_EC_PROCESS = "EC"
-ROLL_PIPELINE_EC_MACHINE = "ECæ©Ÿã€€æ¹–å—"
-ROLL_PIPELINE_INSP_PROCESS = "æ¤œæŸ»"
-ROLL_PIPELINE_INSP_MACHINE = "ç†±èç€æ©Ÿã€€æ¹–å—"
-# Â§B-3: å¾Œç¶šã¯ B-2 ã®ã€Œæ¤œæŸ»ã€ã«ç›¸å½“ã™ã‚‹å·¥ç¨‹ã¨ã—ã¦å·»è¿”ã—ï¼ˆåŒä¸€ä¾é ¼ã§ EC å…ˆè¡Œãƒ»ãƒ­ãƒ¼ãƒ«æ ãƒ»ãƒªãƒ¯ã‚¤ãƒ³ãƒ‰ç­‰ã¯ B-2 ã¨åŒè¶£æ—¨ï¼‰
-ROLL_PIPELINE_REWIND_PROCESS = "å·»è¿”ã—"
-ROLL_PIPELINE_REWIND_MACHINE = "ECæ©Ÿã€€æ¹–å—"
+ROLL_PIPELINE_EC_MACHINE = "EC‹@@ŒÎ“ì"
+ROLL_PIPELINE_INSP_PROCESS = "ŒŸ¸"
+ROLL_PIPELINE_INSP_MACHINE = "”M—Z’…‹@@ŒÎ“ì"
+# ˜B-3: Œã‘±‚Í B-2 ‚ÌuŒŸ¸v‚É‘Š“–‚·‚éH’ö‚Æ‚µ‚ÄŠª•Ô‚µi“¯ˆêˆË—Š‚Å EC æsEƒ[ƒ‹˜gEƒŠƒƒCƒ“ƒh“™‚Í B-2 ‚Æ“¯ï|j
+ROLL_PIPELINE_REWIND_PROCESS = "Šª•Ô‚µ"
+ROLL_PIPELINE_REWIND_MACHINE = "EC‹@@ŒÎ“ì"
 ROLL_PIPELINE_INITIAL_BUFFER_ROLLS = 2
-# æ¤œæŸ»ã®å‰²å½“ä¸Šé™ min ã«ä½¿ã†ã€‚åŒä¸€ä¾é ¼ã« EC è¡ŒãŒç„¡ã„ã¨ãã¯ needãƒ»ã‚¹ã‚­ãƒ«ã«å¾“ã„é€šå¸¸é…å°ã™ã‚‹ï¼ˆec_done=0 å›ºå®šã§æ°¸ä¹…ã‚¹ã‚­ãƒƒãƒ—ã—ãªã„ï¼‰ã€‚
+# ŒŸ¸‚ÌŠ„“–ãŒÀ min ‚Ég‚¤B“¯ˆêˆË—Š‚É EC s‚ª–³‚¢‚Æ‚«‚Í needEƒXƒLƒ‹‚É]‚¢’Êí”z‘ä‚·‚éiec_done=0 ŒÅ’è‚Å‰i‹vƒXƒLƒbƒv‚µ‚È‚¢jB
 ROLL_PIPELINE_INSP_UNCAPPED_ROOM = 1.0e18
 
 
-# å‹¤æ€ ã«è¼‰ã£ã¦ã„ã‚‹æœ€çµ‚æ—¥ã¾ã§ã§å‰²ä»˜ãŒçµ‚ã‚ã‚‰ãªã„ã¨ãã€æœ€çµ‚æ—¥ã¨åŒã˜ã‚·ãƒ•ãƒˆå‹ã§æ—¥ä»˜ã‚’å»¶é•·ã™ã‚‹ï¼ˆã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼‰ã€‚
-# False ã®ã¨ãæ®µéš2ã¯ãƒã‚¹ã‚¿å‹¤æ€ ã®æ—¥ä»˜ç¯„å›²ã®ã¿ã§å‰²ä»˜ã—ã€æ®‹ã‚Šã¯é…å°æ®‹ãƒ»é…å°ä¸å¯ã®ã¾ã¾ã¨ã™ã‚‹ã€‚
+# ‹Î‘Ó‚ÉÚ‚Á‚Ä‚¢‚éÅI“ú‚Ü‚Å‚ÅŠ„•t‚ªI‚í‚ç‚È‚¢‚Æ‚«AÅI“ú‚Æ“¯‚¶ƒVƒtƒgŒ^‚Å“ú•t‚ğ‰„’·‚·‚éiƒIƒvƒVƒ‡ƒ“jB
+# False ‚Ì‚Æ‚«’iŠK2‚Íƒ}ƒXƒ^‹Î‘Ó‚Ì“ú•t”ÍˆÍ‚Ì‚İ‚ÅŠ„•t‚µAc‚è‚Í”z‘äcE”z‘ä•s‰Â‚Ì‚Ü‚Ü‚Æ‚·‚éB
 STAGE2_EXTEND_ATTENDANCE_CALENDAR = False
 SCHEDULE_EXTEND_MAX_EXTRA_DAYS = 366
 
-# ç´æœŸåŸºæº–æ—¥ã‚’éãã¦ã‚‚å½“è©²ä¾é ¼ã«æ®‹é‡ãŒã‚ã‚‹ã¨ãã€**ãã®ä¾é ¼NOã ã‘** due_basis ã‚’ +1 ã—ã€
-# å½“è©²ä¾é ¼ã®å‰²å½“ãƒ»ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’å·»ãæˆ»ã—ã¦**ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å…ˆé ­ã‹ã‚‰**å†ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã™ã‚‹ï¼ˆä»–ä¾é ¼ã®å‰²å½“ã¯ç¶­æŒï¼‰ã€‚
-# ãƒã‚¹ã‚¿å‹¤æ€ ã®æœ€çµ‚æ—¥ã‚’è¶…ãˆã¦å¾Œã‚å€’ã—ã§ããªã„ä¾é ¼ã¯ã€Œé…å°æ®‹(å‹¤å‹™ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ä¸è¶³)ã€ã¨ã™ã‚‹ã€‚å„å†è©¦è¡Œå‰ã«å‹¤æ€ æ‹¡å¼µåˆ†ã¯ãƒã‚¹ã‚¿æ—¥ä»˜ã¸æˆ»ã™ã€‚
-# æ—¢å®š **False**ï¼ˆé…å°è©¦è¡Œé †ã‚’æ­£ã¨ã—ã€è¨ˆç”»åŸºæº–è¶…éã§ã‚‚ã“ã®å·»ãæˆ»ã—å†è©¦è¡Œã¯è¡Œã‚ãªã„ï¼‰ã€‚å¾“æ¥æŒ™å‹•ãŒå¿…è¦ãªã¨ãã ã‘ Trueã€‚
+# ”[ŠúŠî€“ú‚ğ‰ß‚¬‚Ä‚à“–ŠYˆË—Š‚Éc—Ê‚ª‚ ‚é‚Æ‚«A**‚»‚ÌˆË—ŠNO‚¾‚¯** due_basis ‚ğ +1 ‚µA
+# “–ŠYˆË—Š‚ÌŠ„“–Eƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğŠª‚«–ß‚µ‚Ä**ƒJƒŒƒ“ƒ_[æ“ª‚©‚ç**ÄƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‚·‚éi‘¼ˆË—Š‚ÌŠ„“–‚ÍˆÛjB
+# ƒ}ƒXƒ^‹Î‘Ó‚ÌÅI“ú‚ğ’´‚¦‚ÄŒã‚ë“|‚µ‚Å‚«‚È‚¢ˆË—Š‚Íu”z‘äc(‹Î–±ƒJƒŒƒ“ƒ_[•s‘«)v‚Æ‚·‚éBŠeÄs‘O‚É‹Î‘ÓŠg’£•ª‚Íƒ}ƒXƒ^“ú•t‚Ö–ß‚·B
+# Šù’è **False**i”z‘äs‡‚ğ³‚Æ‚µAŒv‰æŠî€’´‰ß‚Å‚à‚±‚ÌŠª‚«–ß‚µÄs‚Ís‚í‚È‚¢jB]—ˆ‹““®‚ª•K—v‚È‚Æ‚«‚¾‚¯ TrueB
 STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING = False
-# ç´æœŸåŸºæº–ã® +1 æ—¥ã«ã‚ˆã‚‹å·»ãæˆ»ã—å†ã‚·ãƒŸãƒ¥ã¯ä¾é ¼NOã”ã¨ã«æœ€å¤§ã“ã®å›æ•°ï¼ˆ6 å›ç›®ä»¥é™ã¯å½“è©²ä¾é ¼ã®ã¿ã‚·ãƒ•ãƒˆã›ãšã€æœªå®Œäº†è¡Œã«ç´æœŸè¦‹ç›´ã—å¿…è¦ã‚’ä»˜ä¸ã—å¾—ã‚‹ï¼‰ã€‚
+# ”[ŠúŠî€‚Ì +1 “ú‚É‚æ‚éŠª‚«–ß‚µÄƒVƒ~ƒ…‚ÍˆË—ŠNO‚²‚Æ‚ÉÅ‘å‚±‚Ì‰ñ”i6 ‰ñ–ÚˆÈ~‚Í“–ŠYˆË—Š‚Ì‚İƒVƒtƒg‚¹‚¸A–¢Š®—¹s‚É”[ŠúŒ©’¼‚µ•K—v‚ğ•t—^‚µ“¾‚éjB
 STAGE2_RETRY_SHIFT_DUE_MAX_ROUNDS = 5
 
-# True ã®ã¨ãã€é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆã®èª­ã¿è¾¼ã¿è¡Œé †ï¼ˆå„ä¾é ¼NOã®åˆå‡ºè¡ŒãŒæ—©ã„ã»ã©å…ˆï¼‰ã§ 1 ä¾é ¼ã ã‘ã‚’
-# å½“æ—¥å€™è£œã«æ®‹ã—ã€å®Œèµ°ã—ã¦ã‹ã‚‰æ¬¡ä¾é ¼ã¸é€²ã‚€ã€‚**ä»–ä¾é ¼ã¯ä¸€åˆ‡ãã®æ—¥é…å°ã•ã‚Œãªã„**ãŸã‚ã€
-# ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ä¾é ¼ã®1è¡Œã§ã‚‚è©°ã¾ã‚‹ã¨å…¨ä½“ãŒé…å°ä¸å¯ã«è¦‹ãˆã‚‹ï¼ˆãƒ­ã‚°ã€Œä¾é ¼NOç›´åˆ—é…å° ç›´åˆ—å¾Œ=1ã€ï¼‰ã€‚
-# æ—¢å®š Falseã€‚å³å¯†ãªä¾é ¼NOç›´åˆ—ãŒå¿…è¦ãªã¨ãã ã‘ STAGE2_SERIAL_DISPATCH_BY_TASK_ID=1 ã‚’è¨­å®šã™ã‚‹ã€‚
+# True ‚Ì‚Æ‚«A”z‘äŒv‰æƒV[ƒg‚Ì“Ç‚İ‚İs‡iŠeˆË—ŠNO‚Ì‰os‚ª‘‚¢‚Ù‚Çæj‚Å 1 ˆË—Š‚¾‚¯‚ğ
+# “–“úŒó•â‚Éc‚µAŠ®‘–‚µ‚Ä‚©‚çŸˆË—Š‚Öi‚ŞB**‘¼ˆË—Š‚ÍˆêØ‚»‚Ì“ú”z‘ä‚³‚ê‚È‚¢**‚½‚ßA
+# ƒAƒNƒeƒBƒuˆË—Š‚Ì1s‚Å‚à‹l‚Ü‚é‚Æ‘S‘Ì‚ª”z‘ä•s‰Â‚ÉŒ©‚¦‚éiƒƒOuˆË—ŠNO’¼—ñ”z‘ä ’¼—ñŒã=1vjB
+# Šù’è FalseBŒµ–§‚ÈˆË—ŠNO’¼—ñ‚ª•K—v‚È‚Æ‚«‚¾‚¯ STAGE2_SERIAL_DISPATCH_BY_TASK_ID=1 ‚ğİ’è‚·‚éB
 STAGE2_SERIAL_DISPATCH_BY_TASK_ID = (
     os.environ.get("STAGE2_SERIAL_DISPATCH_BY_TASK_ID", "0")
     .strip()
     .lower()
-    in ("1", "true", "yes", "on", "ã¯ã„")
+    in ("1", "true", "yes", "on", "‚Í‚¢")
 )
 
-# True: â‘ æ®‹ã‚¿ã‚¹ã‚¯ã®ã†ã¡é…å°è©¦è¡Œé †ãŒæœ€å°ã®1ã‚¿ã‚¹ã‚¯ã ã‘ã‚’é¸ã³ã€1ãƒ­ãƒ¼ãƒ«ãšã¤å‰²ä»˜ã€‚
-# â‘¡åŸåæŠ•å…¥æ—¥ã¨åŒä¸€æ—¥ã«é–‹å§‹ã™ã‚‹å ´åˆã¯ 13:00 ä»¥é™ï¼ˆsame_day_raw_start_limit ã‚‚ 13:00ï¼‰ã€‚
-# â‘¢â‘£è¨­å‚™ç©ºãã‚’ max ã§ç¹°ã‚Šä¸Šã’ï¼ˆæ—¥å†…ã€‚ç¿Œæ—¥ã¯æ—¥ä»˜ãƒ«ãƒ¼ãƒ—ã§ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚·ãƒ¼ãƒ‰ï¼‰ã€‚
-# â‘¤â‘¥â‘¦â‘§äººã®ç©ºãã§ãƒãƒ¼ãƒ ã‚’æ±ºã‚ã€ãƒ­ãƒ¼ãƒ«ã”ã¨ã« avail ã‚’æ›´æ–°ï¼ˆåŒæ—¥ã¯å‰ãƒ­ãƒ¼ãƒ«ã¨åŒä¸€ãƒãƒ¼ãƒ ã‚’å„ªå…ˆï¼‰ã€‚
-# ç„¡åŠ¹åŒ–: ç’°å¢ƒå¤‰æ•° STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0
+# True: ‡@cƒ^ƒXƒN‚Ì‚¤‚¿”z‘äs‡‚ªÅ¬‚Ì1ƒ^ƒXƒN‚¾‚¯‚ğ‘I‚ÑA1ƒ[ƒ‹‚¸‚ÂŠ„•tB
+# ‡AŒ´”½“Š“ü“ú‚Æ“¯ˆê“ú‚ÉŠJn‚·‚éê‡‚Í 13:00 ˆÈ~isame_day_raw_start_limit ‚à 13:00jB
+# ‡B‡Cİ”õ‹ó‚«‚ğ max ‚ÅŒJ‚èã‚°i“ú“àB—‚“ú‚Í“ú•tƒ‹[ƒv‚Åƒ^ƒCƒ€ƒ‰ƒCƒ“ƒV[ƒhjB
+# ‡D‡E‡F‡Gl‚Ì‹ó‚«‚Åƒ`[ƒ€‚ğŒˆ‚ßAƒ[ƒ‹‚²‚Æ‚É avail ‚ğXVi“¯“ú‚Í‘Oƒ[ƒ‹‚Æ“¯ˆêƒ`[ƒ€‚ğ—DæjB
+# –³Œø‰»: ŠÂ‹«•Ï” STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0
 STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST = os.environ.get(
     "STAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST", "1"
-).strip().lower() not in ("0", "false", "no", "off", "ã„ã„ãˆ", "ç„¡åŠ¹")
+).strip().lower() not in ("0", "false", "no", "off", "‚¢‚¢‚¦", "–³Œø")
 
-# Trueï¼ˆæ—¢å®šï¼‰: start_date_req<=å½“æ—¥ ã‹ã¤æ®‹ã‚ã‚Šã®ã‚¿ã‚¹ã‚¯ã®ã†ã¡ã€é…å°è©¦è¡Œé †ã®æœ€å°ã€Œæ ã€ã ã‘ãŒå‰²ä»˜å¯¾è±¡ã€‚
-# ã‚ˆã‚Šå¤§ãã„è©¦è¡Œé †ã¯ã€ã‚ˆã‚Šå°ã•ã„è©¦è¡Œé †ã«æœªå®Œäº†ãŒæ®‹ã‚‹é™ã‚Šãƒ–ãƒ­ãƒƒã‚¯ï¼ˆç´æœŸãŒè¿‘ãã¦ã‚‚å‰²ã‚Šè¾¼ã¾ãªã„ï¼‰ã€‚
+# TrueiŠù’èj: start_date_req<=“–“ú ‚©‚Âc‚ ‚è‚Ìƒ^ƒXƒN‚Ì‚¤‚¿A”z‘äs‡‚ÌÅ¬u˜gv‚¾‚¯‚ªŠ„•t‘ÎÛB
+# ‚æ‚è‘å‚«‚¢s‡‚ÍA‚æ‚è¬‚³‚¢s‡‚É–¢Š®—¹‚ªc‚éŒÀ‚èƒuƒƒbƒNi”[Šú‚ª‹ß‚­‚Ä‚àŠ„‚è‚Ü‚È‚¢jB
 STAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICT = os.environ.get(
     "STAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICT", "1"
-).strip().lower() not in ("0", "false", "no", "off", "ã„ã„ãˆ", "ç„¡åŠ¹")
+).strip().lower() not in ("0", "false", "no", "off", "‚¢‚¢‚¦", "–³Œø")
 
-# Trueï¼ˆæ—¢å®šï¼‰: å‰²ä»˜å€™è£œã‚’ã€Œè¨­å‚™ãƒ»äººã®å£æ™‚è¨ˆå æœ‰åŒºé–“ã€ã§äºŒé‡æ¤œæŸ»ã—ã€ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³è¿½è¨˜ã¨åŒæœŸç™»éŒ²ã™ã‚‹
-# ï¼ˆãƒ–ãƒ­ãƒƒã‚¯ãƒ†ãƒ¼ãƒ–ãƒ«ã¨åŒè¶£æ—¨ã€‚Excel ã‚»ãƒ«é€æ¬¡ I/O ã¯è¡Œã‚ãªã„ï¼‰ã€‚
-# False: å¾“æ¥ã©ãŠã‚Š avail_dt / machine_avail_dt ã®ã¿ã€‚
+# TrueiŠù’èj: Š„•tŒó•â‚ğuİ”õEl‚Ì•ÇŒvè—L‹æŠÔv‚Å“ñdŒŸ¸‚µAƒ^ƒCƒ€ƒ‰ƒCƒ“’Ç‹L‚Æ“¯Šú“o˜^‚·‚é
+# iƒuƒƒbƒNƒe[ƒuƒ‹‚Æ“¯ï|BExcel ƒZƒ‹’€Ÿ I/O ‚Ís‚í‚È‚¢jB
+# False: ]—ˆ‚Ç‚¨‚è avail_dt / machine_avail_dt ‚Ì‚İB
 DISPATCH_INTERVAL_MIRROR_ENFORCE = os.environ.get(
     "DISPATCH_INTERVAL_MIRROR_ENFORCE", "1"
-).strip().lower() not in ("0", "false", "no", "off", "ã„ã„ãˆ", "ç„¡åŠ¹")
+).strip().lower() not in ("0", "false", "no", "off", "‚¢‚¢‚¦", "–³Œø")
 
 
 def _clone_attendance_day_shifted(source_day: dict, old_date: date, new_date: date) -> dict:
-    """ãƒ¡ãƒ³ãƒãƒ¼åˆ¥å‹¤æ€ ãƒ–ãƒ­ãƒƒã‚¯ã‚’ new_date ã«ã‚·ãƒ•ãƒˆã—ãŸæµ…ã„ã‚³ãƒ”ãƒ¼ã‚’è¿”ã™ã€‚"""
+    """ƒƒ“ƒo[•Ê‹Î‘ÓƒuƒƒbƒN‚ğ new_date ‚ÉƒVƒtƒg‚µ‚½ó‚¢ƒRƒs[‚ğ•Ô‚·B"""
     delta_days = (new_date - old_date).days
     if delta_days == 0:
         return {m: dict(st) for m, st in source_day.items()}
@@ -11475,7 +11480,7 @@ def _clone_attendance_day_shifted(source_day: dict, old_date: date, new_date: da
 
 
 def _pick_extension_template_date(attendance_data: dict, plan_dates: list):
-    """é…å°å¯èƒ½ãªãƒ¡ãƒ³ãƒãƒ¼ãŒ1äººã§ã‚‚ã„ã‚‹ç›´è¿‘ã®æ—¥ã‚’ãƒ†ãƒ³ãƒ—ãƒ¬ã«æ¡ç”¨ï¼ˆæœ€çµ‚æ—¥ãŒå…¨ä¼‘ã§ã‚‚æœ‰åŠ¹ãªå‹ã‚’ä½¿ã†ï¼‰ã€‚"""
+    """”z‘ä‰Â”\‚Èƒƒ“ƒo[‚ª1l‚Å‚à‚¢‚é’¼‹ß‚Ì“ú‚ğƒeƒ“ƒvƒŒ‚ÉÌ—piÅI“ú‚ª‘S‹x‚Å‚à—LŒø‚ÈŒ^‚ğg‚¤jB"""
     for i in range(len(plan_dates) - 1, -1, -1):
         d = plan_dates[i]
         day = attendance_data.get(d)
@@ -11493,7 +11498,7 @@ def _extend_attendance_one_calendar_day(
     attendance_data: dict,
     plan_dates: list,
 ) -> bool:
-    """ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ä¸Š1æ—¥å…ˆã‚’ plan_dates ã«è¿½åŠ ã—ã€ãƒ†ãƒ³ãƒ—ãƒ¬æ—¥ã®ã‚·ãƒ•ãƒˆè¤‡è£½ã§ attendance ã‚’åŸ‹ã‚ã‚‹ã€‚å¤±æ•—æ™‚ Falseã€‚"""
+    """ƒJƒŒƒ“ƒ_[ã1“úæ‚ğ plan_dates ‚É’Ç‰Á‚µAƒeƒ“ƒvƒŒ“ú‚ÌƒVƒtƒg•¡»‚Å attendance ‚ğ–„‚ß‚éB¸”s FalseB"""
     if not plan_dates:
         return False
     last_d = plan_dates[-1]
@@ -11507,7 +11512,7 @@ def _extend_attendance_one_calendar_day(
     attendance_data[next_d] = _clone_attendance_day_shifted(template, tmpl_d, next_d)
     plan_dates.append(next_d)
     logging.info(
-        "é…å°å®Œäº†ã¾ã§å‹¤æ€ ã‚’è‡ªå‹•æ‹¡å¼µ: %s ã‚’è¿½åŠ ï¼ˆãƒ†ãƒ³ãƒ—ãƒ¬=%sã€ãƒ¡ãƒ³ãƒãƒ¼æ•°=%sï¼‰",
+        "”z‘äŠ®—¹‚Ü‚Å‹Î‘Ó‚ğ©“®Šg’£: %s ‚ğ’Ç‰Áiƒeƒ“ƒvƒŒ=%sAƒƒ“ƒo[”=%sj",
         next_d,
         tmpl_d,
         len(attendance_data[next_d]),
@@ -11521,8 +11526,8 @@ def _iter_plan_dates_extending(
     task_queue: list,
 ):
     """
-    plan_dates ã‚’å…ˆé ­ã‹ã‚‰é †ã« yieldã€‚æœ«å°¾ã¾ã§æ¥ã¦ã‚‚æ®‹ã‚¿ã‚¹ã‚¯ãŒã‚ã‚Œã°å‹¤æ€ ã‚’1æ—¥ãšã¤æ‹¡å¼µã—ã¦ç¶™ç¶šã€‚
-    plan_dates / attendance_data ã¯ã‚¤ãƒ³ãƒ—ãƒ¬ãƒ¼ã‚¹æ›´æ–°ã•ã‚Œã‚‹ã€‚
+    plan_dates ‚ğæ“ª‚©‚ç‡‚É yieldB––”ö‚Ü‚Å—ˆ‚Ä‚àcƒ^ƒXƒN‚ª‚ ‚ê‚Î‹Î‘Ó‚ğ1“ú‚¸‚ÂŠg’£‚µ‚ÄŒp‘±B
+    plan_dates / attendance_data ‚ÍƒCƒ“ƒvƒŒ[ƒXXV‚³‚ê‚éB
     """
     si = 0
     ext_used = 0
@@ -11535,13 +11540,13 @@ def _iter_plan_dates_extending(
             return
         if ext_used >= SCHEDULE_EXTEND_MAX_EXTRA_DAYS:
             logging.warning(
-                "æ®‹ã‚¿ã‚¹ã‚¯ãŒã‚ã‚Šã¾ã™ãŒå‹¤æ€ ã®è‡ªå‹•æ‹¡å¼µãŒä¸Šé™ï¼ˆ%s æ—¥ï¼‰ã«é”ã—ã¾ã—ãŸã€‚é…å°æ®‹ãƒ»é…å°ä¸å¯ãŒæ®‹ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚",
+                "cƒ^ƒXƒN‚ª‚ ‚è‚Ü‚·‚ª‹Î‘Ó‚Ì©“®Šg’£‚ªãŒÀi%s “új‚É’B‚µ‚Ü‚µ‚½B”z‘äcE”z‘ä•s‰Â‚ªc‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B",
                 SCHEDULE_EXTEND_MAX_EXTRA_DAYS,
             )
             return
         if not _extend_attendance_one_calendar_day(attendance_data, plan_dates):
             logging.warning(
-                "å‹¤æ€ ã‚’1æ—¥æ‹¡å¼µã§ãã¾ã›ã‚“ã§ã—ãŸï¼ˆãƒ†ãƒ³ãƒ—ãƒ¬æ—¥ã®ãƒ‡ãƒ¼ã‚¿æ¬ è½ï¼‰ã€‚æ®‹ã‚¿ã‚¹ã‚¯ã¯æœªå‰²å½“ã®ã¾ã¾ã§ã™ã€‚"
+                "‹Î‘Ó‚ğ1“úŠg’£‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½iƒeƒ“ƒvƒŒ“ú‚Ìƒf[ƒ^Œ‡—jBcƒ^ƒXƒN‚Í–¢Š„“–‚Ì‚Ü‚Ü‚Å‚·B"
             )
             return
         ext_used += 1
@@ -11557,7 +11562,7 @@ def _parse_process_content_tokens(val) -> list[str]:
 
 
 def _collect_process_content_order_by_task_id(tasks_df) -> dict[str, list[str]]:
-    """ä¾é ¼NO â†’ åŠ å·¥å†…å®¹ã®å·¥ç¨‹åãƒªã‚¹ãƒˆï¼ˆè¡¨ã®ä¸Šã®æ–¹ã§æœ€åˆã«ç¾ã‚ŒãŸéç©ºã®è¡Œã‚’æ¡ç”¨ï¼‰ã€‚"""
+    """ˆË—ŠNO ¨ ‰ÁH“à—e‚ÌH’ö–¼ƒŠƒXƒgi•\‚Ìã‚Ì•û‚ÅÅ‰‚ÉŒ»‚ê‚½”ñ‹ó‚Ìs‚ğÌ—pjB"""
     out: dict[str, list[str]] = {}
     if tasks_df is None or tasks_df.empty:
         return out
@@ -11577,8 +11582,8 @@ def _process_name_matches_kakou_content_tokens(
     process_name: str, content_tokens: list[str]
 ) -> bool:
     """
-    å·¥ç¨‹åï¼ˆé…å°è¨ˆç”»ã®ã€Œå·¥ç¨‹åã€åˆ—ï¼‰ãŒã€å…ƒãƒ‡ãƒ¼ã‚¿ã®ã€ŒåŠ å·¥å†…å®¹ã€ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Šãƒˆãƒ¼ã‚¯ãƒ³ã®ã„ãšã‚Œã‹ã¨
-    æ­£è¦åŒ–ä¸€è‡´ã™ã‚‹ã‹ã€‚ãƒˆãƒ¼ã‚¯ãƒ³ãŒç„¡ã„ï¼ˆåŠ å·¥å†…å®¹æœªè¨˜å…¥ã®ä¾é ¼ï¼‰ã¯ç…§åˆå¯¾è±¡å¤–ã¨ã—ã¦ Trueã€‚
+    H’ö–¼i”z‘äŒv‰æ‚ÌuH’ö–¼v—ñj‚ªAŒ³ƒf[ƒ^‚Ìu‰ÁH“à—evƒJƒ“ƒ}‹æØ‚èƒg[ƒNƒ“‚Ì‚¢‚¸‚ê‚©‚Æ
+    ³‹K‰»ˆê’v‚·‚é‚©Bƒg[ƒNƒ“‚ª–³‚¢i‰ÁH“à—e–¢‹L“ü‚ÌˆË—Šj‚ÍÆ‡‘ÎÛŠO‚Æ‚µ‚Ä TrueB
     """
     if not content_tokens:
         return True
@@ -11612,7 +11617,7 @@ def _task_rank_int_or_none(task) -> int | None:
 
 
 def _plan_sheet_priority_sort_value(t: dict) -> int:
-    """é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆã®ã€Œå„ªå…ˆåº¦ã€ã€‚å°ã•ã„ã»ã©å…ˆã€‚æœªå…¥åŠ›ãƒ»ä¸æ­£ã¯ 999ã€‚"""
+    """”z‘äŒv‰æƒV[ƒg‚Ìu—Dæ“xvB¬‚³‚¢‚Ù‚ÇæB–¢“ü—ÍE•s³‚Í 999B"""
     p = t.get("priority", 999)
     try:
         return int(p)
@@ -11622,14 +11627,14 @@ def _plan_sheet_priority_sort_value(t: dict) -> int:
 
 def _task_blocked_by_same_request_dependency(task, task_queue) -> bool:
     """
-    åŒä¸€ä¾é ¼NOã®ç•°ãªã‚‹å·¥ç¨‹ã‚’åŒæ™‚åˆ»ã«å›ã•ãªã„ï¼ˆé…å°ãƒ«ãƒ¼ãƒ« Â§A-1ãƒ»Â§A-2ï¼‰ã€‚
-    - ä¸¡è¡Œã«åŠ å·¥å†…å®¹ç”±æ¥ã® rank ãŒã‚ã‚‹ã¨ãã¯ rank ã®ã¿ã§å‰å¾Œï¼ˆÂ§A-1ï¼‰ã€‚
-    - ã©ã¡ã‚‰ã‹ã« rank ãŒç„¡ã„ã¨ãã¯ã€é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆã®è¡Œé † same_request_line_seq ã§å‰å¾Œï¼ˆÂ§A-2ï¼‰ã€‚
-    Â§B-2 / Â§B-3: ``roll_pipeline_inspection`` ã¾ãŸã¯ ``roll_pipeline_rewind`` è¡ŒãŒ
-    ``roll_pipeline_ec`` å…ˆè¡Œã«ã‚ˆã‚Š Â§A-1 ã§æ­¢ã¾ã‚‹å ´åˆã€
-    ``_roll_pipeline_inspection_assign_room`` > 0 ãªã‚‰å½“è©²ãƒšã‚¢ã ã‘ãƒ–ãƒ­ãƒƒã‚¯ã—ãªã„ã€‚
-    å‰é€²é…å°ã§ã¯ ``_trial_order_flow_eligible_tasks`` ãŒ EC å®Œèµ°ã¾ã§æ¤œæŸ»ã‚’å¤–ã™ãŸã‚ã€
-    EC æ®‹ãŒã‚ã‚‹é–“ã¯æœ¬åˆ†å²ã«åˆ°é”ã—ãªã„ã€‚ãƒªãƒ¯ã‚¤ãƒ³ãƒ‰ç­‰ã§æ¤œæŸ»ãŒè¼‰ã‚‹å±€é¢ã¨ã®æ•´åˆç”¨ã€‚
+    “¯ˆêˆË—ŠNO‚ÌˆÙ‚È‚éH’ö‚ğ“¯‚É‰ñ‚³‚È‚¢i”z‘äƒ‹[ƒ‹ ˜A-1E˜A-2jB
+    - —¼s‚É‰ÁH“à—e—R—ˆ‚Ì rank ‚ª‚ ‚é‚Æ‚«‚Í rank ‚Ì‚İ‚Å‘OŒãi˜A-1jB
+    - ‚Ç‚¿‚ç‚©‚É rank ‚ª–³‚¢‚Æ‚«‚ÍA”z‘äŒv‰æƒV[ƒg‚Ìs‡ same_request_line_seq ‚Å‘OŒãi˜A-2jB
+    ˜B-2 / ˜B-3: ``roll_pipeline_inspection`` ‚Ü‚½‚Í ``roll_pipeline_rewind`` s‚ª
+    ``roll_pipeline_ec`` æs‚É‚æ‚è ˜A-1 ‚Å~‚Ü‚éê‡A
+    ``_roll_pipeline_inspection_assign_room`` > 0 ‚È‚ç“–ŠYƒyƒA‚¾‚¯ƒuƒƒbƒN‚µ‚È‚¢B
+    ‘Oi”z‘ä‚Å‚Í ``_trial_order_flow_eligible_tasks`` ‚ª EC Š®‘–‚Ü‚ÅŒŸ¸‚ğŠO‚·‚½‚ßA
+    EC c‚ª‚ ‚éŠÔ‚Í–{•ªŠò‚É“’B‚µ‚È‚¢BƒŠƒƒCƒ“ƒh“™‚ÅŒŸ¸‚ªÚ‚é‹Ç–Ê‚Æ‚Ì®‡—pB
     """
     tid = str(task.get("task_id", "") or "").strip()
     if not tid:
@@ -11676,9 +11681,9 @@ def _task_not_yet_schedulable_due_to_dependency_or_b2_room(
     task: dict, task_queue: list
 ) -> bool:
     """
-    ã‚­ãƒ¥ãƒ¼çŠ¶æ…‹ä¸Šã€ã“ã®è¡Œã¯ã¾ã æ—¥æ¬¡é…å°ã§é€²ã‚ã‚‰ã‚Œãªã„ï¼ˆÂ§A åŒä¸€ä¾é ¼ã®å‰å·¥ç¨‹æ®‹ã€ã¾ãŸã¯ Â§B-2/Â§B-3 ã®æ ã‚¼ãƒ­ï¼‰ã€‚
-    `_min_pending_dispatch_trial_order_for_date` ã¨ `_equipment_line_lower_dispatch_trial_still_pending`
-    ã§åŒã˜åŸºæº–ã‚’å…±æœ‰ã™ã‚‹ã€‚ç‰‡æ–¹ã ã‘ç›´ã™ã¨ã€åŒä¸€è¨­å‚™ã‚­ãƒ¼ã§å…¨ä»¶æœªå‰²å½“ãŒæ®‹ã‚‹ãƒ‡ãƒƒãƒ‰ãƒ­ãƒƒã‚¯ãŒèµ·ãå¾—ã‚‹ã€‚
+    ƒLƒ…[ó‘ÔãA‚±‚Ìs‚Í‚Ü‚¾“úŸ”z‘ä‚Åi‚ß‚ç‚ê‚È‚¢i˜A “¯ˆêˆË—Š‚Ì‘OH’öcA‚Ü‚½‚Í ˜B-2/˜B-3 ‚Ì˜gƒ[ƒjB
+    `_min_pending_dispatch_trial_order_for_date` ‚Æ `_equipment_line_lower_dispatch_trial_still_pending`
+    ‚Å“¯‚¶Šî€‚ğ‹¤—L‚·‚éB•Ğ•û‚¾‚¯’¼‚·‚ÆA“¯ˆêİ”õƒL[‚Å‘SŒ–¢Š„“–‚ªc‚éƒfƒbƒhƒƒbƒN‚ª‹N‚«“¾‚éB
     """
     if _task_blocked_by_same_request_dependency(task, task_queue):
         return True
@@ -11734,7 +11739,7 @@ def _pipeline_ec_roll_done_units(task_queue, tid: str) -> float:
 
 
 def _pipeline_inspection_roll_done_units(task_queue, tid: str) -> float:
-    """ç†±èç€æ¤œæŸ»è¡Œã®ã¿ã®ç´¯è¨ˆå®Œäº†ãƒ­ãƒ¼ãƒ«ï¼ˆãƒˆãƒ¬ãƒ¼ã‚¹ç”¨ï¼‰ã€‚"""
+    """”M—Z’…ŒŸ¸s‚Ì‚İ‚Ì—İŒvŠ®—¹ƒ[ƒ‹iƒgƒŒ[ƒX—pjB"""
     tid = str(tid or "").strip()
     s = 0.0
     for t in task_queue:
@@ -11749,7 +11754,7 @@ def _pipeline_inspection_roll_done_units(task_queue, tid: str) -> float:
 
 
 def _pipeline_b2_follower_roll_done_units(task_queue, tid: str) -> float:
-    """Â§B-2 æ¤œæŸ»è¡Œï¼‹Â§B-3 å·»è¿”ã—è¡Œã®ã€åŒä¸€ä¾é ¼å†…ã®å¾Œç¶šãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ç´¯è¨ˆå®Œäº†ãƒ­ãƒ¼ãƒ«ã€‚"""
+    """˜B-2 ŒŸ¸s{˜B-3 Šª•Ô‚µs‚ÌA“¯ˆêˆË—Š“à‚ÌŒã‘±ƒpƒCƒvƒ‰ƒCƒ“—İŒvŠ®—¹ƒ[ƒ‹B"""
     tid = str(tid or "").strip()
     s = 0.0
     for t in task_queue:
@@ -11764,7 +11769,7 @@ def _pipeline_b2_follower_roll_done_units(task_queue, tid: str) -> float:
 
 
 def _task_queue_has_roll_pipeline_ec_for_tid(task_queue, task_id: str) -> bool:
-    """åŒä¸€ä¾é ¼NOã« ECï¼ˆãƒ­ãƒ¼ãƒ«ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å…ˆè¡Œï¼‰ã‚¿ã‚¹ã‚¯ãŒã‚­ãƒ¥ãƒ¼ã«å«ã¾ã‚Œã‚‹ã‹ã€‚"""
+    """“¯ˆêˆË—ŠNO‚É ECiƒ[ƒ‹ƒpƒCƒvƒ‰ƒCƒ“æsjƒ^ƒXƒN‚ªƒLƒ…[‚ÉŠÜ‚Ü‚ê‚é‚©B"""
     tid = str(task_id or "").strip()
     if not tid:
         return False
@@ -11777,7 +11782,7 @@ def _task_queue_has_roll_pipeline_ec_for_tid(task_queue, task_id: str) -> bool:
 
 
 def _pipeline_ec_fully_done_for_tid(task_queue, task_id: str) -> bool:
-    """åŒä¸€ä¾é ¼NOã® EC ãƒ­ãƒ¼ãƒ«ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¡ŒãŒã™ã¹ã¦æ®‹é‡ã‚¼ãƒ­ï¼ˆå®Œèµ°ï¼‰ã‹ã€‚"""
+    """“¯ˆêˆË—ŠNO‚Ì EC ƒ[ƒ‹ƒpƒCƒvƒ‰ƒCƒ“s‚ª‚·‚×‚Äc—Êƒ[ƒiŠ®‘–j‚©B"""
     tid = str(task_id or "").strip()
     if not tid:
         return False
@@ -11799,13 +11804,13 @@ def _roll_pipeline_inspection_assign_room(task_queue, task_id: str) -> float:
         return float(ROLL_PIPELINE_INSP_UNCAPPED_ROOM)
     ec_done = _pipeline_ec_roll_done_units(task_queue, task_id)
     insp_done = _pipeline_b2_follower_roll_done_units(task_queue, task_id)
-    # EC å…¨ãƒ­ãƒ¼ãƒ«å®Œäº†å¾Œã¯ã€ŒEC å…ˆè¡Œãƒ»ãƒãƒƒãƒ•ã‚¡ã€ã¯æ—¢ã«æº€ãŸã•ã‚Œã¦ã„ã‚‹ã€‚ã“ã“ã§ max_insp ã‚’ ec_done ã«
-    # æƒãˆã‚‹ã¨ã€ã‚·ãƒ¼ãƒˆä¸Šã®æ¤œæŸ»ï¼ˆãƒ»å·»è¿”ã—ï¼‰æ®‹ãƒ­ãƒ¼ãƒ«æ•°ãŒ EC å®Œäº†ãƒ­ãƒ¼ãƒ«æ•°ã‚’ä¸Šå›ã‚‹ãƒ‡ãƒ¼ã‚¿ã§
-    # max_insp - insp_done ãŒ 0 ã®ã¾ã¾æ®‹ã‚Šã€æ¤œæŸ»è¡ŒãŒ eligible ã‹ã‚‰å¤–ã‚Œé…å°è©¦è¡Œé †ãŒæ°¸ä¹…ã«è©°ã¾ã‚‹
-    # ï¼ˆå†ç¾ãƒ­ã‚°: ec_fully_done ã‹ã¤ insp_done==max_insp==ec_done ã§ room=0 â†’ å¾Œç¶šè©¦è¡Œé †ãŒé…å°ä¸å¯ï¼‰ã€‚
+    # EC ‘Sƒ[ƒ‹Š®—¹Œã‚ÍuEC æsEƒoƒbƒtƒ@v‚ÍŠù‚É–‚½‚³‚ê‚Ä‚¢‚éB‚±‚±‚Å max_insp ‚ğ ec_done ‚É
+    # ‘µ‚¦‚é‚ÆAƒV[ƒgã‚ÌŒŸ¸iEŠª•Ô‚µjcƒ[ƒ‹”‚ª EC Š®—¹ƒ[ƒ‹”‚ğã‰ñ‚éƒf[ƒ^‚Å
+    # max_insp - insp_done ‚ª 0 ‚Ì‚Ü‚Üc‚èAŒŸ¸s‚ª eligible ‚©‚çŠO‚ê”z‘äs‡‚ª‰i‹v‚É‹l‚Ü‚é
+    # iÄŒ»ƒƒO: ec_fully_done ‚©‚Â insp_done==max_insp==ec_done ‚Å room=0 ¨ Œã‘±s‡‚ª”z‘ä•s‰ÂjB
     if _pipeline_ec_fully_done_for_tid(task_queue, task_id):
         return float(ROLL_PIPELINE_INSP_UNCAPPED_ROOM)
-    # EC ç¨¼åƒä¸­: å…ˆè¡Œãƒãƒƒãƒ•ã‚¡ B ã«ã‚ˆã‚Šæ¤œæŸ»ãƒ­ãƒ¼ãƒ«ä¸Šé™ã‚’ ec_done ã‹ã‚‰é…å»¶ã•ã›ã‚‹ï¼ˆB=2 ã®å¼ã¯ã‚³ãƒ¡ãƒ³ãƒˆå‚ç…§ï¼‰ã€‚
+    # EC ‰Ò“­’†: æsƒoƒbƒtƒ@ B ‚É‚æ‚èŒŸ¸ƒ[ƒ‹ãŒÀ‚ğ ec_done ‚©‚ç’x‰„‚³‚¹‚éiB=2 ‚Ì®‚ÍƒRƒƒ“ƒgQÆjB
     max_insp = max(0.0, ec_done - float(ROLL_PIPELINE_INITIAL_BUFFER_ROLLS) + 1.0)
     _room = max(0.0, max_insp - insp_done)
     return _room
@@ -11814,7 +11819,7 @@ def _roll_pipeline_inspection_assign_room(task_queue, task_id: str) -> float:
 def _roll_pipeline_inspection_task_row_for_tid(
     task_queue: list, task_id: str
 ) -> dict | None:
-    """åŒä¸€ä¾é ¼NOã® Â§B-2 æ¤œæŸ»è¡Œã¾ãŸã¯ Â§B-3 å·»è¿”ã—è¡Œã‚’1ä»¶è¿”ã™ã€‚ç„¡ã‘ã‚Œã° Noneã€‚"""
+    """“¯ˆêˆË—ŠNO‚Ì ˜B-2 ŒŸ¸s‚Ü‚½‚Í ˜B-3 Šª•Ô‚µs‚ğ1Œ•Ô‚·B–³‚¯‚ê‚Î NoneB"""
     tid = str(task_id or "").strip()
     if not tid:
         return None
@@ -11829,7 +11834,7 @@ def _roll_pipeline_inspection_task_row_for_tid(
 def _pipeline_b2_ec_roll_end_datetimes_sorted(
     task_queue: list, task_id: str
 ) -> list[datetime]:
-    """åŒä¸€ä¾é ¼ã® EC ãƒ­ãƒ¼ãƒ«ç¢ºå®šã”ã¨ã®çµ‚äº†æ™‚åˆ»ã‚’æ™‚ç³»åˆ—ã§è¿”ã™ï¼ˆassigned_history ã® end_dtï¼‰ã€‚"""
+    """“¯ˆêˆË—Š‚Ì EC ƒ[ƒ‹Šm’è‚²‚Æ‚ÌI—¹‚ğŒn—ñ‚Å•Ô‚·iassigned_history ‚Ì end_dtjB"""
     tid = str(task_id or "").strip()
     ends: list[datetime] = []
     if not tid:
@@ -11851,11 +11856,11 @@ def _roll_pipeline_b2_inspection_ec_completion_floor_dt(
     task_queue: list, task_id: str
 ) -> datetime | None:
     """
-    æ¬¡ã®æ¤œæŸ»ãƒ­ãƒ¼ãƒ«ã‚’é–‹å§‹ã—ã¦ã‚ˆã„æœ€æ—©æ™‚åˆ»ã€‚
-    ç´¯è¨ˆæ¤œæŸ»å®Œäº†ãƒ­ãƒ¼ãƒ«æ•°ã‚’ Kã€ãƒãƒƒãƒ•ã‚¡ã‚’ Bï¼ˆ=ROLL_PIPELINE_INITIAL_BUFFER_ROLLSï¼‰ã¨ã™ã‚‹ã¨ã€
-    EC å®Œäº†ãƒ­ãƒ¼ãƒ«ãŒæ™‚ç³»åˆ—ã§ (K+B) æœ¬ç›®ã«åˆ°é”ã—ãŸæ™‚åˆ»ï¼ˆãã®ãƒ­ãƒ¼ãƒ«ã® end_dtï¼‰æœªæº€ã«ã¯é–‹å§‹ã—ãªã„ã€‚
-    ï¼ˆæ¥­å‹™ãƒ«ãƒ¼ãƒ«: ä»»æ„ã®æ™‚ç‚¹ã§ EC_RollEndCount - KENSA_RollEndCount >= B ã‚’æº€ãŸã™ã¾ã§æ¤œæŸ»ã‚’é€²ã‚ãªã„ã€
-    ã®ã€Œãƒ­ãƒ¼ãƒ«çµ‚äº†æ™‚åˆ»åŸºæº–ã€ã®å®Ÿè£…ã€‚ï¼‰
+    Ÿ‚ÌŒŸ¸ƒ[ƒ‹‚ğŠJn‚µ‚Ä‚æ‚¢Å‘B
+    —İŒvŒŸ¸Š®—¹ƒ[ƒ‹”‚ğ KAƒoƒbƒtƒ@‚ğ Bi=ROLL_PIPELINE_INITIAL_BUFFER_ROLLSj‚Æ‚·‚é‚ÆA
+    EC Š®—¹ƒ[ƒ‹‚ªŒn—ñ‚Å (K+B) –{–Ú‚É“’B‚µ‚½i‚»‚Ìƒ[ƒ‹‚Ì end_dtj–¢–‚É‚ÍŠJn‚µ‚È‚¢B
+    i‹Æ–±ƒ‹[ƒ‹: ”CˆÓ‚Ì“_‚Å EC_RollEndCount - KENSA_RollEndCount >= B ‚ğ–‚½‚·‚Ü‚ÅŒŸ¸‚ği‚ß‚È‚¢A
+    ‚Ìuƒ[ƒ‹I—¹Šî€v‚ÌÀ‘•Bj
     """
     tid = str(task_id or "").strip()
     if not tid or not _task_queue_has_roll_pipeline_ec_for_tid(task_queue, tid):
@@ -11871,14 +11876,14 @@ def _roll_pipeline_b2_inspection_ec_completion_floor_dt(
 
 
 def _pipeline_b2_team_history_names(team_cell) -> set[str]:
-    """assigned_history ã® team æ–‡å­—åˆ—ï¼ˆä¸»ãƒ»è£œã‚’ã€Œ,ã€ã€Œã€ã€åŒºåˆ‡ã‚Šï¼‰ã‹ã‚‰æ‹…å½“è€…åã‚’æŠ½å‡ºï¼ˆNFKCï¼‰ã€‚"""
+    """assigned_history ‚Ì team •¶š—ñiåE•â‚ğu,vuAv‹æØ‚èj‚©‚ç’S“–Ò–¼‚ğ’ŠoiNFKCjB"""
     if team_cell is None:
         return set()
     s = str(team_cell).strip()
     if not s:
         return set()
     out: set[str] = set()
-    for part in re.split(r"[,ã€]", s):
+    for part in re.split(r"[,A]", s):
         t = part.strip()
         if t:
             out.add(unicodedata.normalize("NFKC", t))
@@ -11888,7 +11893,7 @@ def _pipeline_b2_team_history_names(team_cell) -> set[str]:
 def _pipeline_b2_assigned_member_names_nfkc_for_side(
     task_queue: list, task_id: str, *, ec_side: bool
 ) -> set[str]:
-    """åŒä¸€ä¾é ¼ã® EC è¡Œã¾ãŸã¯æ¤œæŸ»è¡Œã® assigned_history ã«å‡ºãŸæ‹…å½“è€…åï¼ˆNFKC é›†åˆï¼‰ã€‚"""
+    """“¯ˆêˆË—Š‚Ì EC s‚Ü‚½‚ÍŒŸ¸s‚Ì assigned_history ‚Éo‚½’S“–Ò–¼iNFKC W‡jB"""
     tid = str(task_id or "").strip()
     if not tid:
         return set()
@@ -11910,7 +11915,7 @@ def _pipeline_b2_assigned_member_names_nfkc_for_side(
 
 
 def _b2_ec_insp_pair_in_queue(task_queue: list, task_id: str) -> bool:
-    """åŒä¸€ä¾é ¼NOã« Â§B-2/Â§B-3 ã® EC è¡Œã¨å¾Œç¶šè¡Œï¼ˆæ¤œæŸ»ã¾ãŸã¯å·»è¿”ã—ï¼‰ã®ä¸¡æ–¹ãŒã‚­ãƒ¥ãƒ¼ã«ã‚ã‚‹ã‹ã€‚"""
+    """“¯ˆêˆË—ŠNO‚É ˜B-2/˜B-3 ‚Ì EC s‚ÆŒã‘±siŒŸ¸‚Ü‚½‚ÍŠª•Ô‚µj‚Ì—¼•û‚ªƒLƒ…[‚É‚ ‚é‚©B"""
     tid = str(task_id or "").strip()
     if not tid:
         return False
@@ -11924,9 +11929,9 @@ def _filter_capable_members_b2_disjoint_teams(
     task: dict, task_queue: list, capable_members: list
 ) -> list:
     """
-    Â§B-2 / Â§B-3 åŒä¸€ä¾é ¼ã§ã¯ã€EC è¡Œã«ä¸€åº¦ã§ã‚‚å…¥ã£ãŸè€…ã¯å¾Œç¶šï¼ˆæ¤œæŸ»ï¼å·»è¿”ã—ï¼‰ã®å€™è£œã‹ã‚‰å¤–ã—ã€
-    å¾Œç¶šã«å…¥ã£ãŸè€…ã¯ EC ã®å€™è£œã‹ã‚‰å¤–ã™ã€‚
-    ï¼ˆç¤¾å†…ãƒ«ãƒ¼ãƒ«: æ‹…å½“è€…é›†åˆã‚’å¿…ãšåˆ†ã‘ã‚‹ã€‚`PLANNING_B2_EC_FOLLOWER_DISJOINT_TEAMS` ã§ç„¡åŠ¹åŒ–å¯ï¼‰
+    ˜B-2 / ˜B-3 “¯ˆêˆË—Š‚Å‚ÍAEC s‚Éˆê“x‚Å‚à“ü‚Á‚½Ò‚ÍŒã‘±iŒŸ¸^Šª•Ô‚µj‚ÌŒó•â‚©‚çŠO‚µA
+    Œã‘±‚É“ü‚Á‚½Ò‚Í EC ‚ÌŒó•â‚©‚çŠO‚·B
+    iĞ“àƒ‹[ƒ‹: ’S“–ÒW‡‚ğ•K‚¸•ª‚¯‚éB`PLANNING_B2_EC_FOLLOWER_DISJOINT_TEAMS` ‚Å–³Œø‰»‰Âj
     """
     if not capable_members:
         return capable_members
@@ -11961,30 +11966,30 @@ def _filter_capable_members_b2_disjoint_teams(
         if is_ec:
             _side = "EC"
         elif task.get("roll_pipeline_rewind"):
-            _side = "å·»è¿”ã—"
+            _side = "Šª•Ô‚µ"
         else:
-            _side = "æ¤œæŸ»"
+            _side = "ŒŸ¸"
         _log_dispatch_trace_schedule(
             tid,
-            "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ãƒ–ãƒ­ãƒƒã‚¯åˆ¤å®š: B-2æ‹…å½“è€…åˆ†é›¢ side=%s machine=%s "
-            "å€™è£œé™¤å¤–=%s æ®‹å€™è£œ=%s(%s)",
+            "[”z‘äƒgƒŒ[ƒX task=%s] ƒuƒƒbƒN”»’è: B-2’S“–Ò•ª—£ side=%s machine=%s "
+            "Œó•âœŠO=%s cŒó•â=%s(%s)",
             tid,
             _side,
             task.get("machine"),
             ",".join(str(x) for x in removed),
             len(filtered),
-            ",".join(str(x) for x in filtered) if filtered else "ãªã—",
+            ",".join(str(x) for x in filtered) if filtered else "‚È‚µ",
         )
     return filtered
 
 
 def _exclusive_b1_inspection_holder_for_machine(task_queue, occupant_key: str):
     """
-    åŒä¸€ç‰©ç†æ©Ÿæ¢°ï¼ˆæ©Ÿæ¢°åãƒ™ãƒ¼ã‚¹ã®å æœ‰ã‚­ãƒ¼ï¼‰ä¸Šã§ã€Â§B-2 ç†±èç€æ¤œæŸ»ã¾ãŸã¯ Â§B-3 å·»è¿”ã—ãŒ **æ—¢ã«å‰²ä»˜ã‚’é–‹å§‹** ã—æ®‹ãƒ­ãƒ¼ãƒ«ãŒæ®‹ã‚‹è¡ŒãŒã‚ã‚Œã°
-    ãã®ã‚¿ã‚¹ã‚¯ dict ã‚’1ä»¶è¿”ã™ï¼ˆãªã‘ã‚Œã° Noneï¼‰ã€‚
+    “¯ˆê•¨—‹@ŠBi‹@ŠB–¼ƒx[ƒX‚Ìè—LƒL[jã‚ÅA˜B-2 ”M—Z’…ŒŸ¸‚Ü‚½‚Í ˜B-3 Šª•Ô‚µ‚ª **Šù‚ÉŠ„•t‚ğŠJn** ‚µcƒ[ƒ‹‚ªc‚és‚ª‚ ‚ê‚Î
+    ‚»‚Ìƒ^ƒXƒN dict ‚ğ1Œ•Ô‚·i‚È‚¯‚ê‚Î NonejB
 
-    ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³æ ã§å¾Œç¶šã‚’æ•°ãƒ­ãƒ¼ãƒ«ãšã¤ã—ã‹å…¥ã‚Œãªã„è¨­è¨ˆã®ãŸã‚ã€æ ã‚¼ãƒ­ã®éš™é–“ã« **åˆ¥ä¾é ¼** ãŒåŒã˜è¨­å‚™ã«å…¥ã‚Šã€
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã§ã‚¿ã‚¹ã‚¯è¡¨ç¤ºãŒé€”ä¸­ã§åˆ‡ã‚Šæ›¿ã‚ã‚‹äº‹è±¡ã‚’é˜²ãã€‚å æœ‰ä¸­ã¯å½“è©²ç‰©ç†æ©Ÿæ¢°ã§ã¯ä»–ã‚¿ã‚¹ã‚¯ã‚’è©¦è¡Œã—ãªã„ã€‚
+    ƒpƒCƒvƒ‰ƒCƒ“˜g‚ÅŒã‘±‚ğ”ƒ[ƒ‹‚¸‚Â‚µ‚©“ü‚ê‚È‚¢İŒv‚Ì‚½‚ßA˜gƒ[ƒ‚ÌŒ„ŠÔ‚É **•ÊˆË—Š** ‚ª“¯‚¶İ”õ‚É“ü‚èA
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Åƒ^ƒXƒN•\¦‚ª“r’†‚ÅØ‚è‘Ö‚í‚é–Û‚ğ–h‚®Bè—L’†‚Í“–ŠY•¨—‹@ŠB‚Å‚Í‘¼ƒ^ƒXƒN‚ğs‚µ‚È‚¢B
     """
     m = str(occupant_key or "").strip()
     if not m:
@@ -12023,7 +12028,7 @@ def _need_sheet_pm_column_rank(
     machine_name,
     need_combo_col_index: dict | None,
 ) -> int:
-    """need ã‚·ãƒ¼ãƒˆã§å·¦ã«ã‚ã‚‹ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€åˆ—ã»ã©å°ã•ã„å€¤ï¼ˆã‚­ãƒ¥ãƒ¼ã§å…ˆï¼‰ã€‚"""
+    """need ƒV[ƒg‚Å¶‚É‚ ‚éuH’ö–¼+‹@ŠB–¼v—ñ‚Ù‚Ç¬‚³‚¢’liƒLƒ…[‚ÅæjB"""
     if not need_combo_col_index:
         return 10**9
     p = str(process or "").strip()
@@ -12042,25 +12047,25 @@ def _generate_plan_task_queue_sort_key(
     need_combo_col_index: dict | None = None,
 ) -> tuple:
     """
-    generate_plan å†’é ­ãŠã‚ˆã³ç´æœŸã‚·ãƒ•ãƒˆå†è©¦è¡Œæ™‚ã® task_queue.sort ç”¨ã‚­ãƒ¼ã€‚
+    generate_plan –`“ª‚¨‚æ‚Ñ”[ŠúƒVƒtƒgÄs‚Ì task_queue.sort —pƒL[B
 
-    1. åŠ å·¥é€”ä¸­ï¼ˆin_progressï¼‰ã‚’å…ˆ
-    2. ç´æœŸåŸºæº– due_basis_dateï¼ˆå›ç­”ç´æœŸâ†’æŒ‡å®šç´æœŸã€‚æ—©ã„ã»ã©å…ˆï¼‰
-    3. Â§B-1 â†’ Â§B-2/Â§B-3 å¸¯ â†’ ãã®ä»–ï¼ˆb_tierï¼‰
-    4. Â§B-2/Â§B-3 å¸¯å†…ã®ã¿ EC ã‚’æœªç€æ‰‹ã®æ¤œæŸ»ï¼å·»è¿”ã—ã‚ˆã‚Šå…ˆï¼ˆb2_queue_subï¼‰
-    5. need ã‚·ãƒ¼ãƒˆå·¦åˆ—ã»ã©å…ˆï¼ˆå·¥ç¨‹å+æ©Ÿæ¢°ååˆ—ã®ä½ç½®ï¼‰
-    6. ä¾é ¼NOã‚¿ã‚¤ãƒ–ãƒ¬ãƒ¼ã‚¯ï¼ˆ_task_id_same_machine_due_tiebreak_keyï¼‰
+    1. ‰ÁH“r’†iin_progressj‚ğæ
+    2. ”[ŠúŠî€ due_basis_datei‰ñ“š”[Šú¨w’è”[ŠúB‘‚¢‚Ù‚Çæj
+    3. ˜B-1 ¨ ˜B-2/˜B-3 ‘Ñ ¨ ‚»‚Ì‘¼ib_tierj
+    4. ˜B-2/˜B-3 ‘Ñ“à‚Ì‚İ EC ‚ğ–¢’…è‚ÌŒŸ¸^Šª•Ô‚µ‚æ‚èæib2_queue_subj
+    5. need ƒV[ƒg¶—ñ‚Ù‚ÇæiH’ö–¼+‹@ŠB–¼—ñ‚ÌˆÊ’uj
+    6. ˆË—ŠNOƒ^ƒCƒuƒŒ[ƒNi_task_id_same_machine_due_tiebreak_keyj
 
-    _req_map / _need_rules ã¯å‘¼ã³å‡ºã—äº’æ›ã®ãŸã‚æ®‹ã™ã€‚
+    _req_map / _need_rules ‚ÍŒÄ‚Ño‚µŒİŠ·‚Ì‚½‚ßc‚·B
     """
     insp = bool(task.get("roll_pipeline_inspection"))
     rw = bool(task.get("roll_pipeline_rewind"))
     ip = bool(task.get("in_progress"))
     ec = bool(task.get("roll_pipeline_ec"))
     if insp and ip:
-        b_tier = 0  # Â§B-1
+        b_tier = 0  # ˜B-1
     elif ec or (insp and not ip) or (rw and not ip):
-        b_tier = 1  # Â§B-2 / Â§B-3 å¸¯
+        b_tier = 1  # ˜B-2 / ˜B-3 ‘Ñ
     else:
         b_tier = 2
     if b_tier == 1:
@@ -12087,8 +12092,8 @@ def _generate_plan_task_queue_sort_key(
 
 def _reorder_task_queue_b2_ec_inspection_consecutive(task_queue: list) -> None:
     """
-    Â§B-2 / Â§B-3: åŒä¸€ task_id ã® `roll_pipeline_ec` è¡Œã®ç›´å¾Œã«ã€æœªç€æ‰‹ã®å¾Œç¶šè¡Œ
-    ï¼ˆ`roll_pipeline_inspection` ã¾ãŸã¯ `roll_pipeline_rewind`ï¼‰ã‚’è¡Œé †ã§éš£æ¥ã•ã›ã‚‹ã€‚
+    ˜B-2 / ˜B-3: “¯ˆê task_id ‚Ì `roll_pipeline_ec` s‚Ì’¼Œã‚ÉA–¢’…è‚ÌŒã‘±s
+    i`roll_pipeline_inspection` ‚Ü‚½‚Í `roll_pipeline_rewind`j‚ğs‡‚Å—×Ú‚³‚¹‚éB
     """
     if len(task_queue) < 2:
         return
@@ -12146,23 +12151,23 @@ def _reorder_task_queue_b2_ec_inspection_consecutive(task_queue: list) -> None:
             break
     if moved_tids:
         logging.info(
-            "Â§B-2/Â§B-3 é…å°è©¦è¡Œé †: EC ã¨æœªç€æ‰‹å¾Œç¶šï¼ˆæ¤œæŸ»ï¼å·»è¿”ã—ï¼‰ã‚’éš£æ¥ã—ãŸä¾é ¼NO: %s",
+            "˜B-2/˜B-3 ”z‘äs‡: EC ‚Æ–¢’…èŒã‘±iŒŸ¸^Šª•Ô‚µj‚ğ—×Ú‚µ‚½ˆË—ŠNO: %s",
             ",".join(moved_tids),
         )
 
 
 def _assign_sequential_dispatch_trial_order(task_queue: list) -> None:
     """
-    `task_queue` ã®ãƒªã‚¹ãƒˆé †ã«åˆã‚ã›ã¦ `dispatch_trial_order` ã‚’ 1..n ã¸ä»˜ã‘ç›´ã™ã€‚
-    `_reorder_task_queue_b2_ec_inspection_consecutive` ã®ç›´å¾Œï¼ˆãŠã‚ˆã³ã‚­ãƒ¥ãƒ¼å†ã‚½ãƒ¼ãƒˆã®ç›´å¾Œï¼‰ã«å‘¼ã³ã€
-    EC ã¨å¾Œç¶šï¼ˆæ¤œæŸ»ï¼å·»è¿”ã—ï¼‰ã®é€£ç¶šç•ªå·ã‚’ä¿è¨¼ã™ã‚‹ã€‚
+    `task_queue` ‚ÌƒŠƒXƒg‡‚É‡‚í‚¹‚Ä `dispatch_trial_order` ‚ğ 1..n ‚Ö•t‚¯’¼‚·B
+    `_reorder_task_queue_b2_ec_inspection_consecutive` ‚Ì’¼Œãi‚¨‚æ‚ÑƒLƒ…[Äƒ\[ƒg‚Ì’¼Œãj‚ÉŒÄ‚ÑA
+    EC ‚ÆŒã‘±iŒŸ¸^Šª•Ô‚µj‚Ì˜A‘±”Ô†‚ğ•ÛØ‚·‚éB
     """
     for i, t in enumerate(task_queue, start=1):
         t["dispatch_trial_order"] = i
 
 
 def _task_queue_all_have_sheet_dispatch_trial_order(task_queue: list) -> bool:
-    """é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆã®ã€Œé…å°è©¦è¡Œé †ç•ªã€ãŒã‚­ãƒ¥ãƒ¼å…¨è¡Œã«æ­£ã®æ•´æ•°ã§å…¥ã£ã¦ã„ã‚‹ã‹ã€‚"""
+    """”z‘äŒv‰æƒV[ƒg‚Ìu”z‘äs‡”Ôv‚ªƒLƒ…[‘Ss‚É³‚Ì®”‚Å“ü‚Á‚Ä‚¢‚é‚©B"""
     if not task_queue:
         return False
     for t in task_queue:
@@ -12185,8 +12190,8 @@ def _apply_dispatch_trial_order_for_generate_plan(
     need_combo_col_index: dict | None,
 ) -> None:
     """
-    é…å°è©¦è¡Œé †ã®ç¢ºå®šã€‚ã‚·ãƒ¼ãƒˆã«å…¨è¡Œåˆ†ã®è©¦è¡Œé †ãŒã‚ã‚Œã°ãã‚Œã‚’æ¡ç”¨ï¼ˆÂ§B-2/3 ã®éš£æ¥ç¹°ã‚Šä¸Šã’ã¯è¡Œã‚ãªã„ï¼‰ã€‚
-    æ¬ æãŒã‚ã‚Œã°å¾“æ¥ã©ãŠã‚Šãƒã‚¹ã‚¿ãƒ»ç´æœŸãƒ»need åˆ—é †ãªã©ã§ã‚½ãƒ¼ãƒˆã—ã€EC éš£æ¥å¾Œã« 1..n ã‚’ä»˜ä¸ã€‚
+    ”z‘äs‡‚ÌŠm’èBƒV[ƒg‚É‘Ss•ª‚Ìs‡‚ª‚ ‚ê‚Î‚»‚ê‚ğÌ—pi˜B-2/3 ‚Ì—×ÚŒJ‚èã‚°‚Ís‚í‚È‚¢jB
+    Œ‡‘¹‚ª‚ ‚ê‚Î]—ˆ‚Ç‚¨‚èƒ}ƒXƒ^E”[ŠúEneed —ñ‡‚È‚Ç‚Åƒ\[ƒg‚µAEC —×ÚŒã‚É 1..n ‚ğ•t—^B
     """
     if _task_queue_all_have_sheet_dispatch_trial_order(task_queue):
         task_queue.sort(
@@ -12198,7 +12203,7 @@ def _apply_dispatch_trial_order_for_generate_plan(
         for t in task_queue:
             t["dispatch_trial_order"] = int(t.get("dispatch_trial_order_from_sheet") or 10**9)
         logging.info(
-            "é…å°è©¦è¡Œé †ç•ª: ã€Œ%sã€åˆ—ã®å€¤ã‚’ãã®ã¾ã¾ä½¿ç”¨ã—ã¾ã—ãŸï¼ˆå…¨ %s è¡Œï¼‰ã€‚",
+            "”z‘äs‡”Ô: u%sv—ñ‚Ì’l‚ğ‚»‚Ì‚Ü‚Üg—p‚µ‚Ü‚µ‚½i‘S %s sjB",
             RESULT_TASK_COL_DISPATCH_TRIAL_ORDER,
             len(task_queue),
         )
@@ -12211,7 +12216,7 @@ def _apply_dispatch_trial_order_for_generate_plan(
     _reorder_task_queue_b2_ec_inspection_consecutive(task_queue)
     _assign_sequential_dispatch_trial_order(task_queue)
     logging.info(
-        "é…å°è©¦è¡Œé †ç•ª: ãƒã‚¹ã‚¿ãƒ»ã‚¿ã‚¹ã‚¯å…¥åŠ›ã‹ã‚‰è‡ªå‹•è¨ˆç®—ã— 1..%s ã‚’ä»˜ä¸ã—ã¾ã—ãŸã€‚",
+        "”z‘äs‡”Ô: ƒ}ƒXƒ^Eƒ^ƒXƒN“ü—Í‚©‚ç©“®ŒvZ‚µ 1..%s ‚ğ•t—^‚µ‚Ü‚µ‚½B",
         len(task_queue),
     )
 
@@ -12225,8 +12230,8 @@ def fill_plan_dispatch_trial_order_column_stage1(
     equipment_list: list,
 ) -> None:
     """
-    æ®µéš1å‡ºåŠ› DataFrame ã®ã€Œé…å°è©¦è¡Œé †ç•ªã€ã‚’ã€æ®µéš2 å†’é ­ã¨åŒã˜æ‰‹é †ï¼ˆã‚½ãƒ¼ãƒˆãƒ»Â§B-2/3 éš£æ¥ãƒ»é€£ç•ªï¼‰ã§åŸ‹ã‚ã‚‹ã€‚
-    é…å°å¯¾è±¡å¤–ã®è¡Œã¯ç©ºã®ã¾ã¾ã€‚
+    ’iŠK1o—Í DataFrame ‚Ìu”z‘äs‡”Ôv‚ğA’iŠK2 –`“ª‚Æ“¯‚¶è‡iƒ\[ƒgE˜B-2/3 —×ÚE˜A”Ôj‚Å–„‚ß‚éB
+    ”z‘ä‘ÎÛŠO‚Ìs‚Í‹ó‚Ì‚Ü‚ÜB
     """
     if plan_df is None or getattr(plan_df, "empty", True):
         return
@@ -12275,7 +12280,7 @@ def fill_plan_dispatch_trial_order_column_stage1(
         if dto is None:
             continue
         try:
-            # Excel ä¸Šã¯æ•°å€¤ã‚»ãƒ«ã«ã—ã€ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ãƒ»ä¸¦ã¹æ›¿ãˆã‚’ã—ã‚„ã™ãã™ã‚‹ï¼ˆæ–‡å­—åˆ—ã ã¨æ•°å€¤ã¨åˆ¥ã‚°ãƒ«ãƒ¼ãƒ—ã«ãªã‚‹ï¼‰
+            # Excel ã‚Í”’lƒZƒ‹‚É‚µAƒtƒBƒ‹ƒ^[E•À‚×‘Ö‚¦‚ğ‚µ‚â‚·‚­‚·‚éi•¶š—ñ‚¾‚Æ”’l‚Æ•ÊƒOƒ‹[ƒv‚É‚È‚éj
             plan_df.iat[iloc, col_idx] = int(dto)
         except (TypeError, ValueError):
             plan_df.iat[iloc, col_idx] = ""
@@ -12283,9 +12288,9 @@ def fill_plan_dispatch_trial_order_column_stage1(
 
 def _equipment_schedule_unified_sub_string_map(timeline_for_eq_grid: list) -> dict:
     """
-    åŒä¸€æ—¥ãƒ»åŒä¸€è¨­å‚™åˆ—ã‚­ãƒ¼ãƒ»åŒä¸€ä¾é ¼NO ã®åŠ å·¥ã«ã¤ã„ã¦ã€è¨­å‚™æ™‚é–“å‰²ã‚»ãƒ«ç”¨ã®ã€Œè£œã€è¡¨ç¤ºæ–‡å­—åˆ—ã€‚
-    ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ä¸Šã®å„ãƒ–ãƒ­ãƒƒã‚¯ã® `sub` ã«ç¾ã‚ŒãŸè£œåŠ©è€…åã‚’å’Œé›†åˆã—ã€æ˜‡é †ã§ ", " é€£çµã™ã‚‹ã€‚
-    ãƒ¡ãƒ³ãƒãƒ¼æ—¥ç¨‹ãƒ»å æœ‰è¨ˆç®—ã«ä½¿ã†ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã® `sub` ã¯å¤‰æ›´ã—ãªã„ï¼ˆè¡¨ç¤ºå°‚ç”¨ï¼‰ã€‚
+    “¯ˆê“úE“¯ˆêİ”õ—ñƒL[E“¯ˆêˆË—ŠNO ‚Ì‰ÁH‚É‚Â‚¢‚ÄAİ”õŠÔŠ„ƒZƒ‹—p‚Ìu•âv•\¦•¶š—ñB
+    ƒ^ƒCƒ€ƒ‰ƒCƒ“ã‚ÌŠeƒuƒƒbƒN‚Ì `sub` ‚ÉŒ»‚ê‚½•â•Ò–¼‚ğ˜aW‡‚µA¸‡‚Å ", " ˜AŒ‹‚·‚éB
+    ƒƒ“ƒo[“ú’öEè—LŒvZ‚Ég‚¤ƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ì `sub` ‚Í•ÏX‚µ‚È‚¢i•\¦ê—pjB
     """
     acc: dict = defaultdict(set)
     for e in timeline_for_eq_grid or []:
@@ -12312,8 +12317,8 @@ def _build_equipment_schedule_dataframe(
     first_eq_schedule_cell_by_task_id: dict | None = None,
 ) -> "pd.DataFrame":
     """
-    çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã¨åŒå½¢å¼ã® DataFrameï¼ˆ10 åˆ†æ ãƒ»è¨­å‚™åˆ—ï¼‹é€²åº¦åˆ—ï¼‰ã€‚
-    first_eq_schedule_cell_by_task_id ã‚’æ¸¡ã—ãŸã¨ãã®ã¿ã€åˆå‡ºã‚»ãƒ«åº§æ¨™ã‚’è¨˜éŒ²ï¼ˆçµæœãƒã‚¤ãƒ‘ãƒ¼ãƒªãƒ³ã‚¯ç”¨ï¼‰ã€‚
+    Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Æ“¯Œ`®‚Ì DataFramei10 •ª˜gEİ”õ—ñ{i“x—ñjB
+    first_eq_schedule_cell_by_task_id ‚ğ“n‚µ‚½‚Æ‚«‚Ì‚İA‰oƒZƒ‹À•W‚ğ‹L˜^iŒ‹‰ÊƒnƒCƒp[ƒŠƒ“ƒN—pjB
     """
     timeline_for_eq_grid = _expand_timeline_events_for_equipment_grid(timeline_events)
     _eq_sched_unify_sub = _equipment_schedule_unified_sub_string_map(timeline_for_eq_grid)
@@ -12325,7 +12330,7 @@ def _build_equipment_schedule_dataframe(
     eq_empty_cols = {}
     for eq in equipment_list:
         eq_empty_cols[eq] = ""
-        eq_empty_cols[f"{eq}é€²åº¦"] = ""
+        eq_empty_cols[f"{eq}i“x"] = ""
 
     for d in sorted_dates:
         d_start = datetime.combine(d, DEFAULT_START_TIME)
@@ -12345,7 +12350,7 @@ def _build_equipment_schedule_dataframe(
         if not events_today and not is_anyone_working:
             continue
 
-        all_eq_rows.append({"æ—¥æ™‚å¸¯": f"â–  {d.strftime('%Y/%m/%d (%a)')} â– ", **eq_empty_cols})
+        all_eq_rows.append({"“ú‘Ñ": f"¡ {d.strftime('%Y/%m/%d (%a)')} ¡", **eq_empty_cols})
 
         def _eq_cell_display_sub(ev, day_d) -> str:
             tid0 = str(ev.get("task_id") or "").strip()
@@ -12364,7 +12369,7 @@ def _build_equipment_schedule_dataframe(
 
             mid_t = curr_grid + (next_grid - curr_grid) / 2
             row_data = {
-                "æ—¥æ™‚å¸¯": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
+                "“ú‘Ñ": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
             }
 
             for eq in equipment_list:
@@ -12391,22 +12396,22 @@ def _build_equipment_schedule_dataframe(
                         and float(active_ev.get("eff_time_per_unit") or 0) > 0
                     )
                     if any(b_s <= mid_t < b_e for b_s, b_e in active_ev["breaks"]):
-                        eq_text = "ä¼‘æ†©"
+                        eq_text = "‹xŒe"
                     elif not _use_prog:
                         _ek_disp = _timeline_event_kind(active_ev)
                         _tag = {
-                            TIMELINE_EVENT_MACHINE_DAILY_STARTUP: "æ—¥æ¬¡å§‹æ¥­æº–å‚™",
-                            TIMELINE_EVENT_CHANGEOVER_CLEANUP: "ä¾é ¼åˆ‡æ›¿å¾Œå§‹æœ«",
-                            TIMELINE_EVENT_CHANGEOVER_PREP: "åŠ å·¥å‰æº–å‚™",
+                            TIMELINE_EVENT_MACHINE_DAILY_STARTUP: "“úŸn‹Æ€”õ",
+                            TIMELINE_EVENT_CHANGEOVER_CLEANUP: "ˆË—ŠØ‘ÖŒãn––",
+                            TIMELINE_EVENT_CHANGEOVER_PREP: "‰ÁH‘O€”õ",
                         }.get(
                             _ek_disp,
-                            "ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—",
+                            "ƒZƒbƒgƒAƒbƒv",
                         )
                         _sub_n = _eq_cell_display_sub(active_ev, d)
-                        _sub_text = f" è£œ:{_sub_n}" if _sub_n else ""
+                        _sub_text = f" •â:{_sub_n}" if _sub_n else ""
                         _tid_d = str(active_ev.get("task_id") or "").strip()
                         eq_text = (
-                            f"[{_tid_d}] ä¸»:{active_ev.get('op', '')}{_sub_text} ({_tag})"
+                            f"[{_tid_d}] å:{active_ev.get('op', '')}{_sub_text} ({_tag})"
                         )
                         progress_text = ""
                     else:
@@ -12424,8 +12429,8 @@ def _build_equipment_schedule_dataframe(
                         total_u = active_ev["total_units"]
 
                         _sub_s = _eq_cell_display_sub(active_ev, d)
-                        sub_text = f" è£œ:{_sub_s}" if _sub_s else ""
-                        eq_text = f"[{active_ev['task_id']}] ä¸»:{active_ev['op']}{sub_text}"
+                        sub_text = f" •â:{_sub_s}" if _sub_s else ""
+                        eq_text = f"[{active_ev['task_id']}] å:{active_ev['op']}{sub_text}"
                         progress_text = f"{cumulative_done}/{total_u}R"
                         _tid_sched = str(active_ev.get("task_id") or "").strip()
                         if (
@@ -12440,11 +12445,11 @@ def _build_equipment_schedule_dataframe(
                             )
 
                 row_data[eq] = eq_text
-                row_data[f"{eq}é€²åº¦"] = progress_text
+                row_data[f"{eq}i“x"] = progress_text
 
             all_eq_rows.append(row_data)
             curr_grid = next_grid
-        all_eq_rows.append({"æ—¥æ™‚å¸¯": "", **eq_empty_cols})
+        all_eq_rows.append({"“ú‘Ñ": "", **eq_empty_cols})
 
     df_eq = pd.DataFrame(all_eq_rows)
     _eq_hdr = _equipment_schedule_header_labels(equipment_list)
@@ -12452,16 +12457,16 @@ def _build_equipment_schedule_dataframe(
     for _eq, _lab in zip(equipment_list, _eq_hdr):
         if _eq in df_eq.columns:
             _eq_rename[_eq] = _lab
-        _pqc = f"{_eq}é€²åº¦"
+        _pqc = f"{_eq}i“x"
         if _pqc in df_eq.columns:
-            _eq_rename[_pqc] = f"{_lab}é€²åº¦"
+            _eq_rename[_pqc] = f"{_lab}i“x"
     if _eq_rename:
         df_eq = df_eq.rename(columns=_eq_rename)
     return df_eq
 
 
 def _machine_display_key_for_equipment(eq: str) -> str:
-    """skills åˆ—ã‚­ãƒ¼ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ã‹ã‚‰æ©Ÿæ¢°åè¡¨ç¤ºã‚­ãƒ¼ã‚’å¾—ã‚‹ï¼ˆé‡è¤‡æ™‚ã¯è¤‡åˆã‚­ãƒ¼ã”ã¨ã«åˆ¥åˆ—ï¼‰ã€‚"""
+    """skills —ñƒL[uH’ö+‹@ŠBv‚©‚ç‹@ŠB–¼•\¦ƒL[‚ğ“¾‚éid•¡‚Í•¡‡ƒL[‚²‚Æ‚É•Ê—ñjB"""
     s = str(eq).strip()
     if "+" in s:
         mpart = s.split("+", 1)[1].strip()
@@ -12476,15 +12481,15 @@ def _build_equipment_schedule_by_machine_name_dataframe(
     timeline_events: list,
 ) -> "pd.DataFrame":
     """
-    æ©Ÿæ¢°åå˜ä½ã«åˆ—ã‚’ã¾ã¨ã‚ã€å„ 10 åˆ†æ ã§å æœ‰ä¸­ã®ä¾é ¼NOï¼ˆè¤‡æ•°æ™‚ã¯ã€Œï¼ã€ï¼‰ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
-    åˆ—è¦‹å‡ºã—ã¯æ©Ÿæ¢°åã®ã¿ï¼ˆå·¥ç¨‹+æ©Ÿæ¢°ã®è¤‡åˆã‚­ãƒ¼ã¯ä»˜ã‘ãªã„ï¼‰ã€‚åŒä¸€ç‰©ç†æ©Ÿæ¢°ã¯å æœ‰ã‚­ãƒ¼ã§1åˆ—ã«é›†ç´„ã™ã‚‹ã€‚
+    ‹@ŠB–¼’PˆÊ‚É—ñ‚ğ‚Ü‚Æ‚ßAŠe 10 •ª˜g‚Åè—L’†‚ÌˆË—ŠNOi•¡”‚Íu^vj‚ğ•\¦‚·‚éB
+    —ñŒ©o‚µ‚Í‹@ŠB–¼‚Ì‚İiH’ö+‹@ŠB‚Ì•¡‡ƒL[‚Í•t‚¯‚È‚¢jB“¯ˆê•¨—‹@ŠB‚Íè—LƒL[‚Å1—ñ‚ÉW–ñ‚·‚éB
     """
     timeline_for_eq_grid = _expand_timeline_events_for_equipment_grid(timeline_events)
     events_by_date = defaultdict(list)
     for e in timeline_for_eq_grid:
         events_by_date[e["date"]].append(e)
 
-    # å æœ‰ã‚­ãƒ¼ï¼ˆæ©Ÿæ¢°åå´ãƒ»æ­£è¦åŒ–ï¼‰ã”ã¨ã«1åˆ—ã€‚è¦‹å‡ºã—ã¯ equipment_list åˆå‡ºã®æ©Ÿæ¢°åè¡¨ç¤ºã®ã¿ã€‚
+    # è—LƒL[i‹@ŠB–¼‘¤E³‹K‰»j‚²‚Æ‚É1—ñBŒ©o‚µ‚Í equipment_list ‰o‚Ì‹@ŠB–¼•\¦‚Ì‚İB
     occ_key_to_header: dict[str, str] = {}
     machine_cols: list[str] = []
     eq_to_mcol: dict[str, str] = {}
@@ -12519,7 +12524,7 @@ def _build_equipment_schedule_by_machine_name_dataframe(
         if not events_today and not is_anyone_working:
             continue
 
-        all_rows.append({"æ—¥æ™‚å¸¯": f"â–  {d.strftime('%Y/%m/%d (%a)')} â– ", **empty_tail})
+        all_rows.append({"“ú‘Ñ": f"¡ {d.strftime('%Y/%m/%d (%a)')} ¡", **empty_tail})
 
         curr_grid = d_start
         while curr_grid < d_end:
@@ -12528,7 +12533,7 @@ def _build_equipment_schedule_by_machine_name_dataframe(
                 next_grid = d_end
             mid_t = curr_grid + (next_grid - curr_grid) / 2
             row_data = {
-                "æ—¥æ™‚å¸¯": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
+                "“ú‘Ñ": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
             }
             for mcol in machine_cols:
                 row_data[mcol] = ""
@@ -12545,17 +12550,17 @@ def _build_equipment_schedule_by_machine_name_dataframe(
                 if not active_ev:
                     continue
                 if any(b_s <= mid_t < b_e for b_s, b_e in active_ev["breaks"]):
-                    tids_by_mcol[mcol].add("ï¼ˆä¼‘æ†©ï¼‰")
+                    tids_by_mcol[mcol].add("i‹xŒej")
                 else:
                     tid = str(active_ev.get("task_id") or "").strip()
                     if tid:
                         tids_by_mcol[mcol].add(tid)
             for mcol in machine_cols:
                 parts = sorted(tids_by_mcol.get(mcol, ()))
-                row_data[mcol] = "ï¼".join(parts) if parts else ""
+                row_data[mcol] = "^".join(parts) if parts else ""
             all_rows.append(row_data)
             curr_grid = next_grid
-        all_rows.append({"æ—¥æ™‚å¸¯": "", **empty_tail})
+        all_rows.append({"“ú‘Ñ": "", **empty_tail})
 
     return pd.DataFrame(all_rows)
 
@@ -12568,7 +12573,7 @@ def _build_block_table_dataframe(
     timeline_events: list,
 ) -> "pd.DataFrame":
     """
-    è¨­å‚™åˆ—ï¼ˆå æœ‰ä¸­ã®ä¾é ¼NOï¼‰ï¼‹ãƒ¡ãƒ³ãƒãƒ¼åˆ—ï¼ˆåŒï¼‰ã‚’ 10 åˆ†æ ã§ä¸¦ã¹ãŸãƒ–ãƒ­ãƒƒã‚¯å¯è¦–åŒ–ç”¨ã‚·ãƒ¼ãƒˆã€‚
+    İ”õ—ñiè—L’†‚ÌˆË—ŠNOj{ƒƒ“ƒo[—ñi“¯j‚ğ 10 •ª˜g‚Å•À‚×‚½ƒuƒƒbƒN‰Â‹‰»—pƒV[ƒgB
     """
     timeline_for_eq_grid = _expand_timeline_events_for_equipment_grid(timeline_events)
     events_by_date = defaultdict(list)
@@ -12578,11 +12583,11 @@ def _build_block_table_dataframe(
     _eq_hdr = _equipment_schedule_header_labels(equipment_list)
     eq_disp_to_key: dict[str, str] = {}
     for eq, lab in zip(equipment_list, _eq_hdr):
-        eq_disp_to_key[f"è¨­å‚™:{lab}"] = eq
+        eq_disp_to_key[f"İ”õ:{lab}"] = eq
 
-    mem_cols = [f"äºº:{m}" for m in members]
-    eq_cols = [f"è¨­å‚™:{lab}" for lab in _eq_hdr]
-    all_cols = ["æ—¥æ™‚å¸¯"] + eq_cols + mem_cols
+    mem_cols = [f"l:{m}" for m in members]
+    eq_cols = [f"İ”õ:{lab}" for lab in _eq_hdr]
+    all_cols = ["“ú‘Ñ"] + eq_cols + mem_cols
     rows_out = []
 
     for d in sorted_dates:
@@ -12603,8 +12608,8 @@ def _build_block_table_dataframe(
         if not events_today and not is_anyone_working:
             continue
 
-        banner = {"æ—¥æ™‚å¸¯": f"â–  {d.strftime('%Y/%m/%d (%a)')} â– "}
-        banner.update({c: "" for c in all_cols if c != "æ—¥æ™‚å¸¯"})
+        banner = {"“ú‘Ñ": f"¡ {d.strftime('%Y/%m/%d (%a)')} ¡"}
+        banner.update({c: "" for c in all_cols if c != "“ú‘Ñ"})
         rows_out.append(banner)
 
         curr_grid = d_start
@@ -12614,7 +12619,7 @@ def _build_block_table_dataframe(
                 next_grid = d_end
             mid_t = curr_grid + (next_grid - curr_grid) / 2
             row_data: dict = {
-                "æ—¥æ™‚å¸¯": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
+                "“ú‘Ñ": f"{curr_grid.strftime('%H:%M')}-{next_grid.strftime('%H:%M')}"
             }
             for c in eq_cols + mem_cols:
                 row_data[c] = ""
@@ -12631,10 +12636,10 @@ def _build_block_table_dataframe(
                 if not active_ev:
                     continue
                 if any(b_s <= mid_t < b_e for b_s, b_e in active_ev["breaks"]):
-                    row_data[col_eq] = "ä¼‘æ†©"
+                    row_data[col_eq] = "‹xŒe"
                 else:
                     tid = str(active_ev.get("task_id") or "").strip()
-                    row_data[col_eq] = tid if tid else "å æœ‰"
+                    row_data[col_eq] = tid if tid else "è—L"
 
             busy_member_task: dict[str, set[str]] = defaultdict(set)
             for ev in events_today:
@@ -12650,7 +12655,7 @@ def _build_block_table_dataframe(
                     if any(
                         b_s <= mid_t < b_e for b_s, b_e in ev.get("breaks") or ()
                     ):
-                        busy_member_task[op].add("ä¼‘æ†©" if tid else "ä¼‘æ†©")
+                        busy_member_task[op].add("‹xŒe" if tid else "‹xŒe")
                     elif tid:
                         busy_member_task[op].add(tid)
                 for s in str(ev.get("sub") or "").split(","):
@@ -12660,20 +12665,20 @@ def _build_block_table_dataframe(
                     if any(
                         b_s <= mid_t < b_e for b_s, b_e in ev.get("breaks") or ()
                     ):
-                        busy_member_task[s].add("ä¼‘æ†©")
+                        busy_member_task[s].add("‹xŒe")
                     elif tid:
                         busy_member_task[s].add(tid)
 
             for m in members:
-                col_m = f"äºº:{m}"
+                col_m = f"l:{m}"
                 parts = sorted(busy_member_task.get(m, ()))
-                row_data[col_m] = "ï¼".join(parts) if parts else ""
+                row_data[col_m] = "^".join(parts) if parts else ""
 
             rows_out.append(row_data)
             curr_grid = next_grid
 
-        tail = {"æ—¥æ™‚å¸¯": ""}
-        tail.update({c: "" for c in all_cols if c != "æ—¥æ™‚å¸¯"})
+        tail = {"“ú‘Ñ": ""}
+        tail.update({c: "" for c in all_cols if c != "“ú‘Ñ"})
         rows_out.append(tail)
 
     return pd.DataFrame(rows_out, columns=all_cols)
@@ -12685,12 +12690,12 @@ def _day_schedule_task_sort_key(
     need_combo_col_index: dict | None = None,
 ):
     """
-    åŒä¸€æ—¥å†…ã®å‰²ä»˜è©¦è¡Œé †ï¼ˆSTAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0 ã®ä¸»ãƒ«ãƒ¼ãƒ—ç”¨ï¼‰ã€‚
-    å…ˆé ­ã‚­ãƒ¼ã¯ _generate_plan_task_queue_sort_key ã¨åŒè¶£æ—¨ï¼ˆåŠ å·¥é€”ä¸­ãƒ»ç´æœŸåŸºæº– due_basis_dateãƒ»Â§B æ®µãƒ»b2_queue_subãƒ»need åˆ—é †ãƒ»ä¾é ¼NOï¼‰ã€‚
-    ç¶šã‘ã¦ Â§B-1 ã®é…å°è©¦è¡Œé †ç¹°ã‚Šä¸Šã’ã€å·¥ç¨‹ rankã€dispatch_trial_orderã€Â§B-2 æ®µå†… EC å…ˆè¡Œã€å„ªå…ˆåº¦ã€çµæœç”¨ã‚­ãƒ¼ã€‚
-    åŒä¸€ç‰©ç†æ©Ÿæ¢°ä¸Šã®éš™é–“å‰²ã‚Šè¾¼ã¿ã¯ _equipment_line_lower_dispatch_trial_still_pending ã§è©¦è¡Œé †ã‚’å¼·åˆ¶ã™ã‚‹ã€‚
-    STAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICT=1 ã®ã¨ãã¯ _task_blocked_by_global_dispatch_trial_order ãŒ
-    ã‚ˆã‚Šå°ã•ã„è©¦è¡Œé †ã®æœªå®Œäº†ã‚’è·¨ã„ã å‰²ã‚Šè¾¼ã¿ã‚’åˆ¥é€”ãƒ–ãƒ­ãƒƒã‚¯ã™ã‚‹ã€‚
+    “¯ˆê“ú“à‚ÌŠ„•ts‡iSTAGE2_DISPATCH_FLOW_TRIAL_ORDER_FIRST=0 ‚Ìåƒ‹[ƒv—pjB
+    æ“ªƒL[‚Í _generate_plan_task_queue_sort_key ‚Æ“¯ï|i‰ÁH“r’†E”[ŠúŠî€ due_basis_dateE˜B ’iEb2_queue_subEneed —ñ‡EˆË—ŠNOjB
+    ‘±‚¯‚Ä ˜B-1 ‚Ì”z‘äs‡ŒJ‚èã‚°AH’ö rankAdispatch_trial_orderA˜B-2 ’i“à EC æsA—Dæ“xAŒ‹‰Ê—pƒL[B
+    “¯ˆê•¨—‹@ŠBã‚ÌŒ„ŠÔŠ„‚è‚İ‚Í _equipment_line_lower_dispatch_trial_still_pending ‚Ås‡‚ğ‹­§‚·‚éB
+    STAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICT=1 ‚Ì‚Æ‚«‚Í _task_blocked_by_global_dispatch_trial_order ‚ª
+    ‚æ‚è¬‚³‚¢s‡‚Ì–¢Š®—¹‚ğŒ×‚¢‚¾Š„‚è‚İ‚ğ•Ê“rƒuƒƒbƒN‚·‚éB
     """
     raw_r = task.get("process_sequence_rank")
     if raw_r is None:
@@ -12774,19 +12779,19 @@ def _equipment_line_lower_dispatch_trial_still_pending(
     assign_probe_ctx: dict | None = None,
 ) -> bool:
     """
-    åŒä¸€ç‰©ç†æ©Ÿæ¢°ï¼ˆmachine å æœ‰ã‚­ãƒ¼ï¼‰ä¸Šã§ã€ã‚ˆã‚Šå°ã•ã„é…å°è©¦è¡Œé †ã®è¡ŒãŒã¾ã æ®‹é‡ã‚’æŒã¤ã‹ã€‚
-    machine_avail_dt ã¯ãƒãƒ£ãƒ³ã‚¯é–“ã®éš™é–“ã«å¾Œç¶šè©¦è¡Œé †ãŒå…¥ã‚Šè¾¼ã‚ã‚‹ãŸã‚ã€ã“ã“ã§é †åºã‚’å¼·åˆ¶ã™ã‚‹ã€‚
-    è¨­å‚™ã‚’è·¨ã„ã è©¦è¡Œé †ã®å‰å¾Œã¯ _task_blocked_by_global_dispatch_trial_order ã§åˆ¥é€”åˆ¶å¾¡ã™ã‚‹ã€‚
+    “¯ˆê•¨—‹@ŠBimachine è—LƒL[jã‚ÅA‚æ‚è¬‚³‚¢”z‘äs‡‚Ìs‚ª‚Ü‚¾c—Ê‚ğ‚Â‚©B
+    machine_avail_dt ‚Íƒ`ƒƒƒ“ƒNŠÔ‚ÌŒ„ŠÔ‚ÉŒã‘±s‡‚ª“ü‚è‚ß‚é‚½‚ßA‚±‚±‚Å‡˜‚ğ‹­§‚·‚éB
+    İ”õ‚ğŒ×‚¢‚¾s‡‚Ì‘OŒã‚Í _task_blocked_by_global_dispatch_trial_order ‚Å•Ê“r§Œä‚·‚éB
 
-    ã‚­ãƒ¥ãƒ¼å…ˆé ­ã«æ®‹é‡ãŒã‚ã‚‹ã ã‘ã§ã¯ãƒ–ãƒ­ãƒƒã‚¯ã—ãªã„ã€‚tasks_today ã¨åŒæ§˜ã«
-    start_date_req <= current_date ã®è¡Œã ã‘ã‚’ã€Œå…ˆè©¦è¡Œé †ã®ç«¶åˆã€ã¨ã¿ãªã™ã€‚
-    ï¼ˆã¾ã é–‹å§‹æ—¥ã«é”ã—ã¦ã„ãªã„è¡ŒãŒå…¨æ—¥ãƒ–ãƒ­ãƒƒã‚«ãƒ¼ã«ãªã‚Šã€å¾Œç¶šãŒã»ã¼é…å°ä¸å¯ã«ãªã‚‹ã®ã‚’é˜²ãã€‚ï¼‰
+    ƒLƒ…[æ“ª‚Éc—Ê‚ª‚ ‚é‚¾‚¯‚Å‚ÍƒuƒƒbƒN‚µ‚È‚¢Btasks_today ‚Æ“¯—l‚É
+    start_date_req <= current_date ‚Ìs‚¾‚¯‚ğuæs‡‚Ì‹£‡v‚Æ‚İ‚È‚·B
+    i‚Ü‚¾ŠJn“ú‚É’B‚µ‚Ä‚¢‚È‚¢s‚ª‘S“úƒuƒƒbƒJ[‚É‚È‚èAŒã‘±‚ª‚Ù‚Ú”z‘ä•s‰Â‚É‚È‚é‚Ì‚ğ–h‚®Bj
 
-    ã‚ˆã‚Šå°ã•ã„è©¦è¡Œé †ã®è¡ŒãŒ **åŒä¸€ä¾é ¼ã®å‰å·¥ç¨‹å¾…ã¡ç­‰ã§ã¾ã å‰²ä»˜ä¸èƒ½**ãªã¨ãã¯ã€Œç«¶åˆã®æ®‹ã€ã¨ã¿ãªã•ãªã„ã€‚
-    ï¼ˆå½“è©²è¡Œã¯ eligible ã«ã‚‚å…¥ã‚‰ãªã„ãŸã‚ã€ã“ã“ã§å¾…ãŸã›ã‚‹ã¨å¾Œç¶šè©¦è¡Œé †ãŒåŒä¸€è¨­å‚™ã§æ°¸ä¹…åœæ­¢ã—å¾—ã‚‹ã€‚ï¼‰
+    ‚æ‚è¬‚³‚¢s‡‚Ìs‚ª **“¯ˆêˆË—Š‚Ì‘OH’ö‘Ò‚¿“™‚Å‚Ü‚¾Š„•t•s”\**‚È‚Æ‚«‚Íu‹£‡‚Ìcv‚Æ‚İ‚È‚³‚È‚¢B
+    i“–ŠYs‚Í eligible ‚É‚à“ü‚ç‚È‚¢‚½‚ßA‚±‚±‚Å‘Ò‚½‚¹‚é‚ÆŒã‘±s‡‚ª“¯ˆêİ”õ‚Å‰i‹v’â~‚µ“¾‚éBj
 
-    ã‚ˆã‚Šå°ã•ã„è©¦è¡Œé †ã®è¡ŒãŒ **å½“æ—¥ã®æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã ã‘ã§è¨ˆç”»çª“ã‚’å…¨æ—¥å æœ‰**ï¼ˆãã®è¨­å‚™ã¯å½“æ—¥ã‚¹ãƒ­ãƒƒãƒˆã‚¼ãƒ­ï¼‰ãªã‚‰
-    ã€Œç«¶åˆã®æ®‹ã€ã¨ã¿ãªã•ãªã„ï¼ˆã‚°ãƒ­ãƒ¼ãƒãƒ«è©¦è¡Œé †ã¨ã‚ã‚ã›ã¦ä»–è¨­å‚™ãŒå…¨æ—¥æ­¢ã¾ã‚‹ã®ã‚’é˜²ãï¼‰ã€‚
+    ‚æ‚è¬‚³‚¢s‡‚Ìs‚ª **“–“ú‚Ì‹@ŠBƒJƒŒƒ“ƒ_[‚¾‚¯‚ÅŒv‰æ‘‹‚ğ‘S“úè—L**i‚»‚Ìİ”õ‚Í“–“úƒXƒƒbƒgƒ[ƒj‚È‚ç
+    u‹£‡‚Ìcv‚Æ‚İ‚È‚³‚È‚¢iƒOƒ[ƒoƒ‹s‡‚Æ‚ ‚í‚¹‚Ä‘¼İ”õ‚ª‘S“ú~‚Ü‚é‚Ì‚ğ–h‚®jB
     """
     line = (machine_occ_key or "").strip()
     if not line:
@@ -12852,19 +12857,19 @@ def _min_pending_dispatch_trial_order_for_date(
     dispatch_interval_mirror: DispatchIntervalMirror | None = None,
 ) -> int | None:
     """
-    start_date_req <= current_date ã‹ã¤æ®‹é‡ã‚ã‚Šã®ã‚¿ã‚¹ã‚¯ã®é…å°è©¦è¡Œé †ã®æœ€å°å€¤ã€‚
-    _equipment_line_lower_dispatch_trial_still_pending ã¨åŒæ§˜ã€ã¾ã é–‹å§‹æ—¥ã«é”ã—ã¦ã„ãªã„è¡Œã¯
-    ã€Œå…ˆè¡Œè©¦è¡Œé †ã®ç«¶åˆã€ã«å«ã‚ãªã„ã€‚
+    start_date_req <= current_date ‚©‚Âc—Ê‚ ‚è‚Ìƒ^ƒXƒN‚Ì”z‘äs‡‚ÌÅ¬’lB
+    _equipment_line_lower_dispatch_trial_still_pending ‚Æ“¯—lA‚Ü‚¾ŠJn“ú‚É’B‚µ‚Ä‚¢‚È‚¢s‚Í
+    uæss‡‚Ì‹£‡v‚ÉŠÜ‚ß‚È‚¢B
 
-    **ã‚°ãƒ­ãƒ¼ãƒãƒ«è©¦è¡Œé †ãƒ–ãƒ­ãƒƒã‚¯**ï¼ˆSTAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICTï¼‰ç”¨ã«ã€
-    ã€Œã“ã®æ—¥ã¾ã å‰²ä»˜å€™è£œã«ãªã‚Šå¾—ãªã„ã€è¡Œã¯æœ€å°å€¤ã‹ã‚‰é™¤å¤–ã™ã‚‹ã€‚ã•ã‚‚ãªã„ã¨åŒä¸€ä¾é ¼ã®
-    Â§A-1/Â§A-2 å‰å·¥ç¨‹ï¼ˆè©¦è¡Œé †ã¯å¾Œã‚ã ãŒè¡Œé †ã¯å…ˆï¼‰ãŒå¿…è¦ãªè¡ŒãŒã€ã‚ˆã‚Šå°ã•ã„è©¦è¡Œé †ã®è¡Œã¨
-    å¾ªç’°ã—ã¦æ°¸ä¹…ã«å‹•ã‘ãªã„ã€‚
-    - `_task_not_yet_schedulable_due_to_dependency_or_b2_room` ãŒ True ã®è¡Œ
-    - ï¼ˆdaily_statusãƒ»members ãŒæ¸¡ã‚‹ã¨ãï¼‰å½“æ—¥æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã ã‘ã§è¨ˆç”»çª“å…¨æ—¥å æœ‰ã®è¡Œ
-    - ï¼ˆmachine_avail_dt ç­‰ãŒæ¸¡ã‚‹ã¨ãï¼‰è¨­å‚™å£æ™‚è¨ˆãŒè¨ˆç”»çµ‚ç«¯ä»¥ä¸Šã§å½“æ—¥ã‚¹ãƒ­ãƒƒãƒˆãªã—ã®è¡Œ
+    **ƒOƒ[ƒoƒ‹s‡ƒuƒƒbƒN**iSTAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICTj—p‚ÉA
+    u‚±‚Ì“ú‚Ü‚¾Š„•tŒó•â‚É‚È‚è“¾‚È‚¢vs‚ÍÅ¬’l‚©‚çœŠO‚·‚éB‚³‚à‚È‚¢‚Æ“¯ˆêˆË—Š‚Ì
+    ˜A-1/˜A-2 ‘OH’öis‡‚ÍŒã‚ë‚¾‚ªs‡‚Íæj‚ª•K—v‚Ès‚ªA‚æ‚è¬‚³‚¢s‡‚Ìs‚Æ
+    zŠÂ‚µ‚Ä‰i‹v‚É“®‚¯‚È‚¢B
+    - `_task_not_yet_schedulable_due_to_dependency_or_b2_room` ‚ª True ‚Ìs
+    - idaily_statusEmembers ‚ª“n‚é‚Æ‚«j“–“ú‹@ŠBƒJƒŒƒ“ƒ_[‚¾‚¯‚ÅŒv‰æ‘‹‘S“úè—L‚Ìs
+    - imachine_avail_dt “™‚ª“n‚é‚Æ‚«jİ”õ•ÇŒv‚ªŒv‰æI’[ˆÈã‚Å“–“úƒXƒƒbƒg‚È‚µ‚Ìs
 
-    1 ãƒ­ãƒ¼ãƒ«å‰²å½“ãƒ—ãƒ­ãƒ¼ãƒ–ã«ã‚ˆã‚‹é™¤å¤–ã¯è¡Œã‚ãªã„ï¼ˆ`_effective_min_dispatch_trial_order_from_pool` å´ã§å±¤ã”ã¨ã«åˆ¤å®šï¼‰ã€‚
+    1 ƒ[ƒ‹Š„“–ƒvƒ[ƒu‚É‚æ‚éœŠO‚Ís‚í‚È‚¢i`_effective_min_dispatch_trial_order_from_pool` ‘¤‚Å‘w‚²‚Æ‚É”»’èjB
     """
     pool = _tasks_in_min_pending_dispatch_pool(
         task_queue,
@@ -12903,8 +12908,8 @@ def _task_blocked_by_global_dispatch_trial_order(
     min_dispatch_effective: int | None = None,
 ) -> bool:
     """
-    ã‚ˆã‚Šå°ã•ã„é…å°è©¦è¡Œé †ã«ã€å½“æ—¥å‰²ä»˜å¯èƒ½ãªæœªå®Œäº†ãŒã‚ã‚‹ã¨ãã€å½“è©²ã‚¿ã‚¹ã‚¯ã‚’ãƒ–ãƒ­ãƒƒã‚¯ã™ã‚‹ã€‚
-    min_dispatch_effective: ãƒ—ãƒ¼ãƒ«ï¼‹ãƒ—ãƒ­ãƒ¼ãƒ–ã§æ±‚ã‚ãŸå®ŸåŠ¹æœ€å°è©¦è¡Œé †ï¼ˆæœªæŒ‡å®šæ™‚ã¯å®‰ä¾¡ãƒ•ã‚£ãƒ«ã‚¿ã®ã¿ã®æœ€å°ï¼‰ã€‚
+    ‚æ‚è¬‚³‚¢”z‘äs‡‚ÉA“–“úŠ„•t‰Â”\‚È–¢Š®—¹‚ª‚ ‚é‚Æ‚«A“–ŠYƒ^ƒXƒN‚ğƒuƒƒbƒN‚·‚éB
+    min_dispatch_effective: ƒv[ƒ‹{ƒvƒ[ƒu‚Å‹‚ß‚½ÀŒøÅ¬s‡i–¢w’è‚ÍˆÀ‰¿ƒtƒBƒ‹ƒ^‚Ì‚İ‚ÌÅ¬jB
     """
     if not STAGE2_GLOBAL_DISPATCH_TRIAL_ORDER_STRICT:
         return False
@@ -12933,7 +12938,7 @@ def _task_blocked_by_global_dispatch_trial_order(
 
 
 def _purge_attendance_days_not_in_set(attendance_data: dict, keep_dates: frozenset) -> None:
-    """å‹¤æ€ è¾æ›¸ã‹ã‚‰ãƒã‚¹ã‚¿ã«ç„¡ã„æ—¥ä»˜ã‚­ãƒ¼ã‚’å‰Šé™¤ã™ã‚‹ï¼ˆè‡ªå‹•æ‹¡å¼µåˆ†ã®å·»ãæˆ»ã—ï¼‰ã€‚"""
+    """‹Î‘Ó«‘‚©‚çƒ}ƒXƒ^‚É–³‚¢“ú•tƒL[‚ğíœ‚·‚éi©“®Šg’£•ª‚ÌŠª‚«–ß‚µjB"""
     for dk in list(attendance_data.keys()):
         if dk not in keep_dates:
             del attendance_data[dk]
@@ -12943,11 +12948,11 @@ def _partial_task_id_due_shift_outcome(
     task_queue: list, task_id: str, calendar_last: date
 ) -> tuple[bool, bool]:
     """
-    é…å°æ®‹ã®ä¾é ¼NOã«ã¤ã„ã¦ç´æœŸ+1æ—¥ãƒªãƒˆãƒ©ã‚¤ã®åˆ†é¡ã€‚
-    æˆ»ã‚Šå€¤: (shift_ok, calendar_shortfall)
-    - shift_ok: ç´æœŸåŸºæº–ï¼ˆdue_basis_dateï¼‰ã‚’æŒã¤è¡ŒãŒã‚ã‚Šã€ãã‚Œã‚‰ã™ã¹ã¦ã§ +1 æ—¥ãŒãƒã‚¹ã‚¿æœ€çµ‚è¨ˆç”»æ—¥ä»¥ä¸‹
-    - calendar_shortfall: ç´æœŸåŸºæº–ã‚’æŒã¤è¡ŒãŒã‚ã‚Šã€ã„ãšã‚Œã‹ã§ +1 æ—¥ãŒãƒã‚¹ã‚¿æœ€çµ‚è¨ˆç”»æ—¥ã‚’è¶…ãˆã‚‹
-    åŸºæº–ç´æœŸãŒä¸€è¡Œã‚‚ç„¡ã„ä¾é ¼ã¯ (False, False)ï¼ˆé€šå¸¸ã®é…å°æ®‹ã®ã¾ã¾ï¼‰ã€‚
+    ”z‘äc‚ÌˆË—ŠNO‚É‚Â‚¢‚Ä”[Šú+1“úƒŠƒgƒ‰ƒC‚Ì•ª—ŞB
+    –ß‚è’l: (shift_ok, calendar_shortfall)
+    - shift_ok: ”[ŠúŠî€idue_basis_datej‚ğ‚Âs‚ª‚ ‚èA‚»‚ê‚ç‚·‚×‚Ä‚Å +1 “ú‚ªƒ}ƒXƒ^ÅIŒv‰æ“úˆÈ‰º
+    - calendar_shortfall: ”[ŠúŠî€‚ğ‚Âs‚ª‚ ‚èA‚¢‚¸‚ê‚©‚Å +1 “ú‚ªƒ}ƒXƒ^ÅIŒv‰æ“ú‚ğ’´‚¦‚é
+    Šî€”[Šú‚ªˆês‚à–³‚¢ˆË—Š‚Í (False, False)i’Êí‚Ì”z‘äc‚Ì‚Ü‚ÜjB
     """
     tid = (task_id or "").strip()
     if not tid:
@@ -12967,10 +12972,10 @@ def _partial_task_id_due_shift_outcome(
 
 def _shift_task_due_calendar_fields_one_day(task: dict, run_date: date) -> None:
     """
-    é…å°æ®‹ãƒªãƒˆãƒ©ã‚¤ç”¨: **å†…éƒ¨ã®ç´æœŸåŸºæº–ï¼ˆdue_basis_dateï¼‰ã ã‘**ã‚’ +1 æ—¥ã™ã‚‹ã€‚
-    çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ç”¨ã® ``due_basis_date_result_sheet`` ã¯å¤‰æ›´ã—ãªã„ï¼ˆ+1 å‰ã®æ—¥ä»˜ã‚’ä¿æŒï¼‰ã€‚
-    å›ç­”ç´æœŸãƒ»æŒ‡å®šç´æœŸã‚‚é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆç”±æ¥ã®ã¾ã¾ã€‚
-    due_urgent ã¯ãšã‚‰ã—ãŸ due_basis_date ã§å†è¨ˆç®—ã™ã‚‹ã€‚
+    ”z‘äcƒŠƒgƒ‰ƒC—p: **“à•”‚Ì”[ŠúŠî€idue_basis_datej‚¾‚¯**‚ğ +1 “ú‚·‚éB
+    Œ‹‰Ê_ƒ^ƒXƒNˆê———p‚Ì ``due_basis_date_result_sheet`` ‚Í•ÏX‚µ‚È‚¢i+1 ‘O‚Ì“ú•t‚ğ•ÛjB
+    ‰ñ“š”[ŠúEw’è”[Šú‚à”z‘äŒv‰æƒV[ƒg—R—ˆ‚Ì‚Ü‚ÜB
+    due_urgent ‚Í‚¸‚ç‚µ‚½ due_basis_date ‚ÅÄŒvZ‚·‚éB
     """
     if task.get("due_basis_date") is not None:
         task["due_basis_date"] = task["due_basis_date"] + timedelta(days=1)
@@ -12986,7 +12991,7 @@ def _seed_avail_from_timeline_for_date(
     avail_dt: dict,
     machine_day_start: datetime,
 ) -> None:
-    """åŒä¸€æ—¥å†…ã®æ—¢å­˜ timeline ã‹ã‚‰è¨­å‚™ç©ºããƒ»ãƒ¡ãƒ³ãƒãƒ¼ç©ºãã®ä¸‹é™ã‚’åæ˜ ã™ã‚‹ï¼ˆéƒ¨åˆ†å†é…å°ç”¨ï¼‰ã€‚"""
+    """“¯ˆê“ú“à‚ÌŠù‘¶ timeline ‚©‚çİ”õ‹ó‚«Eƒƒ“ƒo[‹ó‚«‚Ì‰ºŒÀ‚ğ”½‰f‚·‚éi•”•ªÄ”z‘ä—pjB"""
     for e in timeline_events:
         if e.get("date") != current_date:
             continue
@@ -13039,7 +13044,7 @@ def _bump_dt_past_machine_calendar_blocks(
     t: datetime,
     blocks: list[tuple[datetime, datetime]],
 ) -> datetime:
-    """åŠé–‹åŒºé–“ãƒ–ãƒ­ãƒƒã‚¯ [start,end) ã« t ãŒå…¥ã‚‹é–“ã€çµ‚ç«¯ã¸ç¹°ã‚Šä¸Šã’ã‚‹ã€‚"""
+    """”¼ŠJ‹æŠÔƒuƒƒbƒN [start,end) ‚É t ‚ª“ü‚éŠÔAI’[‚ÖŒJ‚èã‚°‚éB"""
     if not blocks:
         return t
     changed = True
@@ -13076,7 +13081,7 @@ def _machine_cal_cell_is_occupied(cell) -> bool:
         return bool(cell.strip())
     if isinstance(cell, bool):
         return cell
-    # Excel ã§ 0 ã‚’ã€Œç©ºã€ã¨ã—ã¦ã„ã‚‹åˆ—ã‚„ã€æ•°å¼ã®çµæœ 0 ã¯å æœ‰ã—ãªã„ï¼ˆå¾“æ¥ True ã ã¨å…¨æ—¥å æœ‰æ‰±ã„ã«ãªã‚Šå¾—ã‚‹ï¼‰
+    # Excel ‚Å 0 ‚ğu‹óv‚Æ‚µ‚Ä‚¢‚é—ñ‚âA”®‚ÌŒ‹‰Ê 0 ‚Íè—L‚µ‚È‚¢i]—ˆ True ‚¾‚Æ‘S“úè—Lˆµ‚¢‚É‚È‚è“¾‚éj
     if isinstance(cell, (int, float)):
         try:
             return float(cell) != 0.0
@@ -13089,9 +13094,9 @@ def _clip_machine_calendar_slot_to_factory_window(
     day_d: date, slot_start: datetime, slot_end: datetime
 ) -> tuple[datetime, datetime] | None:
     """
-    æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼1ã‚¹ãƒ­ãƒƒãƒˆ [slot_start, slot_end) ã‚’å·¥å ´ç¨¼åƒæ ã«ã‚¯ãƒªãƒƒãƒ—ã™ã‚‹ã€‚
-    æ å¤–ã®ã¿ã®ã‚¹ãƒ­ãƒƒãƒˆã¯ Noneï¼ˆé…å°ã§ã¯ç„¡è¦–ï¼‰ã€‚æ®µéš2ã§ã¯ master ãƒ¡ã‚¤ãƒ³ A12/B12 ã§
-    DEFAULT_START_TIME / DEFAULT_END_TIME ãŒä¸Šæ›¸ãæ¸ˆã¿ï¼ˆgenerate_plan ã®ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆå†…ã§èª­è¾¼ï¼‰ã€‚
+    ‹@ŠBƒJƒŒƒ“ƒ_[1ƒXƒƒbƒg [slot_start, slot_end) ‚ğHê‰Ò“­˜g‚ÉƒNƒŠƒbƒv‚·‚éB
+    ˜gŠO‚Ì‚İ‚ÌƒXƒƒbƒg‚Í Nonei”z‘ä‚Å‚Í–³‹jB’iŠK2‚Å‚Í master ƒƒCƒ“ A12/B12 ‚Å
+    DEFAULT_START_TIME / DEFAULT_END_TIME ‚ªã‘‚«Ï‚İigenerate_plan ‚ÌƒRƒ“ƒeƒLƒXƒg“à‚Å“ÇjB
     """
     w0 = datetime.combine(day_d, DEFAULT_START_TIME)
     w1 = datetime.combine(day_d, DEFAULT_END_TIME)
@@ -13108,9 +13113,9 @@ def _machine_calendar_planning_window_end_dt(
     members: list,
 ) -> datetime:
     """
-    æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ã®å³ç«¯ã‚’åˆ‡ã‚‹ä¸Šé™ã€‚å·¥å ´ãƒã‚¹ã‚¿çµ‚æ¥­ï¼ˆDEFAULT_END_TIMEï¼‰ã¨ã€
-    å½“æ—¥é…å°å¯¾è±¡ãƒ¡ãƒ³ãƒãƒ¼ã®å‹¤å‹™çµ‚äº†æ™‚åˆ»ã®æœ€å°ã®å°ã•ã„æ–¹ï¼ˆäººãŒã„ãªã„æ™‚é–“å¸¯ã®ã€Œå æœ‰ã€ã§
-    è¨­å‚™åºŠã ã‘ãŒçµ‚æ¥­ã‚’è¶…ãˆãªã„ã‚ˆã†ã«ã™ã‚‹ï¼‰ã€‚
+    ‹@ŠBƒJƒŒƒ“ƒ_[è—L‚Ì‰E’[‚ğØ‚éãŒÀBHêƒ}ƒXƒ^I‹ÆiDEFAULT_END_TIMEj‚ÆA
+    “–“ú”z‘ä‘ÎÛƒƒ“ƒo[‚Ì‹Î–±I—¹‚ÌÅ¬‚Ì¬‚³‚¢•ûil‚ª‚¢‚È‚¢ŠÔ‘Ñ‚Ìuè—Lv‚Å
+    İ”õ°‚¾‚¯‚ªI‹Æ‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚éjB
     """
     w_factory = datetime.combine(current_date, DEFAULT_END_TIME)
     ends: list[datetime] = []
@@ -13133,7 +13138,7 @@ def _clip_machine_busy_blocks_to_planning_window(
     w0: datetime,
     w1: datetime,
 ) -> list[tuple[datetime, datetime]]:
-    """å æœ‰åŠé–‹åŒºé–“ã‚’ [w0, w1) ã«ã‚¯ãƒªãƒƒãƒ—ã—ã¦ã‹ã‚‰ãƒãƒ¼ã‚¸ã™ã‚‹ã€‚"""
+    """è—L”¼ŠJ‹æŠÔ‚ğ [w0, w1) ‚ÉƒNƒŠƒbƒv‚µ‚Ä‚©‚çƒ}[ƒW‚·‚éB"""
     out: list[tuple[datetime, datetime]] = []
     for s, e in blocks or []:
         s2 = max(s, w0)
@@ -13178,8 +13183,8 @@ def load_machine_calendar_occupancy_blocks(
     equipment_list: list,
 ) -> dict[date, dict[str, list[tuple[datetime, datetime]]]]:
     """
-    master.xlsmã€Œæ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã€ã‚’èª­ã¿ã€è¨­å‚™åˆ—ã®éç©ºã‚»ãƒ«ï¼å½“è©² 1 æ™‚é–“ã‚¹ãƒ­ãƒƒãƒˆå æœ‰ã¨ã¿ãªã™ã€‚
-    æˆ»ã‚Š: æ—¥ä»˜ -> equipment_list ã®ã‚­ãƒ¼ -> åŠé–‹åŒºé–“ [start, end) ã®ãƒªã‚¹ãƒˆï¼ˆãƒãƒ¼ã‚¸æ¸ˆã¿ï¼‰ã€‚
+    master.xlsmu‹@ŠBƒJƒŒƒ“ƒ_[v‚ğ“Ç‚İAİ”õ—ñ‚Ì”ñ‹óƒZƒ‹“–ŠY 1 ŠÔƒXƒƒbƒgè—L‚Æ‚İ‚È‚·B
+    –ß‚è: “ú•t -> equipment_list ‚ÌƒL[ -> ”¼ŠJ‹æŠÔ [start, end) ‚ÌƒŠƒXƒgiƒ}[ƒWÏ‚İjB
     """
     if not master_path or not os.path.isfile(master_path):
         return {}
@@ -13189,7 +13194,7 @@ def load_machine_calendar_occupancy_blocks(
             return {}
         raw = pd.read_excel(master_path, sheet_name=SHEET_MACHINE_CALENDAR, header=None)
     except Exception as e:
-        logging.warning("æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼: ã‚·ãƒ¼ãƒˆèª­è¾¼ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã—ãŸ (%s)", e)
+        logging.warning("‹@ŠBƒJƒŒƒ“ƒ_[: ƒV[ƒg“Ç‚ğƒXƒLƒbƒv‚µ‚Ü‚µ‚½ (%s)", e)
         return {}
     if raw.shape[0] < 3 or raw.shape[1] < 3:
         return {}
@@ -13290,7 +13295,7 @@ def _apply_machine_calendar_floor_for_date(
     *,
     machine_calendar_plan_end: datetime | None = None,
 ) -> None:
-    """å½“æ—¥ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚·ãƒ¼ãƒ‰å¾Œã€æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ã§è¨­å‚™ç©ºãä¸‹é™ã‚’ç¹°ã‚Šä¸Šã’ã‚‹ã€‚"""
+    """“–“ú‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“ƒV[ƒhŒãA‹@ŠBƒJƒŒƒ“ƒ_[è—L‚Åİ”õ‹ó‚«‰ºŒÀ‚ğŒJ‚èã‚°‚éB"""
     day_blocks = _MACHINE_CALENDAR_BLOCKS_BY_DATE.get(current_date)
     if not day_blocks:
         return
@@ -13329,7 +13334,7 @@ def _machine_calendar_blocks_for_occ_key(
     day_blocks: dict[str, list[tuple[datetime, datetime]]],
     occ: str,
 ) -> list[tuple[datetime, datetime]] | None:
-    """day_blocks ã‹ã‚‰å æœ‰ã‚­ãƒ¼ï¼ˆè¡¨è¨˜ã‚†ã‚‰ãè¨±å®¹ï¼‰ã«ä¸€è‡´ã™ã‚‹åŒºé–“ãƒªã‚¹ãƒˆã‚’å¾—ã‚‹ã€‚"""
+    """day_blocks ‚©‚çè—LƒL[i•\‹L‚ä‚ç‚¬‹–—ej‚Éˆê’v‚·‚é‹æŠÔƒŠƒXƒg‚ğ“¾‚éB"""
     o = str(occ or "").strip()
     if not o or not day_blocks:
         return None
@@ -13349,8 +13354,8 @@ def _machine_calendar_occ_blocks_full_plan_window(
     members: list,
 ) -> bool:
     """
-    å½“æ—¥ã®æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ãŒè¨ˆç”»çª“ [å§‹æ¥­, min(çµ‚æ¥­,ç¨¼åƒãƒ¡ãƒ³ãƒãƒ¼çµ‚äº†) ) å…¨ä½“ã‚’å¡ãã€
-    ãã®è¨­å‚™ã§ã¯å½“æ—¥ 1 æœ¬ã‚‚åŠ å·¥ã‚’å…¥ã‚Œã‚‰ã‚Œãªã„ã¨ã Trueã€‚
+    “–“ú‚Ì‹@ŠBƒJƒŒƒ“ƒ_[è—L‚ªŒv‰æ‘‹ [n‹Æ, min(I‹Æ,‰Ò“­ƒƒ“ƒo[I—¹) ) ‘S‘Ì‚ğÇ‚¬A
+    ‚»‚Ìİ”õ‚Å‚Í“–“ú 1 –{‚à‰ÁH‚ğ“ü‚ê‚ç‚ê‚È‚¢‚Æ‚« TrueB
     """
     day_blocks = _MACHINE_CALENDAR_BLOCKS_BY_DATE.get(current_date)
     if not day_blocks:
@@ -13374,8 +13379,8 @@ def _task_fully_machine_calendar_blocked_on_date(
     members: list | None,
 ) -> bool:
     """
-    å½“è©²ã‚¿ã‚¹ã‚¯ã®å æœ‰è¨­å‚™ãŒã€å½“æ—¥ã®æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã ã‘ã§è¨ˆç”»çª“ã‚’å…¨æ—¥å¡ãŒã‚Œã¦ã„ã‚‹ã€‚
-    ã‚°ãƒ­ãƒ¼ãƒãƒ«è©¦è¡Œé †ãƒ–ãƒ­ãƒƒã‚¯ç”¨ã®ã€Œæœ€å°è©¦è¡Œé †ã€ã‹ã‚‰å¤–ã™ï¼ˆä»–è¨­å‚™ã®é…å°ãƒ‡ãƒƒãƒ‰ãƒ­ãƒƒã‚¯é˜²æ­¢ï¼‰ã€‚
+    “–ŠYƒ^ƒXƒN‚Ìè—Lİ”õ‚ªA“–“ú‚Ì‹@ŠBƒJƒŒƒ“ƒ_[‚¾‚¯‚ÅŒv‰æ‘‹‚ğ‘S“úÇ‚ª‚ê‚Ä‚¢‚éB
+    ƒOƒ[ƒoƒ‹s‡ƒuƒƒbƒN—p‚ÌuÅ¬s‡v‚©‚çŠO‚·i‘¼İ”õ‚Ì”z‘äƒfƒbƒhƒƒbƒN–h~jB
     """
     if daily_status is None or members is None:
         return False
@@ -13403,14 +13408,14 @@ def _task_no_machining_window_left_from_avail_floor(
     dispatch_interval_mirror: DispatchIntervalMirror | None = None,
 ) -> bool:
     """
-    machine_avail_dtï¼ˆã‚·ãƒ¼ãƒ‰ãƒ»æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼åºŠãƒ»å½“æ—¥ç¢ºå®šãƒ­ãƒ¼ãƒ«åæ˜ å¾Œï¼‰ã§ã€
-    å æœ‰è¨­å‚™ã®ç©ºãä¸‹é™ãŒè¨ˆç”»çª“çµ‚ç«¯ä»¥ä¸Šãªã‚‰å½“æ—¥ã¯å½“è¨­å‚™ã«ã‚¹ãƒ­ãƒƒãƒˆãªã—ã€‚
-    `machine_handoff` ç­‰ãŒæ¸¡ã‚‹ã¨ãã¯ `_resolve_machine_changeover_floor_segments` ã«ã‚ˆã‚Š
-    `_assign_one_roll_trial_order_flow` ã¨åŒã˜ **å®ŸåŠ¹åŠ å·¥é–‹å§‹ä¸‹é™** ã§åˆ¤å®šã™ã‚‹
-    ï¼ˆç”Ÿã® machine_avail ã ã‘ã§ã¯ãƒãƒ£ãƒ³ã‚¸ã‚ªãƒ¼ãƒãƒ¼å¾Œã®ä¸‹é™ãŒæ¬ ã‘ã€å€™è£œã‚„ min_dto ãŒç‹‚ã†ã®ã‚’é˜²ãï¼‰ã€‚
-    ã¾ãŸç©ºãä¸‹é™ãŒçµ‚ç«¯ã‚ˆã‚Šå‰ã§ã‚‚ã€è¨ˆç”»çª“ã§ã® **æ®‹ã‚Šé€£ç¶šãŒ 1 ãƒ­ãƒ¼ãƒ«åˆ†ã«è¶³ã‚Šãªã„**
-    ã¨åˆ¤æ–­ã§ãã‚‹å ´åˆã¯ Trueï¼ˆå®Ÿåƒä¸è¶³ãƒ‡ãƒƒãƒ‰ãƒ­ãƒƒã‚¯é˜²æ­¢ï¼‰ã€‚
-    ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼åŒºé–“ç…§åˆã®ã‚­ãƒ¼å–ã‚Šã“ã¼ã—ã‚’é˜²ãã€‚
+    machine_avail_dtiƒV[ƒhE‹@ŠBƒJƒŒƒ“ƒ_[°E“–“úŠm’èƒ[ƒ‹”½‰fŒãj‚ÅA
+    è—Lİ”õ‚Ì‹ó‚«‰ºŒÀ‚ªŒv‰æ‘‹I’[ˆÈã‚È‚ç“–“ú‚Í“–İ”õ‚ÉƒXƒƒbƒg‚È‚µB
+    `machine_handoff` “™‚ª“n‚é‚Æ‚«‚Í `_resolve_machine_changeover_floor_segments` ‚É‚æ‚è
+    `_assign_one_roll_trial_order_flow` ‚Æ“¯‚¶ **ÀŒø‰ÁHŠJn‰ºŒÀ** ‚Å”»’è‚·‚é
+    i¶‚Ì machine_avail ‚¾‚¯‚Å‚Íƒ`ƒƒƒ“ƒWƒI[ƒo[Œã‚Ì‰ºŒÀ‚ªŒ‡‚¯AŒó•â‚â min_dto ‚ª‹¶‚¤‚Ì‚ğ–h‚®jB
+    ‚Ü‚½‹ó‚«‰ºŒÀ‚ªI’[‚æ‚è‘O‚Å‚àAŒv‰æ‘‹‚Å‚Ì **c‚è˜A‘±‚ª 1 ƒ[ƒ‹•ª‚É‘«‚è‚È‚¢**
+    ‚Æ”»’f‚Å‚«‚éê‡‚Í TrueiÀ“­•s‘«ƒfƒbƒhƒƒbƒN–h~jB
+    ƒJƒŒƒ“ƒ_[‹æŠÔÆ‡‚ÌƒL[æ‚è‚±‚Ú‚µ‚ğ–h‚®B
     """
     if (
         daily_status is None
@@ -13471,7 +13476,7 @@ def _task_no_machining_window_left_from_avail_floor(
     t_eff = parse_float_safe(t.get("task_eff_factor"), 1.0)
     if t_eff <= 0:
         t_eff = 1.0
-    # eff_time_per_unit â‰ˆ base / avg_eff / t_eff Ã— ä½™åŠ›ä¿‚æ•°ã€‚avg_eff ã¯ãƒãƒ¼ãƒ æ¬¡ç¬¬ã§ä¸‹ãŒã‚‹ã€‚
+    # eff_time_per_unit ? base / avg_eff / t_eff ~ —]—ÍŒW”Bavg_eff ‚Íƒ`[ƒ€Ÿ‘æ‚Å‰º‚ª‚éB
     _avg_eff_floor = 0.5
     approx_need_mins = max(1.0, float(btp) / t_eff / _avg_eff_floor)
     return rem < timedelta(minutes=approx_need_mins)
@@ -13485,7 +13490,7 @@ def _bump_machine_avail_after_roll_for_calendar(
     machine_calendar_plan_end: datetime | None = None,
     machine_day_floor: datetime | None = None,
 ) -> None:
-    """ãƒ­ãƒ¼ãƒ«ç¢ºå®šç›´å¾Œ: çµ‚äº†æ™‚åˆ»ãŒã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ã‚¹ãƒ­ãƒƒãƒˆå†…ãªã‚‰çµ‚ç«¯ã¾ã§ç¹°ã‚Šä¸Šã’ã€‚"""
+    """ƒ[ƒ‹Šm’è’¼Œã: I—¹‚ªƒJƒŒƒ“ƒ_[è—LƒXƒƒbƒg“à‚È‚çI’[‚Ü‚ÅŒJ‚èã‚°B"""
     day_blocks = _MACHINE_CALENDAR_BLOCKS_BY_DATE.get(current_date)
     if not day_blocks:
         return
@@ -13543,16 +13548,16 @@ def load_machine_changeover_settings(
     master_path: str,
 ) -> tuple[dict[str, tuple[int, int]], dict[str, int]]:
     """
-    master.xlsm ã®ä»»æ„ã‚·ãƒ¼ãƒˆ:
-      - ã€Œè¨­å®š_ä¾é ¼åˆ‡æ›¿å‰å¾Œæ™‚é–“ã€â€¦ å·¥ç¨‹åãƒ»æ©Ÿæ¢°åãƒ»æº–å‚™åˆ†ãƒ»å¾Œå§‹æœ«åˆ†ï¼ˆ1 è¡Œç›®è¦‹å‡ºã—ã€2 è¡Œç›®ä»¥é™ãƒ‡ãƒ¼ã‚¿ï¼‰
-      - ã€Œè¨­å®š_æ©Ÿæ¢°_æ—¥æ¬¡å§‹æ¥­æº–å‚™ã€â€¦ æ©Ÿæ¢°åãƒ»æ—¥æ¬¡å§‹æ¥­æº–å‚™åˆ†
+    master.xlsm ‚Ì”CˆÓƒV[ƒg:
+      - uİ’è_ˆË—ŠØ‘Ö‘OŒãŠÔvc H’ö–¼E‹@ŠB–¼E€”õ•ªEŒãn––•ªi1 s–ÚŒ©o‚µA2 s–ÚˆÈ~ƒf[ƒ^j
+      - uİ’è_‹@ŠB_“úŸn‹Æ€”õvc ‹@ŠB–¼E“úŸn‹Æ€”õ•ª
 
-    ä¾é ¼NOï¼ˆã‚¿ã‚¹ã‚¯ï¼‰ãŒåŒä¸€ç‰©ç†æ©Ÿæ¢°ä¸Šã§åˆ‡ã‚Šæ›¿ã‚ã‚‹ã¨ãã€ç›´å‰ãƒ–ãƒ­ãƒƒã‚¯ã®å¾Œå§‹æœ«â†’å½“è©²ãƒ–ãƒ­ãƒƒã‚¯ã®æº–å‚™ã‚’
-    è¨­å‚™ç©ºãä¸‹é™ã«åŠ ç®—ã™ã‚‹ã€‚åŒä¸€ä¾é ¼NOã®é€£ç¶šãƒ­ãƒ¼ãƒ«ã®é–“ã«ã¯åŠ ç®—ã—ãªã„ã€‚
-    æ—¥æ¬¡å§‹æ¥­æº–å‚™ã¯ã€åŒä¸€ã‚«ãƒ¬ãƒ³ãƒ€æ—¥ã§å½“è©²æ©Ÿæ¢°ã®å…ˆé ­ãƒ­ãƒ¼ãƒ«ã«ã®ã¿åŠ ç®—ã™ã‚‹ã€‚
+    ˆË—ŠNOiƒ^ƒXƒNj‚ª“¯ˆê•¨—‹@ŠBã‚ÅØ‚è‘Ö‚í‚é‚Æ‚«A’¼‘OƒuƒƒbƒN‚ÌŒãn––¨“–ŠYƒuƒƒbƒN‚Ì€”õ‚ğ
+    İ”õ‹ó‚«‰ºŒÀ‚É‰ÁZ‚·‚éB“¯ˆêˆË—ŠNO‚Ì˜A‘±ƒ[ƒ‹‚ÌŠÔ‚É‚Í‰ÁZ‚µ‚È‚¢B
+    “úŸn‹Æ€”õ‚ÍA“¯ˆêƒJƒŒƒ“ƒ_“ú‚Å“–ŠY‹@ŠB‚Ìæ“ªƒ[ƒ‹‚É‚Ì‚İ‰ÁZ‚·‚éB
 
-    æˆ»ã‚Š: (è¨­å‚™è¡Œã‚­ãƒ¼ã€Œå·¥ç¨‹+æ©Ÿæ¢°ã€ãŠã‚ˆã³æ­£è¦åŒ–ã‚­ãƒ¼ -> (æº–å‚™åˆ†, å¾Œå§‹æœ«åˆ†),
-          æ©Ÿæ¢°åãŠã‚ˆã³æ­£è¦åŒ–ã‚­ãƒ¼ -> å§‹æ¥­æº–å‚™åˆ†)
+    –ß‚è: (İ”õsƒL[uH’ö+‹@ŠBv‚¨‚æ‚Ñ³‹K‰»ƒL[ -> (€”õ•ª, Œãn––•ª),
+          ‹@ŠB–¼‚¨‚æ‚Ñ³‹K‰»ƒL[ -> n‹Æ€”õ•ª)
     """
     changeover: dict[str, tuple[int, int]] = {}
     startup: dict[str, int] = {}
@@ -13561,7 +13566,7 @@ def load_machine_changeover_settings(
     try:
         xls = pd.ExcelFile(master_path)
     except Exception as e:
-        logging.warning("æ©Ÿæ¢°æº–å‚™/åˆ‡æ›¿è¨­å®š: ãƒ–ãƒƒã‚¯ã‚’é–‹ã‘ã¾ã›ã‚“ (%s)", e)
+        logging.warning("‹@ŠB€”õ/Ø‘Öİ’è: ƒuƒbƒN‚ğŠJ‚¯‚Ü‚¹‚ñ (%s)", e)
         return changeover, startup
 
     if SHEET_MACHINE_CHANGEOVER in xls.sheet_names:
@@ -13570,21 +13575,21 @@ def load_machine_changeover_settings(
                 master_path, sheet_name=SHEET_MACHINE_CHANGEOVER, header=0
             )
             df.columns = [str(c).strip() for c in df.columns]
-            c_proc = _df_pick_column(df, "å·¥ç¨‹å", "å·¥ç¨‹")
-            c_mac = _df_pick_column(df, "æ©Ÿæ¢°å", "æ©Ÿæ¢°")
+            c_proc = _df_pick_column(df, "H’ö–¼", "H’ö")
+            c_mac = _df_pick_column(df, "‹@ŠB–¼", "‹@ŠB")
             c_prep = _df_pick_column(
                 df,
-                "æº–å‚™æ™‚é–“_åˆ†",
-                "æº–å‚™åˆ†",
-                "åŠ å·¥å‰æº–å‚™_åˆ†",
-                "åŠ å·¥é–‹å§‹å‰æº–å‚™_åˆ†",
+                "€”õŠÔ_•ª",
+                "€”õ•ª",
+                "‰ÁH‘O€”õ_•ª",
+                "‰ÁHŠJn‘O€”õ_•ª",
             )
             c_clean = _df_pick_column(
                 df,
-                "å¾Œå§‹æœ«æ™‚é–“_åˆ†",
-                "å¾Œå§‹æœ«åˆ†",
-                "åŠ å·¥å¾Œå¾Œå§‹æœ«_åˆ†",
-                "åŠ å·¥çµ‚äº†å¾Œå¾Œå§‹æœ«_åˆ†",
+                "Œãn––ŠÔ_•ª",
+                "Œãn––•ª",
+                "‰ÁHŒãŒãn––_•ª",
+                "‰ÁHI—¹ŒãŒãn––_•ª",
             )
             if c_proc and c_mac and c_prep and c_clean:
                 n_ent = 0
@@ -13613,13 +13618,13 @@ def load_machine_changeover_settings(
                     n_ent += 1
                 if n_ent:
                     logging.info(
-                        "ãƒã‚¹ã‚¿ã€Œ%sã€: å·¥ç¨‹+æ©Ÿæ¢° %s è¡Œã®æº–å‚™/å¾Œå§‹æœ«ï¼ˆåˆ†ï¼‰ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚",
+                        "ƒ}ƒXƒ^u%sv: H’ö+‹@ŠB %s s‚Ì€”õ/Œãn––i•ªj‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B",
                         SHEET_MACHINE_CHANGEOVER,
                         n_ent,
                     )
         except Exception as e:
             logging.warning(
-                "ãƒã‚¹ã‚¿ã€Œ%sã€èª­è¾¼å¤±æ•—ï¼ˆç„¡è¦–ï¼‰: %s", SHEET_MACHINE_CHANGEOVER, e
+                "ƒ}ƒXƒ^u%sv“Ç¸”si–³‹j: %s", SHEET_MACHINE_CHANGEOVER, e
             )
 
     if SHEET_MACHINE_DAILY_STARTUP in xls.sheet_names:
@@ -13628,9 +13633,9 @@ def load_machine_changeover_settings(
                 master_path, sheet_name=SHEET_MACHINE_DAILY_STARTUP, header=0
             )
             df2.columns = [str(c).strip() for c in df2.columns]
-            c_mn = _df_pick_column(df2, "æ©Ÿæ¢°å", "æ©Ÿæ¢°")
+            c_mn = _df_pick_column(df2, "‹@ŠB–¼", "‹@ŠB")
             c_su = _df_pick_column(
-                df2, "æ—¥æ¬¡å§‹æ¥­æº–å‚™_åˆ†", "å§‹æ¥­æº–å‚™_åˆ†", "æ—¥å§‹æ¥­æº–å‚™_åˆ†"
+                df2, "“úŸn‹Æ€”õ_•ª", "n‹Æ€”õ_•ª", "“ún‹Æ€”õ_•ª"
             )
             if c_mn and c_su:
                 for _, row in df2.iterrows():
@@ -13649,13 +13654,13 @@ def load_machine_changeover_settings(
                         startup[nk] = su
                 if startup:
                     logging.info(
-                        "ãƒã‚¹ã‚¿ã€Œ%sã€: æ©Ÿæ¢° %s ä»¶ã®æ—¥æ¬¡å§‹æ¥­æº–å‚™ï¼ˆåˆ†ï¼‰ã‚’èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚",
+                        "ƒ}ƒXƒ^u%sv: ‹@ŠB %s Œ‚Ì“úŸn‹Æ€”õi•ªj‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B",
                         SHEET_MACHINE_DAILY_STARTUP,
                         len({k for k in startup if "+" not in str(k)}),
                     )
         except Exception as e:
             logging.warning(
-                "ãƒã‚¹ã‚¿ã€Œ%sã€èª­è¾¼å¤±æ•—ï¼ˆç„¡è¦–ï¼‰: %s", SHEET_MACHINE_DAILY_STARTUP, e
+                "ƒ}ƒXƒ^u%sv“Ç¸”si–³‹j: %s", SHEET_MACHINE_DAILY_STARTUP, e
             )
 
     return changeover, startup
@@ -13715,8 +13720,8 @@ def _pick_skilled_op_for_changeover_interval(
     daily_status: dict,
 ) -> str | None:
     """
-    å½“æ—¥ eligible ã®ã†ã¡ã€å½“è©²å·¥ç¨‹+æ©Ÿæ¢°ã§ OP ã‚¹ã‚­ãƒ«ã‚’æŒã¤è€…ã®ã†ã¡å„ªå…ˆåº¦ãŒæœ€å°ã®1åã€‚
-    æº–å‚™ãƒ»æ—¥æ¬¡å§‹æ¥­ã®ä¼‘æ†©ã‚¹ã‚­ãƒƒãƒ—ã«ç”¨ã„ã‚‹ï¼ˆavail_dt ã¯è¦‹ãªã„ï¼‰ã€‚
+    “–“ú eligible ‚Ì‚¤‚¿A“–ŠYH’ö+‹@ŠB‚Å OP ƒXƒLƒ‹‚ğ‚ÂÒ‚Ì‚¤‚¿—Dæ“x‚ªÅ¬‚Ì1–¼B
+    €”õE“úŸn‹Æ‚Ì‹xŒeƒXƒLƒbƒv‚É—p‚¢‚éiavail_dt ‚ÍŒ©‚È‚¢jB
     """
     cands: list[tuple[int, str]] = []
     proc = (machine_proc or "").strip()
@@ -13755,7 +13760,7 @@ def _machine_effective_floor_timedelta_only(
     daily_startup_by_machine: dict[str, int] | None = None,
     current_date: date | None = None,
 ) -> datetime:
-    """ã‚¹ã‚­ãƒ« OP ãŒæ‹¾ãˆãªã„ã¨ãã®ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ï¼ˆå£æ™‚è¨ˆã«åˆ†ã‚’è¶³ã™ï¼å®šå¸¸é–‹å§‹åŸºæº–ã®æ—¥æ¬¡å§‹æ¥­ã¯çµ‚äº†æ™‚åˆ»ã§ maxï¼‰ã€‚"""
+    """ƒXƒLƒ‹ OP ‚ªE‚¦‚È‚¢‚Æ‚«‚ÌƒtƒH[ƒ‹ƒoƒbƒNi•ÇŒv‚É•ª‚ğ‘«‚·^’èíŠJnŠî€‚Ì“úŸn‹Æ‚ÍI—¹‚Å maxjB"""
     if abolish_limits:
         return machine_day_floor
     mf = machine_avail_dt.get(machine_occ_key, machine_day_floor)
@@ -13803,13 +13808,13 @@ def _changeover_plan_segments_and_machining_lower_bound(
     abolish_limits: bool,
 ) -> tuple[datetime | None, list[dict]]:
     """
-    å‰ãƒ­ãƒ¼ãƒ«åŠ å·¥çµ‚äº† prev_machining_end_dt ã‹ã‚‰ã€æ—¥æ¬¡å§‹æ¥­ï¼ˆå½“æ—¥å…ˆé ­ã®ã¿ï¼‰ãƒ»åŒæ—¥ä¾é ¼åˆ‡æ›¿ã®å¾Œå§‹æœ«ãƒ»æº–å‚™ã‚’
-    çµ„ã¿ç«‹ã¦ã€(åŠ å·¥é–‹å§‹æœ€æ—©æ™‚åˆ», ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ç”¨ã‚»ã‚°ãƒ¡ãƒ³ãƒˆé››å½¢) ã‚’è¿”ã™ã€‚
-    æ—¥æ¬¡å§‹æ¥­ã¯ master ãƒ¡ã‚¤ãƒ³ A15ï¼ˆå®šå¸¸é–‹å§‹ï¼‰ãŒèª­ã‚ã‚Œã° [é–‹å§‹, é–‹å§‹+Nåˆ†) ã®å£æ™‚è¨ˆï¼ˆå‹¤æ€  forward ã—ãªã„ï¼‰ã€‚
-    A15 ãŒèª­ã‚ãªã„ã¨ãã®ã¿ã€å¾“æ¥ã©ãŠã‚Šä»£è¡¨ã‚¹ã‚­ãƒ« OP ã®å‹¤å‹™ãƒ»ä¼‘æ†©ã«æ²¿ã£ã¦ forward ã™ã‚‹ã€‚
-    åŒä¸€å æœ‰ã‚­ãƒ¼ã§ç›´å‰åŠ å·¥ã¨åŒä¸€ä¾é ¼NOã®ã¨ãã¯åŠ å·¥å‰æº–å‚™ã‚’ä»˜ã‘ãªã„ï¼ˆé€£ç¶šãƒ­ãƒ¼ãƒ«ï¼‰ã€‚
-    æ—¥æ¬¡å§‹æ¥­ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã® op ã¯ç©ºï¼ˆã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã§ã¯äººã‚’è¼‰ã›ãšè¨­å‚™ã®ã¿ï¼‰ã€‚æº–å‚™ãƒ»å¾Œå§‹æœ«ã® op ã¯ forward ç”¨ã®ä»£è¡¨ï¼ç›´å‰ä¸»ã€‚
-    ã‚»ã‚°ãƒ¡ãƒ³ãƒˆ dict ã¯ start_dt, end_dt, op, event_kind, machine, machine_occupancy_key ã‚’æŒã¤ã€‚
+    ‘Oƒ[ƒ‹‰ÁHI—¹ prev_machining_end_dt ‚©‚çA“úŸn‹Æi“–“úæ“ª‚Ì‚İjE“¯“úˆË—ŠØ‘Ö‚ÌŒãn––E€”õ‚ğ
+    ‘g‚İ—§‚ÄA(‰ÁHŠJnÅ‘, ƒ^ƒCƒ€ƒ‰ƒCƒ“—pƒZƒOƒƒ“ƒg—Œ`) ‚ğ•Ô‚·B
+    “úŸn‹Æ‚Í master ƒƒCƒ“ A15i’èíŠJnj‚ª“Ç‚ß‚ê‚Î [ŠJn, ŠJn+N•ª) ‚Ì•ÇŒvi‹Î‘Ó forward ‚µ‚È‚¢jB
+    A15 ‚ª“Ç‚ß‚È‚¢‚Æ‚«‚Ì‚İA]—ˆ‚Ç‚¨‚è‘ã•\ƒXƒLƒ‹ OP ‚Ì‹Î–±E‹xŒe‚É‰ˆ‚Á‚Ä forward ‚·‚éB
+    “¯ˆêè—LƒL[‚Å’¼‘O‰ÁH‚Æ“¯ˆêˆË—ŠNO‚Ì‚Æ‚«‚Í‰ÁH‘O€”õ‚ğ•t‚¯‚È‚¢i˜A‘±ƒ[ƒ‹jB
+    “úŸn‹ÆƒZƒOƒƒ“ƒg‚Ì op ‚Í‹óiƒ^ƒCƒ€ƒ‰ƒCƒ“‚Å‚Íl‚ğÚ‚¹‚¸İ”õ‚Ì‚İjB€”õEŒãn––‚Ì op ‚Í forward —p‚Ì‘ã•\^’¼‘OåB
+    ƒZƒOƒƒ“ƒg dict ‚Í start_dt, end_dt, op, event_kind, machine, machine_occupancy_key ‚ğ‚ÂB
     """
     if abolish_limits:
         return prev_machining_end_dt, []
@@ -13948,9 +13953,9 @@ def _machine_effective_floor_for_assign(
     machine_proc: str | None = None,
 ) -> datetime:
     """
-    è¨­å‚™ã®å£æ™‚è¨ˆã«ãŠã‘ã‚‹ã€Œå½“è©²ãƒ­ãƒ¼ãƒ«ã®åŠ å·¥é–‹å§‹ã€ä»¥å‰ã®ä¸‹é™ã€‚
-    daily_statusãƒ»skills_dictãƒ»current_date ãŒæƒã†ã¨ãã¯ã€skills é©åˆ OP ã®å‹¤å‹™ãƒ»ä¼‘æ†©ã«æ²¿ã£ã¦
-    æ—¥æ¬¡å§‹æ¥­ãƒ»å¾Œå§‹æœ«ãƒ»æº–å‚™ã‚’ forward ã—ãŸæœ€æ—©åŠ å·¥é–‹å§‹ã€‚æƒã‚ãªã„ã¨ãã¯åˆ†ã®å£æ™‚è¨ˆåŠ ç®—ã«ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ã€‚
+    İ”õ‚Ì•ÇŒv‚É‚¨‚¯‚éu“–ŠYƒ[ƒ‹‚Ì‰ÁHŠJnvˆÈ‘O‚Ì‰ºŒÀB
+    daily_statusEskills_dictEcurrent_date ‚ª‘µ‚¤‚Æ‚«‚ÍAskills “K‡ OP ‚Ì‹Î–±E‹xŒe‚É‰ˆ‚Á‚Ä
+    “úŸn‹ÆEŒãn––E€”õ‚ğ forward ‚µ‚½Å‘‰ÁHŠJnB‘µ‚í‚È‚¢‚Æ‚«‚Í•ª‚Ì•ÇŒv‰ÁZ‚ÉƒtƒH[ƒ‹ƒoƒbƒNB
     """
     if abolish_limits:
         return machine_day_floor
@@ -14009,8 +14014,8 @@ def _resolve_machine_changeover_floor_segments(
     dispatch_interval_mirror: DispatchIntervalMirror | None,
 ) -> tuple[datetime, list[dict], bool]:
     """
-    è¨­å‚™ã®åŠ å·¥é–‹å§‹ä¸‹é™ã¨ã€ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³è¿½è¨˜ç”¨ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—åŒºé–“ã€‚
-    æˆ»ã‚Šå€¤ (floor_dt, segments, abort)ã€‚abort ãŒ True ã®ã¨ãã¯å½“è©²ãƒ­ãƒ¼ãƒ«å‰²å½“ã‚’å…¨ä½“ã¨ã—ã¦æ£„å´ã™ã‚‹ã€‚
+    İ”õ‚Ì‰ÁHŠJn‰ºŒÀ‚ÆAƒ^ƒCƒ€ƒ‰ƒCƒ“’Ç‹L—pƒZƒbƒgƒAƒbƒv‹æŠÔB
+    –ß‚è’l (floor_dt, segments, abort)Babort ‚ª True ‚Ì‚Æ‚«‚Í“–ŠYƒ[ƒ‹Š„“–‚ğ‘S‘Ì‚Æ‚µ‚ÄŠü‹p‚·‚éB
     """
     if abolish_all_scheduling_limits:
         prev = machine_avail_dt.get(machine_occ_key, machine_day_floor)
@@ -14102,7 +14107,7 @@ def _changeover_timeline_op_sub_for_event(
     machine_handoff: dict,
     daily_status: dict,
 ) -> tuple[str, str]:
-    """ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ç”¨ã®ä¸»ï¼è£œã€‚æ—¥æ¬¡å§‹æ¥­ã¯äººãªã—ã€‚æº–å‚™ã¯ç›´å¾Œãƒ­ãƒ¼ãƒ«ã€å¾Œå§‹æœ«ã¯ handoff ã®ç›´å‰ãƒ­ãƒ¼ãƒ«ã€‚"""
+    """ƒ^ƒCƒ€ƒ‰ƒCƒ“—p‚Ìå^•âB“úŸn‹Æ‚Íl‚È‚µB€”õ‚Í’¼Œãƒ[ƒ‹AŒãn––‚Í handoff ‚Ì’¼‘Oƒ[ƒ‹B"""
     ek = str(event_kind or "").strip()
     op_s = str(op_from_segment or "").strip()
     _lead = str(machining_lead_op or "").strip()
@@ -14135,7 +14140,7 @@ def _append_changeover_segments_to_timeline(
     machining_sub_str: str | None = None,
     machine_handoff: dict | None = None,
 ) -> None:
-    """ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ç³»ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ»ãƒŸãƒ©ãƒ¼ãƒ»æ‹…å½“è€… avail ã«åæ˜ ã€‚"""
+    """ƒZƒbƒgƒAƒbƒvŒnƒZƒOƒƒ“ƒg‚ğƒ^ƒCƒ€ƒ‰ƒCƒ“Eƒ~ƒ‰[E’S“–Ò avail ‚É”½‰fB"""
     _mh = machine_handoff or {}
     _lead_m = str(machining_lead_op or "").strip()
     _sub_roll = str(machining_sub_str or "").strip()
@@ -14195,8 +14200,8 @@ def _append_changeover_segments_to_timeline(
 
 def _collect_task_ids_missed_deadline_after_day(task_queue: list, current_date: date) -> set:
     """
-    å½“è©²æ—¥ã®çµ‚äº†æ™‚ç‚¹ã§ã€ç´æœŸåŸºæº–æ—¥ï¼ˆå½“æ—¥å«ã‚€ï¼‰ä»¥å‰ãªã®ã«æ®‹é‡ãŒæ®‹ã‚‹ä¾é ¼NOã€‚
-    ã€Œç´æœŸæ—¥å†…ã«å®Œé‚ã§ããªã‹ã£ãŸã€= å¾Œã‚å€’ã—å†è©¦è¡Œã®å€™è£œã€‚
+    “–ŠY“ú‚ÌI—¹“_‚ÅA”[ŠúŠî€“úi“–“úŠÜ‚ŞjˆÈ‘O‚È‚Ì‚Éc—Ê‚ªc‚éˆË—ŠNOB
+    u”[Šú“ú“à‚ÉŠ®‹‚Å‚«‚È‚©‚Á‚½v= Œã‚ë“|‚µÄs‚ÌŒó•âB
     """
     out = set()
     eps = 1e-9
@@ -14225,9 +14230,9 @@ def _machine_handoff_state_from_timeline(
     current_date: date,
 ) -> dict:
     """
-    ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‹ã‚‰ã€å„ machine_occupancy_key ã«ã¤ã„ã¦
-    è¨ˆç”»æ—¥ current_date ä»¥å‰ã® **åŠ å·¥ (machining)** ã‚¤ãƒ™ãƒ³ãƒˆã®æœ€çµ‚çµ‚äº†ã‚’å¾©å…ƒã™ã‚‹ã€‚
-    ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ç³» event_kind ã¯ last_tid / å¾Œå§‹æœ«åˆ¤å®šã«å«ã‚ãªã„ã€‚
+    ƒ^ƒCƒ€ƒ‰ƒCƒ“‚©‚çAŠe machine_occupancy_key ‚É‚Â‚¢‚Ä
+    Œv‰æ“ú current_date ˆÈ‘O‚Ì **‰ÁH (machining)** ƒCƒxƒ“ƒg‚ÌÅII—¹‚ğ•œŒ³‚·‚éB
+    ƒZƒbƒgƒAƒbƒvŒn event_kind ‚Í last_tid / Œãn––”»’è‚ÉŠÜ‚ß‚È‚¢B
     """
     best: dict[str, tuple[datetime, str, str, date, str, str]] = {}
     for e in timeline_events:
@@ -14300,11 +14305,11 @@ def _trial_order_flow_day_start_floor(
     macro_now_dt: datetime,
     task_queue: list | None = None,
 ) -> datetime:
-    """åŸåæŠ•å…¥æ—¥ã‚’èµ·ç‚¹ã«ã€ãã®æ—¥ã®åŠ å·¥é–‹å§‹ã®ä¸‹é™æ™‚åˆ»ï¼ˆåŒæ—¥ã¯ 13:00 ä»¥é™ã‚’å«ã‚€ï¼‰ã€‚"""
+    """Œ´”½“Š“ü“ú‚ğ‹N“_‚ÉA‚»‚Ì“ú‚Ì‰ÁHŠJn‚Ì‰ºŒÀi“¯“ú‚Í 13:00 ˆÈ~‚ğŠÜ‚ŞjB"""
     floor = datetime.combine(current_date, DEFAULT_START_TIME)
-    # Â§B-2 æ¤œæŸ» / Â§B-3 å·»è¿”ã—ã¯ EC å®Œäº†ã‚’å¾…ã£ã¦é–‹å§‹ã§ãã‚‹ãŸã‚ã€
-    # åŸåæŠ•å…¥æ—¥ï¼ˆ=åŒæ—¥13:00ä»¥é™ï¼‰ã®åˆ¶ç´„ã‚’ãã®ã¾ã¾é©ç”¨ã™ã‚‹ã¨å¾Œç¶šãŒä¸å¿…è¦ã«å¾Œã‚ã¸å€’ã‚Œã‚‹ã€‚
-    # ECå®Œäº†æ™‚åˆ»ä¸‹é™ï¼ˆ_roll_pipeline_b2_inspection_ec_completion_floor_dtï¼‰ã§æ•´åˆã‚’å–ã‚‹ã€‚
+    # ˜B-2 ŒŸ¸ / ˜B-3 Šª•Ô‚µ‚Í EC Š®—¹‚ğ‘Ò‚Á‚ÄŠJn‚Å‚«‚é‚½‚ßA
+    # Œ´”½“Š“ü“úi=“¯“ú13:00ˆÈ~j‚Ì§–ñ‚ğ‚»‚Ì‚Ü‚Ü“K—p‚·‚é‚ÆŒã‘±‚ª•s•K—v‚ÉŒã‚ë‚Ö“|‚ê‚éB
+    # ECŠ®—¹‰ºŒÀi_roll_pipeline_b2_inspection_ec_completion_floor_dtj‚Å®‡‚ğæ‚éB
     _tid_floor = str(task.get("task_id", "") or "").strip()
     is_b2_follower_delayed = bool(
         (task.get("roll_pipeline_inspection") or task.get("roll_pipeline_rewind"))
@@ -14376,8 +14381,8 @@ def _trial_order_flow_eligible_tasks(
             min_dispatch_effective=min_dispatch_effective,
         ):
             continue
-        # min_dto ã‹ã‚‰å…¨æ—¥ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼å æœ‰ã¯é™¤å¤–æ¸ˆã¿ã§ã‚‚ã€åŒæ—¥è©¦è¡Œé †ã®ã€Œãƒ–ãƒ­ãƒƒã‚¯ã€ã¯ my_o>m ã®ã¿ã®ãŸã‚
-        # è©¦è¡Œé †=min ã®å æœ‰è¡ŒãŒæ®‹ã‚Šã€ä»–è©¦è¡Œé †ãŒæ°¸ä¹…åœæ­¢ã—å¾—ã‚‹ã€‚å½“æ—¥ã‚¹ãƒ­ãƒƒãƒˆã‚¼ãƒ­ã®è¡Œã¯å€™è£œå¤–ã«ã™ã‚‹ã€‚
+        # min_dto ‚©‚ç‘S“úƒJƒŒƒ“ƒ_[è—L‚ÍœŠOÏ‚İ‚Å‚àA“¯“ús‡‚ÌuƒuƒƒbƒNv‚Í my_o>m ‚Ì‚İ‚Ì‚½‚ß
+        # s‡=min ‚Ìè—Ls‚ªc‚èA‘¼s‡‚ª‰i‹v’â~‚µ“¾‚éB“–“úƒXƒƒbƒgƒ[ƒ‚Ìs‚ÍŒó•âŠO‚É‚·‚éB
         if daily_status is not None and members is not None:
             if _task_fully_machine_calendar_blocked_on_date(
                 task, current_date, daily_status, members
@@ -14447,9 +14452,9 @@ def _combo_preset_team_size_bounds(
     max_team_size_need: int,
 ) -> tuple[int, int] | None:
     """
-    çµ„ã¿åˆã‚ã›è¡¨ãƒ—ãƒªã‚»ãƒƒãƒˆ1è¡Œã®äººæ•°ç¯„å›² (lo, hi)ã€‚need ã®åŸºæœ¬äººæ•°ã‚ˆã‚Šã‚·ãƒ¼ãƒˆå´ã‚’å„ªå…ˆã™ã‚‹ã€‚
-    - å¿…è¦äººæ•°åˆ—ãŒæ­£ã®ã¨ãã¯ãƒ¡ãƒ³ãƒãƒ¼åˆ—ã®äººæ•°ã¨ä¸€è‡´ã™ã‚‹ã“ã¨ã€‚
-    - hi ã¯ need ã®ä¸Šé™ã¨å®Ÿäººæ•°ã®å¤§ãã„æ–¹ï¼ˆãƒ—ãƒªã‚»ãƒƒãƒˆãŒ need ã‚ˆã‚Šå°‘äººæ•°ã§ã‚‚æ¡ç”¨å¯èƒ½ï¼‰ã€‚
+    ‘g‚İ‡‚í‚¹•\ƒvƒŠƒZƒbƒg1s‚Ìl””ÍˆÍ (lo, hi)Bneed ‚ÌŠî–{l”‚æ‚èƒV[ƒg‘¤‚ğ—Dæ‚·‚éB
+    - •K—vl”—ñ‚ª³‚Ì‚Æ‚«‚Íƒƒ“ƒo[—ñ‚Ìl”‚Æˆê’v‚·‚é‚±‚ÆB
+    - hi ‚Í need ‚ÌãŒÀ‚ÆÀl”‚Ì‘å‚«‚¢•ûiƒvƒŠƒZƒbƒg‚ª need ‚æ‚è­l”‚Å‚àÌ—p‰Â”\jB
     """
     nmem = len(preset_team)
     if nmem < 1:
@@ -14467,7 +14472,7 @@ def _combo_preset_team_size_bounds(
 
 
 def _plan_sheet_required_op_optional(task: dict) -> int | None:
-    """åŠ å·¥è¨ˆç”»ã®å¿…è¦äººæ•°åˆ—ãŒæ­£ã®æ•´æ•°ãªã‚‰ãã®å€¤ã€‚ç„¡åŠ¹ãªã‚‰ Noneã€‚"""
+    """‰ÁHŒv‰æ‚Ì•K—vl”—ñ‚ª³‚Ì®”‚È‚ç‚»‚Ì’lB–³Œø‚È‚ç NoneB"""
     ro = task.get("required_op")
     if ro is None or (isinstance(ro, float) and pd.isna(ro)):
         return None
@@ -14501,7 +14506,7 @@ def _append_legacy_dispatch_candidate_for_team(
     machine_day_floor: datetime | None = None,
     machine_floor_cached: datetime | None = None,
 ) -> bool:
-    """ãƒ¬ã‚¬ã‚·ãƒ¼æ—¥æ¬¡é…å°ãƒ«ãƒ¼ãƒ—ç”¨: å˜ä¸€ãƒãƒ¼ãƒ ãŒæˆç«‹ã™ã‚Œã° team_candidates ã« 1 ä»¶è¿½åŠ ã—ã¦ Trueã€‚"""
+    """ƒŒƒKƒV[“úŸ”z‘äƒ‹[ƒv—p: ’Pˆêƒ`[ƒ€‚ª¬—§‚·‚ê‚Î team_candidates ‚É 1 Œ’Ç‰Á‚µ‚Ä TrueB"""
     _machine_occ_key = _machine_occupancy_key_resolve(task, eq_line)
     _gpo = global_priority_override or {}
     _floor_default = datetime.combine(current_date, DEFAULT_START_TIME)
@@ -14688,10 +14693,10 @@ def _assign_one_roll_trial_order_flow(
     machine_handoff: dict | None = None,
 ) -> dict | None:
     """
-    1ãƒ­ãƒ¼ãƒ«åˆ†ã®æœ€è‰¯ãƒãƒ¼ãƒ ã‚’æ±ºå®šã™ã‚‹ã€‚è¨­å‚™ç©ºããƒ»æ—¥é–‹å§‹ä¸‹é™ã‚’ team_start ã«ç¹”ã‚Šè¾¼ã‚€ã€‚
-    preferred_team ãŒä¸ãˆã‚‰ã‚Œã€ã‹ã¤ã€ŒåŒä¸€æ—¥å†…ã®ç›´å‰ãƒ­ãƒ¼ãƒ«ã€ã¨ã—ã¦æˆç«‹ã™ã‚Œã°ã€
-    çµ„åˆã›æ¢ç´¢ã‚ˆã‚Šå„ªå…ˆã—ã¦æ¡ç”¨ã™ã‚‹ï¼ˆç¿Œæ—¥ã«ã¯æŒã¡è¶Šã•ãªã„ï¼‰ã€‚
-    æˆ»ã‚Šå€¤: team(tuple), start_dt, end_dt, breaks, eff, op, eff_time_per_unit, extra_max, rq_base, need_src_line, extra_src_line, machine, machine_name, eq_line, req_num, max_team_size
+    1ƒ[ƒ‹•ª‚ÌÅ—Çƒ`[ƒ€‚ğŒˆ’è‚·‚éBİ”õ‹ó‚«E“úŠJn‰ºŒÀ‚ğ team_start ‚ÉD‚è‚ŞB
+    preferred_team ‚ª—^‚¦‚ç‚êA‚©‚Âu“¯ˆê“ú“à‚Ì’¼‘Oƒ[ƒ‹v‚Æ‚µ‚Ä¬—§‚·‚ê‚ÎA
+    ‘g‡‚¹’Tõ‚æ‚è—Dæ‚µ‚ÄÌ—p‚·‚éi—‚“ú‚É‚Í‚¿‰z‚³‚È‚¢jB
+    –ß‚è’l: team(tuple), start_dt, end_dt, breaks, eff, op, eff_time_per_unit, extra_max, rq_base, need_src_line, extra_src_line, machine, machine_name, eq_line, req_num, max_team_size
     """
     machine = task["machine"]
     machine_name = str(task.get("machine_name", "") or "").strip()
@@ -14721,12 +14726,12 @@ def _assign_one_roll_trial_order_flow(
             need_rules,
         )
         if plan_ro is not None and plan_ro != req_num:
-            need_src_line = (need_src_line + "ï¼›") if need_src_line else ""
-            need_src_line += f"è¨ˆç”»ã‚·ãƒ¼ãƒˆå¿…è¦äººæ•°{plan_ro}ã¯æœªä½¿ç”¨ï¼ˆneedåŸºæº–={req_num}ï¼‰"
+            need_src_line = (need_src_line + "G") if need_src_line else ""
+            need_src_line += f"Œv‰æƒV[ƒg•K—vl”{plan_ro}‚Í–¢g—pineedŠî€={req_num}j"
     else:
         if plan_ro is not None:
             req_num = plan_ro
-            need_src_line = f"è¨ˆç”»ã‚·ãƒ¼ãƒˆã€Œå¿…è¦OP(ä¸Šæ›¸)ã€={req_num}"
+            need_src_line = f"Œv‰æƒV[ƒgu•K—vOP(ã‘)v={req_num}"
         else:
             req_num, need_src_line = resolve_need_required_op_explain(
                 machine,
@@ -14738,8 +14743,8 @@ def _assign_one_roll_trial_order_flow(
     if _gpo.get("ignore_need_minimum"):
         req_num = 1
         need_src_line = (
-            (need_src_line + " â†’ ") if need_src_line else ""
-        ) + "ãƒ¡ã‚¤ãƒ³ä¸Šæ›¸ignore_need_minimumã§req=1"
+            (need_src_line + " ¨ ") if need_src_line else ""
+        ) + "ƒƒCƒ“ã‘ignore_need_minimum‚Åreq=1"
 
     skill_meta_cache: dict = {}
 
@@ -14782,7 +14787,7 @@ def _assign_one_roll_trial_order_flow(
     )
     if _gdp_must:
         logging.info(
-            "ãƒ¡ã‚¤ãƒ³ã‚°ãƒ­ãƒ¼ãƒãƒ«(æ—¥ä»˜Ã—å·¥ç¨‹): task=%s date=%s å·¥ç¨‹=%r ãƒãƒ¼ãƒ å¿…é ˆ=%s",
+            "ƒƒCƒ“ƒOƒ[ƒoƒ‹(“ú•t~H’ö): task=%s date=%s H’ö=%r ƒ`[ƒ€•K{=%s",
             task.get("task_id"),
             current_date,
             machine,
@@ -14791,8 +14796,8 @@ def _assign_one_roll_trial_order_flow(
     if fixed_team_anchor:
         _nfix = len(fixed_team_anchor)
         if _nfix > req_num:
-            need_src_line = (need_src_line + " â†’ ") if need_src_line else ""
-            need_src_line += f"ã‚°ãƒ­ãƒ¼ãƒãƒ«(æ—¥ä»˜Ã—å·¥ç¨‹)æŒ‡åã§æœ€ä½{_nfix}äºº"
+            need_src_line = (need_src_line + " ¨ ") if need_src_line else ""
+            need_src_line += f"ƒOƒ[ƒoƒ‹(“ú•t~H’ö)w–¼‚ÅÅ’á{_nfix}l"
         req_num = max(req_num, _nfix)
 
     extra_max_sheet, extra_src_line = resolve_need_surplus_extra_max_explain(
@@ -14805,8 +14810,8 @@ def _assign_one_roll_trial_order_flow(
     if TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW:
         extra_max_sheet = 0
         extra_src_line = (
-            (extra_src_line + " â†’ ") if extra_src_line else ""
-        ) + "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROWã§0"
+            (extra_src_line + " ¨ ") if extra_src_line else ""
+        ) + "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW‚Å0"
     extra_max = (
         extra_max_sheet if TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS else 0
     )
@@ -14816,8 +14821,8 @@ def _assign_one_roll_trial_order_flow(
         and not TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW
     ):
         extra_src_line = (
-            (extra_src_line + " â†’ ") if extra_src_line else ""
-        ) + "ãƒ¡ã‚¤ãƒ³ã¯åŸºæœ¬äººæ•°ã®ã¿ï¼ˆä½™åŠ›æ ã¯å…¨é…å°å¾Œã«æœªå‰²å½“Ã—ã‚¹ã‚­ãƒ«ã§è¿½è¨˜ï¼‰"
+            (extra_src_line + " ¨ ") if extra_src_line else ""
+        ) + "ƒƒCƒ“‚ÍŠî–{l”‚Ì‚İi—]—Í˜g‚Í‘S”z‘äŒã‚É–¢Š„“–~ƒXƒLƒ‹‚Å’Ç‹Lj"
     max_team_size = min(req_num + extra_max, len(capable_members))
     if max_team_size < req_num:
         max_team_size = req_num
@@ -14837,8 +14842,8 @@ def _assign_one_roll_trial_order_flow(
     if _dto_head is not None and _dto_head not in _need_headcount_logged_orders:
         _need_headcount_logged_orders.add(_dto_head)
         logging.info(
-            "needäººæ•°(è©¦è¡Œé †å„ªå…ˆãƒ•ãƒ­ãƒ¼) order=%s task=%s å·¥ç¨‹/æ©Ÿæ¢°=%s/%s "
-            "req_num=%s [%s] extra_max=%s [%s] max_teamå€™è£œ=%s capable=%säºº",
+            "needl”(s‡—Dæƒtƒ[) order=%s task=%s H’ö/‹@ŠB=%s/%s "
+            "req_num=%s [%s] extra_max=%s [%s] max_teamŒó•â=%s capable=%sl",
             _dto_head,
             task["task_id"],
             machine,
@@ -14863,7 +14868,7 @@ def _assign_one_roll_trial_order_flow(
             return
         _log_dispatch_trace_schedule(
             _tid_assign,
-            "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] " + msg,
+            "[”z‘äƒgƒŒ[ƒX task=%s] " + msg,
             _tid_assign,
             *args,
         )
@@ -14908,7 +14913,7 @@ def _assign_one_roll_trial_order_flow(
         hi = max_team_size if max_n is None else max_n
         if len(team) < lo or len(team) > hi:
             _trace_assign(
-                "å€™è£œå´ä¸‹: ãƒãƒ¼ãƒ äººæ•°å¤– team=%s size=%s req=%s max=%s",
+                "Œó•â‹p‰º: ƒ`[ƒ€l”ŠO team=%s size=%s req=%s max=%s",
                 ",".join(str(x) for x in team),
                 len(team),
                 lo,
@@ -14918,13 +14923,13 @@ def _assign_one_roll_trial_order_flow(
         op_list = [m for m in team if skill_role_priority(m)[0] == "OP"]
         if not op_list:
             _trace_assign(
-                "å€™è£œå´ä¸‹: OPä¸åœ¨ team=%s",
+                "Œó•â‹p‰º: OP•sİ team=%s",
                 ",".join(str(x) for x in team),
             )
             return None
         if not all(m in daily_status for m in team):
             _trace_assign(
-                "å€™è£œå´ä¸‹: å½“æ—¥å‹¤æ€ ã‚­ãƒ¼ãªã— team=%s",
+                "Œó•â‹p‰º: “–“ú‹Î‘ÓƒL[‚È‚µ team=%s",
                 ",".join(str(x) for x in team),
             )
             return None
@@ -14940,7 +14945,7 @@ def _assign_one_roll_trial_order_flow(
         team_end_limit = min(daily_status[m]["end_dt"] for m in team)
         if team_start >= team_end_limit:
             _trace_assign(
-                "å€™è£œå´ä¸‹: é–‹å§‹>=çµ‚æ¥­ team=%s start=%s end_limit=%s",
+                "Œó•â‹p‰º: ŠJn>=I‹Æ team=%s start=%s end_limit=%s",
                 ",".join(str(x) for x in team),
                 team_start,
                 team_end_limit,
@@ -14988,14 +14993,14 @@ def _assign_one_roll_trial_order_flow(
         )
         if team_start_d is None:
             _trace_assign(
-                "å€™è£œå´ä¸‹: ä¼‘æ†©å¸¯å†…ãƒ»çµ‚æ¥­ç›´å‰(å°æ®‹)ã§å½“æ—¥ä¸å¯ team=%s",
+                "Œó•â‹p‰º: ‹xŒe‘Ñ“àEI‹Æ’¼‘O(¬c)‚Å“–“ú•s‰Â team=%s",
                 ",".join(str(x) for x in team),
             )
             return None
         team_start = team_start_d
         if team_start >= team_end_limit:
             _trace_assign(
-                "å€™è£œå´ä¸‹: ãƒ‡ãƒ•ã‚¡ãƒ¼å¾Œã«é–‹å§‹>=çµ‚æ¥­ team=%s start=%s end_limit=%s",
+                "Œó•â‹p‰º: ƒfƒtƒ@[Œã‚ÉŠJn>=I‹Æ team=%s start=%s end_limit=%s",
                 ",".join(str(x) for x in team),
                 team_start,
                 team_end_limit,
@@ -15008,7 +15013,7 @@ def _assign_one_roll_trial_order_flow(
         _trial_units_cap = int(avail_mins / eff_time_per_unit)
         if _trial_units_cap < 1:
             _trace_assign(
-                "å€™è£œå´ä¸‹: å®Ÿåƒä¸è¶³ team=%s start=%s avail_mins=%s need_mins=%.2f",
+                "Œó•â‹p‰º: À“­•s‘« team=%s start=%s avail_mins=%s need_mins=%.2f",
                 ",".join(str(x) for x in team),
                 team_start,
                 avail_mins,
@@ -15019,7 +15024,7 @@ def _assign_one_roll_trial_order_flow(
             _trial_units_cap, team_start, team_end_limit
         ):
             _trace_assign(
-                "å€™è£œå´ä¸‹: çµ‚æ¥­ç›´å‰ã§å½“æ—¥åå®¹ãƒ­ãƒ¼ãƒ«æ•°ãŒé–¾å€¤æœªæº€ team=%s cap=%s th=%s start=%s",
+                "Œó•â‹p‰º: I‹Æ’¼‘O‚Å“–“úû—eƒ[ƒ‹”‚ªè‡’l–¢– team=%s cap=%s th=%s start=%s",
                 ",".join(str(x) for x in team),
                 _trial_units_cap,
                 ASSIGN_EOD_DEFER_MAX_REMAINING_ROLLS,
@@ -15032,7 +15037,7 @@ def _assign_one_roll_trial_order_flow(
         )
         if _contig < work_mins_needed:
             _trace_assign(
-                "å€™è£œå´ä¸‹: ä¼‘æ†©ã¾ãŸãã®ãŸã‚é€£ç¶šå®Ÿåƒä¸è¶³ team=%s contiguous_min=%s need_mins=%s start=%s",
+                "Œó•â‹p‰º: ‹xŒe‚Ü‚½‚¬‚Ì‚½‚ß˜A‘±À“­•s‘« team=%s contiguous_min=%s need_mins=%s start=%s",
                 ",".join(str(x) for x in team),
                 _contig,
                 work_mins_needed,
@@ -15046,7 +15051,7 @@ def _assign_one_roll_trial_order_flow(
             machine_occ_key, team, team_start, actual_end_dt
         ):
             _trace_assign(
-                "åŒºé–“ãƒŸãƒ©ãƒ¼å´ä¸‹: team=%s start=%s end=%s eq=%s",
+                "‹æŠÔƒ~ƒ‰[‹p‰º: team=%s start=%s end=%s eq=%s",
                 ",".join(str(x) for x in team),
                 team_start,
                 actual_end_dt,
@@ -15071,7 +15076,7 @@ def _assign_one_roll_trial_order_flow(
             "changeover_segments": _co_segs,
         }
 
-    # ç‰¹åˆ¥æŒ‡å®š: åŒä¸€æ—¥ãƒ»é€£ç¶šãƒ­ãƒ¼ãƒ«ã¯å‰å›ãƒãƒ¼ãƒ ã‚’å„ªå…ˆï¼ˆç¿Œæ—¥ã¸ã¯æŒã¡è¶Šã•ãªã„ï¼‰ã€‚
+    # “Á•Êw’è: “¯ˆê“úE˜A‘±ƒ[ƒ‹‚Í‘O‰ñƒ`[ƒ€‚ğ—Dæi—‚“ú‚Ö‚Í‚¿‰z‚³‚È‚¢jB
     _hist = task.get("assigned_history") or []
     _last_hist_date = _hist[-1].get("date") if _hist else None
     _same_day_last_roll = _last_hist_date == current_date.strftime("%m/%d")
@@ -15103,8 +15108,8 @@ def _assign_one_roll_trial_order_flow(
                 }
 
     team_candidates: list[dict] = []
-    # çµ„ã¿åˆã‚ã›è¡¨ãƒ—ãƒªã‚»ãƒƒãƒˆã¯ã€Œæˆç«‹ã—ãŸã‚‰å³ returnã€ã›ãšã€çµ„åˆã›æ¢ç´¢ã¨ã¾ã¨ã‚ã¦
-    # team_start / ã‚¹ãƒ©ãƒƒã‚¯ä»˜ãã‚¿ãƒ—ãƒ«ã§æœ€è‰¯ã‚’é¸ã¶ï¼ˆã‚·ãƒ¼ãƒˆä¸Šã®å„ªå…ˆåº¦é †ã¯è©¦è¡Œé †ã®ã¿ï¼‰ã€‚
+    # ‘g‚İ‡‚í‚¹•\ƒvƒŠƒZƒbƒg‚Íu¬—§‚µ‚½‚ç‘¦ returnv‚¹‚¸A‘g‡‚¹’Tõ‚Æ‚Ü‚Æ‚ß‚Ä
+    # team_start / ƒXƒ‰ƒbƒN•t‚«ƒ^ƒvƒ‹‚ÅÅ—Ç‚ğ‘I‚ÔiƒV[ƒgã‚Ì—Dæ“x‡‚Ís‡‚Ì‚İjB
     if preset_rows_assign:
         for _prio, sheet_rs, preset_team, combo_row_id in preset_rows_assign:
             bounds = _combo_preset_team_size_bounds(
@@ -15155,7 +15160,7 @@ def _assign_one_roll_trial_order_flow(
         ):
             if tsize == 1:
                 _trace_assign(
-                    "å€™è£œå›ºå®š: æ‹…å½“OPæŒ‡å=%s ã®ãŸã‚ 1äººãƒãƒ¼ãƒ ã¯å½“äººã®ã¿è©¦è¡Œ",
+                    "Œó•âŒÅ’è: ’S“–OPw–¼=%s ‚Ì‚½‚ß 1lƒ`[ƒ€‚Í“–l‚Ì‚İs",
                     pref_mem,
                 )
             others = [m for m in capable_members if m != pref_mem]
@@ -15199,13 +15204,13 @@ def _assign_one_roll_trial_order_flow(
             and _mach_floor_eff >= _mem_max_end
         ):
             logging.warning(
-                "æ®µéš2: ä¾é ¼NO=%s æ—¥ä»˜=%s å·¥ç¨‹/æ©Ÿæ¢°=%s/%s ã§ãƒãƒ¼ãƒ å€™è£œãŒ0ä»¶ã€‚"
-                "ã‚¹ã‚­ãƒ«é©åˆ(OP/AS)ã¯ %s äººã„ã¾ã™ãŒã€è¨­å‚™ã®åŠ å·¥é–‹å§‹ä¸‹é™=%s ãŒ"
-                "å½“æ—¥ã®æ‹…å½“å€™è£œã®é€€å‹¤(%s)ä»¥é™ã®ãŸã‚ã“ã®æ—¥ã¯å‰²å½“ã§ãã¾ã›ã‚“ã€‚"
-                "masterã€Œæ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã€ã§å½“è©²æ—¥ãƒ»å½“è©²æ©Ÿæ¢°åˆ—ã«ä¸è¦ãªè¨˜å…¥ãŒãªã„ã‹ã€"
-                "ã¾ãŸã¯å‰å·¥ç¨‹ã®å æœ‰ã§è¨­å‚™ä¸‹é™ãŒçµ‚æ¥­ã¾ã§ç¹°ã‚Šä¸ŠãŒã£ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„"
-                "ï¼ˆé…å°ãƒ«ãƒ¼ãƒ« 3.2.1 æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ»ãƒˆãƒ©ãƒ–ãƒ«ã‚·ãƒ¥ãƒ¼ãƒˆï¼‰ã€‚"
-                "å‚è€ƒ: changeoverå‰ã®è¨­å‚™ç©ºãä¸‹é™=%s å æœ‰ã‚­ãƒ¼=%s",
+                "’iŠK2: ˆË—ŠNO=%s “ú•t=%s H’ö/‹@ŠB=%s/%s ‚Åƒ`[ƒ€Œó•â‚ª0ŒB"
+                "ƒXƒLƒ‹“K‡(OP/AS)‚Í %s l‚¢‚Ü‚·‚ªAİ”õ‚Ì‰ÁHŠJn‰ºŒÀ=%s ‚ª"
+                "“–“ú‚Ì’S“–Œó•â‚Ì‘Ş‹Î(%s)ˆÈ~‚Ì‚½‚ß‚±‚Ì“ú‚ÍŠ„“–‚Å‚«‚Ü‚¹‚ñB"
+                "masteru‹@ŠBƒJƒŒƒ“ƒ_[v‚Å“–ŠY“úE“–ŠY‹@ŠB—ñ‚É•s—v‚È‹L“ü‚ª‚È‚¢‚©A"
+                "‚Ü‚½‚Í‘OH’ö‚Ìè—L‚Åİ”õ‰ºŒÀ‚ªI‹Æ‚Ü‚ÅŒJ‚èã‚ª‚Á‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢"
+                "i”z‘äƒ‹[ƒ‹ 3.2.1 ‹@ŠBƒJƒŒƒ“ƒ_[Eƒgƒ‰ƒuƒ‹ƒVƒ…[ƒgjB"
+                "Ql: changeover‘O‚Ìİ”õ‹ó‚«‰ºŒÀ=%s è—LƒL[=%s",
                 task.get("task_id"),
                 current_date,
                 machine,
@@ -15263,10 +15268,10 @@ def _trial_order_assign_probe_fails(
     ctx: dict,
 ) -> bool:
     """
-    ç¾åœ¨ã® avail_dt / machine_avail_dt / machine_handoff ã®ã‚¹ãƒŠãƒƒãƒ—ã‚·ãƒ§ãƒƒãƒˆã§
-    `_assign_one_roll_trial_order_flow` ãŒ None ã«ãªã‚‹ãªã‚‰ Trueã€‚
-    æ©Ÿæ¢°æ ã¯ååˆ†ã§ã‚‚äººãƒ»ä¼‘æ†©ãƒ»ãƒŸãƒ©ãƒ¼ç­‰ã§è©°ã¾ã‚Šã€ã‚°ãƒ­ãƒ¼ãƒãƒ«è©¦è¡Œé †ã ã‘ãŒå…ˆé ­è¡Œã«å¼µã‚Šä»˜ãã®ã‚’é˜²ãã€‚
-    å‰¯ä½œç”¨ãªã—ï¼ˆneed äººæ•°ãƒ­ã‚°ç”¨ set ã¯æ¯å›ç©ºï¼‰ã€‚
+    Œ»İ‚Ì avail_dt / machine_avail_dt / machine_handoff ‚ÌƒXƒiƒbƒvƒVƒ‡ƒbƒg‚Å
+    `_assign_one_roll_trial_order_flow` ‚ª None ‚É‚È‚é‚È‚ç TrueB
+    ‹@ŠB˜g‚Í\•ª‚Å‚àlE‹xŒeEƒ~ƒ‰[“™‚Å‹l‚Ü‚èAƒOƒ[ƒoƒ‹s‡‚¾‚¯‚ªæ“ªs‚É’£‚è•t‚­‚Ì‚ğ–h‚®B
+    •›ì—p‚È‚µineed l”ƒƒO—p set ‚Í–ˆ‰ñ‹ójB
     """
     try:
         r = _assign_one_roll_trial_order_flow(
@@ -15292,7 +15297,7 @@ def _trial_order_assign_probe_fails(
         )
     except Exception as ex:
         logging.warning(
-            "trial_order_assign_probe ä¾‹å¤–ã®ãŸã‚å½“è©²è¡Œã¯é™¤å¤–ã—ãªã„: task=%s err=%s",
+            "trial_order_assign_probe —áŠO‚Ì‚½‚ß“–ŠYs‚ÍœŠO‚µ‚È‚¢: task=%s err=%s",
             task.get("task_id"),
             ex,
         )
@@ -15313,7 +15318,7 @@ def _tasks_in_min_pending_dispatch_pool(
     abolish_all_scheduling_limits: bool = False,
     dispatch_interval_mirror: DispatchIntervalMirror | None = None,
 ) -> list:
-    """`_min_pending_dispatch_trial_order_for_date` ã¨åŒä¸€ã®å®‰ä¾¡ãƒ•ã‚£ãƒ«ã‚¿ã‚’é€šéã—ãŸã‚¿ã‚¹ã‚¯ã®ãƒªã‚¹ãƒˆã€‚"""
+    """`_min_pending_dispatch_trial_order_for_date` ‚Æ“¯ˆê‚ÌˆÀ‰¿ƒtƒBƒ‹ƒ^‚ğ’Ê‰ß‚µ‚½ƒ^ƒXƒN‚ÌƒŠƒXƒgB"""
     out: list = []
     for t in task_queue:
         if float(t.get("remaining_units") or 0) <= 1e-12:
@@ -15351,10 +15356,10 @@ def _effective_min_dispatch_trial_order_from_pool(
     assign_probe_ctx: dict,
 ) -> int | None:
     """
-    pool ã‚’æ˜‡é † dto ã§è¦‹ã¦ã€**ãã® dto ã«å±ã™ã‚‹è¡Œã®ã†ã¡ 1 ä»¶ã§ã‚‚** 1 ãƒ­ãƒ¼ãƒ«å‰²å½“ãƒ—ãƒ­ãƒ¼ãƒ–ãŒé€šã‚Œã°
-    ãã® dto ã‚’ã€Œå®ŸåŠ¹ã®æœ€å°è©¦è¡Œé †ã€ã¨ã™ã‚‹ã€‚
-    å…ˆé ­ dto å±¤ãŒå…¨æ»…ï¼ˆæ©Ÿæ¢°ã¯ç©ºã„ã¦ã„ã‚‹ãŒäººã§ç©ã‚ãªã„ç­‰ï¼‰ã®ã¨ãã€æ¬¡ã® dto ã«é€²ã¿ã‚°ãƒ­ãƒ¼ãƒãƒ«åœæ­¢ã‚’é˜²ãã€‚
-    ãƒ—ãƒ­ãƒ¼ãƒ–ç„¡ã—ã®ã¨ãã¯ pool ã®æœ€å° dto ã‚’è¿”ã™ã€‚
+    pool ‚ğ¸‡ dto ‚ÅŒ©‚ÄA**‚»‚Ì dto ‚É‘®‚·‚és‚Ì‚¤‚¿ 1 Œ‚Å‚à** 1 ƒ[ƒ‹Š„“–ƒvƒ[ƒu‚ª’Ê‚ê‚Î
+    ‚»‚Ì dto ‚ğuÀŒø‚ÌÅ¬s‡v‚Æ‚·‚éB
+    æ“ª dto ‘w‚ª‘S–Åi‹@ŠB‚Í‹ó‚¢‚Ä‚¢‚é‚ªl‚ÅÏ‚ß‚È‚¢“™j‚Ì‚Æ‚«AŸ‚Ì dto ‚Éi‚İƒOƒ[ƒoƒ‹’â~‚ğ–h‚®B
+    ƒvƒ[ƒu–³‚µ‚Ì‚Æ‚«‚Í pool ‚ÌÅ¬ dto ‚ğ•Ô‚·B
     """
     if not pool:
         return None
@@ -15403,22 +15408,22 @@ def _trial_order_first_schedule_pass(
     dispatch_interval_mirror: DispatchIntervalMirror | None = None,
 ) -> bool:
     """
-    â‘ å½“æ—¥å€™è£œã‚’é…å°è©¦è¡Œé †ã®æ˜‡é †ã«ä¸¦ã¹ã‚‹ï¼ˆ1 ãƒ‘ã‚¹åˆ†ï¼‰ã€‚
-    **å®Œå…¨äºŒç›¸ï¼ˆÂ§B-2 / Â§B-3ï¼‰**: **ãƒ•ã‚§ãƒ¼ã‚º1**ã§ **å¾Œç¶šãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¡Œ**ï¼ˆç†±èç€æ¤œæŸ»ãƒ»å·»è¿”ã—ï¼‰**ã‚’é™¤ã**å€™è£œï¼ˆECãƒ»ä»–ä¾é ¼ãƒ»ä»–å·¥ç¨‹ï¼‰ã‚’è©¦è¡Œé †ã©ãŠã‚Š
-    **`_drain_rolls_for_task`** ã—ã€**ãƒ•ã‚§ãƒ¼ã‚º2**ã¯ Â§B-2 æ¤œæŸ»ï¼Â§B-3 å·»è¿”ã—è¡Œã®ã¿ï¼ˆ**åŒä¸€ä¾é ¼ã® EC ãŒå…¨æ—¥ã§å®Œèµ°ã—ãŸå¾Œ**ã«é™ã‚Šå€™è£œåŒ–ã€‚
-    EC æ®‹ãŒã‚ã‚‹æ—¥ã¯ `_trial_order_flow_eligible_tasks` ã§å¾Œç¶šã‚’å¤–ã—ã€ç¿Œç¨¼åƒæ—¥ä»¥é™ã‚‚ EC ã®ã¿å‰é€²ã™ã‚‹ã€‚
-    ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼é€šç®—ã§ EC å®Œèµ°å¾Œã€`_run_b2_inspection_rewind_pass` ãŒæ—¥ä»˜å…ˆé ­ã‹ã‚‰å¾Œç¶šã ã‘å†èµ°æŸ»ã™ã‚‹ï¼‰ã€‚
-    EC ã¨å¾Œç¶šã‚’ **åŒä¸€æ‹…å½“è€…ã§** äº¤äº’ã«è©°ã‚ã‚‹ã¨ EC ãŒãƒ–ãƒ­ãƒƒã‚¯ã•ã‚Œã‚‹ãŸã‚ã€å¾“æ¥ã¯ãƒ•ã‚§ãƒ¼ã‚º1ã‚’å…ˆã«è©°ã‚ãŸã€‚
-    ãŸã ã—å¾Œç¶šãŒå€™è£œåŒ–ã—ãŸæ™‚ç‚¹ã§ **æ¤œæŸ»ã¨åŒã˜ç‰©ç†æ©Ÿæ¢°**ã®ãƒ•ã‚§ãƒ¼ã‚º1ã‚„ **åŒä¸€ä¾é ¼ã® EC** ãŒå…¨æ—¥å…ˆã«é€²ã‚€ã¨ã€
-    æ¤œæŸ»ã¯ `start_ge_end_initial`ï¼ˆè¨­å‚™ç©ºããŒçµ‚æ¥­ã‚ˆã‚Šå¾Œï¼‰ã§å…¨æ—¥å¤±æ•—ã™ã‚‹ã€‚Â§B-2/Â§B-3 å¾Œç¶šãŒã‚ã‚‹ã¨ãã¯
-    ã€ŒåŒä¸€ä¾é ¼ECãƒ»æ¤œæŸ»æ©Ÿã¨æ©Ÿæ¢°å…±æœ‰ã™ã‚‹ãƒ•ã‚§ãƒ¼ã‚º1ãƒ»å¾Œç¶šã€ã‚’ **é…å°è©¦è¡Œé †**ã§ãƒãƒ¼ã‚¸ã—ã€
-    åŒé †ã§ã¯ **å¾Œç¶šã‚’ EC ã‚ˆã‚Šå…ˆã«**ã€**ãã®ä»–ã®ãƒ•ã‚§ãƒ¼ã‚º1** ã¨ã‚ã‚ã›ã¦ **é…å°è©¦è¡Œé †**ã§æ•´åˆ—ã—
-    **æœ€å¤§1ãƒ­ãƒ¼ãƒ«ãšã¤**ã ã‘å‘¨å›ã™ã‚‹ï¼ˆãƒãƒ¼ã‚¸ãƒ»rest ã¨ã‚‚ä¸€æ‹¬ãƒ‰ãƒ¬ã‚¤ãƒ³ã—ãªã„ã€‚æ¤œæŸ»OPãŒä»–å·¥ç¨‹ã«
-    åŒæ—¥å–ã‚Šåˆ‡ã‚‰ã‚Œ start_ge_end_initial ã«ãªã‚‹ã®ã‚’é˜²ãï¼‰ã€‚
-    ãƒªãƒ¯ã‚¤ãƒ³ãƒ‰å´ã®å¾Œç¶šè¡Œã¯å„ãƒ­ãƒ¼ãƒ«ã«ã¤ã„ã¦ `_roll_pipeline_inspection_assign_room` ãŠã‚ˆã³
-    `_roll_pipeline_b2_inspection_ec_completion_floor_dt`ï¼ˆEC ãƒ­ãƒ¼ãƒ«çµ‚äº†æ™‚åˆ»ä¸‹é™ï¼‰ã§æ•´åˆã™ã‚‹ã€‚
-    è©¦è¡Œé †æœ€å°ã®è¡Œã ã‘ãŒå½“æ—¥å…¥ã‚‰ãªã„å ´åˆã§ã‚‚ã€**åŒã˜ãƒ•ã‚§ãƒ¼ã‚ºå†…ã§æ¬¡ã®è©¦è¡Œé †ã¸é€²ã¿**ä»–è¨­å‚™ã‚’åŸ‹ã‚ã‚‹ã€‚
-    æ©Ÿæ¢°ãƒ»äººã®ç©ºãã¯ãƒ­ãƒ¼ãƒ«ã”ã¨ã«æ›´æ–°ã™ã‚‹ï¼ˆâ‘¦â‘§ï¼‰ã€‚
+    ‡@“–“úŒó•â‚ğ”z‘äs‡‚Ì¸‡‚É•À‚×‚éi1 ƒpƒX•ªjB
+    **Š®‘S“ñ‘Ši˜B-2 / ˜B-3j**: **ƒtƒF[ƒY1**‚Å **Œã‘±ƒpƒCƒvƒ‰ƒCƒ“s**i”M—Z’…ŒŸ¸EŠª•Ô‚µj**‚ğœ‚­**Œó•âiECE‘¼ˆË—ŠE‘¼H’öj‚ğs‡‚Ç‚¨‚è
+    **`_drain_rolls_for_task`** ‚µA**ƒtƒF[ƒY2**‚Í ˜B-2 ŒŸ¸^˜B-3 Šª•Ô‚µs‚Ì‚İi**“¯ˆêˆË—Š‚Ì EC ‚ª‘S“ú‚ÅŠ®‘–‚µ‚½Œã**‚ÉŒÀ‚èŒó•â‰»B
+    EC c‚ª‚ ‚é“ú‚Í `_trial_order_flow_eligible_tasks` ‚ÅŒã‘±‚ğŠO‚µA—‚‰Ò“­“úˆÈ~‚à EC ‚Ì‚İ‘Oi‚·‚éB
+    ƒJƒŒƒ“ƒ_[’ÊZ‚Å EC Š®‘–ŒãA`_run_b2_inspection_rewind_pass` ‚ª“ú•tæ“ª‚©‚çŒã‘±‚¾‚¯Ä‘–¸‚·‚éjB
+    EC ‚ÆŒã‘±‚ğ **“¯ˆê’S“–Ò‚Å** ŒğŒİ‚É‹l‚ß‚é‚Æ EC ‚ªƒuƒƒbƒN‚³‚ê‚é‚½‚ßA]—ˆ‚ÍƒtƒF[ƒY1‚ğæ‚É‹l‚ß‚½B
+    ‚½‚¾‚µŒã‘±‚ªŒó•â‰»‚µ‚½“_‚Å **ŒŸ¸‚Æ“¯‚¶•¨—‹@ŠB**‚ÌƒtƒF[ƒY1‚â **“¯ˆêˆË—Š‚Ì EC** ‚ª‘S“úæ‚Éi‚Ş‚ÆA
+    ŒŸ¸‚Í `start_ge_end_initial`iİ”õ‹ó‚«‚ªI‹Æ‚æ‚èŒãj‚Å‘S“ú¸”s‚·‚éB˜B-2/˜B-3 Œã‘±‚ª‚ ‚é‚Æ‚«‚Í
+    u“¯ˆêˆË—ŠECEŒŸ¸‹@‚Æ‹@ŠB‹¤—L‚·‚éƒtƒF[ƒY1EŒã‘±v‚ğ **”z‘äs‡**‚Åƒ}[ƒW‚µA
+    “¯‡‚Å‚Í **Œã‘±‚ğ EC ‚æ‚èæ‚É**A**‚»‚Ì‘¼‚ÌƒtƒF[ƒY1** ‚Æ‚ ‚í‚¹‚Ä **”z‘äs‡**‚Å®—ñ‚µ
+    **Å‘å1ƒ[ƒ‹‚¸‚Â**‚¾‚¯ü‰ñ‚·‚éiƒ}[ƒWErest ‚Æ‚àˆêŠ‡ƒhƒŒƒCƒ“‚µ‚È‚¢BŒŸ¸OP‚ª‘¼H’ö‚É
+    “¯“úæ‚èØ‚ç‚ê start_ge_end_initial ‚É‚È‚é‚Ì‚ğ–h‚®jB
+    ƒŠƒƒCƒ“ƒh‘¤‚ÌŒã‘±s‚ÍŠeƒ[ƒ‹‚É‚Â‚¢‚Ä `_roll_pipeline_inspection_assign_room` ‚¨‚æ‚Ñ
+    `_roll_pipeline_b2_inspection_ec_completion_floor_dt`iEC ƒ[ƒ‹I—¹‰ºŒÀj‚Å®‡‚·‚éB
+    s‡Å¬‚Ìs‚¾‚¯‚ª“–“ú“ü‚ç‚È‚¢ê‡‚Å‚àA**“¯‚¶ƒtƒF[ƒY“à‚ÅŸ‚Ìs‡‚Öi‚İ**‘¼İ”õ‚ğ–„‚ß‚éB
+    ‹@ŠBEl‚Ì‹ó‚«‚Íƒ[ƒ‹‚²‚Æ‚ÉXV‚·‚éi‡F‡GjB
     """
     _mc_w0 = datetime.combine(current_date, DEFAULT_START_TIME)
     _mh_init = _machine_handoff_state_from_timeline(timeline_events, current_date)
@@ -15678,9 +15683,9 @@ def _trial_order_first_schedule_pass(
             if _trace_schedule_task_enabled(task.get("task_id")):
                 _log_dispatch_trace_schedule(
                     task.get("task_id"),
-                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ãƒ­ãƒ¼ãƒ«ç¢ºå®š ãƒ¡ã‚¤ãƒ³ day=%s machine=%s machine_name=%s "
-                    "start=%s end=%s æ¡ç”¨äººæ•°=%s req_num=%s ãƒ¡ã‚¤ãƒ³æ¢ç´¢extra_max=%s "
-                    "ä½™å‰°äººæ•°é©ç”¨(ãƒ¡ã‚¤ãƒ³)=%s team=%s",
+                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒ[ƒ‹Šm’è ƒƒCƒ“ day=%s machine=%s machine_name=%s "
+                    "start=%s end=%s Ì—pl”=%s req_num=%s ƒƒCƒ“’Tõextra_max=%s "
+                    "—]èl”“K—p(ƒƒCƒ“)=%s team=%s",
                     task.get("task_id"),
                     current_date,
                     eq_line,
@@ -15739,8 +15744,8 @@ def _trial_order_first_schedule_pass(
             phase1_rest.append(t)
 
     def _b2_merged_sort_key(t: dict) -> tuple:
-        # åŒã˜é…å°è©¦è¡Œé †ã§ã¯å¾Œç¶šï¼ˆæ¤œæŸ»ãƒ»å·»è¿”ã—ï¼‰ã‚’ EC ã‚ˆã‚Šå…ˆã«å›ã—ã€ç†±èç€ã®å£æ™‚è¨ˆã‚’
-        # åŒæ—¥æ—©ã„æ®µéšã§å–ã‚Šã«è¡Œãï¼ˆÂ§B-2 æ‹…å½“è€…åˆ†é›¢ã§ EC ã¨æ¤œæŸ»ã¯åˆ¥ãƒ¡ãƒ³ãƒãƒ¼æƒ³å®šï¼‰ã€‚
+        # “¯‚¶”z‘äs‡‚Å‚ÍŒã‘±iŒŸ¸EŠª•Ô‚µj‚ğ EC ‚æ‚èæ‚É‰ñ‚µA”M—Z’…‚Ì•ÇŒv‚ğ
+        # “¯“ú‘‚¢’iŠK‚Åæ‚è‚És‚­i˜B-2 ’S“–Ò•ª—£‚Å EC ‚ÆŒŸ¸‚Í•Êƒƒ“ƒo[‘z’èjB
         _fol = bool(
             t.get("roll_pipeline_inspection") or t.get("roll_pipeline_rewind")
         )
@@ -15806,8 +15811,8 @@ def _run_b2_inspection_rewind_pass(
     dispatch_interval_mirror: DispatchIntervalMirror | None = None,
 ) -> bool:
     """
-    Â§B-2 / Â§B-3: EC å´ã‚’å…ˆã«å…¨æ—¥ã§é€²ã‚ãŸå¾Œã€æ¤œæŸ»ï¼å·»è¿”ã—å´ã®ã¿ã‚’æ—¥ä»˜å…ˆé ­ã‹ã‚‰å†èµ°æŸ»ã—ã¦é…å°ã™ã‚‹ã€‚
-    timeline_events ã‚’äººãƒ»è¨­å‚™ã®ãƒ–ãƒ­ãƒƒã‚¯ãƒ†ãƒ¼ãƒ–ãƒ«ã¨ã—ã¦ä½¿ã„ã€æ—¥è·¨ãã®å æœ‰ã‚’ä¿æŒã™ã‚‹ã€‚
+    ˜B-2 / ˜B-3: EC ‘¤‚ğæ‚É‘S“ú‚Åi‚ß‚½ŒãAŒŸ¸^Šª•Ô‚µ‘¤‚Ì‚İ‚ğ“ú•tæ“ª‚©‚çÄ‘–¸‚µ‚Ä”z‘ä‚·‚éB
+    timeline_events ‚ğlEİ”õ‚ÌƒuƒƒbƒNƒe[ƒuƒ‹‚Æ‚µ‚Äg‚¢A“úŒ×‚¬‚Ìè—L‚ğ•Û‚·‚éB
     """
     target_tids: set[str] = set()
     for t in task_queue:
@@ -15964,10 +15969,10 @@ def append_surplus_staff_after_main_dispatch(
     global_priority_override: dict | None,
 ) -> int:
     """
-    needã€Œé…å°æ™‚è¿½åŠ äººæ•°ï¼ä½™åŠ›æ™‚è¿½åŠ äººæ•°ã€è¡Œã®ä¸Šé™ã¾ã§ã€ãƒ¡ã‚¤ãƒ³å‰²ä»˜ã§æ¡ç”¨ã—ãã‚Œãªã‹ã£ãŸæ ã‚’è¿½è¨˜ã™ã‚‹ã€‚
-    å„ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ–ãƒ­ãƒƒã‚¯ã«ã¤ã„ã¦ã€ãã®æ™‚é–“å¸¯ã«ä»–ãƒ–ãƒ­ãƒƒã‚¯ã¸æœªå‚åŠ ï¼ˆåŒºé–“é‡ãªã‚Šãªã—ï¼‰ã§
-    eligible ã‹ã¤ OP/AS ã‚¹ã‚­ãƒ«ã®è€…ã‚’ã‚µãƒ–ã«è¿½åŠ ã™ã‚‹ã€‚
-    æ—¥æ¬¡å§‹æ¥­ãƒ»ä¾é ¼åˆ‡æ›¿å¾Œå§‹æœ«ãƒ»åŠ å·¥å‰æº–å‚™ï¼ˆevent_kind ãŒåŠ å·¥ä»¥å¤–ï¼‰ã¯æœ¬å‡¦ç†ã®å¯¾è±¡å¤–ï¼ˆä½™å‰°ã‚µãƒ–ã¯åŠ å·¥ã«ã®ã¿è¿½è¨˜ï¼‰ã€‚
+    needu”z‘ä’Ç‰Ál”^—]—Í’Ç‰Ál”vs‚ÌãŒÀ‚Ü‚ÅAƒƒCƒ“Š„•t‚ÅÌ—p‚µ‚«‚ê‚È‚©‚Á‚½˜g‚ğ’Ç‹L‚·‚éB
+    Šeƒ^ƒCƒ€ƒ‰ƒCƒ“ƒuƒƒbƒN‚É‚Â‚¢‚ÄA‚»‚ÌŠÔ‘Ñ‚É‘¼ƒuƒƒbƒN‚Ö–¢Q‰Ái‹æŠÔd‚È‚è‚È‚µj‚Å
+    eligible ‚©‚Â OP/AS ƒXƒLƒ‹‚ÌÒ‚ğƒTƒu‚É’Ç‰Á‚·‚éB
+    “úŸn‹ÆEˆË—ŠØ‘ÖŒãn––E‰ÁH‘O€”õievent_kind ‚ª‰ÁHˆÈŠOj‚Í–{ˆ—‚Ì‘ÎÛŠOi—]èƒTƒu‚Í‰ÁH‚É‚Ì‚İ’Ç‹LjB
     """
     gpo = global_priority_override or {}
     if not surplus_map or TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW:
@@ -16155,9 +16160,9 @@ def append_surplus_staff_after_main_dispatch(
         if _trace_schedule_task_enabled(tid):
             _log_dispatch_trace_schedule(
                 tid,
-                "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ä½™åŠ›è¿½è¨˜(ãƒ¡ã‚¤ãƒ³å®Œäº†å¾Œ) day=%s machine=%s machine_name=%s "
-                "start=%s end=%s è¿½è¨˜äººæ•°=%s è¿½è¨˜å‰äººæ•°=%s è¿½è¨˜å¾Œäººæ•°=%s req_num=%s "
-                "needè¿½åŠ æ (ã‚·ãƒ¼ãƒˆ)=%s å±¥æ­´é»„(ä½™å‰°äººæ•°è¶…é)=%s è¿½è¨˜ãƒ¡ãƒ³ãƒãƒ¼=%s",
+                "[”z‘äƒgƒŒ[ƒX task=%s] —]—Í’Ç‹L(ƒƒCƒ“Š®—¹Œã) day=%s machine=%s machine_name=%s "
+                "start=%s end=%s ’Ç‹Ll”=%s ’Ç‹L‘Ol”=%s ’Ç‹LŒãl”=%s req_num=%s "
+                "need’Ç‰Á˜g(ƒV[ƒg)=%s —š—ğ‰©(—]èl”’´‰ß)=%s ’Ç‹Lƒƒ“ƒo[=%s",
                 tid,
                 d,
                 str(machine or "").strip(),
@@ -16177,16 +16182,16 @@ def append_surplus_staff_after_main_dispatch(
 
 
 # =========================================================
-# 3. ãƒ¡ã‚¤ãƒ³è¨ˆç”»ç”Ÿæˆ (æ—¥æ¯ãƒ«ãƒ¼ãƒ—ãƒ»æŒã¡è¶Šã—å¯¾å¿œ)
-#    æ®µéš2ã®æœ¬ä½“ã€‚plan_simulation_stage2 ã‹ã‚‰ã®ã¿å‘¼ã°ã‚Œã‚‹æƒ³å®šã€‚
-#    é…å°è¨ˆç”»ã‚·ãƒ¼ãƒˆèª­è¾¼ â†’ ã‚¿ã‚¹ã‚¯ã‚­ãƒ¥ãƒ¼ â†’ æ—¥ä»˜ã”ã¨ã«è¨­å‚™ãƒ»OPå‰²ä»˜ â†’ çµæœãƒ–ãƒƒã‚¯å‡ºåŠ›ã€‚
+# 3. ƒƒCƒ“Œv‰æ¶¬ (“ú–ˆƒ‹[ƒvE‚¿‰z‚µ‘Î‰)
+#    ’iŠK2‚Ì–{‘ÌBplan_simulation_stage2 ‚©‚ç‚Ì‚İŒÄ‚Î‚ê‚é‘z’èB
+#    ”z‘äŒv‰æƒV[ƒg“Ç ¨ ƒ^ƒXƒNƒLƒ…[ ¨ “ú•t‚²‚Æ‚Éİ”õEOPŠ„•t ¨ Œ‹‰ÊƒuƒbƒNo—ÍB
 # =========================================================
 def generate_plan():
     """
-    æ®µéš2ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†ã€‚æˆ»ã‚Šå€¤ãªã—ï¼ˆãƒ­ã‚°ãƒ»Excel å‡ºåŠ›ã§å®Œçµï¼‰ã€‚
+    ’iŠK2‚ÌƒƒCƒ“ˆ—B–ß‚è’l‚È‚µiƒƒOEExcel o—Í‚ÅŠ®Œ‹jB
 
-    å‰æ: ç’°å¢ƒå¤‰æ•° TASK_INPUT_WORKBOOKã€ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚©ãƒ«ãƒ€ã€‚
-    å‡ºåŠ›: ``output_dir`` ç›´ä¸‹ã® ``production_plan_multi_day_*.xlsx`` / ``member_schedule_*.xlsx``ï¼ˆæœ€æ–°1çµ„ã®ã¿ï¼‰ã€ãŠã‚ˆã³ log/execution_log.txtã€‚
+    ‘O’ñ: ŠÂ‹«•Ï” TASK_INPUT_WORKBOOKAƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ªƒXƒNƒŠƒvƒgƒtƒHƒ‹ƒ_B
+    o—Í: ``output_dir`` ’¼‰º‚Ì ``production_plan_multi_day_*.xlsx`` / ``member_schedule_*.xlsx``iÅV1‘g‚Ì‚İjA‚¨‚æ‚Ñ log/execution_log.txtB
     """
     master_abs = os.path.abspath(os.path.join(os.getcwd(), MASTER_FILE))
     with _override_default_factory_hours_from_master(master_abs):
@@ -16194,8 +16199,8 @@ def generate_plan():
 
 
 def _generate_plan_impl():
-    # é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ï¼ˆè¨­å®šã‚·ãƒ¼ãƒˆ A3 ä»¥é™ã®ã¿ï¼‰ã¯ã€ãƒ¡ãƒ³ãƒãƒ¼0äººç­‰ã§æ—©æœŸ return ã—ã¦ã‚‚
-    # execution_log ã«æ®‹ã‚‹ã‚ˆã† skills èª­è¾¼ã‚ˆã‚Šå‰ã§ç¢ºå®šãƒ»ãƒ­ã‚°ã™ã‚‹ã€‚
+    # ”z‘äƒgƒŒ[ƒXiİ’èƒV[ƒg A3 ˆÈ~‚Ì‚İj‚ÍAƒƒ“ƒo[0l“™‚Å‘Šú return ‚µ‚Ä‚à
+    # execution_log ‚Éc‚é‚æ‚¤ skills “Ç‚æ‚è‘O‚ÅŠm’èEƒƒO‚·‚éB
     global TRACE_SCHEDULE_TASK_IDS, DEBUG_DISPATCH_ONLY_TASK_IDS
     _wb_trace = (os.environ.get("TASK_INPUT_WORKBOOK", "").strip() or TASKS_INPUT_WORKBOOK)
     _ids_from_sheet = _read_trace_schedule_task_ids_from_config_sheet(_wb_trace)
@@ -16204,9 +16209,9 @@ def _generate_plan_impl():
     )
     if _ids_from_sheet:
         _preview = _ids_from_sheet[:25]
-        _suffix = " â€¦" if len(_ids_from_sheet) > 25 else ""
+        _suffix = " c" if len(_ids_from_sheet) > 25 else ""
         logging.info(
-            "è¨­å®šã‚·ãƒ¼ãƒˆã€Œ%sã€A3 ä»¥é™: ãƒˆãƒ¬ãƒ¼ã‚¹ç”¨ä¾é ¼NOã‚’ %s ä»¶èª­ã¿è¾¼ã¿ï¼ˆ%s%sï¼‰",
+            "İ’èƒV[ƒgu%svA3 ˆÈ~: ƒgƒŒ[ƒX—pˆË—ŠNO‚ğ %s Œ“Ç‚İ‚İi%s%sj",
             APP_CONFIG_SHEET_NAME,
             len(_ids_from_sheet),
             ", ".join(_preview),
@@ -16214,17 +16219,17 @@ def _generate_plan_impl():
         )
     else:
         logging.info(
-            "è¨­å®šã‚·ãƒ¼ãƒˆã€Œ%sã€A3 ä»¥é™: ãƒˆãƒ¬ãƒ¼ã‚¹ç”¨ä¾é ¼NOã¯ç„¡ã—ï¼ˆç©ºã¾ãŸã¯ã‚·ãƒ¼ãƒˆç„¡ã—ï¼‰",
+            "İ’èƒV[ƒgu%svA3 ˆÈ~: ƒgƒŒ[ƒX—pˆË—ŠNO‚Í–³‚µi‹ó‚Ü‚½‚ÍƒV[ƒg–³‚µj",
             APP_CONFIG_SHEET_NAME,
         )
     if TRACE_SCHEDULE_TASK_IDS:
         logging.info(
-            "é…å°ãƒˆãƒ¬ãƒ¼ã‚¹: æœ‰åŠ¹ task_id = %sï¼ˆè¨­å®šã‚·ãƒ¼ãƒˆ A3 ä»¥é™ï¼‰",
+            "”z‘äƒgƒŒ[ƒX: —LŒø task_id = %siİ’èƒV[ƒg A3 ˆÈ~j",
             ", ".join(sorted(TRACE_SCHEDULE_TASK_IDS)),
         )
     else:
         logging.info(
-            "é…å°ãƒˆãƒ¬ãƒ¼ã‚¹: å¯¾è±¡ãªã—ï¼ˆ[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ â€¦] ãƒ­ã‚°ã¯å‡ºã¾ã›ã‚“ï¼‰"
+            "”z‘äƒgƒŒ[ƒX: ‘ÎÛ‚È‚µi[”z‘äƒgƒŒ[ƒX c] ƒƒO‚Ío‚Ü‚¹‚ñj"
         )
     _ids_debug_dispatch_raw = _read_debug_dispatch_task_ids_from_config_sheet(_wb_trace)
     _dbg_norm: list[str] = []
@@ -16235,7 +16240,7 @@ def _generate_plan_impl():
     DEBUG_DISPATCH_ONLY_TASK_IDS = frozenset(_dbg_norm)
     if DEBUG_DISPATCH_ONLY_TASK_IDS:
         logging.warning(
-            "ãƒ‡ãƒãƒƒã‚°é…å°: ã€Œ%sã€B3ä»¥é™ã«ã‚ˆã‚Šé…å°å¯¾è±¡ã‚’ %s ä»¶ã®ä¾é ¼NOã«é™å®šã—ã¾ã™: %s",
+            "ƒfƒoƒbƒO”z‘ä: u%svB3ˆÈ~‚É‚æ‚è”z‘ä‘ÎÛ‚ğ %s Œ‚ÌˆË—ŠNO‚ÉŒÀ’è‚µ‚Ü‚·: %s",
             APP_CONFIG_SHEET_NAME,
             len(DEBUG_DISPATCH_ONLY_TASK_IDS),
             ", ".join(sorted(DEBUG_DISPATCH_ONLY_TASK_IDS)),
@@ -16243,7 +16248,7 @@ def _generate_plan_impl():
         _show_stage2_debug_dispatch_mode_dialog(sorted(DEBUG_DISPATCH_ONLY_TASK_IDS))
     if TRACE_TEAM_ASSIGN_TASK_ID:
         logging.info(
-            "ç’°å¢ƒå¤‰æ•° TRACE_TEAM_ASSIGN_TASK_ID=%r â†’ ãƒãƒ¼ãƒ å‰²å½“ãƒˆãƒ¬ãƒ¼ã‚¹æœ‰åŠ¹",
+            "ŠÂ‹«•Ï” TRACE_TEAM_ASSIGN_TASK_ID=%r ¨ ƒ`[ƒ€Š„“–ƒgƒŒ[ƒX—LŒø",
             TRACE_TEAM_ASSIGN_TASK_ID,
         )
 
@@ -16262,21 +16267,21 @@ def _generate_plan_impl():
     if team_combo_presets:
         _nrules = sum(len(v) for v in team_combo_presets.values())
         logging.info(
-            "çµ„ã¿åˆã‚ã›è¡¨: å·¥ç¨‹+æ©Ÿæ¢°ã‚­ãƒ¼ %s ç¨®é¡ãƒ»ç·¨æˆè¡Œ %s ã‚’é…å°ãƒ—ãƒªã‚»ãƒƒãƒˆã¨ã—ã¦èª­ã¿è¾¼ã¿ã¾ã—ãŸã€‚",
+            "‘g‚İ‡‚í‚¹•\: H’ö+‹@ŠBƒL[ %s í—ŞE•Ò¬s %s ‚ğ”z‘äƒvƒŠƒZƒbƒg‚Æ‚µ‚Ä“Ç‚İ‚İ‚Ü‚µ‚½B",
             len(team_combo_presets),
             _nrules,
         )
     elif TEAM_ASSIGN_USE_MASTER_COMBO_SHEET:
         logging.info(
-            "çµ„ã¿åˆã‚ã›è¡¨: ãƒ—ãƒªã‚»ãƒƒãƒˆç„¡ã—ï¼ˆã‚·ãƒ¼ãƒˆæ¬ å¦‚ãƒ»ç©ºãƒ»ã¾ãŸã¯èª­è¾¼å¤±æ•—ï¼‰ã€‚å¾“æ¥ã®ãƒãƒ¼ãƒ æ¢ç´¢ã®ã¿ã€‚"
+            "‘g‚İ‡‚í‚¹•\: ƒvƒŠƒZƒbƒg–³‚µiƒV[ƒgŒ‡”@E‹óE‚Ü‚½‚Í“Ç¸”sjB]—ˆ‚Ìƒ`[ƒ€’Tõ‚Ì‚İB"
         )
     if not members:
         master_abs = os.path.abspath(MASTER_FILE)
         logging.error(
-            "æ®µéš2ã‚’ä¸­æ–­ã—ã¾ã—ãŸ: ãƒ¡ãƒ³ãƒãƒ¼ãŒ0äººã§ã™ï¼ˆãƒã‚¹ã‚¿ã® skills ãŒç©ºã€ã¾ãŸã¯èª­ã¿è¾¼ã¿å¤±æ•—ï¼‰ã€‚"
-            " æœŸå¾…ãƒ‘ã‚¹: %s ï¼ˆã‚«ãƒ¬ãƒ³ãƒˆ: %sï¼‰ã€‚ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ç›´ä¸‹ã« master.xlsm ã‚’ç½®ãã€"
-            "planning_core ã®ã‚«ãƒ¬ãƒ³ãƒˆãŒãã®ãƒ•ã‚©ãƒ«ãƒ€ã«ãªã‚‹ã‚ˆã† python\\ é…ç½®ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚"
-            " ã“ã®çŠ¶æ…‹ã§ã¯ production_plan / member_schedule ã¯å‡ºåŠ›ã•ã‚Œã¾ã›ã‚“ã€‚",
+            "’iŠK2‚ğ’†’f‚µ‚Ü‚µ‚½: ƒƒ“ƒo[‚ª0l‚Å‚·iƒ}ƒXƒ^‚Ì skills ‚ª‹óA‚Ü‚½‚Í“Ç‚İ‚İ¸”sjB"
+            " Šú‘ÒƒpƒX: %s iƒJƒŒƒ“ƒg: %sjBƒeƒXƒgƒR[ƒh’¼‰º‚É master.xlsm ‚ğ’u‚«A"
+            "planning_core ‚ÌƒJƒŒƒ“ƒg‚ª‚»‚ÌƒtƒHƒ‹ƒ_‚É‚È‚é‚æ‚¤ python\\ ”z’u‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B"
+            " ‚±‚Ìó‘Ô‚Å‚Í production_plan / member_schedule ‚Ío—Í‚³‚ê‚Ü‚¹‚ñB",
             master_abs,
             os.getcwd(),
         )
@@ -16291,7 +16296,7 @@ def _generate_plan_impl():
         )
     except Exception as e:
         logging.warning(
-            "æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼: èª­è¾¼ä¾‹å¤–ã®ãŸã‚å æœ‰ãªã—ã¨ã—ã¦ç¶šè¡Œã—ã¾ã™ (%s)", e
+            "‹@ŠBƒJƒŒƒ“ƒ_[: “Ç—áŠO‚Ì‚½‚ßè—L‚È‚µ‚Æ‚µ‚Ä‘±s‚µ‚Ü‚· (%s)", e
         )
         _MACHINE_CALENDAR_BLOCKS_BY_DATE = {}
     try:
@@ -16303,7 +16308,7 @@ def _generate_plan_impl():
         )
     except Exception as e:
         logging.warning(
-            "æ©Ÿæ¢°æº–å‚™/ä¾é ¼åˆ‡æ›¿ãƒ»æ—¥æ¬¡å§‹æ¥­è¨­å®š: èª­è¾¼ä¾‹å¤–ã®ãŸã‚ç„¡è¦–ã—ã¾ã™ (%s)", e
+            "‹@ŠB€”õ/ˆË—ŠØ‘ÖE“úŸn‹Æİ’è: “Ç—áŠO‚Ì‚½‚ß–³‹‚µ‚Ü‚· (%s)", e
         )
         _STAGE2_MACHINE_CHANGEOVER_BY_EQ = {}
         _STAGE2_MACHINE_DAILY_STARTUP_MIN_BY_MACHINE = {}
@@ -16314,11 +16319,11 @@ def _generate_plan_impl():
         _STAGE2_REGULAR_SHIFT_START = _rs_a15
         if _rs_a15 is not None:
             logging.info(
-                "æ—¥æ¬¡å§‹æ¥­æº–å‚™: å®šå¸¸é–‹å§‹ master ãƒ¡ã‚¤ãƒ³ A15=%s ã‚’æ¡ç”¨ï¼ˆ[é–‹å§‹, é–‹å§‹+åˆ†) ã‚’å£æ™‚è¨ˆã§å æœ‰ã€‚A15 ç„¡åŠ¹æ™‚ã¯å¾“æ¥ã®å‹¤æ€  forwardï¼‰",
+                "“úŸn‹Æ€”õ: ’èíŠJn master ƒƒCƒ“ A15=%s ‚ğÌ—pi[ŠJn, ŠJn+•ª) ‚ğ•ÇŒv‚Åè—LBA15 –³Œø‚Í]—ˆ‚Ì‹Î‘Ó forwardj",
                 _rs_a15.strftime("%H:%M"),
             )
     except Exception as e:
-        logging.warning("å®šå¸¸é–‹å§‹(A15) èª­è¾¼å¤±æ•—: æ—¥æ¬¡å§‹æ¥­ã¯å¾“æ¥ã®å‹¤æ€  forward ã«ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ (%s)", e)
+        logging.warning("’èíŠJn(A15) “Ç¸”s: “úŸn‹Æ‚Í]—ˆ‚Ì‹Î‘Ó forward ‚ÉƒtƒH[ƒ‹ƒoƒbƒN (%s)", e)
         _STAGE2_REGULAR_SHIFT_START = None
     if _MACHINE_CALENDAR_BLOCKS_BY_DATE:
         _n_iv = sum(
@@ -16327,7 +16332,7 @@ def _generate_plan_impl():
             for ivs in _dm.values()
         )
         logging.info(
-            "æ©Ÿæ¢°ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼: %s æ—¥åˆ†ãƒ»è¨­å‚™å æœ‰ãƒ–ãƒ­ãƒƒã‚¯è¨ˆ %s ã‚’é…å°ã«åæ˜ ã—ã¾ã™ã€‚",
+            "‹@ŠBƒJƒŒƒ“ƒ_[: %s “ú•ªEİ”õè—LƒuƒƒbƒNŒv %s ‚ğ”z‘ä‚É”½‰f‚µ‚Ü‚·B",
             len(_MACHINE_CALENDAR_BLOCKS_BY_DATE),
             _n_iv,
         )
@@ -16338,22 +16343,22 @@ def _generate_plan_impl():
         and not TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW
     ):
         logging.info(
-            "needé…å°æ™‚è¿½åŠ äººæ•°: ãƒ¡ã‚¤ãƒ³å‰²ä»˜ã¯åŸºæœ¬å¿…è¦äººæ•°ã®ã¿ã€‚"
-            "ä½™åŠ›ã¯å…¨ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³å¾Œã€æ™‚é–“é‡ãªã‚Šã®ãªã„æœªå‰²å½“ã‹ã¤ã‚¹ã‚­ãƒ«é©åˆè€…ã‚’ã‚µãƒ–ã«è¿½è¨˜ã—ã¾ã™ã€‚"
-            "ï¼ˆãƒ¡ã‚¤ãƒ³ã§å¢—å“¡æ¢ç´¢ã™ã‚‹å¾“æ¥æŒ™å‹•: TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS=1ï¼‰"
+            "need”z‘ä’Ç‰Ál”: ƒƒCƒ“Š„•t‚ÍŠî–{•K—vl”‚Ì‚İB"
+            "—]—Í‚Í‘SƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“ŒãAŠÔd‚È‚è‚Ì‚È‚¢–¢Š„“–‚©‚ÂƒXƒLƒ‹“K‡Ò‚ğƒTƒu‚É’Ç‹L‚µ‚Ü‚·B"
+            "iƒƒCƒ“‚Å‘ˆõ’Tõ‚·‚é]—ˆ‹““®: TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS=1j"
         )
 
-    # æ®µéš2ã®åŸºæº–æ—¥æ™‚ã¯ã€Œãƒã‚¯ãƒ­å®Ÿè¡Œæ™‚åˆ»ã€ã§ã¯ãªãã€Œãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥ã€ã‚’ä½¿ç”¨
+    # ’iŠK2‚ÌŠî€“ú‚Íuƒ}ƒNƒÀsv‚Å‚Í‚È‚­uƒf[ƒ^’Šo“úv‚ğg—p
     data_extract_dt = _extract_data_extraction_datetime()
     base_now_dt = data_extract_dt if data_extract_dt is not None else datetime.now()
     run_date = base_now_dt.date()
     data_extract_dt_str = (
-        base_now_dt.strftime("%Y/%m/%d %H:%M:%S") if data_extract_dt is not None else "â€”"
+        base_now_dt.strftime("%Y/%m/%d %H:%M:%S") if data_extract_dt is not None else "?"
     )
     logging.info(
-        "è¨ˆç”»åŸºæº–æ—¥æ™‚: %sï¼ˆ%sï¼‰",
+        "Œv‰æŠî€“ú: %si%sj",
         base_now_dt.strftime("%Y/%m/%d %H:%M:%S"),
-        "ãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥" if data_extract_dt is not None else "ç¾åœ¨æ™‚åˆ»ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯",
+        "ƒf[ƒ^’Šo“ú" if data_extract_dt is not None else "Œ»İƒtƒH[ƒ‹ƒoƒbƒN",
     )
 
     attendance_data, ai_log_data = load_attendance_and_analyze(members)
@@ -16371,32 +16376,32 @@ def _generate_plan_impl():
             attendance_data, members, _factory_closure_dates
         )
         logging.info(
-            "ãƒ¡ã‚¤ãƒ³ãƒ»ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆ: å·¥å ´ä¼‘æ¥­æ‰±ã„ã®æ—¥ä»˜ â†’ %s",
+            "ƒƒCƒ“EƒOƒ[ƒoƒ‹ƒRƒƒ“ƒg: Hê‹x‹Æˆµ‚¢‚Ì“ú•t ¨ %s",
             ", ".join(str(x) for x in sorted(_factory_closure_dates)),
         )
-    ai_log_data["ãƒ¡ã‚¤ãƒ³_ã‚°ãƒ­ãƒ¼ãƒãƒ«_å·¥å ´ä¼‘æ¥­æ—¥(è§£æ)"] = (
+    ai_log_data["ƒƒCƒ“_ƒOƒ[ƒoƒ‹_Hê‹x‹Æ“ú(‰ğÍ)"] = (
         ", ".join(str(x) for x in sorted(_factory_closure_dates))
         if _factory_closure_dates
-        else "ï¼ˆãªã—ï¼‰"
+        else "i‚È‚µj"
     )
     _sn = str(global_priority_override.get("scheduler_notes_ja") or "").strip()
     if _sn:
-        ai_log_data["ãƒ¡ã‚¤ãƒ³_ã‚°ãƒ­ãƒ¼ãƒãƒ«_æœªé©ç”¨ãƒ¡ãƒ¢(AI)"] = _sn[:2000]
+        ai_log_data["ƒƒCƒ“_ƒOƒ[ƒoƒ‹_–¢“K—pƒƒ‚(AI)"] = _sn[:2000]
 
     sorted_dates = sorted(list(attendance_data.keys()))
-    # çµæœã‚·ãƒ¼ãƒˆã¯ã€ŒåŸºæº–æ—¥ï¼ˆãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥ï¼‰ã€ä»¥é™ã®ã¿è¡¨ç¤ºãƒ»è¨ˆç”»å¯¾è±¡ã¨ã™ã‚‹
+    # Œ‹‰ÊƒV[ƒg‚ÍuŠî€“úiƒf[ƒ^’Šo“újvˆÈ~‚Ì‚İ•\¦EŒv‰æ‘ÎÛ‚Æ‚·‚é
     sorted_dates = [d for d in sorted_dates if d >= run_date]
     if not sorted_dates:
-        logging.error("å½“æ—¥ä»¥é™ã®å‡¦ç†å¯¾è±¡æ—¥ä»˜ãŒã‚ã‚Šã¾ã›ã‚“ã€‚")
-        _try_write_main_sheet_gemini_usage_summary("æ®µéš2")
+        logging.error("“–“úˆÈ~‚Ìˆ—‘ÎÛ“ú•t‚ª‚ ‚è‚Ü‚¹‚ñB")
+        _try_write_main_sheet_gemini_usage_summary("’iŠK2")
         return
 
-    # ã‚¿ã‚¹ã‚¯å…¥åŠ›: ãƒ–ãƒƒã‚¯å†…ã€Œé…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã€ï¼ˆæ®µéš1ã§å‡ºåŠ›â†’å–ã‚Šè¾¼ã¿å¾Œã«ç·¨é›†ï¼‰
+    # ƒ^ƒXƒN“ü—Í: ƒuƒbƒN“àu”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Ívi’iŠK1‚Åo—Í¨æ‚è‚İŒã‚É•ÒWj
     try:
         tasks_df = load_planning_tasks_df()
     except Exception as e:
-        logging.error(f"é…å°è¨ˆç”»ã‚¿ã‚¹ã‚¯ã‚·ãƒ¼ãƒˆèª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼: {e}")
-        _try_write_main_sheet_gemini_usage_summary("æ®µéš2")
+        logging.error(f"”z‘äŒv‰æƒ^ƒXƒNƒV[ƒg“Ç‚İ‚İƒGƒ‰[: {e}")
+        _try_write_main_sheet_gemini_usage_summary("’iŠK2")
         return
 
     if DEBUG_DISPATCH_ONLY_TASK_IDS:
@@ -16409,47 +16414,47 @@ def _generate_plan_impl():
         tasks_df = tasks_df.loc[_dbg_mask].copy()
         _n_tasks_after = len(tasks_df)
         logging.warning(
-            "ãƒ‡ãƒãƒƒã‚°é…å°: ã€Œ%sã€ã®è¡Œã‚’ %s â†’ %s ã«çµã‚Šè¾¼ã¿ã¾ã—ãŸã€‚",
+            "ƒfƒoƒbƒO”z‘ä: u%sv‚Ìs‚ğ %s ¨ %s ‚Éi‚è‚İ‚Ü‚µ‚½B",
             PLAN_INPUT_SHEET_NAME,
             _n_tasks_before,
             _n_tasks_after,
         )
         if _n_tasks_after == 0:
             logging.error(
-                "ãƒ‡ãƒãƒƒã‚°é…å°: B3ä»¥é™ã®ä¾é ¼NOã«ä¸€è‡´ã™ã‚‹è¡ŒãŒã‚ã‚Šã¾ã›ã‚“ã€‚æ®µéš2ã‚’ä¸­æ–­ã—ã¾ã™ã€‚"
+                "ƒfƒoƒbƒO”z‘ä: B3ˆÈ~‚ÌˆË—ŠNO‚Éˆê’v‚·‚és‚ª‚ ‚è‚Ü‚¹‚ñB’iŠK2‚ğ’†’f‚µ‚Ü‚·B"
             )
-            _try_write_main_sheet_gemini_usage_summary("æ®µéš2")
+            _try_write_main_sheet_gemini_usage_summary("’iŠK2")
             return
 
     if global_priority_raw.strip():
         snip = global_priority_raw[:2500]
         if len(global_priority_raw) > 2500:
-            snip += "â€¦"
-        ai_log_data["ãƒ¡ã‚¤ãƒ³_å†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰(åŸæ–‡)"] = snip
+            snip += "c"
+        ai_log_data["ƒƒCƒ“_Ä—Dæ“Á•Ê‹LÚ(Œ´•¶)"] = snip
     else:
-        ai_log_data["ãƒ¡ã‚¤ãƒ³_å†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰(åŸæ–‡)"] = (
-            "ï¼ˆç©ºã€ã¾ãŸã¯ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒˆã«ã€Œã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚³ãƒ¡ãƒ³ãƒˆã€è¦‹å‡ºã—ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ï¼‰"
+        ai_log_data["ƒƒCƒ“_Ä—Dæ“Á•Ê‹LÚ(Œ´•¶)"] = (
+            "i‹óA‚Ü‚½‚ÍƒƒCƒ“ƒV[ƒg‚ÉuƒOƒ[ƒoƒ‹ƒRƒƒ“ƒgvŒ©o‚µ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñj"
         )
-    ai_log_data["ãƒ¡ã‚¤ãƒ³_å†å„ªå…ˆç‰¹åˆ¥è¨˜è¼‰(AI)"] = json.dumps(
+    ai_log_data["ƒƒCƒ“_Ä—Dæ“Á•Ê‹LÚ(AI)"] = json.dumps(
         global_priority_override, ensure_ascii=False
     )
     if global_priority_override.get("ignore_skill_requirements"):
         logging.warning(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ã‚¹ã‚­ãƒ«è¦ä»¶ã‚’ç„¡è¦–ã—ã¦é…å°ã—ã¾ã™ã€‚%s",
+            "ƒƒCƒ“Ä—Dæ“Á‹L: ƒXƒLƒ‹—vŒ‚ğ–³‹‚µ‚Ä”z‘ä‚µ‚Ü‚·B%s",
             global_priority_override.get("interpretation_ja", ""),
         )
     if global_priority_override.get("ignore_need_minimum"):
         logging.warning(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: ãƒãƒ¼ãƒ äººæ•°ã‚’1åã«å›ºå®šã—ã¾ã™ï¼ˆneedãƒ»è¡Œã®å¿…è¦OPä¸Šæ›¸ãã‚ˆã‚Šå„ªå…ˆï¼‰ã€‚%s",
+            "ƒƒCƒ“Ä—Dæ“Á‹L: ƒ`[ƒ€l”‚ğ1–¼‚ÉŒÅ’è‚µ‚Ü‚·ineedEs‚Ì•K—vOPã‘‚«‚æ‚è—DæjB%s",
             global_priority_override.get("interpretation_ja", ""),
         )
     if global_priority_override.get("abolish_all_scheduling_limits"):
         logging.warning(
-            "ãƒ¡ã‚¤ãƒ³å†å„ªå…ˆç‰¹è¨˜: è¨­å‚™å°‚æœ‰ãƒ»åŸååŒæ—¥é–‹å§‹ãƒ»æŒ‡å®šé–‹å§‹æ™‚åˆ»ãƒ»ãƒã‚¯ãƒ­å®Ÿè¡Œæ™‚åˆ»ä¸‹é™ã‚’é©ç”¨ã—ã¾ã›ã‚“ã€‚%s",
+            "ƒƒCƒ“Ä—Dæ“Á‹L: İ”õê—LEŒ´”½“¯“úŠJnEw’èŠJnEƒ}ƒNƒÀs‰ºŒÀ‚ğ“K—p‚µ‚Ü‚¹‚ñB%s",
             global_priority_override.get("interpretation_ja", ""),
         )
 
-    # ã€Œå½“æ—¥ã€åˆ¤å®šã¨æœ€æ—©é–‹å§‹æ™‚åˆ»ã«ã¯åŸºæº–æ—¥æ™‚ï¼ˆãƒ‡ãƒ¼ã‚¿æŠ½å‡ºæ—¥ï¼‰ã‚’ä½¿ã†
+    # u“–“úv”»’è‚ÆÅ‘ŠJn‚É‚ÍŠî€“úiƒf[ƒ^’Šo“új‚ğg‚¤
     macro_now_dt = base_now_dt
     macro_run_date = macro_now_dt.date()
     ai_task_by_tid = analyze_task_special_remarks(
@@ -16463,7 +16468,7 @@ def _generate_plan_impl():
         global_priority_override,
         equipment_list,
     )
-    # é–‹å§‹æ—¥ãŒéç¨¼åƒæ—¥ã®å ´åˆã¯ã€ç›´å‰ã®ç¨¼åƒæ—¥ã¸è£œæ­£ï¼ˆä¾‹: 4/4, 4/5 ãŒéç¨¼åƒãªã‚‰ 4/3 ã¸ï¼‰
+    # ŠJn“ú‚ª”ñ‰Ò“­“ú‚Ìê‡‚ÍA’¼‘O‚Ì‰Ò“­“ú‚Ö•â³i—á: 4/4, 4/5 ‚ª”ñ‰Ò“­‚È‚ç 4/3 ‚Öj
     working_days = [
         d for d in sorted_dates
         if any(attendance_data[d][m]["is_working"] for m in attendance_data[d])
@@ -16484,7 +16489,7 @@ def _generate_plan_impl():
             if prev_work is not None:
                 if str(t.get("task_id", "")).strip() == DEBUG_TASK_ID:
                     logging.info(
-                        "DEBUG[task=%s] start_date_req ã‚’éç¨¼åƒæ—¥è£œæ­£: %s -> %s",
+                        "DEBUG[task=%s] start_date_req ‚ğ”ñ‰Ò“­“ú•â³: %s -> %s",
                         DEBUG_TASK_ID,
                         req_d,
                         prev_work,
@@ -16500,11 +16505,11 @@ def _generate_plan_impl():
 
     if not task_queue:
         logging.warning(
-            f"æœ‰åŠ¹ãªã‚¿ã‚¹ã‚¯ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ã€Œ{PLAN_INPUT_SHEET_NAME}ã€ã®ã€Œä¾é ¼NOã€ã€Œå·¥ç¨‹åã€ã€Œæ›ç®—æ•°é‡ã€ã€"
-            "ã¾ãŸã¯å®Œäº†åŒºåˆ†ãƒ»å®Ÿå‡ºæ¥é«˜æ›ç®—ã«ã‚ˆã‚Šæ®‹é‡ãŒç„¡ã„è¡Œã®ã¿ã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚"
+            f"—LŒø‚Èƒ^ƒXƒN‚ª‚ ‚è‚Ü‚¹‚ñBu{PLAN_INPUT_SHEET_NAME}v‚ÌuˆË—ŠNOvuH’ö–¼vuŠ·Z”—ÊvA"
+            "‚Ü‚½‚ÍŠ®—¹‹æ•ªEÀo—ˆ‚Š·Z‚É‚æ‚èc—Ê‚ª–³‚¢s‚Ì‚İ‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·B"
         )
 
-    # é…å°è©¦è¡Œé †: ã‚·ãƒ¼ãƒˆåˆ—ãŒæƒã£ã¦ã„ã‚Œã°ãã‚Œã‚’æ¡ç”¨ã€‚æ¬ ææ™‚ã¯ Â§B å¸¯ãƒ»ç´æœŸãƒ»need åˆ—é †ã§ã‚½ãƒ¼ãƒˆã— EC éš£æ¥å¾Œã« 1..n
+    # ”z‘äs‡: ƒV[ƒg—ñ‚ª‘µ‚Á‚Ä‚¢‚ê‚Î‚»‚ê‚ğÌ—pBŒ‡‘¹‚Í ˜B ‘ÑE”[ŠúEneed —ñ‡‚Åƒ\[ƒg‚µ EC —×ÚŒã‚É 1..n
     _apply_dispatch_trial_order_for_generate_plan(
         task_queue, req_map, need_rules, need_combo_col_index
     )
@@ -16513,7 +16518,7 @@ def _generate_plan_impl():
         if dbg_items:
             t0 = dbg_items[0]
             logging.info(
-                "DEBUG[task=%s] queueåŸºæº–: start_date_req=%s due_basis=%s answer_due=%s specified_due=%s specified_due_ov=%s due_source=%s priority=%s in_progress=%s remark=%s",
+                "DEBUG[task=%s] queueŠî€: start_date_req=%s due_basis=%s answer_due=%s specified_due=%s specified_due_ov=%s due_source=%s priority=%s in_progress=%s remark=%s",
                 DEBUG_TASK_ID,
                 t0.get("start_date_req"),
                 t0.get("due_basis_date"),
@@ -16526,15 +16531,15 @@ def _generate_plan_impl():
                 t0.get("has_special_remark"),
             )
         else:
-            logging.info("DEBUG[task=%s] task_queueã«å­˜åœ¨ã—ã¾ã›ã‚“ï¼ˆå®Œäº†/æ®‹é‡0/ä¾é ¼NOä¸ä¸€è‡´ã®å¯èƒ½æ€§ï¼‰ã€‚", DEBUG_TASK_ID)
+            logging.info("DEBUG[task=%s] task_queue‚É‘¶İ‚µ‚Ü‚¹‚ñiŠ®—¹/c—Ê0/ˆË—ŠNO•sˆê’v‚Ì‰Â”\«jB", DEBUG_TASK_ID)
     timeline_events = []
 
     # ---------------------------------------------------------
-    # æ—¥æ¯ã®ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒªãƒ³ã‚°ãƒ«ãƒ¼ãƒ—
-    # STAGE2_EXTEND_ATTENDANCE_CALENDAR ãŒ True ã®ã¨ãã®ã¿ã€æ®‹ã‚¿ã‚¹ã‚¯ãŒã‚ã‚Œã°å‹¤æ€ ã‚’æ—¥ä»˜è¤‡è£½ã§æ‹¡å¼µã€‚
-    # STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING ãŒ True ã®ã¨ãã®ã¿: ç´æœŸåŸºæº–ã‚’éãã¦ã‚‚æ®‹ãŒã‚ã‚‹ä¾é ¼ã«ã¤ã„ã¦
-    # due_basis +1ãƒ»å½“è©²ä¾é ¼ã®å‰²å½“æˆ»ã—ãƒ»å…ˆé ­ã‹ã‚‰å†å®Ÿè¡Œã€‚å„å†è©¦è¡Œå‰ã«å‹¤æ€ æ‹¡å¼µåˆ†ã¯ãƒã‚¹ã‚¿æ—¥ä»˜ã¸å·»ãæˆ»ã™ã€‚
-    # æ—¢å®š False ã®ãŸã‚é€šå¸¸ã¯ 1 ãƒ‘ã‚¹ï¼ˆã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼é€šã— 1 å›ï¼‰ã®ã¿ã€‚
+    # “ú–ˆ‚ÌƒXƒPƒWƒ…[ƒŠƒ“ƒOƒ‹[ƒv
+    # STAGE2_EXTEND_ATTENDANCE_CALENDAR ‚ª True ‚Ì‚Æ‚«‚Ì‚İAcƒ^ƒXƒN‚ª‚ ‚ê‚Î‹Î‘Ó‚ğ“ú•t•¡»‚ÅŠg’£B
+    # STAGE2_RETRY_SHIFT_DUE_ON_PARTIAL_REMAINING ‚ª True ‚Ì‚Æ‚«‚Ì‚İ: ”[ŠúŠî€‚ğ‰ß‚¬‚Ä‚àc‚ª‚ ‚éˆË—Š‚É‚Â‚¢‚Ä
+    # due_basis +1E“–ŠYˆË—Š‚ÌŠ„“––ß‚µEæ“ª‚©‚çÄÀsBŠeÄs‘O‚É‹Î‘ÓŠg’£•ª‚Íƒ}ƒXƒ^“ú•t‚ÖŠª‚«–ß‚·B
+    # Šù’è False ‚Ì‚½‚ß’Êí‚Í 1 ƒpƒXiƒJƒŒƒ“ƒ_[’Ê‚µ 1 ‰ñj‚Ì‚İB
     # ---------------------------------------------------------
     _master_attendance_date_set = frozenset(attendance_data.keys())
     _master_plan_dates_template = list(sorted_dates)
@@ -16549,18 +16554,18 @@ def _generate_plan_impl():
     if DISPATCH_INTERVAL_MIRROR_ENFORCE:
         _dispatch_interval_mirror = DispatchIntervalMirror()
         logging.info(
-            "DISPATCH_INTERVAL_MIRROR_ENFORCE: è¨­å‚™ãƒ»äººã®å æœ‰ã‚’åŒºé–“ãƒŸãƒ©ãƒ¼ã§è¿½è·¡ã—ã¾ã™"
-            "ï¼ˆç„¡åŠ¹åŒ–ã¯ è¨­å®š_ç’°å¢ƒå¤‰æ•° ç­‰ã§ DISPATCH_INTERVAL_MIRROR_ENFORCE=0ï¼‰ã€‚"
+            "DISPATCH_INTERVAL_MIRROR_ENFORCE: İ”õEl‚Ìè—L‚ğ‹æŠÔƒ~ƒ‰[‚Å’ÇÕ‚µ‚Ü‚·"
+            "i–³Œø‰»‚Í İ’è_ŠÂ‹«•Ï” “™‚Å DISPATCH_INTERVAL_MIRROR_ENFORCE=0jB"
         )
 
     if STAGE2_SERIAL_DISPATCH_BY_TASK_ID:
         logging.info(
-            "ä¾é ¼NOç›´åˆ—é…å°: æœ‰åŠ¹ï¼ˆSTAGE2_SERIAL_DISPATCH_BY_TASK_IDï¼‰ã€‚"
-            " å„æ—¥ã¯ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªä¾é ¼NOã®è¡Œã ã‘ãŒå€™è£œã®ãŸã‚ã€å½“è©²ä¾é ¼ãŒè©°ã¾ã‚‹ã¨ä»–ä¾é ¼ã¯ä¸€åˆ‡é€²ã¿ã¾ã›ã‚“ã€‚"
+            "ˆË—ŠNO’¼—ñ”z‘ä: —LŒøiSTAGE2_SERIAL_DISPATCH_BY_TASK_IDjB"
+            " Še“ú‚ÍƒAƒNƒeƒBƒu‚ÈˆË—ŠNO‚Ìs‚¾‚¯‚ªŒó•â‚Ì‚½‚ßA“–ŠYˆË—Š‚ª‹l‚Ü‚é‚Æ‘¼ˆË—Š‚ÍˆêØi‚İ‚Ü‚¹‚ñB"
         )
     else:
         logging.info(
-            "ä¾é ¼NOç›´åˆ—é…å°: ç„¡åŠ¹ã€‚start_date ã‚’æº€ãŸã™å…¨è¡ŒãŒå½“æ—¥å€™è£œã«ãªã‚Šã€é…å°è©¦è¡Œé †ãƒ»è¨­å‚™ãƒ«ãƒ¼ãƒ«ã§é †åºä»˜ã‘ã—ã¾ã™ã€‚"
+            "ˆË—ŠNO’¼—ñ”z‘ä: –³ŒøBstart_date ‚ğ–‚½‚·‘Ss‚ª“–“úŒó•â‚É‚È‚èA”z‘äs‡Eİ”õƒ‹[ƒ‹‚Å‡˜•t‚¯‚µ‚Ü‚·B"
         )
 
     _due_shift_retry_count_by_request: dict[str, int] = {}
@@ -16592,7 +16597,7 @@ def _generate_plan_impl():
         _full_calendar_without_deadline_restart = True
         for current_date in _plan_day_iter:
             daily_status = attendance_data[current_date]
-            # è¨­å‚™ã”ã¨ã®ç©ºãæ™‚åˆ»ï¼ˆåŒä¸€è¨­å‚™ã®åŒæ™‚ä¸¦è¡Œå‰²å½“ã‚’é˜²æ­¢ï¼‰
+            # İ”õ‚²‚Æ‚Ì‹ó‚«i“¯ˆêİ”õ‚Ì“¯•ÀsŠ„“–‚ğ–h~j
             machine_avail_dt = {}
             
             avail_dt = {}
@@ -16624,7 +16629,7 @@ def _generate_plan_impl():
                 )
 
             if not avail_dt:
-                logging.info("DEBUG[day=%s] ç¨¼åƒãƒ¡ãƒ³ãƒãƒ¼0ã®ãŸã‚å‰²ä»˜ã‚¹ã‚­ãƒƒãƒ—", current_date)
+                logging.info("DEBUG[day=%s] ‰Ò“­ƒƒ“ƒo[0‚Ì‚½‚ßŠ„•tƒXƒLƒbƒv", current_date)
                 continue
     
             tasks_today = [t for t in task_queue if t['remaining_units'] > 0 and t['start_date_req'] <= current_date]
@@ -16652,11 +16657,11 @@ def _generate_plan_impl():
                 )
                 _pending_rows = sum(1 for t in task_queue if t["remaining_units"] > 0)
                 logging.info(
-                    "ä¾é ¼NOç›´åˆ—é…å° day=%s ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ä¾é ¼NO=%s ç›´åˆ—ãƒªã‚¹ãƒˆä½ç½®=%s/%s "
-                    "å½“æ—¥å€™è£œè¡Œæ•°(ç›´åˆ—å‰)=%s ç›´åˆ—å¾Œ=%s ã‚­ãƒ¥ãƒ¼æ®‹è¡Œ(å…¨æ—¥)=%s",
+                    "ˆË—ŠNO’¼—ñ”z‘ä day=%s ƒAƒNƒeƒBƒuˆË—ŠNO=%s ’¼—ñƒŠƒXƒgˆÊ’u=%s/%s "
+                    "“–“úŒó•âs”(’¼—ñ‘O)=%s ’¼—ñŒã=%s ƒLƒ…[cs(‘S“ú)=%s",
                     current_date,
-                    _active_serial_tid if _active_serial_tid is not None else "â€”",
-                    _serial_pos if _serial_pos else "â€”",
+                    _active_serial_tid if _active_serial_tid is not None else "?",
+                    _serial_pos if _serial_pos else "?",
                     len(_serial_order_tids),
                     _tasks_today_before_serial,
                     len(tasks_today),
@@ -16669,7 +16674,7 @@ def _generate_plan_impl():
                     default=None,
                 )
                 logging.info(
-                    "DEBUG[day=%s] å‰²ä»˜å¯¾è±¡ã‚¿ã‚¹ã‚¯0ä»¶ pending_total=%s earliest_start_date_req=%s",
+                    "DEBUG[day=%s] Š„•t‘ÎÛƒ^ƒXƒN0Œ pending_total=%s earliest_start_date_req=%s",
                     current_date,
                     pending_total,
                     earliest_wait,
@@ -16678,7 +16683,7 @@ def _generate_plan_impl():
                 has_dbg_today = any(str(t.get("task_id", "")).strip() == DEBUG_TASK_ID for t in tasks_today)
                 if current_date.isoformat() == "2026-04-03" or has_dbg_today:
                     logging.info(
-                        "DEBUG[day=%s] avail_members=%s tasks_today=%s (task=%s å«ã‚€=%s)",
+                        "DEBUG[day=%s] avail_members=%s tasks_today=%s (task=%s ŠÜ‚Ş=%s)",
                         current_date,
                         len(avail_dt),
                         len(tasks_today),
@@ -16787,7 +16792,7 @@ def _generate_plan_impl():
                             if _trace_schedule_task_enabled(task.get("task_id")):
                                 _log_dispatch_trace_schedule(
                                     task.get("task_id"),
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: åŒä¸€ä¾é ¼NOã®å…ˆè¡Œå·¥ç¨‹å¾…ã¡ day=%s machine=%s rem=%.4f",
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: “¯ˆêˆË—ŠNO‚ÌæsH’ö‘Ò‚¿ day=%s machine=%s rem=%.4f",
                                     task.get("task_id"),
                                     current_date,
                                     task.get("machine"),
@@ -16811,8 +16816,8 @@ def _generate_plan_impl():
                                 )
                                 _log_dispatch_trace_schedule(
                                     _tid_tr,
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: Â§B-2/Â§B-3 å¾Œç¶šãƒ­ãƒ¼ãƒ«æ ã‚¼ãƒ­ day=%s machine=%s "
-                                    "ecç´¯è¨ˆå®Œäº†R=%.4f å¾Œç¶šç´¯è¨ˆå®Œäº†R=%.4f rem_follower=%.4f",
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: ˜B-2/˜B-3 Œã‘±ƒ[ƒ‹˜gƒ[ƒ day=%s machine=%s "
+                                    "ec—İŒvŠ®—¹R=%.4f Œã‘±—İŒvŠ®—¹R=%.4f rem_follower=%.4f",
                                     _tid_tr,
                                     current_date,
                                     task.get("machine"),
@@ -16835,8 +16840,8 @@ def _generate_plan_impl():
                                 if _trace_schedule_task_enabled(task.get("task_id")):
                                     _log_dispatch_trace_schedule(
                                         task.get("task_id"),
-                                        "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: åŒä¸€è¨­å‚™ã®æ¤œæŸ»å æœ‰ä¸­ day=%s "
-                                        "å æœ‰è€…ä¾é ¼NO=%s å æœ‰è€…è©¦è¡Œé †=%s",
+                                        "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: “¯ˆêİ”õ‚ÌŒŸ¸è—L’† day=%s "
+                                        "è—LÒˆË—ŠNO=%s è—LÒs‡=%s",
                                         task.get("task_id"),
                                         current_date,
                                         _b1_holder.get("task_id"),
@@ -16845,7 +16850,7 @@ def _generate_plan_impl():
                                 continue
                         if DEBUG_TASK_ID and str(task.get("task_id", "")).strip() == DEBUG_TASK_ID:
                             logging.info(
-                                "DEBUG[task=%s] day=%s é–‹å§‹åˆ¤å®š: start_date_req=%s remaining_units=%s machine=%s",
+                                "DEBUG[task=%s] day=%s ŠJn”»’è: start_date_req=%s remaining_units=%s machine=%s",
                                 DEBUG_TASK_ID,
                                 current_date,
                                 task.get("start_date_req"),
@@ -16854,7 +16859,7 @@ def _generate_plan_impl():
                             )
                         if task.get("has_done_deadline_override"):
                             logging.info(
-                                "DEBUG[å®Œäº†æ—¥æŒ‡å®š] ä¾é ¼NO=%s æ—¥ä»˜=%s start_date_req=%s due_basis=%s æŒ‡å®šç´æœŸ(ä¸Šæ›¸ã)=%s é€²æ—=%s/%s",
+                                "DEBUG[Š®—¹“úw’è] ˆË—ŠNO=%s “ú•t=%s start_date_req=%s due_basis=%s w’è”[Šú(ã‘‚«)=%s i’»=%s/%s",
                                 task.get("task_id"),
                                 current_date,
                                 task.get("start_date_req"),
@@ -16890,7 +16895,7 @@ def _generate_plan_impl():
                             if _trace_schedule_task_enabled(task.get("task_id")):
                                 _log_dispatch_trace_schedule(
                                     task.get("task_id"),
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: ã‚ˆã‚Šå°ã•ã„é…å°è©¦è¡Œé †ã«æœªå®Œäº†ã‚ã‚Š "
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: ‚æ‚è¬‚³‚¢”z‘äs‡‚É–¢Š®—¹‚ ‚è "
                                     "day=%s my_order=%s",
                                     task.get("task_id"),
                                     current_date,
@@ -16939,7 +16944,7 @@ def _generate_plan_impl():
                             if _trace_schedule_task_enabled(task.get("task_id")):
                                 _log_dispatch_trace_schedule(
                                     task.get("task_id"),
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: åŒä¸€è¨­å‚™ã§é…å°è©¦è¡Œé †ãŒå…ˆã®è¡ŒãŒæœªå®Œäº† "
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: “¯ˆêİ”õ‚Å”z‘äs‡‚ªæ‚Ìs‚ª–¢Š®—¹ "
                                     "day=%s eq_line=%s my_order=%s",
                                     task.get("task_id"),
                                     current_date,
@@ -16961,15 +16966,15 @@ def _generate_plan_impl():
                             )
                             if plan_ro is not None and plan_ro != req_num:
                                 need_src_line = (
-                                    (need_src_line + "ï¼›") if need_src_line else ""
+                                    (need_src_line + "G") if need_src_line else ""
                                 )
                                 need_src_line += (
-                                    f"è¨ˆç”»ã‚·ãƒ¼ãƒˆå¿…è¦äººæ•°{plan_ro}ã¯æœªä½¿ç”¨ï¼ˆneedåŸºæº–={req_num}ï¼‰"
+                                    f"Œv‰æƒV[ƒg•K—vl”{plan_ro}‚Í–¢g—pineedŠî€={req_num}j"
                                 )
                         else:
                             if plan_ro is not None:
                                 req_num = plan_ro
-                                need_src_line = f"è¨ˆç”»ã‚·ãƒ¼ãƒˆã€Œå¿…è¦OP(ä¸Šæ›¸)ã€={req_num}"
+                                need_src_line = f"Œv‰æƒV[ƒgu•K—vOP(ã‘)v={req_num}"
                             else:
                                 req_num, need_src_line = resolve_need_required_op_explain(
                                     machine,
@@ -16981,14 +16986,14 @@ def _generate_plan_impl():
                         if global_priority_override.get("ignore_need_minimum"):
                             req_num = 1
                             need_src_line = (
-                                (need_src_line + " â†’ ")
+                                (need_src_line + " ¨ ")
                                 if need_src_line
                                 else ""
-                            ) + "ãƒ¡ã‚¤ãƒ³ä¸Šæ›¸ignore_need_minimumã§req=1"
+                            ) + "ƒƒCƒ“ã‘ignore_need_minimum‚Åreq=1"
     
-                        # ãƒ¡ãƒ³ãƒãƒ¼Ã—è¨­å‚™ã‚¹ã‚­ãƒ«ï¼ˆparse_op_as_skill_cell: å°ã•ã„å„ªå…ˆåº¦ã»ã©å…ˆã«ãƒãƒ¼ãƒ å€™è£œã¸æ¡ç”¨ï¼‰
-                        # skills èª­è¾¼æ™‚ã«ã€Œæ©Ÿæ¢°åã€å˜ç‹¬ã‚­ãƒ¼ã¸ã‚¨ã‚¤ãƒªã‚¢ã‚¹ã™ã‚‹ãŸã‚ã€å·¥ç¨‹å+æ©Ÿæ¢°åãŒä¸¡æ–¹ã‚ã‚‹è¡Œã§ã¯
-                        # è¤‡åˆã‚­ãƒ¼ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€ã®ã¿ã‚’è¦‹ã‚‹ï¼ˆåˆ¥å·¥ç¨‹ã®åŒåæ©Ÿæ¢°ã® OP ãŒæµã‚Œè¾¼ã¾ãªã„ã‚ˆã†ã«ã™ã‚‹ï¼‰ã€‚
+                        # ƒƒ“ƒo[~İ”õƒXƒLƒ‹iparse_op_as_skill_cell: ¬‚³‚¢—Dæ“x‚Ù‚Çæ‚Éƒ`[ƒ€Œó•â‚ÖÌ—pj
+                        # skills “Ç‚Éu‹@ŠB–¼v’P“ÆƒL[‚ÖƒGƒCƒŠƒAƒX‚·‚é‚½‚ßAH’ö–¼+‹@ŠB–¼‚ª—¼•û‚ ‚és‚Å‚Í
+                        # •¡‡ƒL[uH’ö–¼+‹@ŠB–¼v‚Ì‚İ‚ğŒ©‚éi•ÊH’ö‚Ì“¯–¼‹@ŠB‚Ì OP ‚ª—¬‚ê‚Ü‚È‚¢‚æ‚¤‚É‚·‚éjB
                         skill_meta_cache = {}
                         _gpo = global_priority_override
     
@@ -17028,7 +17033,7 @@ def _generate_plan_impl():
                                 machine_proc=machine_proc,
                             )
                             logging.info(
-                                "DEBUG[å®Œäº†æ—¥æŒ‡å®š] ä¾é ¼NO=%s è¨­å‚™=%s req_num=%s capable_members=%s machine_free=%s",
+                                "DEBUG[Š®—¹“úw’è] ˆË—ŠNO=%s İ”õ=%s req_num=%s capable_members=%s machine_free=%s",
                                 task.get("task_id"),
                                 eq_line,
                                 req_num,
@@ -17045,7 +17050,7 @@ def _generate_plan_impl():
                         )
                         if pref_raw and pref_mem is None and op_today:
                             logging.info(
-                                "æ‹…å½“OPæŒ‡å: å½“æ—¥ã®OPå€™è£œã«ä¸€è‡´ã›ãšåˆ¶ç´„ãªã— task=%s raw=%r",
+                                "’S“–OPw–¼: “–“ú‚ÌOPŒó•â‚Éˆê’v‚¹‚¸§–ñ‚È‚µ task=%s raw=%r",
                                 task.get("task_id"),
                                 pref_raw,
                             )
@@ -17064,7 +17069,7 @@ def _generate_plan_impl():
                         )
                         if _gdp_must:
                             logging.info(
-                                "ãƒ¡ã‚¤ãƒ³ã‚°ãƒ­ãƒ¼ãƒãƒ«(æ—¥ä»˜Ã—å·¥ç¨‹): task=%s date=%s å·¥ç¨‹=%r ãƒãƒ¼ãƒ å¿…é ˆ=%s",
+                                "ƒƒCƒ“ƒOƒ[ƒoƒ‹(“ú•t~H’ö): task=%s date=%s H’ö=%r ƒ`[ƒ€•K{=%s",
                                 task.get("task_id"),
                                 current_date,
                                 machine,
@@ -17074,12 +17079,12 @@ def _generate_plan_impl():
                             _nfix = len(fixed_team_anchor)
                             if _nfix > req_num:
                                 need_src_line = (
-                                    (need_src_line + " â†’ ")
+                                    (need_src_line + " ¨ ")
                                     if need_src_line
                                     else ""
                                 )
                                 need_src_line += (
-                                    f"ã‚°ãƒ­ãƒ¼ãƒãƒ«(æ—¥ä»˜Ã—å·¥ç¨‹)æŒ‡åã§æœ€ä½{_nfix}äºº"
+                                    f"ƒOƒ[ƒoƒ‹(“ú•t~H’ö)w–¼‚ÅÅ’á{_nfix}l"
                                 )
                             req_num = max(req_num, _nfix)
     
@@ -17093,10 +17098,10 @@ def _generate_plan_impl():
                         if TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW:
                             extra_max_sheet = 0
                             extra_src_line = (
-                                (extra_src_line + " â†’ ")
+                                (extra_src_line + " ¨ ")
                                 if extra_src_line
                                 else ""
-                            ) + "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROWã§0"
+                            ) + "TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW‚Å0"
                         extra_max = (
                             extra_max_sheet
                             if TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS
@@ -17108,10 +17113,10 @@ def _generate_plan_impl():
                             and not TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW
                         ):
                             extra_src_line = (
-                                (extra_src_line + " â†’ ")
+                                (extra_src_line + " ¨ ")
                                 if extra_src_line
                                 else ""
-                            ) + "ãƒ¡ã‚¤ãƒ³ã¯åŸºæœ¬äººæ•°ã®ã¿ï¼ˆä½™åŠ›æ ã¯å…¨é…å°å¾Œã«æœªå‰²å½“Ã—ã‚¹ã‚­ãƒ«ã§è¿½è¨˜ï¼‰"
+                            ) + "ƒƒCƒ“‚ÍŠî–{l”‚Ì‚İi—]—Í˜g‚Í‘S”z‘äŒã‚É–¢Š„“–~ƒXƒLƒ‹‚Å’Ç‹Lj"
                         max_team_size = min(req_num + extra_max, len(capable_members))
                         if max_team_size < req_num:
                             max_team_size = req_num
@@ -17124,8 +17129,8 @@ def _generate_plan_impl():
                         ):
                             _need_headcount_logged_orders.add(_dto_head)
                             logging.info(
-                                "needäººæ•°(é…å°è©¦è¡Œé †åˆå›) order=%s task=%s å·¥ç¨‹/æ©Ÿæ¢°=%s/%s "
-                                "req_num=%s [%s] extra_max=%s [%s] max_teamå€™è£œ=%s capable=%säºº",
+                                "needl”(”z‘äs‡‰‰ñ) order=%s task=%s H’ö/‹@ŠB=%s/%s "
+                                "req_num=%s [%s] extra_max=%s [%s] max_teamŒó•â=%s capable=%sl",
                                 _dto_head,
                                 task["task_id"],
                                 machine,
@@ -17143,8 +17148,8 @@ def _generate_plan_impl():
                         )
                         if trace_assign:
                             logging.info(
-                                "TRACEé…å°[%s] %s å·¥ç¨‹/æ©Ÿæ¢°=%s / %s req_num=%s extra_max=%s â†’ max_team=%s "
-                                "capable(n=%s)=%s ignore_need1=%s ignore_skill=%s abolish=%s æ‹…å½“OPæŒ‡å®š=%râ†’%s",
+                                "TRACE”z‘ä[%s] %s H’ö/‹@ŠB=%s / %s req_num=%s extra_max=%s ¨ max_team=%s "
+                                "capable(n=%s)=%s ignore_need1=%s ignore_skill=%s abolish=%s ’S“–OPw’è=%r¨%s",
                                 task["task_id"],
                                 current_date,
                                 machine,
@@ -17195,7 +17200,7 @@ def _generate_plan_impl():
                         )
                         if _abort_legacy:
                             continue
-                        # ãƒ—ãƒªã‚»ãƒƒãƒˆã¯æˆç«‹åˆ†ã‚’ã™ã¹ã¦å€™è£œã«è¼‰ã›ã€ä¸‹ã®çµ„åˆã›æ¢ç´¢ã¨ã¾ã¨ã‚ã¦æœ€è‰¯ã‚’é¸ã¶ã€‚
+                        # ƒvƒŠƒZƒbƒg‚Í¬—§•ª‚ğ‚·‚×‚ÄŒó•â‚ÉÚ‚¹A‰º‚Ì‘g‡‚¹’Tõ‚Æ‚Ü‚Æ‚ß‚ÄÅ—Ç‚ğ‘I‚ÔB
                         if preset_rows:
                             for _prio, sheet_rs, preset_team, combo_row_id in preset_rows:
                                 pteam = tuple(preset_team)
@@ -17268,7 +17273,7 @@ def _generate_plan_impl():
                                     ]
                                 else:
                                     logging.info(
-                                        "æ‹…å½“OPæŒ‡å: ãƒãƒ¼ãƒ äººæ•°ã‚’æº€ãŸã›ãªã„ãŸã‚æŒ‡åã‚’ç„¡è¦– task=%s size=%s raw=%r",
+                                        "’S“–OPw–¼: ƒ`[ƒ€l”‚ğ–‚½‚¹‚È‚¢‚½‚ßw–¼‚ğ–³‹ task=%s size=%s raw=%r",
                                         task.get("task_id"),
                                         tsize,
                                         pref_raw,
@@ -17284,11 +17289,11 @@ def _generate_plan_impl():
     
                                 team_start = max(avail_dt[m] for m in team)
                                 if not _gpo.get("abolish_all_scheduling_limits"):
-                                    # åŒä¸€è¨­å‚™ã¯1æ™‚ç‚¹ã§1ã‚¿ã‚¹ã‚¯ã®ã¿ï¼ˆè¨­å‚™ç©ºãï¼‹æ—¥æ¬¡å§‹æ¥­/ä¾é ¼åˆ‡æ›¿ã®æº–å‚™ãƒ»å¾Œå§‹æœ«ï¼‰
+                                    # “¯ˆêİ”õ‚Í1“_‚Å1ƒ^ƒXƒN‚Ì‚İiİ”õ‹ó‚«{“úŸn‹Æ/ˆË—ŠØ‘Ö‚Ì€”õEŒãn––j
                                     machine_free_dt = _mach_floor_legacy
                                     if team_start < machine_free_dt:
                                         team_start = machine_free_dt
-                                    # åŸåæŠ•å…¥æ—¥ã¨åŒæ—¥ã®é–‹å§‹ã¯ 13:00 ä»¥é™ï¼ˆè©¦è¡Œé †å„ªå…ˆãƒ•ãƒ­ãƒ¼ã¨ä¸€è‡´ï¼‰
+                                    # Œ´”½“Š“ü“ú‚Æ“¯“ú‚ÌŠJn‚Í 13:00 ˆÈ~is‡—Dæƒtƒ[‚Æˆê’vj
                                     if task.get("same_day_raw_start_limit") and current_date == task["start_date_req"]:
                                         min_start_dt = datetime.combine(
                                             current_date, task["same_day_raw_start_limit"]
@@ -17301,7 +17306,7 @@ def _generate_plan_impl():
                                         )
                                         if team_start < min_user_t:
                                             team_start = min_user_t
-                                    # å½“æ—¥ã¯ã€Œãƒã‚¯ãƒ­å®Ÿè¡Œã—ãŸæ™‚åˆ»ã€ã‚ˆã‚Šå‰ã«é–‹å§‹ã§ããªã„
+                                    # “–“ú‚Íuƒ}ƒNƒÀs‚µ‚½v‚æ‚è‘O‚ÉŠJn‚Å‚«‚È‚¢
                                     if current_date == macro_run_date and team_start < macro_now_dt:
                                         team_start = macro_now_dt
                                 team_end_limit = min(daily_status[m]['end_dt'] for m in team)
@@ -17480,7 +17485,7 @@ def _generate_plan_impl():
                                 sub = [c for c in team_candidates if len(c["team"]) == tsize]
                                 if not sub:
                                     logging.info(
-                                        "TRACEé…å°[%s] %s tsize=%s â†’ ã“ã®äººæ•°ã§æˆç«‹ã™ã‚‹ãƒãƒ¼ãƒ ãªã—",
+                                        "TRACE”z‘ä[%s] %s tsize=%s ¨ ‚±‚Ìl”‚Å¬—§‚·‚éƒ`[ƒ€‚È‚µ",
                                         tid,
                                         current_date,
                                         tsize,
@@ -17488,9 +17493,9 @@ def _generate_plan_impl():
                                 else:
                                     sm = min(sub, key=_team_cand_key)
                                     logging.info(
-                                        "TRACEé…å°[%s] %s tsize=%s äººæ•°å†…æœ€è‰¯: members=%s "
+                                        "TRACE”z‘ä[%s] %s tsize=%s l”“àÅ—Ç: members=%s "
                                         "start=%s units_today=%s prio_sum=%s eff_t/unit=%.6f "
-                                        "æ¯”è¼ƒãƒ«ãƒ¼ãƒ«=%s â€»å…¨æ—¥æœ€æ—©é–‹å§‹=%s ã‚’åŸºæº–ã«è¾æ›¸å¼ã§å°ã•ã„æ–¹ãŒæ¡ç”¨",
+                                        "”äŠrƒ‹[ƒ‹=%s ¦‘S“úÅ‘ŠJn=%s ‚ğŠî€‚É«‘®‚Å¬‚³‚¢•û‚ªÌ—p",
                                         tid,
                                         current_date,
                                         tsize,
@@ -17500,12 +17505,12 @@ def _generate_plan_impl():
                                         sm["prio_sum"],
                                         sm["eff_time_per_unit"],
                                         _tk,
-                                        t_min.isoformat(sep=" ") if t_min else "â€”",
+                                        t_min.isoformat(sep=" ") if t_min else "?",
                                     )
     
                         if trace_assign and best_team is not None:
                             logging.info(
-                                "TRACEé…å°[%s] %s â˜…æ¡ç”¨ n=%s members=%s start=%s units_today=%s prio_sum=%s",
+                                "TRACE”z‘ä[%s] %s šÌ—p n=%s members=%s start=%s units_today=%s prio_sum=%s",
                                 task["task_id"],
                                 current_date,
                                 len(best_team),
@@ -17517,16 +17522,16 @@ def _generate_plan_impl():
                             if len(best_team) == 1 and max_team_size > req_num:
                                 if TEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFF:
                                     logging.info(
-                                        "TRACEé…å°[%s] %s 1äººæ¡ç”¨ï¼ˆTEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFFï¼‰: "
-                                        "ã‚ˆã‚Šå¤§ãã„äººæ•°ã§æœ‰åŠ¹ãªãƒãƒ¼ãƒ ãªã—ï¼ˆOPä¸è¶³ãƒ»0å˜ä½ãƒ»é–‹å§‹>=çµ‚äº†ç­‰ï¼‰ã€‚",
+                                        "TRACE”z‘ä[%s] %s 1lÌ—piTEAM_ASSIGN_PRIORITIZE_SURPLUS_STAFFj: "
+                                        "‚æ‚è‘å‚«‚¢l”‚Å—LŒø‚Èƒ`[ƒ€‚È‚µiOP•s‘«E0’PˆÊEŠJn>=I—¹“™jB",
                                         task["task_id"],
                                         current_date,
                                     )
                                 else:
                                     logging.info(
-                                        "TRACEé…å°[%s] %s 1äººæ¡ç”¨: äººæ•°ã‚’å¢—ã‚„ã™ã¨é–‹å§‹ãŒé…ã‚Œã€"
-                                        "ã‚¹ãƒ©ãƒƒã‚¯å¤–ã§ã¯é–‹å§‹å„ªå…ˆã§1äººãŒé¸ã°ã‚ŒãŸå¯èƒ½æ€§ã€‚"
-                                        "TEAM_ASSIGN_START_SLACK_WAIT_MINUTES=%sã€ã¾ãŸã¯å¾“æ¥ã®äººæ•°æœ€å„ªå…ˆã¯ç’°å¢ƒå¤‰æ•°å‚ç…§ã€‚",
+                                        "TRACE”z‘ä[%s] %s 1lÌ—p: l”‚ğ‘‚â‚·‚ÆŠJn‚ª’x‚êA"
+                                        "ƒXƒ‰ƒbƒNŠO‚Å‚ÍŠJn—Dæ‚Å1l‚ª‘I‚Î‚ê‚½‰Â”\«B"
+                                        "TEAM_ASSIGN_START_SLACK_WAIT_MINUTES=%sA‚Ü‚½‚Í]—ˆ‚Ìl”Å—Dæ‚ÍŠÂ‹«•Ï”QÆB",
                                         task["task_id"],
                                         current_date,
                                         TEAM_ASSIGN_START_SLACK_WAIT_MINUTES,
@@ -17535,8 +17540,8 @@ def _generate_plan_impl():
                         if best_team:
                             if len(best_team) > req_num:
                                 logging.info(
-                                    "é…å°æ¡ç”¨äººæ•°>req_num task=%s day=%s order=%s å·¥ç¨‹/æ©Ÿæ¢°=%s/%s "
-                                    "æ¡ç”¨=%säºº req_num=%s extra_max=%s max_team=%s [%s] [%s]",
+                                    "”z‘äÌ—pl”>req_num task=%s day=%s order=%s H’ö/‹@ŠB=%s/%s "
+                                    "Ì—p=%sl req_num=%s extra_max=%s max_team=%s [%s] [%s]",
                                     task["task_id"],
                                     current_date,
                                     task.get("dispatch_trial_order"),
@@ -17575,7 +17580,7 @@ def _generate_plan_impl():
                                         )
                                     _log_dispatch_trace_schedule(
                                         task.get("task_id"),
-                                        "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¹ã‚­ãƒƒãƒ—: ãƒãƒ¼ãƒ æ¡ç”¨å¾Œã®å®ŸåŠ¹ãƒ¦ãƒ‹ãƒƒãƒˆ0 "
+                                        "[”z‘äƒgƒŒ[ƒX task=%s] ƒXƒLƒbƒv: ƒ`[ƒ€Ì—pŒã‚ÌÀŒøƒ†ƒjƒbƒg0 "
                                         "day=%s machine=%s best_units_today=%s rp_room=%s rem=%.4f",
                                         task.get("task_id"),
                                         current_date,
@@ -17613,7 +17618,7 @@ def _generate_plan_impl():
                             rem_u_before = math.ceil(task['remaining_units'])
                             already_done = total_u - rem_u_before
                             
-                            # ã€Œãƒã‚¯ãƒ­å®Ÿè¡Œæ™‚ç‚¹ã€ã®å®Œäº†ç‡ï¼ˆäºˆå®šã®é€²æ—ã§ã¯ãªãã€å®ŸåŠ å·¥æ•°ãƒ™ãƒ¼ã‚¹ï¼‰
+                            # uƒ}ƒNƒÀs“_v‚ÌŠ®—¹—¦i—\’è‚Ìi’»‚Å‚Í‚È‚­AÀ‰ÁH”ƒx[ƒXj
                             try:
                                 tot_qty = parse_float_safe(task.get('total_qty_m'), 0.0)
                                 done_qty = parse_float_safe(task.get('done_qty_reported'), 0.0)
@@ -17679,9 +17684,9 @@ def _generate_plan_impl():
                                     )
                                 _log_dispatch_trace_schedule(
                                     task.get("task_id"),
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³è¿½è¨˜ chunk day=%s machine=%s "
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒ^ƒCƒ€ƒ‰ƒCƒ“’Ç‹L chunk day=%s machine=%s "
                                     "done_units=%s already_done=%s total_u=%s rem_after=%.4f "
-                                    "start=%s end=%s eff_t/unit=%.4f rp_room(å½“æ™‚)=%s",
+                                    "start=%s end=%s eff_t/unit=%.4f rp_room(“–)=%s",
                                     task.get("task_id"),
                                     current_date,
                                     eq_line,
@@ -17779,9 +17784,9 @@ def _generate_plan_impl():
                             if _trace_schedule_task_enabled(task.get("task_id")):
                                 _log_dispatch_trace_schedule(
                                     task.get("task_id"),
-                                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ãƒ­ãƒ¼ãƒ«ç¢ºå®š ãƒ¡ã‚¤ãƒ³ day=%s machine=%s machine_name=%s "
-                                    "start=%s end=%s æ¡ç”¨äººæ•°=%s req_num=%s ãƒ¡ã‚¤ãƒ³æ¢ç´¢extra_max=%s "
-                                    "ä½™å‰°äººæ•°é©ç”¨(ãƒ¡ã‚¤ãƒ³)=%s team=%s",
+                                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒ[ƒ‹Šm’è ƒƒCƒ“ day=%s machine=%s machine_name=%s "
+                                    "start=%s end=%s Ì—pl”=%s req_num=%s ƒƒCƒ“’Tõextra_max=%s "
+                                    "—]èl”“K—p(ƒƒCƒ“)=%s team=%s",
                                     task.get("task_id"),
                                     current_date,
                                     eq_line,
@@ -17798,7 +17803,7 @@ def _generate_plan_impl():
                         else:
                             if task.get("has_done_deadline_override"):
                                 logging.info(
-                                    "DEBUG[å®Œäº†æ—¥æŒ‡å®š] ä¾é ¼NO=%s æ—¥ä»˜=%s ã¯å‰²å½“ä¸å¯ï¼ˆè¦å“¡/è¨­å‚™ç©ºãæ¡ä»¶ã§ãƒãƒ¼ãƒ ä¸æˆç«‹ï¼‰ã€‚remaining_units=%s",
+                                    "DEBUG[Š®—¹“úw’è] ˆË—ŠNO=%s “ú•t=%s ‚ÍŠ„“–•s‰Âi—vˆõ/İ”õ‹ó‚«ğŒ‚Åƒ`[ƒ€•s¬—§jBremaining_units=%s",
                                     task.get("task_id"),
                                     current_date,
                                     task.get("remaining_units"),
@@ -17817,8 +17822,8 @@ def _generate_plan_impl():
                             continue
                         _log_dispatch_trace_schedule(
                             _tt,
-                            "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] æ—¥æ¬¡çµ‚äº†æ™‚ç‚¹ã®æ®‹ day=%s machine=%s "
-                            "machine_name=%s rem=%.4f roll_b2_follower=%s è©¦è¡Œé †=%s",
+                            "[”z‘äƒgƒŒ[ƒX task=%s] “úŸI—¹“_‚Ìc day=%s machine=%s "
+                            "machine_name=%s rem=%.4f roll_b2_follower=%s s‡=%s",
                             _tt,
                             current_date,
                             _t.get("machine"),
@@ -17896,7 +17901,7 @@ def _generate_plan_impl():
                                 for tid in sorted(allowed_shift_tids)
                             )
                             logging.info(
-                                "ç´æœŸè¶…éãƒªãƒˆãƒ©ã‚¤: è¨ˆç”»åŸºæº–+1æ—¥ã—ã¦å½“è©²ä¾é ¼ã®ã¿å†é…å°ï¼ˆæ¤œå‡ºæ—¥=%s ä¾é ¼NO=%s å½“è©²ä¾é ¼ã®ç´¯è¨ˆè©¦è¡Œ=%sï¼‰",
+                                "”[Šú’´‰ßƒŠƒgƒ‰ƒC: Œv‰æŠî€+1“ú‚µ‚Ä“–ŠYˆË—Š‚Ì‚İÄ”z‘äiŒŸo“ú=%s ˆË—ŠNO=%s “–ŠYˆË—Š‚Ì—İŒvs=%sj",
                                 current_date.isoformat(),
                                 ",".join(sorted(allowed_shift_tids)),
                                 _trials_detail,
@@ -17904,7 +17909,7 @@ def _generate_plan_impl():
                             _full_calendar_without_deadline_restart = False
                             break
                         else:
-                            # ä¾é ¼ã”ã¨ä¸Šé™ã§ã‚·ãƒ•ãƒˆã§ããªã„ã ã‘ã®ã¨ãã¯æ—¥ä»˜ãƒ«ãƒ¼ãƒ—ã‚’ç¶™ç¶šã™ã‚‹ï¼ˆbreak ã™ã‚‹ã¨æœªå‡¦ç†æ—¥ãŒæ®‹ã‚Šé…å°ä¸å¯ãŒå¤§é‡ç™ºç”Ÿã™ã‚‹ï¼‰ã€‚
+                            # ˆË—Š‚²‚ÆãŒÀ‚ÅƒVƒtƒg‚Å‚«‚È‚¢‚¾‚¯‚Ì‚Æ‚«‚Í“ú•tƒ‹[ƒv‚ğŒp‘±‚·‚éibreak ‚·‚é‚Æ–¢ˆ—“ú‚ªc‚è”z‘ä•s‰Â‚ª‘å—Ê”­¶‚·‚éjB
                             _cap_tids = sorted(
                                 tid
                                 for tid in shift_tid_list
@@ -17917,8 +17922,8 @@ def _generate_plan_impl():
                                 _due_shift_cap_warned_tids.add(tid)
                             if _first_cap_warn:
                                 logging.warning(
-                                    "ç´æœŸå¾Œã‚å€’ã—å†é…å°: æ¬¡ã®ä¾é ¼NOã¯ä¾é ¼ã”ã¨ã®ä¸Šé™ï¼ˆå„ %s å›ï¼‰ã®ãŸã‚ã“ã®æ¤œå‡ºã§ã¯ +1 ã—ã¾ã›ã‚“ã€‚"
-                                    " ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ã¯ç¶™ç¶šã—ã¾ã™ï¼ˆæœªå®Œäº†ã¯çµ‚äº†æ™‚ã«ç´æœŸè¦‹ç›´ã—å¿…è¦ã‚’ä»˜ã‘å¾—ã¾ã™ï¼‰: %s",
+                                    "”[ŠúŒã‚ë“|‚µÄ”z‘ä: Ÿ‚ÌˆË—ŠNO‚ÍˆË—Š‚²‚Æ‚ÌãŒÀiŠe %s ‰ñj‚Ì‚½‚ß‚±‚ÌŒŸo‚Å‚Í +1 ‚µ‚Ü‚¹‚ñB"
+                                    " ƒJƒŒƒ“ƒ_[‚ÍŒp‘±‚µ‚Ü‚·i–¢Š®—¹‚ÍI—¹‚É”[ŠúŒ©’¼‚µ•K—v‚ğ•t‚¯“¾‚Ü‚·j: %s",
                                     STAGE2_RETRY_SHIFT_DUE_MAX_ROUNDS,
                                     ",".join(_cap_tids),
                                 )
@@ -17944,7 +17949,7 @@ def _generate_plan_impl():
             )
             if _rewind_made:
                 logging.info(
-                    "Â§B-2/Â§B-3 ãƒªãƒ¯ã‚¤ãƒ³ãƒ‰: EC å®Œèµ°å¾Œã«æ¤œæŸ»ï¼å·»è¿”ã—ã®ã¿æ—¥ä»˜å…ˆé ­ã‹ã‚‰å†é…å°ã—ã¾ã—ãŸï¼ˆtimeline_events ã‚’å æœ‰ãƒ†ãƒ¼ãƒ–ãƒ«ã¨ã—ã¦åˆ©ç”¨ï¼‰ã€‚"
+                    "˜B-2/˜B-3 ƒŠƒƒCƒ“ƒh: EC Š®‘–Œã‚ÉŒŸ¸^Šª•Ô‚µ‚Ì‚İ“ú•tæ“ª‚©‚çÄ”z‘ä‚µ‚Ü‚µ‚½itimeline_events ‚ğè—Lƒe[ƒuƒ‹‚Æ‚µ‚Ä—˜—pjB"
                 )
             break
 
@@ -17955,7 +17960,7 @@ def _generate_plan_impl():
                     continue
                 _log_dispatch_trace_schedule(
                     _tt,
-                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†æ™‚ machine=%s machine_name=%s "
+                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“I—¹ machine=%s machine_name=%s "
                     "rem=%.4f initial=%.4f roll_b2_follower=%s",
                     _tt,
                     _t.get("machine"),
@@ -17983,7 +17988,7 @@ def _generate_plan_impl():
                 _ud = int(_ev.get("units_done") or 0)
                 _log_dispatch_trace_schedule(
                     _tt,
-                    "[é…å°ãƒˆãƒ¬ãƒ¼ã‚¹ task=%s] ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³æœ€çµ‚å¡Š(å·¥ç¨‹åˆ—ã”ã¨) machine=%s "
+                    "[”z‘äƒgƒŒ[ƒX task=%s] ƒ^ƒCƒ€ƒ‰ƒCƒ“ÅI‰ò(H’ö—ñ‚²‚Æ) machine=%s "
                     "already_done+units_done=%s+%s=%s total_units=%s end_dt=%s",
                     _tt,
                     _mk,
@@ -17994,10 +17999,10 @@ def _generate_plan_impl():
                     _ev.get("end_dt"),
                 )
 
-    # ãƒ¡ã‚¤ãƒ³å‰²ä»˜ã¾ã§ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ï¼ˆneed ä½™åŠ›è¿½è¨˜å‰ï¼‰ã€‚TEMP_è¨­å‚™æ¯ã®æ™‚é–“å‰²ç”¨ã€‚
+    # ƒƒCƒ“Š„•t‚Ü‚Å‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“ineed —]—Í’Ç‹L‘OjBTEMP_İ”õ–ˆ‚ÌŠÔŠ„—pB
     timeline_before_need_surplus = copy.deepcopy(timeline_events)
 
-    # needã€Œé…å°æ™‚è¿½åŠ äººæ•°ã€: ãƒ¡ã‚¤ãƒ³å‰²ä»˜å¾Œã«ã€æœªå‚åŠ Ã—ã‚¹ã‚­ãƒ«é©åˆè€…ã‚’ã‚µãƒ–ã¸è¿½è¨˜ï¼ˆæ—¢å®šï¼‰
+    # needu”z‘ä’Ç‰Ál”v: ƒƒCƒ“Š„•tŒã‚ÉA–¢Q‰Á~ƒXƒLƒ‹“K‡Ò‚ğƒTƒu‚Ö’Ç‹LiŠù’èj
     if (
         not TEAM_ASSIGN_USE_NEED_SURPLUS_IN_MAIN_PASS
         and not TEAM_ASSIGN_IGNORE_NEED_SURPLUS_ROW
@@ -18017,14 +18022,14 @@ def _generate_plan_impl():
         )
         if _n_sur:
             logging.info(
-                "needä½™åŠ›: ãƒ¡ã‚¤ãƒ³å‰²ä»˜å®Œäº†å¾Œã«ã‚µãƒ– %s åã‚’è¿½è¨˜ï¼ˆæœªå‰²å½“Ã—ã‚¹ã‚­ãƒ«ãƒ»æ™‚é–“é‡ãªã‚Šãªã—ï¼‰",
+                "need—]—Í: ƒƒCƒ“Š„•tŠ®—¹Œã‚ÉƒTƒu %s –¼‚ğ’Ç‹Li–¢Š„“–~ƒXƒLƒ‹EŠÔd‚È‚è‚È‚µj",
                 _n_sur,
             )
 
     if _dispatch_interval_mirror is not None:
         _dispatch_interval_mirror.rebuild_from_timeline(timeline_events)
 
-    # ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’æ—¥ä»˜åˆ¥ã«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹åŒ–ã—ã€ã‚µãƒ–ãƒ¡ãƒ³ãƒãƒ¼ä¸€è¦§ã‚’äº‹å‰è§£æï¼ˆä»¥é™ã®å‡ºåŠ›ãƒ«ãƒ¼ãƒ—ã‚’é«˜é€ŸåŒ–ï¼‰
+    # ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğ“ú•t•Ê‚ÉƒCƒ“ƒfƒbƒNƒX‰»‚µAƒTƒuƒƒ“ƒo[ˆê——‚ğ–‘O‰ğÍiˆÈ~‚Ìo—Íƒ‹[ƒv‚ğ‚‘¬‰»j
     for e in timeline_events:
         e["subs_list"] = [s.strip() for s in e["sub"].split(",")] if e.get("sub") else []
 
@@ -18033,15 +18038,15 @@ def _generate_plan_impl():
         events_by_date[e["date"]].append(e)
 
     # =========================================================
-    # 4. Excelå‡ºåŠ› (ãƒ¡ã‚¤ãƒ³è¨ˆç”»)
+    # 4. Excelo—Í (ƒƒCƒ“Œv‰æ)
     # =========================================================
     _remove_prior_stage2_workbooks_and_prune_empty_dirs(output_dir)
-    # åŒä¸€ç§’å†…ã®å†å®Ÿè¡Œã§ãƒ•ã‚¡ã‚¤ãƒ«åãŒè¡çªã—ãªã„ã‚ˆã†ãƒã‚¤ã‚¯ãƒ­ç§’ã¾ã§å«ã‚ã‚‹
+    # “¯ˆê•b“à‚ÌÄÀs‚Åƒtƒ@ƒCƒ‹–¼‚ªÕ“Ë‚µ‚È‚¢‚æ‚¤ƒ}ƒCƒNƒ•b‚Ü‚ÅŠÜ‚ß‚é
     _stage2_out_stamp = base_now_dt.strftime("%Y%m%d_%H%M%S_%f")
     output_filename = os.path.join(
         output_dir, f"production_plan_multi_day_{_stage2_out_stamp}.xlsx"
     )
-    # ã‚¿ã‚¹ã‚¯ID â†’ çµæœ_è¨­å‚™æ¯ã®æ™‚é–“å‰²ã§å½“è©²ã‚¿ã‚¹ã‚¯ãŒæœ€åˆã«ç¾ã‚Œã‚‹ã‚»ãƒ«ï¼ˆä¾‹ B12ï¼‰ã€‚çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®ãƒªãƒ³ã‚¯ç”¨ã€‚
+    # ƒ^ƒXƒNID ¨ Œ‹‰Ê_İ”õ–ˆ‚ÌŠÔŠ„‚Å“–ŠYƒ^ƒXƒN‚ªÅ‰‚ÉŒ»‚ê‚éƒZƒ‹i—á B12jBŒ‹‰Ê_ƒ^ƒXƒNˆê——‚ÌƒŠƒ“ƒN—pB
     first_eq_schedule_cell_by_task_id: dict[str, str] = {}
     df_eq_schedule = _build_equipment_schedule_dataframe(
         sorted_dates,
@@ -18071,7 +18076,7 @@ def _generate_plan_impl():
         timeline_events,
     )
 
-    # çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ç”¨: ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ä¸Šã®å½“è©²ã‚¿ã‚¹ã‚¯ã®æœ€æ—©é–‹å§‹ãƒ»æœ€é…çµ‚äº†ï¼ˆtimeline_events é›†ç´„ï¼‰
+    # Œ‹‰Ê_ƒ^ƒXƒNˆê———p: ƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“ã‚Ì“–ŠYƒ^ƒXƒN‚ÌÅ‘ŠJnEÅ’xI—¹itimeline_events W–ñj
     plan_window_by_task_id: dict = {}
     for _ev in timeline_events:
         tid = _ev.get("task_id")
@@ -18090,8 +18095,8 @@ def _generate_plan_impl():
             if ed > w[1]:
                 w[1] = ed
 
-    # çµæœ_ã‚¿ã‚¹ã‚¯ä¸€è¦§ã®ã€Œå›ç­”ç´æœŸã€ã€ŒæŒ‡å®šç´æœŸã€ã¯é…å°è¨ˆç”»_ã‚¿ã‚¹ã‚¯å…¥åŠ›ã®å½“è©²è¡Œã‚»ãƒ«ã®ã¿ã€‚
-    # ã€ŒåŸåæŠ•å…¥æ—¥ã€ã¯ä¸Šæ›¸ãåˆ—ã«æ—¥ä»˜ãŒã‚ã‚‹ã¨ããã®å€¤ã€ç„¡ã„ã¨ãåˆ—ã€ŒåŸåæŠ•å…¥æ—¥ã€ï¼ˆè¨ˆç”»åŸºæº–ç´æœŸã¨æ··åŒã—ãªã„ï¼‰
+    # Œ‹‰Ê_ƒ^ƒXƒNˆê——‚Ìu‰ñ“š”[Šúvuw’è”[Šúv‚Í”z‘äŒv‰æ_ƒ^ƒXƒN“ü—Í‚Ì“–ŠYsƒZƒ‹‚Ì‚İB
+    # uŒ´”½“Š“ü“úv‚Íã‘‚«—ñ‚É“ú•t‚ª‚ ‚é‚Æ‚«‚»‚Ì’lA–³‚¢‚Æ‚«—ñuŒ´”½“Š“ü“úviŒv‰æŠî€”[Šú‚Æ¬“¯‚µ‚È‚¢j
     _result_sheet_answer_spec_by_line = {}
     _result_sheet_raw_input_by_line: dict = {}
     if tasks_df is not None and not getattr(tasks_df, "empty", True):
@@ -18116,27 +18121,27 @@ def _generate_plan_impl():
     task_results = []
     max_history_len = max([len(t['assigned_history']) for t in task_queue] + [0])
     
-    # ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ï¼ˆé…å°ã®å¯å¦ãƒ»æ®‹ï¼‰ï¼šå®Œäº†ç›¸å½“=é…å°å¯ï¼æœªå‰²å½“=é…å°ä¸å¯ï¼ä¸€éƒ¨ã®ã¿=é…å°æ®‹
-    # è¨ˆç”»åŸºæº–+1 ã®å†è©¦è¡ŒãŒä¾é ¼NOã”ã¨ã®ä¸Šé™ã«é”ã—ãŸä¾é ¼ã®æœªå®Œäº†è¡Œã«ã¯ï¼ˆç´æœŸè¦‹ç›´ã—å¿…è¦ï¼‰ã‚’ä»˜ä¸ã™ã‚‹ã€‚
+    # ƒXƒe[ƒ^ƒXi”z‘ä‚Ì‰Â”ÛEcjFŠ®—¹‘Š“–=”z‘ä‰Â^–¢Š„“–=”z‘ä•s‰Â^ˆê•”‚Ì‚İ=”z‘äc
+    # Œv‰æŠî€+1 ‚ÌÄs‚ªˆË—ŠNO‚²‚Æ‚ÌãŒÀ‚É’B‚µ‚½ˆË—Š‚Ì–¢Š®—¹s‚É‚Íi”[ŠúŒ©’¼‚µ•K—vj‚ğ•t—^‚·‚éB
     sorted_tasks_for_result = sorted(task_queue, key=_result_task_sheet_sort_key)
     for t in sorted_tasks_for_result:
         rem_u = float(t.get("remaining_units") or 0)
         hist = bool(t.get("assigned_history"))
         if rem_u <= 1e-9:
-            status = "é…å°å¯"
+            status = "”z‘ä‰Â"
         elif hist and t.get("_partial_retry_calendar_blocked"):
-            status = "é…å°æ®‹(å‹¤å‹™ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ä¸è¶³)"
+            status = "”z‘äc(‹Î–±ƒJƒŒƒ“ƒ_[•s‘«)"
         elif not hist and rem_u > 1e-9:
-            status = "é…å°ä¸å¯"
+            status = "”z‘ä•s‰Â"
         else:
-            status = "é…å°æ®‹"
+            status = "”z‘äc"
         _tid_res = str(t.get("task_id", "") or "").strip()
         if (
             _tid_res in _due_shift_exhausted_requests
             and rem_u > 1e-9
-            and "ç´æœŸè¦‹ç›´ã—å¿…è¦" not in status
+            and "”[ŠúŒ©’¼‚µ•K—v" not in status
         ):
-            status = f"{status}ï¼ˆç´æœŸè¦‹ç›´ã—å¿…è¦ï¼‰"
+            status = f"{status}i”[ŠúŒ©’¼‚µ•K—vj"
         
         total_r = int(t['total_qty_m'] / t['unit_m']) if t['unit_m'] else 0
         rem_r = int(t['remaining_units'])
@@ -18173,23 +18178,23 @@ def _generate_plan_impl():
         start_req = t["start_date_req"]
         start_req_s = start_req.strftime("%Y/%m/%d") if hasattr(start_req, "strftime") else str(start_req)
         rov = t.get("required_op")
-        # åˆ—é †: A=ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ â†’ ã‚¿ã‚¹ã‚¯ID/å·¥ç¨‹/æ©Ÿæ¢°/å„ªå…ˆåº¦ â†’ å±¥æ­´1..n â†’ ãã®ä»– â†’ æœ€å¾Œã«ç‰¹åˆ¥æŒ‡å®š_AI
-        row_status = {"ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹": status}
+        # —ñ‡: A=ƒXƒe[ƒ^ƒX ¨ ƒ^ƒXƒNID/H’ö/‹@ŠB/—Dæ“x ¨ —š—ğ1..n ¨ ‚»‚Ì‘¼ ¨ ÅŒã‚É“Á•Êw’è_AI
+        row_status = {"ƒXƒe[ƒ^ƒX": status}
         _dto = t.get("dispatch_trial_order")
         row_core = {
-            "ã‚¿ã‚¹ã‚¯ID": t['task_id'],
-            "å·¥ç¨‹å": t['machine'],
-            "æ©Ÿæ¢°å": t.get("machine_name", ""),
-            "å„ªå…ˆåº¦": t.get("priority", 999),
+            "ƒ^ƒXƒNID": t['task_id'],
+            "H’ö–¼": t['machine'],
+            "‹@ŠB–¼": t.get("machine_name", ""),
+            "—Dæ“x": t.get("priority", 999),
             RESULT_TASK_COL_DISPATCH_TRIAL_ORDER: _dto if _dto is not None else "",
         }
         row_history = {}
         for i in range(max_history_len):
             if i < len(t['assigned_history']):
                 h = t['assigned_history'][i]
-                row_history[f"å±¥æ­´{i+1}"] = _format_result_task_history_cell(t, h)
+                row_history[f"—š—ğ{i+1}"] = _format_result_task_history_cell(t, h)
             else:
-                row_history[f"å±¥æ­´{i+1}"] = ""
+                row_history[f"—š—ğ{i+1}"] = ""
 
         try:
             tot_qty = parse_float_safe(t.get("total_qty_m"), 0.0)
@@ -18216,25 +18221,25 @@ def _generate_plan_impl():
         )
 
         row_tail = {
-            "å¿…è¦OP(ä¸Šæ›¸)": rov if rov is not None else "",
-            "ã‚¿ã‚¹ã‚¯åŠ¹ç‡": parse_float_safe(t.get("task_eff_factor"), 1.0),
-            "åŠ å·¥é€”ä¸­": "ã¯ã„" if t.get("in_progress") else "ã„ã„ãˆ",
-            "ç‰¹åˆ¥æŒ‡å®šã‚ã‚Š": "ã¯ã„" if t.get("has_special_remark") else "ã„ã„ãˆ",
-            "æ‹…å½“OPæŒ‡å": (t.get("preferred_operator_raw") or "")[:120],
-            "å›ç­”ç´æœŸ": ans_s,
-            "æŒ‡å®šç´æœŸ": spec_s,
-            "è¨ˆç”»åŸºæº–ç´æœŸ": basis_s,
+            "•K—vOP(ã‘)": rov if rov is not None else "",
+            "ƒ^ƒXƒNŒø—¦": parse_float_safe(t.get("task_eff_factor"), 1.0),
+            "‰ÁH“r’†": "‚Í‚¢" if t.get("in_progress") else "‚¢‚¢‚¦",
+            "“Á•Êw’è‚ ‚è": "‚Í‚¢" if t.get("has_special_remark") else "‚¢‚¢‚¦",
+            "’S“–OPw–¼": (t.get("preferred_operator_raw") or "")[:120],
+            "‰ñ“š”[Šú": ans_s,
+            "w’è”[Šú": spec_s,
+            "Œv‰æŠî€”[Šú": basis_s,
             TASK_COL_RAW_INPUT_DATE: kenhan_s,
-            "ç´æœŸç·Šæ€¥": "ã¯ã„" if t.get("due_urgent") else "ã„ã„ãˆ",
-            "åŠ å·¥é–‹å§‹æ—¥": start_req_s,
-            "é…å®Œ_åŠ å·¥é–‹å§‹": plan_assign_start_s,
-            "é…å®Œ_åŠ å·¥çµ‚äº†": plan_assign_end_s,
+            "”[Šú‹Ù‹}": "‚Í‚¢" if t.get("due_urgent") else "‚¢‚¢‚¦",
+            "‰ÁHŠJn“ú": start_req_s,
+            "”zŠ®_‰ÁHŠJn": plan_assign_start_s,
+            "”zŠ®_‰ÁHI—¹": plan_assign_end_s,
             RESULT_TASK_COL_PLAN_END_BY_ANSWER_OR_SPEC_16: _plan_end_ans_spec16,
-            "ç·åŠ å·¥é‡": f"{total_r}R ({t['total_qty_m']}m)",
-            "æ®‹åŠ å·¥é‡": f"{rem_r}R ({int(t['remaining_units'] * t['unit_m'])}m)",
-            "å®Œäº†ç‡(å®Ÿè¡Œæ™‚ç‚¹)": f"{pct_macro}%",
+            "‘‰ÁH—Ê": f"{total_r}R ({t['total_qty_m']}m)",
+            "c‰ÁH—Ê": f"{rem_r}R ({int(t['remaining_units'] * t['unit_m'])}m)",
+            "Š®—¹—¦(Às“_)": f"{pct_macro}%",
         }
-        row_ai_last = {"ç‰¹åˆ¥æŒ‡å®š_AI": (t.get("task_special_ai_note") or "")[:300]}
+        row_ai_last = {"“Á•Êw’è_AI": (t.get("task_special_ai_note") or "")[:300]}
         row_data = {**row_status, **row_core, **row_history, **row_tail, **row_ai_last}
         task_results.append(row_data)
         
@@ -18248,20 +18253,20 @@ def _generate_plan_impl():
                     end_disp = cal_end if cal_end is not None else data['end_dt']
                     clock_out_s = end_disp.strftime("%H:%M")
                 else:
-                    clock_out_s = "ä¼‘"
+                    clock_out_s = "‹x"
                 cal_rows.append({
-                    "æ—¥ä»˜": d,
-                    "ãƒ¡ãƒ³ãƒãƒ¼": m,
-                    "å‡ºå‹¤": data['start_dt'].strftime("%H:%M") if data['is_working'] else "ä¼‘",
-                    "é€€å‹¤": clock_out_s,
-                    "åŠ¹ç‡": data['efficiency'],
-                    "å‚™è€ƒ": data['reason'],
+                    "“ú•t": d,
+                    "ƒƒ“ƒo[": m,
+                    "o‹Î": data['start_dt'].strftime("%H:%M") if data['is_working'] else "‹x",
+                    "‘Ş‹Î": clock_out_s,
+                    "Œø—¦": data['efficiency'],
+                    "”õl": data['reason'],
                 })
 
     utilization_data = []
     for d in sorted_dates:
-        row_data = {"å¹´æœˆæ—¥": d.strftime("%Y/%m/%d (%a)")}
-        # ãã®æ—¥ã®ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰ãƒ¡ãƒ³ãƒãƒ¼åˆ¥ä½œæ¥­åˆ†ã‚’ä¸€æ‹¬é›†è¨ˆï¼ˆå…¨ãƒ¡ãƒ³ãƒãƒ¼Ã—å…¨ã‚¤ãƒ™ãƒ³ãƒˆã®äºŒé‡ãƒ«ãƒ¼ãƒ—ã‚’é¿ã‘ã‚‹ï¼‰
+        row_data = {"”NŒ“ú": d.strftime("%Y/%m/%d (%a)")}
+        # ‚»‚Ì“ú‚ÌƒCƒxƒ“ƒg‚©‚çƒƒ“ƒo[•Êì‹Æ•ª‚ğˆêŠ‡WŒvi‘Sƒƒ“ƒo[~‘SƒCƒxƒ“ƒg‚Ì“ñdƒ‹[ƒv‚ğ”ğ‚¯‚éj
         member_worked_mins = defaultdict(int)
         for ev in events_by_date[d]:
             mins = get_actual_work_minutes(ev["start_dt"], ev["end_dt"], ev["breaks"])
@@ -18291,9 +18296,9 @@ def _generate_plan_impl():
                 
                 worked_mins = member_worked_mins.get(m, 0)
                 ratio = (worked_mins / total_avail_mins) * 100
-                row_data[m] = f"{ratio:.1f}% ({worked_mins}/{total_avail_mins}åˆ†)"
+                row_data[m] = f"{ratio:.1f}% ({worked_mins}/{total_avail_mins}•ª)"
             else:
-                row_data[m] = "ä¼‘"
+                row_data[m] = "‹x"
         utilization_data.append(row_data)
         
     df_utilization = pd.DataFrame(utilization_data)
@@ -18305,22 +18310,22 @@ def _generate_plan_impl():
         df_mprio_tbl = pd.DataFrame(
             [
                 {
-                    "å·¥ç¨‹å": "",
-                    "æ©Ÿæ¢°å": "",
-                    "ã‚¹ã‚­ãƒ«åˆ—ã‚­ãƒ¼": "",
-                    "å„ªå…ˆé †ä½": "",
-                    "ãƒ¡ãƒ³ãƒãƒ¼": "",
-                    "ãƒ­ãƒ¼ãƒ«": "",
-                    "å„ªå…ˆåº¦å€¤_å°ã•ã„ã»ã©å…ˆ": "",
-                    "skillsã‚»ãƒ«å€¤": "",
-                    "å‚™è€ƒ": "ãƒã‚¹ã‚¿ skills ã«ã€Œå·¥ç¨‹å+æ©Ÿæ¢°åã€å½¢å¼ã®åˆ—ãŒè¦‹ã¤ã‹ã‚‰ãªã„ã‹ã€ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Šã¾ã›ã‚“ã€‚",
+                    "H’ö–¼": "",
+                    "‹@ŠB–¼": "",
+                    "ƒXƒLƒ‹—ñƒL[": "",
+                    "—Dæ‡ˆÊ": "",
+                    "ƒƒ“ƒo[": "",
+                    "ƒ[ƒ‹": "",
+                    "—Dæ“x’l_¬‚³‚¢‚Ù‚Çæ": "",
+                    "skillsƒZƒ‹’l": "",
+                    "”õl": "ƒ}ƒXƒ^ skills ‚ÉuH’ö–¼+‹@ŠB–¼vŒ`®‚Ì—ñ‚ªŒ©‚Â‚©‚ç‚È‚¢‚©Aƒf[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñB",
                 }
             ]
         )
 
     _usage_txt = build_gemini_usage_summary_text()
     if _usage_txt:
-        ai_log_data["Gemini_ãƒˆãƒ¼ã‚¯ãƒ³ãƒ»æ–™é‡‘ã‚µãƒãƒª"] = _usage_txt[:50000]
+        ai_log_data["Gemini_ƒg[ƒNƒ“E—¿‹àƒTƒ}ƒŠ"] = _usage_txt[:50000]
 
     _master_abs_for_result_fmt = os.path.abspath(os.path.join(os.getcwd(), MASTER_FILE))
     _reg_shift_start, _reg_shift_end = _read_master_main_regular_shift_times(
@@ -18328,13 +18333,13 @@ def _generate_plan_impl():
     )
     if _reg_shift_start is not None and _reg_shift_end is not None:
         logging.info(
-            "å®šå¸¸æ : master ãƒ¡ã‚¤ãƒ³ A15/B15 â†’ %s ï½ %sï¼ˆçµæœã®å®šå¸¸å¤–ã€Œæ—¥æ™‚å¸¯ã€ç€è‰²ï¼‰",
+            "’èí˜g: master ƒƒCƒ“ A15/B15 ¨ %s ` %siŒ‹‰Ê‚Ì’èíŠOu“ú‘Ñv’…Fj",
             _reg_shift_start.strftime("%H:%M"),
             _reg_shift_end.strftime("%H:%M"),
         )
 
     logging.info(
-        "æ®µéš2: çµæœãƒ–ãƒƒã‚¯ã‚’ä½œæˆã—ã¾ã™ â†’ %s",
+        "’iŠK2: Œ‹‰ÊƒuƒbƒN‚ğì¬‚µ‚Ü‚· ¨ %s",
         os.path.basename(output_filename),
     )
     try:
@@ -18349,8 +18354,8 @@ def _generate_plan_impl():
             df_equipment_by_machine_name.to_excel(
                 writer, sheet_name=RESULT_EQUIPMENT_BY_MACHINE_SHEET_NAME, index=False
             )
-            pd.DataFrame(cal_rows).to_excel(writer, sheet_name='çµæœ_ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼(å‡ºå‹¤ç°¿)', index=False)
-            df_utilization.to_excel(writer, sheet_name='çµæœ_ãƒ¡ãƒ³ãƒãƒ¼åˆ¥ä½œæ¥­å‰²åˆ', index=False)
+            pd.DataFrame(cal_rows).to_excel(writer, sheet_name='Œ‹‰Ê_ƒJƒŒƒ“ƒ_[(o‹Î•ë)', index=False)
+            df_utilization.to_excel(writer, sheet_name='Œ‹‰Ê_ƒƒ“ƒo[•Êì‹ÆŠ„‡', index=False)
             df_tasks = pd.DataFrame(task_results)
             df_tasks, task_column_order, _, vis_map = apply_result_task_sheet_column_order(
                 df_tasks, max_history_len
@@ -18366,12 +18371,12 @@ def _generate_plan_impl():
                 vis_list_dedup.append(bool(vis_map.get(c, True)))
             pd.DataFrame(
                 {
-                    "åˆ—å": task_column_order_dedup,
-                    "è¡¨ç¤º": vis_list_dedup,
+                    "—ñ–¼": task_column_order_dedup,
+                    "•\¦": vis_list_dedup,
                 }
             ).to_excel(writer, sheet_name=COLUMN_CONFIG_SHEET_NAME, index=False)
             df_tasks.to_excel(writer, sheet_name=RESULT_TASK_SHEET_NAME, index=False)
-            pd.DataFrame(list(ai_log_data.items()), columns=["é …ç›®", "å†…å®¹"]).to_excel(writer, sheet_name='çµæœ_AIãƒ­ã‚°', index=False)
+            pd.DataFrame(list(ai_log_data.items()), columns=["€–Ú", "“à—e"]).to_excel(writer, sheet_name='Œ‹‰Ê_AIƒƒO', index=False)
 
             _mprio_sheet = RESULT_MEMBER_PRIORITY_SHEET_NAME
             df_mprio_legend.to_excel(writer, sheet_name=_mprio_sheet, index=False)
@@ -18381,7 +18386,7 @@ def _generate_plan_impl():
             )
 
             logging.info(
-                "æ®µéš2: è¨­å‚™ã‚¬ãƒ³ãƒˆã‚’ç”Ÿæˆã—ã¦ã„ã¾ã™ï¼ˆãƒ‡ãƒ¼ã‚¿é‡ã«ã‚ˆã‚Šæ•°åˆ†ã‹ã‹ã‚‹ã“ã¨ãŒã‚ã‚Šã¾ã™ï¼‰"
+                "’iŠK2: İ”õƒKƒ“ƒg‚ğ¶¬‚µ‚Ä‚¢‚Ü‚·iƒf[ƒ^—Ê‚É‚æ‚è”•ª‚©‚©‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·j"
             )
             _write_results_equipment_gantt_sheet(
                 writer,
@@ -18449,10 +18454,10 @@ def _generate_plan_impl():
             _apply_result_task_history_rich_text(worksheet_tasks, list(df_tasks.columns))
             _apply_result_task_date_columns_blue_font(worksheet_tasks, list(df_tasks.columns))
 
-            # æœªã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«è¡Œï¼ˆé…å°ä¸å¯ãƒ»é…å°æ®‹ï¼‰ã‚’ç›®ç«‹ãŸã›ã‚‹
+            # –¢ƒXƒPƒWƒ…[ƒ‹si”z‘ä•s‰ÂE”z‘äcj‚ğ–Ú—§‚½‚¹‚é
             status_col_idx = None
             for col_idx, col_name in enumerate(df_tasks.columns, 1):
-                if str(col_name) == "ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹":
+                if str(col_name) == "ƒXƒe[ƒ^ƒX":
                     status_col_idx = col_idx
                     break
             if status_col_idx is not None:
@@ -18460,7 +18465,7 @@ def _generate_plan_impl():
                 for r in range(2, worksheet_tasks.max_row + 1):
                     st_val = worksheet_tasks.cell(row=r, column=status_col_idx).value
                     st = str(st_val).strip() if st_val is not None else ""
-                    if st in ("é…å°ä¸å¯", "é…å°æ®‹"):
+                    if st in ("”z‘ä•s‰Â", "”z‘äc"):
                         for c in range(1, max_col + 1):
                             worksheet_tasks.cell(row=r, column=c).fill = unscheduled_fill
 
@@ -18484,8 +18489,8 @@ def _generate_plan_impl():
 
     except OSError as e:
         logging.error(
-            "æ®µéš2: çµæœãƒ–ãƒƒã‚¯ã®ä½œæˆãƒ»ä¿å­˜ã«å¤±æ•—ã—ã¾ã—ãŸ: %sï¼ˆ%sï¼‰ã€‚"
-            "output å†…ã® production_plan_multi_day_*.xlsx ã‚’ Excel ã§é–‹ã„ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚",
+            "’iŠK2: Œ‹‰ÊƒuƒbƒN‚Ìì¬E•Û‘¶‚É¸”s‚µ‚Ü‚µ‚½: %si%sjB"
+            "output “à‚Ì production_plan_multi_day_*.xlsx ‚ğ Excel ‚ÅŠJ‚¢‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B",
             output_filename,
             e,
         )
@@ -18493,26 +18498,26 @@ def _generate_plan_impl():
 
     try:
         _apply_excel_date_columns_date_only_display(
-            output_filename, "çµæœ_ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼(å‡ºå‹¤ç°¿)", frozenset({"æ—¥ä»˜"})
+            output_filename, "Œ‹‰Ê_ƒJƒŒƒ“ƒ_[(o‹Î•ë)", frozenset({"“ú•t"})
         )
     except Exception as e:
-        logging.warning(f"çµæœ_ã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼(å‡ºå‹¤ç°¿)ã®æ—¥ä»˜åˆ—è¡¨ç¤ºæ•´å½¢: {e}")
+        logging.warning(f"Œ‹‰Ê_ƒJƒŒƒ“ƒ_[(o‹Î•ë)‚Ì“ú•t—ñ•\¦®Œ`: {e}")
 
     _stage2_try_copy_column_config_shapes_from_input(
         output_filename,
         (os.environ.get("TASK_INPUT_WORKBOOK", "").strip() or TASKS_INPUT_WORKBOOK),
     )
 
-    logging.info(f"å®Œäº†: '{output_filename}' ã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚")
+    logging.info(f"Š®—¹: '{output_filename}' ‚ğ¶¬‚µ‚Ü‚µ‚½B")
 
     # =========================================================
-    # 5. â˜…è¿½åŠ : ãƒ¡ãƒ³ãƒãƒ¼æ¯ã®è¡Œå‹•ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ« (åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«) å‡ºåŠ›
+    # 5. š’Ç‰Á: ƒƒ“ƒo[–ˆ‚Ìs“®ƒXƒPƒWƒ…[ƒ‹ (•Êƒtƒ@ƒCƒ‹) o—Í
     # =========================================================
     member_output_filename = os.path.join(
         output_dir, f"member_schedule_{_stage2_out_stamp}.xlsx"
     )
     
-    # æ™‚é–“å¸¯ã¯å…¨ãƒ¡ãƒ³ãƒãƒ¼å…±é€šã§1å›ã ã‘ç”Ÿæˆï¼ˆãƒ¡ãƒ³ãƒãƒ¼æ•°åˆ†ã®é‡è¤‡è¨ˆç®—ã‚’é¿ã‘ã‚‹ï¼‰
+    # ŠÔ‘Ñ‚Í‘Sƒƒ“ƒo[‹¤’Ê‚Å1‰ñ‚¾‚¯¶¬iƒƒ“ƒo[”•ª‚Ìd•¡ŒvZ‚ğ”ğ‚¯‚éj
     time_labels = []
     time_grids = []
     curr_dt = datetime.combine(run_date, DEFAULT_START_TIME)
@@ -18526,20 +18531,20 @@ def _generate_plan_impl():
         curr_dt = next_dt
     
     logging.info(
-        "æ®µéš2: ãƒ¡ãƒ³ãƒãƒ¼åˆ¥ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’ä½œæˆã—ã¾ã™ â†’ %s",
+        "’iŠK2: ƒƒ“ƒo[•ÊƒXƒPƒWƒ…[ƒ‹‚ğì¬‚µ‚Ü‚· ¨ %s",
         os.path.basename(member_output_filename),
     )
     try:
         with pd.ExcelWriter(member_output_filename, engine="openpyxl") as member_writer:
             for m in members:
-                # å„è¡Œã®è¾æ›¸ã‚’åˆæœŸåŒ–
-                m_schedule = {t_label: {"æ™‚é–“å¸¯": t_label} for t_label in time_labels}
+                # Šes‚Ì«‘‚ğ‰Šú‰»
+                m_schedule = {t_label: {"ŠÔ‘Ñ": t_label} for t_label in time_labels}
             
-                # å„æ—¥ä»˜ã®ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’åˆ—ã¨ã—ã¦åŸ‹ã‚ã¦ã„ã
+                # Še“ú•t‚ÌƒXƒPƒWƒ…[ƒ‹‚ğ—ñ‚Æ‚µ‚Ä–„‚ß‚Ä‚¢‚­
                 for d in sorted_dates:
                     d_str = d.strftime("%m/%d (%a)")
                 
-                    # å…¨æ—¥éå‹¤å‹™: å¹´ä¼‘ï¼ˆã‚«ãƒ¬ãƒ³ãƒ€ãƒ¼ *ï¼‰ã¯ã€å¹´ä¼‘ã€ã€å·¥å ´ä¼‘æ—¥ãªã©ã¯ã€ä¼‘ã€
+                    # ‘S“ú”ñ‹Î–±: ”N‹xiƒJƒŒƒ“ƒ_[ *j‚Íw”N‹xxAHê‹x“ú‚È‚Ç‚Íw‹xx
                     if m not in attendance_data[d] or not attendance_data[d][m]['is_working']:
                         off_label = _member_schedule_full_day_off_label(
                             attendance_data[d].get(m) if m in attendance_data[d] else None
@@ -18558,7 +18563,7 @@ def _generate_plan_impl():
                     for i, (t_start, t_end) in enumerate(time_grids):
                         t_label = time_labels[i]
                     
-                        # åˆ¤å®šç”¨ã®ä¸­é–“æ™‚åˆ»ã‚’è¨ˆç®—
+                        # ”»’è—p‚Ì’†ŠÔ‚ğŒvZ
                         grid_start_dt = datetime.combine(d, t_start)
                         grid_end_dt = datetime.combine(d, t_end)
                         grid_mid_dt = grid_start_dt + (grid_end_dt - grid_start_dt) / 2
@@ -18575,23 +18580,23 @@ def _generate_plan_impl():
                             if br_txt is not None:
                                 text = br_txt
                         if text == "":
-                            # è©²å½“ã™ã‚‹ã‚¿ã‚¹ã‚¯ã‚’æ¢ã™ï¼ˆsubs_list ã¯äº‹å‰è§£ææ¸ˆã¿ï¼‰
+                            # ŠY“–‚·‚éƒ^ƒXƒN‚ğ’T‚·isubs_list ‚Í–‘O‰ğÍÏ‚İj
                             active_ev = next((e for e in events_today if e['start_dt'] <= grid_mid_dt < e['end_dt'] and (e['op'] == m or m in e.get('subs_list', []))), None)
                             if active_ev:
-                                role = "ä¸»" if active_ev['op'] == m else "è£œ"
+                                role = "å" if active_ev['op'] == m else "•â"
                                 text = f"[{active_ev['task_id']}] {active_ev['machine']}({role})"
                             else:
-                                text = "" # ä½•ã‚‚å‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ãªã„ç©ºãæ™‚é–“
+                                text = "" # ‰½‚àŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚È‚¢‹ó‚«ŠÔ
                     
                         m_schedule[t_label][d_str] = text
                     
-                # ãƒ‡ãƒ¼ã‚¿ãƒ•ãƒ¬ãƒ¼ãƒ åŒ–ã—ã¦ã‚·ãƒ¼ãƒˆã«æ›¸ãè¾¼ã¿
+                # ƒf[ƒ^ƒtƒŒ[ƒ€‰»‚µ‚ÄƒV[ƒg‚É‘‚«‚İ
                 df_m = pd.DataFrame(list(m_schedule.values()))
-                cols = ["æ™‚é–“å¸¯"] + [d.strftime("%m/%d (%a)") for d in sorted_dates]
+                cols = ["ŠÔ‘Ñ"] + [d.strftime("%m/%d (%a)") for d in sorted_dates]
                 df_m = df_m[[c for c in cols if c in df_m.columns]]
                 df_m.to_excel(member_writer, sheet_name=m, index=False)
             
-                # --- æ—¢å®šãƒ•ã‚©ãƒ³ãƒˆãƒ»ç½«ç·šãƒ»è¦‹å‡ºã—èƒŒæ™¯ï¼ˆåˆ—å¹…ã¯ VBA å–ã‚Šè¾¼ã¿æ™‚ã® AutoFitï¼‰ ---
+                # --- Šù’èƒtƒHƒ“ƒgEŒrüEŒ©o‚µ”wŒii—ñ•‚Í VBA æ‚è‚İ‚Ì AutoFitj ---
                 worksheet = member_writer.sheets[m]
                 _apply_output_font_to_result_sheet(worksheet)
                 header_fill = PatternFill(start_color='E2EFDA', end_color='E2EFDA', fill_type='solid')
@@ -18605,12 +18610,12 @@ def _generate_plan_impl():
 
     except OSError as e:
         logging.error(
-            "æ®µéš2: ãƒ¡ãƒ³ãƒãƒ¼åˆ¥ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®ä¿å­˜ã«å¤±æ•—ã—ã¾ã—ãŸ: %sï¼ˆ%sï¼‰ã€‚"
-            "member_schedule_*.xlsx ã‚’ Excel ã§é–‹ã„ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚",
+            "’iŠK2: ƒƒ“ƒo[•ÊƒXƒPƒWƒ…[ƒ‹‚Ì•Û‘¶‚É¸”s‚µ‚Ü‚µ‚½: %si%sjB"
+            "member_schedule_*.xlsx ‚ğ Excel ‚ÅŠJ‚¢‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B",
             member_output_filename,
             e,
         )
         raise
 
-    logging.info(f"å®Œäº†: å€‹äººåˆ¥ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’ '{member_output_filename}' ã«å‡ºåŠ›ã—ã¾ã—ãŸã€‚")
-    _try_write_main_sheet_gemini_usage_summary("æ®µéš2")
+    logging.info(f"Š®—¹: ŒÂl•ÊƒXƒPƒWƒ…[ƒ‹‚ğ '{member_output_filename}' ‚Éo—Í‚µ‚Ü‚µ‚½B")
+    _try_write_main_sheet_gemini_usage_summary("’iŠK2")

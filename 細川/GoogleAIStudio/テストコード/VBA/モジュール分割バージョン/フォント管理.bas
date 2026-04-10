@@ -431,11 +431,12 @@ End Sub
 
 '==============================================================================
 ' 配台計画_タスク入力 → 「配台試行順番」を段階2と同じ基準で再計算（Python / xlwings）
-' 図形のマクロ: 「アニメ付き_配台試行順番_タスク入力をPythonで更新」（押下アニメ付き）。
+' 図形のマクロ: 「アニメ付き_配台試行順番_タスク入力をPythonで更新」（業務ロジック.bas。押下アニメ＋スプラッシュ付き）。
 '   本体を直指定するとボタン押下アニメーションが動かない場合があります。
 ' ・配台不要を手動でクリアしたあとなど、試行順を付け直したいときに使用。
+' ・段階2と同様、読込後に設定シート・分割行・配台不要ルールを DataFrame に反映してから試行順を付け直す（planning_core と同一）。
 ' ・Excel で本ブックを開いたまま。保存してから実行推奨。
-' ・業務ロジック.bas に Public Sub アニメ付き_スプラッシュ付きで実行 がある構成向け。
+' ・ボタン自動配置: マクロ「配台計画_タスク入力_配台試行順番更新ボタンを配置」（業務ロジック.bas）
 '==============================================================================
 Public Sub 配台試行順番_配台計画タスク入力をPythonで更新()
     Dim wsh As Object
@@ -444,6 +445,7 @@ Public Sub 配台試行順番_配台計画タスク入力をPythonで更新()
     Dim exitCode As Long
     Dim wsPlan As Worksheet
     Dim prevScreen As Boolean
+    Dim didUnlock As Boolean
 
     targetDir = ThisWorkbook.path
     If Len(targetDir) = 0 Then
@@ -463,6 +465,12 @@ Public Sub 配台試行順番_配台計画タスク入力をPythonで更新()
     ThisWorkbook.Save
     On Error GoTo 0
 
+    didUnlock = False
+    On Error Resume Next
+    配台マクロ_全シート保護を試行解除
+    didUnlock = True
+    On Error GoTo 0
+
     Set wsh = CreateObject("WScript.Shell")
     wsh.Environment("Process")("TASK_INPUT_WORKBOOK") = ThisWorkbook.FullName
 
@@ -477,25 +485,18 @@ Public Sub 配台試行順番_配台計画タスク入力をPythonで更新()
     exitCode = 一時CMDをコンソールレイアウト付きで実行(wsh, runBat)
     Application.ScreenUpdating = prevScreen
 
+    If didUnlock Then
+        On Error Resume Next
+        配台マクロ_対象シートを条件どおりに保護 targetDir
+        On Error GoTo 0
+    End If
+
     If exitCode <> 0 Then
         MsgBox "Python の終了コードが " & CStr(exitCode) & " です。" & vbCrLf _
             & "log\execution_log.txt を確認してください。", vbExclamation, "配台試行順番の更新"
     Else
         スプラッシュ_手順文を設定 "「配台計画_タスク入力」の配台試行順番を更新し、行を試行順の昇順に並べ替えました。"
         m_animMacroSucceeded = True
-    End If
-End Sub
-
-Public Sub アニメ付き_配台試行順番_タスク入力をPythonで更新()
-    Dim errNum As Long
-    On Error Resume Next
-    Application.Run "アニメ付き_スプラッシュ付きで実行", _
-        "配台計画_タスク入力: 配台試行順番を再計算しています…", _
-        "配台試行順番_配台計画タスク入力をPythonで更新"
-    errNum = Err.Number
-    On Error GoTo 0
-    If errNum <> 0 Then
-        Call 配台試行順番_配台計画タスク入力をPythonで更新
     End If
 End Sub
 

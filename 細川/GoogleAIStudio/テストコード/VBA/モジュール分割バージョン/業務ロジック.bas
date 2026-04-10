@@ -155,6 +155,12 @@ Sub アニメ付き_列設定_結果_タスク一覧_重複列名を整理()
     アニメ付き_スプラッシュ付きで実行 "列設定シートの重複列名を整理しています…", "列設定_結果_タスク一覧_重複列名を整理"
 End Sub
 
+' 配台計画_タスク入力の「配台試行順番」を段階2と同じ手順で再計算（Python）。図形には本マクロを指定（本体直指定だと押下アニメが動かない）。
+Sub アニメ付き_配台試行順番_タスク入力をPythonで更新()
+    Call ボタン押下アニメーション
+    アニメ付き_スプラッシュ付きで実行 "配台計画_タスク入力: 配台試行順番を再計算しています…", "配台試行順番_配台計画タスク入力をPythonで更新"
+End Sub
+
 Public Function GetMainWorksheet() As Worksheet
     ' 配台ブックのメイン UI はシート名「メイン_」固定（旧「メイン」「Main」や部分一致は使わない）
     On Error Resume Next
@@ -932,6 +938,31 @@ Public Sub 配台計画_タスク入力を前へ並べ替え()
     End If
 End Sub
 
+' 「配台計画_タスク入力」に試行順再計算ボタンを1つ配置（同名図形があれば削除して付け直し）
+Public Sub 配台計画_タスク入力_配台試行順番更新ボタンを配置()
+    Const PLAN_SHEET As String = "配台計画_タスク入力"
+    Const BTN_SHAPE_NAME As String = "Btn_PlanDispatchTrialOrder"
+    Dim ws As Worksheet
+    
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets(PLAN_SHEET)
+    On Error GoTo 0
+    If ws Is Nothing Then
+        MsgBox "シート「" & PLAN_SHEET & "」が見つかりません。", vbExclamation, "ボタン配置"
+        Exit Sub
+    End If
+    
+    ws.Activate
+    On Error Resume Next
+    ws.Shapes(BTN_SHAPE_NAME).Delete
+    On Error GoTo 0
+    
+    CreateCoolButtonWithPreset "試行順を再計算", "アニメ付き_配台試行順番_タスク入力をPythonで更新", 12, 8, 6, BTN_SHAPE_NAME
+    
+    MsgBox "「" & PLAN_SHEET & "」に配台試行順番の更新ボタンを配置しました。" & vbCrLf & _
+           "位置はドラッグで調整できます。", vbInformation, "ボタン配置"
+End Sub
+
 ' =========================================================
 ' 共通：ボタンを押し込むアニメーション処理
 ' ※ActiveSheet.Shapes(名前) だけだと、別シートに同じ図形名（既定の角丸1 等）があると
@@ -987,6 +1018,11 @@ Public Sub AnimateButtonPush()
     shp.Left = originalLeft
     If hasShadow Then shp.Shadow.Visible = msoTrue
     DoEvents
+End Sub
+
+' 図形の OnAction から呼ぶ薄いラッパー（「アニメ付き_*」の先頭で Call する）
+Public Sub ボタン押下アニメーション()
+    AnimateButtonPush
 End Sub
 
 ' =========================================================
@@ -1112,8 +1148,8 @@ Public Function CoolButtonGradientBottom(ByVal presetId As Long) As Long
     End Select
 End Function
 
-Public Sub CreateCoolButtonWithPreset(btnText As String, macroName As String, posX As Single, posY As Single, ByVal presetId As Long)
-    CreateCoolButton btnText, macroName, posX, posY, CoolButtonGradientTop(presetId), CoolButtonGradientBottom(presetId)
+Public Sub CreateCoolButtonWithPreset(btnText As String, macroName As String, posX As Single, posY As Single, ByVal presetId As Long, Optional ByVal fixedShapeName As String = vbNullString)
+    CreateCoolButton btnText, macroName, posX, posY, CoolButtonGradientTop(presetId), CoolButtonGradientBottom(presetId), fixedShapeName
 End Sub
 
 Sub かっこいいボタンを作成()
@@ -1158,8 +1194,8 @@ Sub かっこいいボタン_配色サンプル作成()
            "クリックしてもマクロは動きません。不要なら図形を削除してください。", vbInformation
 End Sub
 
-' ボタン生成の共通ロジック
-Public Sub CreateCoolButton(btnText As String, macroName As String, posX As Single, posY As Single, colorTop As Long, colorBottom As Long)
+' ボタン生成の共通ロジック（fixedShapeName にブック内で一意の名前を渡すと再配置しやすい）
+Public Sub CreateCoolButton(btnText As String, macroName As String, posX As Single, posY As Single, colorTop As Long, colorBottom As Long, Optional ByVal fixedShapeName As String = vbNullString)
     Dim shp As Shape
     
     Set shp = ActiveSheet.Shapes.AddShape(msoShapeRoundedRectangle, posX, posY, 220, 50)
@@ -1203,7 +1239,11 @@ Public Sub CreateCoolButton(btnText As String, macroName As String, posX As Sing
         
         On Error Resume Next
         Randomize
-        .Name = "CoolBtn_" & Format(Now, "yyyymmddhhnnss") & "_" & Format(Int(1000000 * Rnd), "000000")
+        If Len(Trim$(fixedShapeName)) > 0 Then
+            .Name = Trim$(fixedShapeName)
+        Else
+            .Name = "CoolBtn_" & Format(Now, "yyyymmddhhnnss") & "_" & Format(Int(1000000 * Rnd), "000000")
+        End If
         On Error GoTo 0
     End With
 End Sub
